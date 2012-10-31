@@ -1,0 +1,3 @@
+## Dependency inversion principle
+
+STUB

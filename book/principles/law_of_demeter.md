@@ -1,0 +1,3 @@
+## Law of Demeter
+
+STUB

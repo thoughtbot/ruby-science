@@ -1,0 +1,3 @@
+## Inject dependencies
+
+STUB

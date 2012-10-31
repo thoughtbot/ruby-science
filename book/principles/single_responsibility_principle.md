@@ -1,0 +1,3 @@
+## Single responsibility principle
+
+STUB

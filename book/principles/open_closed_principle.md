@@ -1,0 +1,3 @@
+## Open closed principle
+
+STUB

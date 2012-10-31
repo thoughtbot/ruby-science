@@ -1,0 +1,3 @@
+## Extract Value Object
+
+STUB
