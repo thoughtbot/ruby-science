@@ -9,7 +9,7 @@ down.
 When performing code reviews, be on the lookout for smells. Whenever you see a
 smell, think about whether or not it would be better if you changed the code to
 remove the smell. If you're reviewing somebody else's code, suggest possible
-ways to refactor the code that would remove the smell.
+ways to refactor the code which would remove the smell.
 
 Don't treat code smells as bugs. Attempting to "fix" every smell you run across
 will end up being a waste of time, as not every smell is the symptom of an

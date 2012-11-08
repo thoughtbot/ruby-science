@@ -1,6 +1,6 @@
 ## Metrics
 
-Various tool are available that can aid you in your search for code smells.
+Various tool are available which can aid you in your search for code smells.
 
 You can use [flog](http://rubygems.org/gems/flog) to detect complex parts of
 code. If you look at the classes and methods with the highest flog score, you'll
@@ -19,8 +19,12 @@ certain smells reliably and quickly. Attempting to maintain a "reek free"
 code base is costly, but using reek once you discover a problematic class or
 method may help you find the solution.
 
+To find files with a high churn rate, try out the aptly-named
+[churn](https://github.com/danmayer/churn) gem. This works best with Git, but
+will also work with Subversion.
+
 You can also use [Code Climate](http://https://codeclimate.com/), a hosted tool
-that will scan your code for issues every time you push to Git. Code Climate
+which will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
 through F grade.
 

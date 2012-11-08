@@ -8,7 +8,7 @@ solutions.
 
 Once you've identified the problem revealed by a smell, read the relevant
 solution chapter to learn how to fix it. Each solution chapter will explain
-which problems it addresses and potential problems that can be introduced.
+which problems it addresses and potential problems which can be introduced.
 
 Lastly, smell and solution chapters will reference related principles. The smell
 chapters will reference principles that you can follow to avoid the root problem

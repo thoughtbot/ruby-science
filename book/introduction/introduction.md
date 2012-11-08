@@ -12,7 +12,7 @@ application is a twisted mess, and the only way out is a rewrite or a new job.
 
 Fortunately, it doesn't have to be this way. Developers have been using
 object-oriented programming for several decades, and there's a wealth of
-knowledge out there that still applies to developing applications today. We can
+knowledge out there which still applies to developing applications today. We can
 use the lessons learned by these developers to write good Rails applications by
 applying good object-oriented programming.
 
