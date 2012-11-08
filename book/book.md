@@ -7,6 +7,18 @@
 
 <<[introduction/introduction.md]
 
+<<[introduction/code_review.md]
+
+<<[introduction/smells.md]
+
+<<[introduction/resistance.md]
+
+<<[introduction/bugs_and_churn.md]
+
+<<[introduction/metrics.md]
+
+<<[introduction/navigating.md]
+
 # Code Smells
 
 <<[code_smells/long_method.md]
