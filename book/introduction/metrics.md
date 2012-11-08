@@ -19,6 +19,11 @@ certain smells reliably and quickly. Attempting to maintain a "reek free"
 code base is costly, but using reek once you discover a problematic class or
 method may help you find the solution.
 
+You can also use [Code Climate](http://https://codeclimate.com/), a hosted tool
+that will scan your code for issues every time you push to Git. Code Climate
+attempts to locate hot spots for refactoring and assigns each class a simple A
+through F grade.
+
 Getting obsessed with the counts and scores from these tools will distract from
 the actual issues in your code, but it's worthwhile to run them continually and
 watch out for potential warning signs.
