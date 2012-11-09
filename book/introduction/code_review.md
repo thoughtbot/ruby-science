@@ -11,10 +11,12 @@ branch.  Never commit directly to your master branch; doing so will make it
 tempting to either push code that hasn't been reviewed, or keep code on your
 local machine.  Neither is a good idea.
 
-The first person who should look at every line of code you write is easy
-to find: it's you! Before merging your feature branch, look at the diff of what
+The first person who should look at every line of code you write is easy to
+find: it's you! Before merging your feature branch, look at the diff of what
 you've done. Read through each changed line, each new method, and each new
-class to make sure that you like what you see.
+class to make sure that you like what you see. One easy way to make sure that
+you look at everything before committing it is to use `git add --patch` instead
+of `git add`. This will force you to confirm each change you make.
 
 If you're working on a team, ask your teammates to review your code as well.
 After working on the same piece of code for a while, it's easy to develop
