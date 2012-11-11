@@ -1,39 +1,43 @@
 ## Code Reviews
 
-The first step towards cleaner code is to make sure you read the code as you
-write it. Have you ever typed up a long e-mail, hit "Send," and then realized
-later that you made several typos? The problem here is obvious: you didn't read
-what you'd written before sending it. Proofreading your e-mails will save you
-from all kinds of embarrassments. Proofreading your code will do the same.
+Our first step towards better code is to review it.
 
-An easy way to make it simple to proofread code is to always work on a feature
-branch.  Never commit directly to your master branch; doing so will make it
-tempting to either push code that hasn't been reviewed, or keep code on your
-local machine.  Neither is a good idea.
+Have you ever sent an email with typos? Did you review what you wrote before
+clicking "Send"? Reviewing your e-mails prevents mistakes and reviewing your
+code does the same.
 
-The first person who should look at every line of code you write is easy to
-find: it's you! Before merging your feature branch, look at the diff of what
-you've done. Read through each changed line, each new method, and each new
-class to make sure that you like what you see. One easy way to make sure that
-you look at everything before committing it is to use `git add --patch` instead
-of `git add`. This will force you to confirm each change you make.
+To make it easier to review code, always work in a feature branch. The branch
+reduces the temptation to push unreviewed code or to wait too long to push code.
 
-If you're working on a team, ask your teammates to review your code as well.
-After working on the same piece of code for a while, it's easy to develop
-tunnel vision. Getting a fresh and different perspective will help catch
-mistakes early. After you review your own code, don't merge your feature branch
-just yet. Push it up and invite your team members to view the diff as well.
-When reviewing somebody else's code, take the same approach you took above:
-page through the diff, and make sure you like everything you see.
+The first person who should review every line of your code is you. Before
+committing new code, read each changed line. Try git techniques such as:
 
-Team code reviews provide another benefit: you get immediate feedback on how
-understandable a piece of code is. Chances are good that you'll understand your
-own code. After all, you just wrote it. However, you want your team members to
-understand your code as well. Also, even though the code is clear now, it may
-not be as obvious looking over it again in six months. Your team members will
-be a good indicator of what your own understanding will be in the future. If it
-doesn't make sense to them now, it won't make sense to you later.
+    git diff
+    git add --patch
+    git commit --verbose
 
-Code reviews provide an opportunity to catch mistakes and improve code before it
-ever gets merged, but there's still a big question out there: what should you be
-looking for?
+Read more about these commands and find the short form of the `--patch` and
+`--verbose` options in Unix manual pages:
+
+    man git-diff
+    man git-add
+    man git-commit
+
+On a Linux or BSD system, reviewing a diff, opening a man page, and commiting to
+git will open vim. You can change your `$EDITOR` shell variable or you can learn
+vim. We use vim for Rails development so we will include vim tips in the book.
+
+Review a `git diff` by paging up with `Ctrl+f` and paging down with `Ctrl+b`. To
+find the `--patch` option in the `git add` manual, type `/--patch`. To write
+your commit message, type `i` to enter vim's "insert" mode, type [a good commit
+message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html),
+type `esc`, and type `:x` to save and exit.
+
+If you're working on a team, push your feature branch and invite your teammates
+to review the changes via `git diff origin/master..HEAD`.
+
+Team review reveals how understandable code is to someone other than the author.
+Your team members' understanding now is a good indicator of your understanding
+in the future.
+
+However, what should you and your teammates look for during review?
