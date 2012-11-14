@@ -1,0 +1,39 @@
+<h1><%= @survey.title %></h1>
+
+<%= link_to(
+  'Add Multiple Choice Question',
+  new_survey_submittable_type_question_path(@survey, 'MultipleChoice')
+) %>
+
+<%= link_to(
+  'Add Open Question',
+  new_survey_submittable_type_question_path(@survey, 'Open')
+) %>
+
+<%= link_to(
+  'Add Scale Question',
+  new_survey_submittable_type_question_path(@survey, 'Scale')
+) %>
+
+<ol>
+  <% @questions.each do |question| -%>
+    <li>
+      <%= question.title %>
+      <% if question.submittable_type == 'MultipleChoice' -%>
+        <ol>
+          <% question.options.each do |option| -%>
+            <li><%= option.text %></li>
+          <% end -%>
+        </ol>
+      <% end -%>
+
+      <% if question.submittable_type == 'Scale' -%>
+        <ol>
+          <% question.steps.each do |step| -%>
+            <li><%= step %></li>
+          <% end -%>
+        </ol>
+      <% end -%>
+    </li>
+  <% end -%>
+</ol>

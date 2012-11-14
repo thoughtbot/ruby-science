@@ -1,0 +1,7 @@
+<%= link_to 'New Survey', [:new, :survey] %>
+
+<ul>
+  <% @surveys.each do |survey| -%>
+    <li><%= survey.title %></li>
+  <% end -%>
+</ul>
