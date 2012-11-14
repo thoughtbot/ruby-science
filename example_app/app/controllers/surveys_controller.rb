@@ -1,0 +1,24 @@
+class SurveysController < ApplicationController
+  def new
+    @survey = Survey.new
+  end
+
+  def create
+    survey_params = params.require(:survey).permit(:title)
+    @survey = Survey.new(survey_params)
+    if @survey.save
+      redirect_to [:surveys]
+    else
+      render :new
+    end
+  end
+
+  def index
+    @surveys = Survey.all
+  end
+
+  def show
+    @survey = Survey.find(params[:id])
+    @questions = @survey.questions
+  end
+end

@@ -1,3 +1,13 @@
 ExampleApp::Application.routes.draw do
-  root to: 'clearance/sessions#new'
+  resources :questions, only: [:edit, :update] do
+    resources :options, only: [:new, :create]
+  end
+
+  resources :surveys, only: [:new, :create, :index, :show] do
+    resources :submittable_types, only: [] do
+      resources :questions, only: [:new, :create]
+    end
+  end
+
+  root to: 'surveys#index'
 end
