@@ -1,0 +1,16 @@
+<%= simple_form_for @question, url: survey_submittable_type_questions_path(@survey, @submittable_type) do |form| -%>
+  <%= form.input :title %>
+
+  <% if @submittable_type == 'MultipleChoice' -%>
+    <%= form.fields_for(:options) do |option_fields| -%>
+      <%= option_fields.input :text, label: 'Option' %>
+    <% end -%>
+  <% end -%>
+
+  <% if @submittable_type == 'Scale' -%>
+    <%= form.input :minimum %>
+    <%= form.input :maximum %>
+  <% end -%>
+
+  <%= form.submit %>
+<% end -%>
