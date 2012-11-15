@@ -1,5 +1,11 @@
 FactoryGirl.define do
 
+  factory :answer do
+    completion
+    question
+    text 'Hello'
+  end
+
   factory :completion do
     survey
     user
@@ -10,6 +16,7 @@ FactoryGirl.define do
   end
 
   factory :question do
+    survey
     title 'Question'
     submittable_type 'Open'
 

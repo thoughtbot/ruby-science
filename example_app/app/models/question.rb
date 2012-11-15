@@ -9,9 +9,21 @@ class Question < ActiveRecord::Base
   validates :title, presence: true
 
   belongs_to :survey
+  has_many :answers
   has_many :options
 
   accepts_nested_attributes_for :options, reject_if: :all_blank
+
+  def summary
+    case submittable_type
+    when 'MultipleChoice'
+      summarize_multiple_choice_answers
+    when 'Open'
+      summarize_open_answers
+    when 'Scale'
+      summarize_scale_answers
+    end
+  end
 
   def steps
     (minimum..maximum).to_a
@@ -21,5 +33,23 @@ class Question < ActiveRecord::Base
 
   def scale?
     submittable_type == 'Scale'
+  end
+
+  def summarize_multiple_choice_answers
+    total = answers.count
+    counts = answers.group(:text).order('COUNT(*) DESC').count
+    percents = counts.map do |text, count|
+      percent = (100.0 * count / total).round
+      "#{percent}% #{text}"
+    end
+    percents.join(', ')
+  end
+
+  def summarize_open_answers
+    answers.order(:created_at).pluck(:text).join(', ')
+  end
+
+  def summarize_scale_answers
+    sprintf('Average: %.02f', answers.average('text'))
   end
 end
