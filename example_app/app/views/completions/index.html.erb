@@ -1,0 +1,10 @@
+<% @completions.each do |completion| -%>
+  <ol>
+    <% completion.answers.each do |answer| -%>
+      <li class="question">
+        <%= answer.question.title %>
+        <%= answer.text %>
+      </li>
+    <% end %>
+  </ol>
+<% end -%>
