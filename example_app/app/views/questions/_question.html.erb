@@ -1,6 +1,4 @@
-<%= form.fields_for 'answers_attributes[]', Answer.new do |submission_fields| -%>
-  <%= submission_fields.hidden_field :question_id, value: question.id %>
-
+<%= form.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
   <li>
     <%= submission_fields.label :text, label: question.title %>
 

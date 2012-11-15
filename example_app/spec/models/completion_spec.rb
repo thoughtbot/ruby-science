@@ -10,11 +10,11 @@ describe Completion, 'answers_attributes=' do
   it 'builds answers to each of the questions' do
     completion = build_stubbed(:completion)
 
-    completion.answers_attributes = [
-      { question_id: 1, text: 'one' },
-      { question_id: 2, text: 'two' },
-      { question_id: 3, text: 'three' }
-    ]
+    completion.answers_attributes = {
+      1 => { text: 'one' },
+      2 => { text: 'two' },
+      3 => { text: 'three' }
+    }
 
     answer_attributes =
       completion.
