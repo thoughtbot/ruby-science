@@ -51,11 +51,13 @@
 
 # Solutions
 
-<<[solutions/replace_conditional_with_strategy.md]
+<<[solutions/replace_conditional_with_polymorphism.md]
 
 <<[solutions/replace_conditional_with_null_object.md]
 
 <<[solutions/extract_method.md]
+
+<<[solutions/extract_class.md]
 
 <<[solutions/extract_value_object.md]
 
