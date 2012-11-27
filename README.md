@@ -33,30 +33,30 @@ We recommend using the binary distribution of pandoc whenever possible.
 
 Install dependencies with Bundler:
 
-  bundle install
+    bundle install
 
 Now install the pandoc dependencies:
 
 #### Installing dependencies on OSX
 
-  brew install https://raw.github.com/adamv/homebrew-alt/master/non-free/kindlegen.rb
-  brew install imagemagick
+    brew install https://raw.github.com/adamv/homebrew-alt/master/non-free/kindlegen.rb
+    brew install imagemagick
 
 Latex is needed for PDF distribution:
 
-We recommend downloading the [smaller, basic version of MacTex](http://www.tug.org/mactex/morepackages.html).
+We recommend downloading the [smaller, BasicTeX in conjunction with MacTeX](http://www.tug.org/mactex/morepackages.html).
 
 #### Installing dependencies on Ubuntu
 
 Install KindleGen into ~/bin; you can put it anywhere in your PATH you like:
 
-   wget -P /tmp/ http://s3.amazonaws.com/kindlegen/kindlegen_linux_2.6_i386_v1.2.tar.gz
-   tar -C /tmp/ -xzf /tmp/kindlegen_linux_2.6_i386_v1.2.tar.gz
-   mv /tmp/kindlegen ~/bin/
+    wget -P /tmp/ http://s3.amazonaws.com/kindlegen/kindlegen_linux_2.6_i386_v1.2.tar.gz
+    tar -C /tmp/ -xzf /tmp/kindlegen_linux_2.6_i386_v1.2.tar.gz
+    mv /tmp/kindlegen ~/bin/
 
 Latex is needed for PDF creation:
 
-   sudo apt-get install texlive
+    sudo apt-get install texlive
 
 ## Building
 
