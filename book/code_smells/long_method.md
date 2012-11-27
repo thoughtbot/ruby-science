@@ -42,6 +42,7 @@ def create
     permit(:submittable_type, :title, :options_attributes, :minimum, :maximum)
   @question = @survey.questions.new(question_params)
   @question.submittable_type = @submittable_type
+
   if @question.save
     redirect_to @survey
   else
