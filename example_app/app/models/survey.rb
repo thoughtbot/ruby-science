@@ -3,6 +3,7 @@ class Survey < ActiveRecord::Base
 
   validates_presence_of :title
 
+  belongs_to :author, class_name: 'User'
   has_many :completions
   has_many :questions
 end
