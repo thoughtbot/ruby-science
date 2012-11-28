@@ -1,11 +1,11 @@
 class Question < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  SUBMITTABLE_TYPES = %w(Open MultipleChoice Scale).freeze
+  QUESTION_TYPES = %w(OpenQuestion MultipleChoiceQuestion ScaleQuestion).freeze
 
   validates :maximum, presence: true, if: :scale?
   validates :minimum, presence: true, if: :scale?
-  validates :question_type, presence: true, inclusion: SUBMITTABLE_TYPES
+  validates :question_type, presence: true, inclusion: QUESTION_TYPES
   validates :title, presence: true
 
   belongs_to :survey
@@ -16,11 +16,11 @@ class Question < ActiveRecord::Base
 
   def summary
     case question_type
-    when 'MultipleChoice'
+    when 'MultipleChoiceQuestion'
       summarize_multiple_choice_answers
-    when 'Open'
+    when 'OpenQuestion'
       summarize_open_answers
-    when 'Scale'
+    when 'ScaleQuestion'
       summarize_scale_answers
     end
   end
@@ -32,7 +32,7 @@ class Question < ActiveRecord::Base
   private
 
   def scale?
-    question_type == 'Scale'
+    question_type == 'ScaleQuestion'
   end
 
   def summarize_multiple_choice_answers

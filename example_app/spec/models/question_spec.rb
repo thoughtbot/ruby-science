@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Question do
   it { should validate_presence_of :question_type }
 
-  Question::SUBMITTABLE_TYPES.each do |type|
+  Question::QUESTION_TYPES.each do |type|
     it { should allow_value(type).for(:question_type) }
   end
 

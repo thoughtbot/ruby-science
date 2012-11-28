@@ -3,17 +3,17 @@
 
 <%= link_to(
   'Add Multiple Choice Question',
-  new_survey_question_path(@survey, question_type: 'MultipleChoice')
+  new_survey_question_path(@survey, question_type: 'MultipleChoiceQuestion')
 ) %>
 
 <%= link_to(
   'Add Open Question',
-  new_survey_question_path(@survey, question_type: 'Open')
+  new_survey_question_path(@survey, question_type: 'OpenQuestion')
 ) %>
 
 <%= link_to(
   'Add Scale Question',
-  new_survey_question_path(@survey, question_type: 'Scale')
+  new_survey_question_path(@survey, question_type: 'ScaleQuestion')
 ) %>
 
 <%= simple_form_for [@survey, @completion] do |form| -%>
