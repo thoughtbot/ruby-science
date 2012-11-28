@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
+gem 'bourne'
 gem 'capybara'
 gem 'clearance'
+gem 'email_spec'
 gem 'factory_girl_rails'
 gem 'rspec-rails'
 gem 'shoulda-matchers'
