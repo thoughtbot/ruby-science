@@ -5,9 +5,7 @@ ExampleApp::Application.routes.draw do
 
   resources :surveys, only: [:new, :create, :index, :show] do
     resources :completions, only: [:create, :index]
-    resources :submittable_types, only: [] do
-      resources :questions, only: [:new, :create]
-    end
+    resources :questions, only: [:new, :create]
   end
 
   root to: 'surveys#index'
