@@ -18,7 +18,7 @@ FactoryGirl.define do
   factory :question do
     survey
     title 'Question'
-    submittable_type 'Open'
+    question_type 'Open'
 
     factory :multiple_choice_question do
       ignore do
@@ -31,15 +31,15 @@ FactoryGirl.define do
         end
       end
 
-      submittable_type 'MultipleChoice'
+      question_type 'MultipleChoice'
     end
 
     factory :open_question do
-      submittable_type 'Open'
+      question_type 'Open'
     end
 
     factory :scale_question do
-      submittable_type 'Scale'
+      question_type 'Scale'
     end
   end
 

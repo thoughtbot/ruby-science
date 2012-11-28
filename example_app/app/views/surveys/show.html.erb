@@ -2,17 +2,17 @@
 
 <%= link_to(
   'Add Multiple Choice Question',
-  new_survey_question_path(@survey, submittable_type: 'MultipleChoice')
+  new_survey_question_path(@survey, question_type: 'MultipleChoice')
 ) %>
 
 <%= link_to(
   'Add Open Question',
-  new_survey_question_path(@survey, submittable_type: 'Open')
+  new_survey_question_path(@survey, question_type: 'Open')
 ) %>
 
 <%= link_to(
   'Add Scale Question',
-  new_survey_question_path(@survey, submittable_type: 'Scale')
+  new_survey_question_path(@survey, question_type: 'Scale')
 ) %>
 
 <%= simple_form_for [@survey, @completion] do |form| -%>
