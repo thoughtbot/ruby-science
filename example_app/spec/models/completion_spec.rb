@@ -9,15 +9,10 @@ end
 describe Completion, '#save' do
   it 'should deliver a completion notification' do
     Mailer.stubs(completion_notification: stub(deliver_now: true))
-    user = create(:user,
-      first_name: 'Wes',
-      last_name: 'Mantooth',
-      email: 'mantooth13@aol.com'
-    )
+    user = create(:user)
     completion = create(:completion, user: user)
 
-    Mailer.should have_received(:completion_notification).
-      with('Wes', 'Mantooth', 'mantooth13@aol.com')
+    Mailer.should have_received(:completion_notification).with(user)
   end
 end
 
