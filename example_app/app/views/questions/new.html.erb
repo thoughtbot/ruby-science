@@ -3,13 +3,13 @@
 
   <%= form.input :title %>
 
-  <% if @question.question_type == 'MultipleChoice' -%>
+  <% if @question.question_type == 'MultipleChoiceQuestion' -%>
     <%= form.fields_for(:options) do |option_fields| -%>
       <%= option_fields.input :text, label: 'Option' %>
     <% end -%>
   <% end -%>
 
-  <% if @question.question_type == 'Scale' -%>
+  <% if @question.question_type == 'ScaleQuestion' -%>
     <%= form.input :minimum %>
     <%= form.input :maximum %>
   <% end -%>
