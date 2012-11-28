@@ -18,7 +18,7 @@ FactoryGirl.define do
   factory :question do
     survey
     title 'Question'
-    question_type 'OpenQuestion'
+    type 'OpenQuestion'
 
     factory :multiple_choice_question do
       transient do
@@ -31,15 +31,15 @@ FactoryGirl.define do
         end
       end
 
-      question_type 'MultipleChoiceQuestion'
+      type 'MultipleChoiceQuestion'
     end
 
     factory :open_question do
-      question_type 'OpenQuestion'
+      type 'OpenQuestion'
     end
 
     factory :scale_question do
-      question_type 'ScaleQuestion'
+      type 'ScaleQuestion'
     end
   end
 

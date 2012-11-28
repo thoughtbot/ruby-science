@@ -2,7 +2,7 @@
   <li>
     <%= submission_fields.label :text, label: question.title %>
 
-    <% if question.question_type == 'MultipleChoiceQuestion' -%>
+    <% if question.type == 'MultipleChoiceQuestion' -%>
       <ol>
         <% question.options.each do |option| -%>
           <li>
@@ -13,7 +13,7 @@
       </ol>
     <% end -%>
 
-    <% if question.question_type == 'ScaleQuestion' -%>
+    <% if question.type == 'ScaleQuestion' -%>
       <ol>
         <% question.steps.each do |step| -%>
           <li>
@@ -24,7 +24,7 @@
       </ol>
     <% end -%>
 
-    <% if question.question_type == 'OpenQuestion' -%>
+    <% if question.type == 'OpenQuestion' -%>
       <%= submission_fields.text_field :text %>
     <% end -%>
   </li>
