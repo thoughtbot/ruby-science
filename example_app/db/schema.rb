@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20121128185546) do
     t.string   "title",      :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "author_id",  :null => false
   end
 
   create_table "users", :force => true do |t|

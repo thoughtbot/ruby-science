@@ -3,6 +3,12 @@ module SurveySupport
     visit survey_path(survey)
   end
 
+  def view_editable_survey
+    user = sign_in
+    survey = create(:survey, author: user)
+    view_survey survey
+  end
+
   def view_survey_with_question(type, attributes = {})
     survey = create(:survey)
     question = create(:"#{type}_question", attributes.merge(survey: survey))
@@ -19,5 +25,19 @@ module SurveySupport
 
   def answer_to_question(question)
     find('.question', text: question)
+  end
+
+  def start_new_survey
+    click_on 'New Survey'
+  end
+
+  def submit_survey_with_title(title)
+    fill_in 'Title', with: title
+    click_on 'Create Survey'
+  end
+
+  def create_survey_with_title(title)
+    start_new_survey
+    submit_survey_with_title title
   end
 end

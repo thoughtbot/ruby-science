@@ -2,8 +2,7 @@ feature 'user adds multiple choice question to survey' do
   include SurveySupport
 
   scenario 'add a multiple choice question' do
-    sign_in
-    view_survey
+    view_editable_survey
     click_on 'Add Multiple Choice Question'
     fill_in 'Title', with: 'What is your favorite color?'
     add_options_with_text 'Blue', 'Red'
