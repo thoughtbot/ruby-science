@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
   def new
     @survey = Survey.find(params[:survey_id])
-    @question = @survey.questions.new
-    @question.options = [Option.new, Option.new, Option.new]
-    @question.type = params[:type]
+    build_question
+    if @question.type == 'MultipleChoiceQuestion'
+      @question.options = [Option.new, Option.new, Option.new]
+    end
   end
 
   def create
@@ -19,14 +20,15 @@ class QuestionsController < ApplicationController
   private
 
   def build_question
-    @question = @survey.questions.new(question_params)
+    type = params[:question][:type]
+    @question = type.constantize.new(question_params)
+    @question.survey = @survey
   end
 
   def question_params
     params.
       require(:question).
       permit(
-        :type,
         :title,
         :minimum,
         :maximum,

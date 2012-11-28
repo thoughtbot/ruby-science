@@ -1,4 +1,4 @@
-<%= simple_form_for @question, url: survey_questions_path(@survey) do |form| -%>
+<%= simple_form_for @question, as: :question, url: survey_questions_path(@survey) do |form| -%>
   <%= form.hidden_field :type %>
 
   <%= form.input :title %>
@@ -14,5 +14,5 @@
     <%= form.input :maximum %>
   <% end -%>
 
-  <%= form.submit %>
+  <%= form.submit 'Create Question' %>
 <% end -%>
