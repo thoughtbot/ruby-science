@@ -64,6 +64,18 @@ Run `rake build:all` to build all output targets.
 
 Run `rake build:epub` (or `:html`, `:pdf`, `:mobi`) to build individual versions.
 
+## For Authors
+
+New contributions should be added as pull requests. Guidelines:
+
+* Each new, unrefactored change to the example app should be a pull request
+* Each refactoring performed on the example app should be a pull request
+* Each new chapter should be a pull request
+* Mixing any of the above into one pull request makes reviewing more difficult
+
+When reviewing new chapters, use `bin/review` to check out, build, and view the
+book locally. Example: `bin/review 6` will review the book for pull request 6.
+
 ## Releasing
 
 Run `rake release` to build all output targets, commit to git, and push up to
