@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
     @survey = Survey.find(params[:survey_id])
     @question = @survey.questions.new
     @question.options = [Option.new, Option.new, Option.new]
-    @question.submittable_type = params[:submittable_type]
+    @question.question_type = params[:question_type]
   end
 
   def create
@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
     params.
       require(:question).
       permit(
-        :submittable_type,
+        :question_type,
         :title,
         :minimum,
         :maximum,
