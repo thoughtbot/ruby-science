@@ -1,0 +1,2 @@
+class OpenQuestion < Question
+end

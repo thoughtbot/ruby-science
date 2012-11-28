@@ -18,7 +18,9 @@
 
 <%= simple_form_for [@survey, @completion] do |form| -%>
   <ol>
-    <%= render @questions, form: form %>
+    <% @questions.each do |question| -%>
+      <%= render 'questions/question', question: question, form: form %>
+    <% end -%>
   </ol>
   <%= form.submit 'Submit Answers' %>
 <% end -%>

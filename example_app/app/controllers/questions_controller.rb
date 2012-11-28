@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
   private
 
   def build_question
-    @question = @survey.questions.new(question_params)
+    @question = @survey.questions.new(question_params, without_protection: true)
   end
 
   def question_params
