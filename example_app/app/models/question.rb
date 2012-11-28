@@ -3,6 +3,8 @@ class Question < ActiveRecord::Base
 
   QUESTION_TYPES = %w(OpenQuestion MultipleChoiceQuestion ScaleQuestion).freeze
 
+  set_inheritance_column  'question_type'
+
   validates :maximum, presence: true, if: :scale?
   validates :minimum, presence: true, if: :scale?
   validates :question_type, presence: true, inclusion: QUESTION_TYPES
