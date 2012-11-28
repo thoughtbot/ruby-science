@@ -1,3 +1,12 @@
+<ol class="summary">
+  <% @survey.questions.each do |question| -%>
+    <li>
+      <%= question.title %>:
+      <%= question.summary %>
+    </li>
+  <% end -%>
+</ol>
+
 <% @completions.each do |completion| -%>
   <ol>
     <% completion.answers.each do |answer| -%>
