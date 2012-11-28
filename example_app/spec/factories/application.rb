@@ -45,6 +45,7 @@ FactoryGirl.define do
 
   factory :survey do
     title 'Survey'
+    author factory: :user
   end
 
 end

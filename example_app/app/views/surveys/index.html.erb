@@ -2,6 +2,6 @@
 
 <ul>
   <% @surveys.each do |survey| -%>
-    <li><%= survey.title %></li>
+    <li><%= link_to survey.title, survey %></li>
   <% end -%>
 </ul>
