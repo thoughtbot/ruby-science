@@ -5,6 +5,14 @@ module SessionSupport
     fill_in 'Email', with: user.email
     fill_in 'Password', with: 'test'
     click_on 'Sign in'
+    user
+  end
+
+  def as_another_user
+    using_session 'other user' do
+      sign_in
+      yield
+    end
   end
 end
 

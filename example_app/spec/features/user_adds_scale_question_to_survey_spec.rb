@@ -2,8 +2,7 @@ feature 'user adds scale question to survey' do
   include SurveySupport
 
   scenario 'add a scale question' do
-    sign_in
-    view_survey
+    view_editable_survey
     click_on 'Add Scale Question'
     fill_in 'Title', with: 'How many fingers do you have?'
     fill_in 'Minimum', with: '0'

@@ -6,6 +6,7 @@ class SurveysController < ApplicationController
   def create
     survey_params = params.require(:survey).permit(:title)
     @survey = Survey.new(survey_params)
+    @survey.author = current_user
     if @survey.save
       redirect_to [:surveys]
     else
