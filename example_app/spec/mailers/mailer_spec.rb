@@ -16,6 +16,10 @@ describe Mailer, '#completion_notification' do
   private
 
   def completion_notification
-    Mailer.completion_notification('First', 'Last', 'email@example.com')
+    Mailer.completion_notification(build_user)
+  end
+
+  def build_user
+    build(:user, email: 'email@example.com', first_name: 'First', last_name: 'Last')
   end
 end
