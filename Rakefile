@@ -70,17 +70,29 @@ class Builder
 
   def parse_file(output, filename)
     file = File.open(filename)
-    file.each do |line| 
+    file.each do |line|
       if line =~ /\<\<\((.+)\)/
         output.puts "````"
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
         output.puts "````"
       elsif line =~ /\<\<\[(.+)\]/
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
+      elsif line =~ /^` ([a-z_\/]+\.rb)@([0-9a-f]+)/
+        output.puts "```` ruby"
+        output.puts import_ruby_sample($1, $2)
+        output.puts "````"
       else
         output.puts line
       end
     end
+  end
+
+  def import_ruby_sample(path, ref)
+    result = `git show #{ref}:example_app/#{path}`
+    if $? != 0
+      exit($?.to_i)
+    end
+    result
   end
 
   def prepare_output_directory
