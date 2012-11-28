@@ -15,25 +15,9 @@
   new_survey_submittable_type_question_path(@survey, 'Scale')
 ) %>
 
-<ol>
-  <% @questions.each do |question| -%>
-    <li>
-      <%= question.title %>
-      <% if question.submittable_type == 'MultipleChoice' -%>
-        <ol>
-          <% question.options.each do |option| -%>
-            <li><%= option.text %></li>
-          <% end -%>
-        </ol>
-      <% end -%>
-
-      <% if question.submittable_type == 'Scale' -%>
-        <ol>
-          <% question.steps.each do |step| -%>
-            <li><%= step %></li>
-          <% end -%>
-        </ol>
-      <% end -%>
-    </li>
-  <% end -%>
-</ol>
+<%= simple_form_for [@survey, @completion] do |form| -%>
+  <ol>
+    <%= render @questions, form: form %>
+  </ol>
+  <%= form.submit 'Submit Answers' %>
+<% end -%>
