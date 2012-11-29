@@ -2,9 +2,6 @@ class QuestionsController < ApplicationController
   def new
     @survey = Survey.find(params[:survey_id])
     build_question
-    if @question.type == 'MultipleChoiceQuestion'
-      @question.options = [Option.new, Option.new, Option.new]
-    end
   end
 
   def create
