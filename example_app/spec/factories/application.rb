@@ -15,12 +15,11 @@ FactoryGirl.define do
     text 'Hello'
   end
 
-  factory :question do
+  factory :question, class: 'OpenQuestion' do
     survey
     title 'Question'
-    question_type 'Open'
 
-    factory :multiple_choice_question do
+    factory :multiple_choice_question, class: 'MultipleChoiceQuestion' do
       ignore do
         options_texts { [] }
       end
@@ -30,16 +29,12 @@ FactoryGirl.define do
           FactoryGirl.build(:option, text: text, question_id: attributes.id)
         end
       end
-
-      question_type 'MultipleChoice'
     end
 
-    factory :open_question do
-      question_type 'Open'
+    factory :open_question, class: 'OpenQuestion' do
     end
 
-    factory :scale_question do
-      question_type 'Scale'
+    factory :scale_question, class: 'ScaleQuestion' do
     end
   end
 

@@ -1,18 +1,6 @@
-<%= simple_form_for @question, url: survey_questions_path(@survey) do |form| -%>
-  <%= form.hidden_field :question_type %>
-
+<%= simple_form_for @question, as: :question, url: survey_questions_path(@survey) do |form| -%>
+  <%= form.hidden_field :type %>
   <%= form.input :title %>
-
-  <% if @question.question_type == 'MultipleChoice' -%>
-    <%= form.fields_for(:options) do |option_fields| -%>
-      <%= option_fields.input :text, label: 'Option' %>
-    <% end -%>
-  <% end -%>
-
-  <% if @question.question_type == 'Scale' -%>
-    <%= form.input :minimum %>
-    <%= form.input :maximum %>
-  <% end -%>
-
-  <%= form.submit %>
+  <%= render "#{@question.to_partial_path}_form", question: @question, form: form %>
+  <%= form.submit 'Create Question' %>
 <% end -%>
