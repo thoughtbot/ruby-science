@@ -1,0 +1,3 @@
+<%= form.fields_for(:options, question.options_for_form) do |option_fields| -%>
+  <%= option_fields.input :text, label: 'Option' %>
+<% end -%>
