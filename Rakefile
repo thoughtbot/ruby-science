@@ -10,7 +10,6 @@ task :prepare do
   Builder.new.prepare_output_directory
 end
 
-
 namespace :build do
   task :markdown => :prepare do
     Builder.new.generate_markdown
@@ -63,6 +62,9 @@ end
 
 class Builder
   OUTPUT_DIR = "output"
+  IMPORT_RAW_FILE_REGEX = /\<\<\[(.+)\]/
+  IMPORT_FILE_AS_CODE_REGEX = /\<\<\((.+)\)/
+  IMPORT_COMMIT_REGEX = /^` ([a-z_\/]+\.[a-z\.]+)@([0-9a-f]+)(?::(\d+(?:,\d+)?))?/
 
   include Runner
 
@@ -70,24 +72,27 @@ class Builder
 
   def parse_file(output, filename)
     file = File.open(filename)
+
     file.each do |line|
-      if line =~ /\<\<\((.+)\)/
-        output.puts "````"
+      if line =~ IMPORT_FILE_AS_CODE_REGEX
+        output.puts "```"
+        output.puts "# #{$1}"
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
-        output.puts "````"
-      elsif line =~ /\<\<\[(.+)\]/
+        output.puts "```"
+      elsif line =~ IMPORT_RAW_FILE_REGEX
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
-      elsif line =~ /^` ([a-z_\/]+\.rb)@([0-9a-f]+)(?::(\d+(?:,\d+)?))?/
-        output.puts "```` ruby"
-        output.puts import_ruby_sample($1, $2, $3)
-        output.puts "````"
+      elsif line =~ IMPORT_COMMIT_REGEX
+        output.puts "```ruby"
+        output.puts "# #{$1}"
+        output.puts import_code_sample($1, $2, $3)
+        output.puts "```"
       else
         output.puts line
       end
     end
   end
 
-  def import_ruby_sample(path, ref, range)
+  def import_code_sample(path, ref, range)
     command = "git show #{ref}:example_app/#{path}"
     if range
       command << " | sed -n #{range}p"
