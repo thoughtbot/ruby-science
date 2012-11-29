@@ -19,7 +19,12 @@
 <%= simple_form_for [@survey, @completion] do |form| -%>
   <ol>
     <% @questions.each do |question| -%>
-      <%= render 'questions/question', question: question, form: form %>
+      <%= form.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
+        <li>
+          <%= submission_fields.label :text, label: question.title %>
+          <%= render question, submission_fields: submission_fields %>
+        </li>
+      <% end -%>
     <% end -%>
   </ol>
   <%= form.submit 'Submit Answers' %>
