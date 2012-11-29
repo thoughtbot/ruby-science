@@ -1,0 +1,8 @@
+<ol>
+  <% scale_question.steps.each do |step| -%>
+    <li>
+      <%= submission_fields.radio_button :text, step %>
+      <%= submission_fields.label "text_#{step}", label: step %>
+    </li>
+  <% end -%>
+</ol>
