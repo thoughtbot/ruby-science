@@ -77,9 +77,9 @@ class Builder
         output.puts "````"
       elsif line =~ /\<\<\[(.+)\]/
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
-      elsif line =~ /^` ([a-z_\/]+\.rb)@([0-9a-f]+)/
+      elsif line =~ /^` ([a-z_\/]+\.rb)@([0-9a-f]+)(?::(\d+(?:,\d+)?))?/
         output.puts "```` ruby"
-        output.puts import_ruby_sample($1, $2)
+        output.puts import_ruby_sample($1, $2, $3)
         output.puts "````"
       else
         output.puts line
@@ -87,8 +87,13 @@ class Builder
     end
   end
 
-  def import_ruby_sample(path, ref)
-    result = `git show #{ref}:example_app/#{path}`
+  def import_ruby_sample(path, ref, range)
+    command = "git show #{ref}:example_app/#{path}"
+    if range
+      command << " | sed -n #{range}p"
+    end
+
+    result = `#{command}`
     if $? != 0
       exit($?.to_i)
     end
