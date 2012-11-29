@@ -64,7 +64,7 @@ class Builder
   OUTPUT_DIR = "output"
   IMPORT_RAW_FILE_REGEX = /\<\<\[(.+)\]/
   IMPORT_FILE_AS_CODE_REGEX = /\<\<\((.+)\)/
-  IMPORT_COMMIT_REGEX = /^` ([a-z_\/]+\.[a-z\.]+)@([0-9a-f]+)(?::(\d+(?:,\d+)?))?/
+  IMPORT_COMMIT_REGEX = /^` ([a-z0-9_\/]+\.[a-z\.]+)@([0-9a-f]+)(?::(\d+(?:,\d+)?))?/
 
   include Runner
 
@@ -102,7 +102,14 @@ class Builder
     if $? != 0
       exit($?.to_i)
     end
-    result
+    strip_indentation(result)
+  end
+
+  # Based on ActiveSupport's strip_heredoc
+  def strip_indentation(string)
+    minimum_indent = string.scan(/^[ \t]*(?=\S)/).min
+    indent_size = minimum_indent ? minimum_indent.size : 0
+    string.gsub(/^[ \t]{#{indent_size}}/, '')
   end
 
   def prepare_output_directory
