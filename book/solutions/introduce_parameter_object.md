@@ -26,7 +26,7 @@ attributes `first_name`, `last_name`, and `email` together.
 ` app/mailers/mailer.rb@28f3651
 
 This also gives us the opportunity to create a new method `full_name` on the `recipient`
-object that encapsulates behavior between the `first_name` and `last_name`.
+object to encapsulate behavior between the `first_name` and `last_name`.
 
 ` app/views/mailer/completion_notification.html.erb@28f3651
 
