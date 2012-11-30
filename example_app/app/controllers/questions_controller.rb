@@ -17,9 +17,12 @@ class QuestionsController < ApplicationController
   private
 
   def build_question
-    type = params[:question][:type]
     @question = type.constantize.new(question_params)
     @question.survey = @survey
+  end
+
+  def type
+    params[:question][:type]
   end
 
   def question_params
