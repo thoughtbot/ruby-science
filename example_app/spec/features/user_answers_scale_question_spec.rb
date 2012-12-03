@@ -1,7 +1,7 @@
-feature 'user answers scale question' do
-  include SurveySupport
+require 'spec_helper'
 
-  scenario 'answer a scale question' do
+feature 'user answers scale question' do
+  scenario 'with valid answer' do
     sign_in
     view_survey_with_question :scale,
       title: 'How many fingers do you have?',

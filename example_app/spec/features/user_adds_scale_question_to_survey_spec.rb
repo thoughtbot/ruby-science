@@ -1,7 +1,7 @@
-feature 'user adds scale question to survey' do
-  include SurveySupport
+require 'spec_helper'
 
-  scenario 'add a scale question' do
+feature 'user adds scale question to survey' do
+  scenario 'with valid data' do
     view_editable_survey
     click_on 'Add Scale Question'
     fill_in 'Title', with: 'How many fingers do you have?'

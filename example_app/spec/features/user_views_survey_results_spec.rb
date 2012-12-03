@@ -1,6 +1,6 @@
-feature 'user views survey results' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user views survey results' do
   scenario 'view survey results' do
     sign_in
     survey = create(:survey)
