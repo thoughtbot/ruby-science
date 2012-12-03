@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'user adds multiple choice question to survey' do
-  scenario 'add a multiple choice question' do
+  scenario 'with valid data' do
     view_editable_survey
     click_on 'Add Multiple Choice Question'
     fill_in 'Title', with: 'What is your favorite color?'

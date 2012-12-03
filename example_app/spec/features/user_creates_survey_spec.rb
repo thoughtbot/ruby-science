@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 feature 'user creates survey' do
-  scenario 'create a valid survey' do
+  scenario 'with valid data' do
     sign_in
     start_new_survey
     submit_survey_with_title 'How are you?'
     page.should have_content('How are you?')
   end
 
-  scenario 'attempt to create an invalid survey' do
+  scenario 'with invalid data' do
     sign_in
     start_new_survey
     submit_survey_without_title
