@@ -1,6 +1,6 @@
-feature 'user adds scale question to survey' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user adds scale question to survey' do
   scenario 'add a scale question' do
     view_editable_survey
     click_on 'Add Scale Question'

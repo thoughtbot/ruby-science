@@ -1,4 +1,4 @@
-module SessionSupport
+module Features
   def sign_in
     @current_user = create(:user, password: 'test')
     visit '/sign_in'
@@ -17,8 +17,4 @@ module SessionSupport
       yield
     end
   end
-end
-
-RSpec.configure do |config|
-  config.include SessionSupport, type: :feature
 end

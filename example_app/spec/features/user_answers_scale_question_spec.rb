@@ -1,6 +1,6 @@
-feature 'user answers scale question' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user answers scale question' do
   scenario 'answer a scale question' do
     sign_in
     view_survey_with_question :scale,

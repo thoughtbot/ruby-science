@@ -1,6 +1,6 @@
-feature 'user creates survey' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user creates survey' do
   scenario 'create a valid survey' do
     sign_in
     start_new_survey

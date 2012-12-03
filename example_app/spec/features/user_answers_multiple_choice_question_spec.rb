@@ -1,6 +1,6 @@
-feature 'user answers multiple choice question' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user answers multiple choice question' do
   scenario 'answer a multiple choice question' do
     sign_in
     view_survey_with_question :multiple_choice,

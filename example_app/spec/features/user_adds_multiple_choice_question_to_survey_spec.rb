@@ -1,6 +1,6 @@
-feature 'user adds multiple choice question to survey' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user adds multiple choice question to survey' do
   scenario 'add a multiple choice question' do
     view_editable_survey
     click_on 'Add Multiple Choice Question'
