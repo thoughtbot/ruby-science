@@ -15,4 +15,5 @@ RSpec.configure do |config|
   config.order = 'random'
   config.mock_framework = :mocha
   config.include FactoryGirl::Syntax::Methods
+  config.include Features, type: :feature
 end

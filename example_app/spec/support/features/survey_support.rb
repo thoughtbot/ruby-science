@@ -1,4 +1,4 @@
-module SurveySupport
+module Features
   def view_survey(survey = create(:survey))
     visit survey_path(survey)
   end
