@@ -3,6 +3,10 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 
+# Placeholder module for feature spec helpers defined in spec/support/features
+module Features
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -22,4 +26,5 @@ RSpec.configure do |config|
   config.mock_with :mocha
 
   config.include FactoryGirl::Syntax::Methods
+  config.include Features, type: :feature
 end

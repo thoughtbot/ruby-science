@@ -1,7 +1,7 @@
-feature 'user answers multiple choice question' do
-  include SurveySupport
+require 'spec_helper'
 
-  scenario 'answer a multiple choice question' do
+feature 'user answers multiple choice question' do
+  scenario 'with valid answer' do
     sign_in
     view_survey_with_question :multiple_choice,
       title: 'What is your favorite color?',

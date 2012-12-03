@@ -1,7 +1,7 @@
-feature 'user answers an open question' do
-  include SurveySupport
+require 'spec_helper'
 
-  scenario 'answer an open question' do
+feature 'user answers an open question' do
+  scenario 'with valid answer' do
     sign_in
     view_survey_with_question :open, title: 'What is your favorite color?'
     fill_in 'What is your favorite color?', with: 'Blue'

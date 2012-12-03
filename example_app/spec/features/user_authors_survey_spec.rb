@@ -1,6 +1,6 @@
-feature 'user authors survey' do
-  include SurveySupport
+require 'spec_helper'
 
+feature 'user authors survey' do
   scenario "attempt to edit another user's survey" do
     sign_in
     create_survey_with_title 'How are you?'

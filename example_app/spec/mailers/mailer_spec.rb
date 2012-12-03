@@ -13,8 +13,6 @@ describe Mailer, '#completion_notification' do
     completion_notification.should have_body_text(/First Last/)
   end
 
-  private
-
   def completion_notification
     Mailer.completion_notification(build_user)
   end
