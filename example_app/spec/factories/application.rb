@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :answer do
     completion
     question
@@ -17,7 +16,7 @@ FactoryGirl.define do
 
   factory :question, class: 'OpenQuestion' do
     survey
-    title 'Question'
+    sequence(:title) { |n| "Question #{n}" }
 
     factory :multiple_choice_question, class: 'MultipleChoiceQuestion' do
       transient do
@@ -39,8 +38,7 @@ FactoryGirl.define do
   end
 
   factory :survey do
-    title 'Survey'
+    sequence(:title) { |n| "Survey #{n}" }
     author factory: :user
   end
-
 end

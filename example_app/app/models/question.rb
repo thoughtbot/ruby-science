@@ -8,4 +8,6 @@ class Question < ActiveRecord::Base
 
   belongs_to :survey
   has_many :answers
+
+  delegate :title, to: :survey, prefix: true
 end
