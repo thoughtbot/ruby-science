@@ -3,7 +3,7 @@ output
 *.sw?
 .bundle
 liquid
-
+example_app/zeus.json
 example_app/.bundle
 example_app/bin/stubs
 example_app/db/*.sqlite3

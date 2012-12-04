@@ -14,6 +14,20 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    @question.update_attributes(question_params)
+    if @question.save
+      redirect_to @question.survey
+    else
+      render :edit
+    end
+  end
+
   private
 
   def build_question
