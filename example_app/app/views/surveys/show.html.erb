@@ -19,13 +19,13 @@
 <%= simple_form_for [@survey, @completion] do |form| -%>
   <ol>
     <% @questions.each do |question| -%>
-      <%= form.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
-        <li data-id="<%= question.id %>">
+      <li>
+        <%= form.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
           <%= submission_fields.label :text, label: question.title %>
           <%= render question, submission_fields: submission_fields %>
           <%= link_to 'Edit', edit_question_path(question) %>
-        </li>
-      <% end -%>
+        <% end -%>
+      </li>
     <% end -%>
   </ol>
   <%= form.submit 'Submit Answers' %>

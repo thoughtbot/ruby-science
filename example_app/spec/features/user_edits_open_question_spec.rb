@@ -2,20 +2,17 @@ require 'spec_helper'
 
 feature 'User edits open question' do
   scenario 'with valid data' do
-    survey = create(:survey, title: 'Survey Name')
-    question = create(:question, survey: survey)
+    question = create(:question)
     sign_in
-    update_question(question)
+    update_question(question, 'Updated title')
 
     expect(page).to have_content('Updated title')
   end
 
-  def update_question(question)
-    click_link 'Survey Name'
-    within(:xpath, "//li[@data-id=#{question.id}]") do
-      click_link 'Edit'
-    end
-    fill_in 'Title', with: 'Updated title'
+  def update_question(question, title)
+    click_link question.survey_title
+    page.find('li', text: question.title).click_link('Edit')
+    fill_in 'Title', with: title
     click_on 'Update Question'
   end
 end
