@@ -1,0 +1,6 @@
+<%= simple_form_for question, as: :question, url: url do |form| -%>
+  <%= form.hidden_field :type %>
+  <%= form.input :title %>
+  <%= render "#{question.to_partial_path}_form", question: question, form: form %>
+  <%= form.submit %>
+<% end -%>
