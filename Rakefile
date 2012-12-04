@@ -82,13 +82,22 @@ class Builder
       elsif line =~ IMPORT_RAW_FILE_REGEX
         parse_file(output, "#{File.dirname(filename)}/#{$1}")
       elsif line =~ IMPORT_COMMIT_REGEX
-        output.puts "```ruby"
+        output.puts "```" + import_code_highlighting($1)
         output.puts "# #{$1}"
         output.puts import_code_sample($1, $2, $3)
         output.puts "```"
       else
         output.puts line
       end
+    end
+  end
+
+  def import_code_highlighting(path)
+    case File.extname(path)
+    when '.erb'
+      'rhtml'
+    else
+      'ruby'
     end
   end
 
