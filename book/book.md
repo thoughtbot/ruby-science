@@ -63,6 +63,8 @@
 
 <<[solutions/extract_decorator.md]
 
+<<[solutions/extract_partial.md]
+
 <<[solutions/extract_service_object.md]
 
 <<[solutions/introduce_observer.md]
