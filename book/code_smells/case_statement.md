@@ -1,8 +1,8 @@
-## Case Statement
+# Case Statement
 
 Case statements are a sign that a method contains too much knowledge.
 
-#### Symptoms
+### Symptoms
 
 * Case statements that check the class of an object.
 * Case statements that check a type code.
@@ -14,7 +14,7 @@ Actual `case` statements are extremely easy to find. Just grep your codebase for
 "case." However, you should also be on the lookout for `case`'s sinister cousin,
 the repetitive `if-elsif`.
 
-### Type Codes
+## Type Codes
 
 Some applications contain type codes: fields that store type information about
 objects. These fields are easy to add and seem innocent, but they result in code
@@ -30,7 +30,7 @@ that the correct class can be instantiated later on. If you're just using the
 a smell. However, make sure to avoid referencing the `type` column from `case`
 or `if` statements.
 
-#### Example
+### Example
 
 This method summarizes the answers to a question. The summary varies based on
 the type of question.
@@ -43,7 +43,7 @@ this time in the form of multiple `if` statements:
 
 ` app/views/questions/_question.html.erb@a53319f:5,29
 
-#### Solutions
+### Solutions
 
 * [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the 
 `case` statement is checking a type code, such as `question_type`.

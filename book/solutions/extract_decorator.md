@@ -1,3 +1,3 @@
-## Extract Decorator
+# Extract Decorator
 
 STUB

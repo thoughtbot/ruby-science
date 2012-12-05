@@ -1,3 +1,3 @@
-## Law of Demeter
+# Law of Demeter
 
 STUB

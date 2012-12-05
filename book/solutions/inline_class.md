@@ -1,3 +1,3 @@
-## Inline class
+# Inline class
 
 STUB

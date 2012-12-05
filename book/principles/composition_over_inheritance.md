@@ -1,3 +1,3 @@
-## Composition over inheritance
+# Composition over inheritance
 
 STUB

@@ -1,3 +1,3 @@
-## Parallel Inheritance Hierarchies
+# Parallel Inheritance Hierarchies
 
 STUB
