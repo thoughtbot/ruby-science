@@ -167,6 +167,7 @@ $endif$
 
 \begin{document}
 \pagenumbering{roman}
+\frontmatter
 \includepdf[pages={1}]{images/cover.pdf}
 $if(title)$
 \maketitle
@@ -174,15 +175,17 @@ $endif$
 
 $for(include-before)$
 $include-before$
-
 $endfor$
+
 $if(toc)$
 {
 \hypersetup{linkcolor=black}
 \setcounter{tocdepth}{1}
+\def\numberline#1{}
 \tableofcontents
 }
 $endif$
+
 $body$
 
 $if(natbib)$
