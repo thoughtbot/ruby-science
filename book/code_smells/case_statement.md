@@ -39,6 +39,12 @@ Let's look at the `Question#summary` method:
 This method summarizes the answers to a question. The summary varies based on
 the type of question.
 
+Note that many applications replicate the same `case` statement, which is a more
+serious offence. Here's an example of a view which duplicates the `case` logic
+from `Question#summary`, this time in the form of multiple `if` statements:
+
+` app/views/_question.html.erb@a53319f:5,29
+
 #### Solutions
 
 * If the `case` statement is checking a type code, such as `question_type`, use
