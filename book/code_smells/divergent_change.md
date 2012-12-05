@@ -1,3 +1,3 @@
-## Divergent Change
+# Divergent Change
 
 STUB

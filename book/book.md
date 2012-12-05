@@ -3,7 +3,8 @@
 
 \clearpage
 
-# Introduction
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
 <<[introduction/introduction.md]
 
@@ -19,7 +20,9 @@
 
 <<[introduction/navigating.md]
 
-# Code Smells
+\clearpage
+\pagenumbering{arabic}
+\part{Code Smells}
 
 <<[code_smells/long_method.md]
 
@@ -49,7 +52,7 @@
 
 <<[code_smells/callback.md]
 
-# Solutions
+\part{Solutions}
 
 <<[solutions/replace_conditional_with_polymorphism.md]
 
@@ -85,7 +88,7 @@
 
 <<[solutions/introduce_visitor.md]
 
-# Principles
+\part{Principles}
 
 <<[principles/dry.md]
 

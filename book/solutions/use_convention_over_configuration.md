@@ -1,3 +1,3 @@
-## Use convention over configuration
+# Use convention over configuration
 
 STUB

@@ -1,4 +1,4 @@
-## Extract method
+# Extract method
 
 The simplest refactoring to perform is Extract Method. To extract a method:
 
@@ -79,7 +79,7 @@ method is noisy, though, with the wrong details at the beginning. The task of
 pulling out question parameters is clouding up the task of building the
 question. Let's extract another method.
 
-### Replace temp with query
+## Replace temp with query
 
 One simple way to extract methods is by replacing local variables. Let's pull
 `question_params` into its own method:
@@ -97,7 +97,7 @@ def question_params
 end
 ````
 
-#### Next Steps
+### Next Steps
 
 * Check the original method and the extracted method to make sure neither is a
   [Long Method](#long-method).
