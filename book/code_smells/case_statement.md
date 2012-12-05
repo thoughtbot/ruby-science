@@ -45,7 +45,7 @@ this time in the form of multiple `if` statements:
 
 #### Solutions
 
-* If the `case` statement is checking a type code, such as `question_type`, use
-  [Replace Type Code with Subclasses](#replace-type-code-with-subclasses).
-* If the `case` statement is checking the class of an object, use [Replace
-  Conditional with Polymorphism](#replace-conditional-with-polymorphism).
+* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the 
+`case` statement is checking a type code, such as `question_type`.
+* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+when the `case` statement is checking the class of an object.

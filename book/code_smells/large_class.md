@@ -24,18 +24,16 @@ than public methods, and has multiple responsibility:
 
 #### Solutions
 
-* Use [Move Method](#move-method) to move methods to another class if an
+* [Move Method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
-* Use [Extract Class](#extract-class) if the class has multiple
-  responsibilities.
-* Use [Replace Conditional with
-  Polymorphism](#replace-conditional-with-polymorphism) if the class contains
-  private methods related to conditional branches.
-* Use [Extract Value Object](#extract-value-object) if the class contains
+* [Extract Class](#extract-class) if the class has multiple responsibilities.
+* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism) 
+if the class contains private methods related to conditional branches.
+* [Extract Value Object](#extract-value-object) if the class contains
   private query methods.
-* Use [Extract Decorator](#extract-decorator) if the class contains delegation
+* [Extract Decorator](#extract-decorator) if the class contains delegation
   methods.
-* Use [Extract Service Object](#extract-service-object) if the class contains
+* [Extract Service Object](#extract-service-object) if the class contains
   numerous objects related to a single action.
 
 #### Prevention
