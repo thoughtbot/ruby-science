@@ -1,21 +1,21 @@
-## Long Parameter List
+# Long Parameter List
 
 Ruby supports positional method arguments which can lead to Long Parameter Lists.
 
-#### Symptoms
+### Symptoms
 
 * You can't easily change the method's arguments.
 * The method has three or more arguments.
 * The method is complex due to number of collaborating parameters.
 * The method requires large amounts of setup during isolated testing.
 
-#### Example
+### Example
 
 Look at this mailer for an example of Long Parameter List.
 
 ` app/mailers/mailer.rb@44f85d8
 
-#### Solutions
+### Solutions
 
 * [Introduce Parameter Object](#introduce-parameter-object) and pass it in as an
 object of naturally grouped attributes.

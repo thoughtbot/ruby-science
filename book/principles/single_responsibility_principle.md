@@ -1,3 +1,3 @@
-## Single responsibility principle
+# Single responsibility principle
 
 STUB

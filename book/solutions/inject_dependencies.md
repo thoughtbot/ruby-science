@@ -1,3 +1,3 @@
-## Inject dependencies
+# Inject dependencies
 
 STUB

@@ -1,3 +1,3 @@
-## Duplicated Code
+# Duplicated Code
 
 STUB

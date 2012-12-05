@@ -152,7 +152,22 @@ $if(date)$
 \date{$date$}
 $endif$
 
+% Remove "Chapter x" text from chapter titles
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+  \makeatother
+
+\usepackage{pdfpages}
+
 \begin{document}
+\pagenumbering{roman}
+\includepdf[pages={1}]{images/cover.pdf}
 $if(title)$
 \maketitle
 $endif$
@@ -162,8 +177,11 @@ $include-before$
 
 $endfor$
 $if(toc)$
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{1}
 \tableofcontents
-
+}
 $endif$
 $body$
 

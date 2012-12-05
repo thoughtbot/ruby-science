@@ -1,3 +1,3 @@
-## Use class as Factory
+# Use class as Factory
 
 STUB

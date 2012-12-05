@@ -1,3 +1,3 @@
-## DRY
+# DRY
 
 STUB
