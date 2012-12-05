@@ -1,5 +1,5 @@
 % Ruby Science
-% thoughtbot; Joe Ferris
+% thoughtbot; Joe Ferris; Harlow Ward
 
 \clearpage
 
