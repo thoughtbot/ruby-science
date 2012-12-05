@@ -167,7 +167,7 @@ $endif$
 
 \begin{document}
 \pagenumbering{roman}
-\backmatter
+\frontmatter
 \includepdf[pages={1}]{images/cover.pdf}
 $if(title)$
 \maketitle
@@ -181,6 +181,7 @@ $if(toc)$
 {
 \hypersetup{linkcolor=black}
 \setcounter{tocdepth}{1}
+\def\numberline#1{}
 \tableofcontents
 }
 $endif$

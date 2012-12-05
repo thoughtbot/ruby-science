@@ -3,8 +3,7 @@
 
 \clearpage
 
-\chapter*{Introduction}
-\addcontentsline{toc}{chapter}{Introduction}
+# Introduction
 
 <<[introduction/introduction.md]
 
@@ -20,8 +19,7 @@
 
 <<[introduction/navigating.md]
 
-\clearpage
-\pagenumbering{arabic}
+\mainmatter
 \part{Code Smells}
 
 <<[code_smells/long_method.md]
