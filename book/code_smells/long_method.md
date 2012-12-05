@@ -53,8 +53,10 @@ end
 
 #### Solutions
 
-The most common way to remove long methods is to break them up using [Extract
-Method](#extract-method). If you have local variables in long methods, then use
-[Replace Temp With Query](#replace-temp-with-query). After extracting methods,
-check for [Feature Envy](#feature-envy) in the new methods to see if you should
-employ [Move Method](#move-method) to provide the method with a better home.
+* [Extarct Method](#extract-method) is the most common way to break apart long methods.
+* [Replace Temp with Query](#replace-temp-with-query) if you have local variables
+in the method.
+
+After extracting methods, check for [Feature Envy](#feature-envy) in the new
+methods to see if you should employ [Move Method](#move-method) to provide the
+method with a better home.
