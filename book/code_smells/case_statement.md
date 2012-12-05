@@ -8,8 +8,7 @@ Case statements are a sign that a method contains too much knowledge.
 * Case statements that check a type code.
 * [Divergent Change](#divergent-change) caused by changing or adding `when`
   clauses.
-* [Shotgun Surgery](#shotgun-surgery) caused by changing multiple `case`
-  statements.
+* [Shotgun Surgery](#shotgun-surgery) caused by duplicating the case statement.
 
 Actual `case` statements are extremely easy to find. Just grep your codebase for
 "case." However, you should also be on the lookout for `case`'s sinister cousin,
@@ -47,6 +46,6 @@ this time in the form of multiple `if` statements:
 #### Solutions
 
 * If the `case` statement is checking a type code, such as `question_type`, use
-  [Replace Typecode with Subclasses](#replace-type-code-with-subclasses).
+  [Replace Type Code with Subclasses](#replace-type-code-with-subclasses).
 * If the `case` statement is checking the class of an object, use [Replace
   Conditional with Polymorphism](#replace-conditional-with-polymorphism).
