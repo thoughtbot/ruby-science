@@ -1,3 +1,3 @@
-## Extract Class
+# Extract Class
 
 STUB

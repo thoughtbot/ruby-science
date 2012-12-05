@@ -1,3 +1,3 @@
-## Replace mixin with composition
+# Replace mixin with composition
 
 STUB

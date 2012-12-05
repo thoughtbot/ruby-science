@@ -1,3 +1,3 @@
-## Replace conditional with Null Object
+# Replace conditional with Null Object
 
 STUB

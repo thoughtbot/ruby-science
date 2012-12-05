@@ -1,4 +1,4 @@
-## Large Class
+# Large Class
 
 Most Rails applications suffer from several Large Classes. Large classes are
 difficult to understand and they make it harder to change or reuse behavior.
@@ -6,7 +6,7 @@ Tests for large classes are slow and churn tends to be higher, leading to more
 bugs and conflicts. Large classes likely also suffer from [Divergent
 Change](#divergent-change).
 
-#### Symptoms
+### Symptoms
 
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
@@ -15,14 +15,14 @@ Change](#divergent-change).
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
-#### Example
+### Example
 
 This class has a high flog score, has a large number of methods, more private
 than public methods, and has multiple responsibility:
 
 ` app/models/question.rb@2f6e005
 
-#### Solutions
+### Solutions
 
 * [Move Method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
@@ -36,7 +36,7 @@ if the class contains private methods related to conditional branches.
 * [Extract Service Object](#extract-service-object) if the class contains
   numerous objects related to a single action.
 
-#### Prevention
+### Prevention
 
 Following the [Single Responsibility
 Principle](#single-responsibility-principle) will prevent large classes from
@@ -57,7 +57,7 @@ You can use flog to analyze classes as you write and modify them:
          3.4: Question#steps                   app/models/question.rb:28
          2.2: Question#scale?                  app/models/question.rb:34
 
-### God Class
+## God Class
 
 A particular specimen of Large Class affects most Rails applications: the God
 Class. A God Class is any class that seems to know everything about an

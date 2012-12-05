@@ -1,3 +1,3 @@
-## Extract Value Object
+# Extract Value Object
 
 STUB

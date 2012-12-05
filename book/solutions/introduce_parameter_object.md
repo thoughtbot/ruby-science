@@ -1,4 +1,4 @@
-## Introduce Parameter Object
+# Introduce Parameter Object
 
 A technique to reduce the number of input parameters to a method.
 
@@ -30,7 +30,7 @@ object to encapsulate behavior between the `first_name` and `last_name`.
 
 ` app/views/mailer/completion_notification.html.erb@28f3651
 
-#### Next Steps
+### Next Steps
 
 * Check to see if the same Data Clump exists elsewhere in the application, and
  reuse the Parameter Object to group them together.

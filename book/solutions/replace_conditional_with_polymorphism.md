@@ -1,4 +1,4 @@
-## Replace Conditional with Polymorphism
+# Replace Conditional with Polymorphism
 
 Conditional code clutters methods, makes extraction and reuse harder, and can
 lead to leaky concerns. Object-oriented languages like Ruby allow developers to
@@ -38,7 +38,7 @@ There are a number of issues with the `summary` method:
 * This method isn't the only place in the application that checks question
   types, meaning that new types will cause [Shotgun Surgery](#shotgun-surgery).
 
-### Replace Type Code With Subclasses
+## Replace Type Code With Subclasses
 
 Let's replace this case statement with polymorphism by introducing a subclass
 for each type of question.
@@ -51,7 +51,7 @@ called "Single Table Inheritance." Rails will take care of most of the details,
 but there are a few extra steps we need to take when refactoring to Single Table
 Inheritance.
 
-### Single Table Inheritance (STI)
+## Single Table Inheritance (STI)
 
 The first step to convert to STI is generally to create a new subclass for each
 type. However, the existing type codes are named "Open," "Scale," and
@@ -113,7 +113,7 @@ a little Ruby meta-programming to make that fairly painless:
 
 At this point, we're ready to proceed with a regular refactor.
 
-#### Extracting Type-Specific Code
+### Extracting Type-Specific Code
 
 The next step is to move type-specific code from `Question` into the subclass
 for each specific type.
@@ -166,7 +166,7 @@ The new subclass will implement `summary`, and the `Question` class doesn't need
 to change. The summary code for each type now lives with its type, so no one
 class is cluttered up with the details.
 
-### Polymorphic Partials
+## Polymorphic Partials
 
 Applications rarely check the type code in just one place. Running grep on our
 example application reveals several more places. Most interestingly, the views
@@ -196,7 +196,7 @@ We can use this to move the type-specific view code into a view for each type:
 
 You can see the full change in commit 8243493.
 
-#### Multiple Polymorphic Views
+### Multiple Polymorphic Views
 
 Our application also has different fields on the question form depending on the
 question type. Currently, that also performs type-checking:
@@ -212,7 +212,7 @@ prefixes or suffixes in `render`, but we can do it ourselves easily enough:
 This will render `app/views/open_questions/_open_question_form.html.erb` for an
 open question, and so on.
 
-#### Drawbacks
+### Drawbacks
 
 It's worth noting that, although this refactoring improved our particular
 example, replacing conditionals with polymorphism is not without drawbacks.
@@ -231,7 +231,7 @@ if you find yourself adding behaviors much more often than adding types, you
 should look into using [observers](#introduce-observer) or
 [visitors](#introduce-visitor) instead.
 
-#### Next Steps
+### Next Steps
 
 * Check the new classes for [Duplicated Code](#duplicated-code) that can be
   pulled up into the superclass.
