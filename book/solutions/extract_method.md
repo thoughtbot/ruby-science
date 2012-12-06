@@ -15,6 +15,8 @@ Uses:
   code into the extracted method.
 * Reveals complexity.
 
+\clearpage
+
 Let's take a look at an example [Long Method](#long-method) and improve it by
 extracting smaller methods:
 
@@ -46,6 +48,8 @@ This method performs a number of tasks:
 * It attempts to save the question.
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
+
+\clearpage
 
 Any of these tasks can be extracted to a method. Let's start by extracting the
 task of building the question.

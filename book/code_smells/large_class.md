@@ -15,6 +15,8 @@ Change](#divergent-change).
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
+\clearpage
+
 ### Example
 
 This class has a high flog score, has a large number of methods, more private
@@ -42,6 +44,8 @@ Following the [Single Responsibility
 Principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
+
+\clearpage
 
 You can use flog to analyze classes as you write and modify them:
 

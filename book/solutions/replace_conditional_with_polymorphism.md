@@ -21,6 +21,8 @@ Uses:
 * Makes it easier to remove [Duplicated Code](#duplicated-code) by taking
   behavior out of conditional clauses and private methods.
 
+\clearpage
+
 Example:
 
 This `Question` class summarizes its answers differently depending on its
@@ -74,6 +76,8 @@ debug STI failures by themselves:
 
 ` app/models/question.rb@c18ebeb:6
 
+\clearpage
+
 Running the tests after this will reveal that Rails wants the subclasses to be
 defined, so let's add some placeholder classes:
 
@@ -106,6 +110,8 @@ At this point, the tests are passing with STI in place, so we can rename
 
 ` db/migrate/20121128225425_rename_question_type_to_type.rb@5125668
 
+\clearpage
+
 Now we need to build the appropriate subclass instead of `Question`. We can use
 a little Ruby meta-programming to make that fairly painless:
 
@@ -128,6 +134,8 @@ The first step is to use [Extract Method](#extract-method) to move the path to
 its own method. In this case, we already extracted methods called
 'summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
+
+\clearpage
 
 The next step is to use [Move Method](#move-method) to move the extracted method
 to the appropriate class. First, let's move the method
@@ -165,6 +173,8 @@ The `summary` method is now much better. Adding new question types is easier.
 The new subclass will implement `summary`, and the `Question` class doesn't need
 to change. The summary code for each type now lives with its type, so no one
 class is cluttered up with the details.
+
+\clearpage
 
 ## Polymorphic Partials
 
