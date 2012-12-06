@@ -2,7 +2,7 @@
 
 One of the first principles we're taught as developers: Keep your code [DRY](#dry).
 
-#### Symptoms
+### Symptoms
 
 * You find yourself copy and pasting code from one place to another.
 * [Shotgun Surgery](#shotgun-surgery) occurs when changes to your application 
@@ -10,7 +10,7 @@ require the same small edits in multiple places.
 
 \clearpage
 
-#### Example
+### Example
 
 The `QuestionsController` suffers from duplication in the `create` and `update` methods.
 
@@ -46,7 +46,7 @@ def update
 end
 ```
 
-#### Solutions
+### Solutions
 
 * [Extract Method](#extract-method) for duplicated code in the same file.
 * [Extract Class](#extract-class) for duplicated code across multiple files.

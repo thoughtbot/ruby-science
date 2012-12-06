@@ -7,7 +7,7 @@ To introduce a parameter object:
 * Pick a name for the object that represents the grouped parameters.
 * Replace method's grouped parameters with the object.
 
-Uses:
+### Uses
 
 * Remove [Long Parameter Lists](#long-parameter-list).
 * Group parameters that naturally fit together.
