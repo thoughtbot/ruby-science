@@ -8,6 +8,8 @@ One of the first principles we're taught as developers: Keep your code [DRY](#dr
 * [Shotgun Surgery](#shotgun-surgery) occurs when changes to your application 
 require the same small edits in multiple places.
 
+\clearpage
+
 #### Example
 
 The `QuestionsController` suffers from duplication in the `create` and `update` methods.
