@@ -13,6 +13,8 @@ feature 'user views survey results' do
     as_another_user { answer_survey survey, 'Billy', 'Red', '10' }
     as_another_user { answer_survey survey, 'Benny', 'Blue', '4' }
 
+    view_results survey
+
     open_answer = summary_for_question('Name?')
     open_answer.should have_content('Brian')
     open_answer.should have_content('Billy')
@@ -37,7 +39,7 @@ feature 'user views survey results' do
     maker.open_question 'No results'
 
     sign_in
-    visit survey_completions_path(maker.survey)
+    view_results maker.survey
 
     summary_for_question('No results').should have_content('No response')
   end
@@ -48,6 +50,10 @@ feature 'user views survey results' do
     choose color
     choose airspeed_velocity
     submit_answers
+  end
+
+  def view_results(survey)
+    visit survey_completions_path(survey)
   end
 
   def summary_for_question(question)
