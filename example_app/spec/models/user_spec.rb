@@ -1,5 +1,22 @@
 require 'spec_helper'
 
+describe User, '#answer_text_for' do
+  it 'returns the answer text for the question by this user' do
+    survey = create(:survey)
+    question = create(:question, survey: survey)
+    other_question = create(:question, survey: survey)
+    user = create(:user)
+    other_user = create(:user)
+    SurveyTaker.new(survey, user: user).answer(question, 'expected')
+    SurveyTaker.new(survey, user: user).answer(other_question, 'other question')
+    SurveyTaker.new(survey, user: other_user).answer(question, 'other user')
+
+    result = user.answer_text_for(question)
+
+    result.should eq 'expected'
+  end
+end
+
 describe User, '#full_name' do
   it 'returns the users full name' do
     user = User.new(first_name: 'First', last_name: 'Last')
