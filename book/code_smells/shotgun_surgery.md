@@ -40,6 +40,9 @@ we'd need to make the same small change in several places.
 
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
 to replace duplicated `case` statements and `if-elsif` blocks.
+* [Replace Conditional with Null Object](#replace-conditional-with-null-object)
+  if changing a method to return `nil` would require checks for `nil` in several
+  places.
 * [Extract Decorator](#extract-decorator) to replace duplicated display code in 
 views/templates.
 * [Introduce Parameter Object](#introduce-parameter-object) to hang useful
