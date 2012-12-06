@@ -2,7 +2,7 @@
 
 Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 
-#### Symptoms
+### Symptoms
 
 * You have to make the same small change across several different files.
 * Changes become difficult to manage because they hard to keep track of.
@@ -17,7 +17,7 @@ Make sure you look for related smells in the affected code:
 
 \clearpage
 
-#### Example
+### Example
 
 Users names are formatted and displayed as 'First Last' throughout the application. 
 If we want to change the formating to include a middle initial (e.g. 'First M. Last') 
@@ -38,7 +38,7 @@ we'd need to make the same small change in several places.
 
 ```
 
-#### Solutions
+### Solutions
 
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
 to replace duplicated `case` statements and `if-elsif` blocks.
