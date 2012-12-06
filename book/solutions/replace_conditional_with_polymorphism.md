@@ -11,7 +11,7 @@ Replacing conditional code allows you to move decisions to the best point in the
 application. Depending on polymorphic interfaces will create classes that don't
 need to change when the application changes.
 
-Uses:
+### Uses
 
 * Removes [Divergent Change](#divergent-change) from classes that need to alter
   their behavior based on the outcome of the condition.
@@ -23,7 +23,7 @@ Uses:
 
 \clearpage
 
-Example:
+### Example
 
 This `Question` class summarizes its answers differently depending on its
 `question_type`:
