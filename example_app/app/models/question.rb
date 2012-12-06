@@ -12,6 +12,6 @@ class Question < ActiveRecord::Base
   delegate :title, to: :survey, prefix: true
 
   def most_recent_answer_text
-    answers.most_recent.try(:text) || 'No response'
+    answers.most_recent.try(:text) || Answer::MISSING_TEXT
   end
 end
