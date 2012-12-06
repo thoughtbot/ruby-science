@@ -20,6 +20,14 @@ describe Answer, '.for_user' do
 
     result.text.should eq 'expected'
   end
+
+  it 'returns a null answer when missing' do
+    user = create(:user)
+
+    result = Answer.for_user(user)
+
+    result.should be_a(NullAnswer)
+  end
 end
 
 describe Answer, '.most_recent_answer' do
@@ -31,5 +39,11 @@ describe Answer, '.most_recent_answer' do
     result = Answer.most_recent
 
     result.text.should eq 'newest'
+  end
+
+  it 'returns a null answer when missing' do
+    result = Answer.most_recent
+
+    result.should be_a(NullAnswer)
   end
 end
