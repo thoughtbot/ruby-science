@@ -15,6 +15,8 @@ Make sure you look for related smells in the affected code:
 * [Long Parameter List](#long-parameter-list)
 * [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
+\clearpage
+
 #### Example
 
 Users names are formatted and displayed as 'First Last' throughout the application. 
