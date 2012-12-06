@@ -6,7 +6,7 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 * Move extracted code into the new method.
 * Call the new method from the point of extraction.
 
-Uses:
+### Uses
 
 * Removes [Long Methods](#long-method).
 * Sets the stage for moving behavior via [Move Method](#move-method).
