@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include Clearance::User
 
   def answer_text_for(question)
-    question.answers.for_user(self).try(:text) || Answer::MISSING_TEXT
+    question.answers.for_user(self).text
   end
 
   def full_name
