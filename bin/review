@@ -1,5 +1,3 @@
 #!/bin/sh
 
-hub checkout https://github.com/thoughtbot/ruby-science/pull/$1 &&
-  rake build:pdf &&
-  open output/book.pdf
+hub checkout https://github.com/thoughtbot/ruby-science/pull/$1 && rake open

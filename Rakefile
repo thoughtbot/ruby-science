@@ -47,6 +47,11 @@ task :update_backbone_support do
   sh "rm -rf backbone-support"
 end
 
+desc "Build an open a PDF version"
+task :open => 'build:pdf' do
+  sh 'open output/book.pdf'
+end
+
 module Runner
   private
 
