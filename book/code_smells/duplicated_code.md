@@ -51,3 +51,5 @@ end
 * [Extract Partial](#extract-partial) for duplicated view and template code.
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
 for duplicated conditional logic.
+* [Replace Conditional with Null Object](#replace-conditional-with-null-object)
+  to remove duplicated checks for `nil` values.
