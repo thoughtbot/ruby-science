@@ -10,4 +10,8 @@ class Question < ActiveRecord::Base
   has_many :answers
 
   delegate :title, to: :survey, prefix: true
+
+  def most_recent_answer_text
+    answers.most_recent.try(:text) || 'No response'
+  end
 end
