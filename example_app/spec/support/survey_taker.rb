@@ -1,9 +1,9 @@
 class SurveyTaker
   include FactoryGirl::Syntax::Methods
 
-  def initialize(survey)
+  def initialize(survey, options = {})
     @survey = survey
-    @completion = create(:completion, survey: @survey)
+    @completion = create(:completion, options.merge(survey: @survey))
   end
 
   def answer(question, answer_text)
