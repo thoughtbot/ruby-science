@@ -15,6 +15,15 @@ describe User, '#answer_text_for' do
 
     result.should eq 'expected'
   end
+
+  it 'returns text when no answer exists' do
+    user = create(:user)
+    question = create(:question)
+
+    result = user.answer_text_for(question)
+
+    result.should be_present
+  end
 end
 
 describe User, '#full_name' do
