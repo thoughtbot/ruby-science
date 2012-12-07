@@ -1,4 +1,5 @@
 require 'rake'
+require 'nokogiri'
 
 desc "Build all output targets, commit, and push a new release"
 task :release => "build:all" do
@@ -36,7 +37,12 @@ namespace :build do
   end
 
   desc "Build all output targets"
-  task :all => [:html, :pdf, :epub, :mobi, :sample] do
+  task :all => [:html, :pdf, :epub, :mobi, :sample, :toc] do
+  end
+
+  desc "Generate HTML table of contents for learn.thoughtbot.com"
+  task :toc => :html do
+    Builder.new.generate_toc
   end
 end
 
@@ -147,6 +153,14 @@ class Builder
     markdown.close
   end
 
+  def generate_toc
+    Dir.chdir OUTPUT_DIR do
+      File.open 'toc.html', 'w' do |file|
+        TableOfContents.new(file).write
+      end
+    end
+  end
+
   def generate_html
     Dir.chdir OUTPUT_DIR do
       puts "## Generating HTML version..."
@@ -186,6 +200,102 @@ class Builder
       puts "## Generating MOBI version..."
       run "kindlegen book.epub -o book.mobi"
     end
+  end
+end
+
+class TableOfContents
+  EXCLUDE = [
+    'Symptoms', 'Example', 'Solutions', 'Prevention', 'Uses', 'Steps',
+    'Next Steps', 'Drawbacks'
+  ]
+  PARTS = ['Code Smells', 'Solutions', 'Principles']
+
+  def initialize(file)
+    @file = file
+  end
+
+  def write
+    remove_excluded_headers
+    remove_anchors
+    write_header
+    write_introduction
+    write_parts
+    write_footer
+  end
+
+  private
+
+  def remove_excluded_headers
+    toc_element.css('li').each do |item|
+      if EXCLUDE.include?(item.text)
+        item.remove
+      end
+    end
+  end
+
+  def remove_anchors
+    toc_element.css('a').each do |anchor|
+      anchor.replace document.create_text_node(anchor.text)
+    end
+  end
+
+  def write_introduction
+    write_chapters 1
+  end
+
+  def write_parts
+    PARTS.each do |part|
+      write_part part, count_chapters_for(part)
+    end
+  end
+
+  def write_part(part, chapters_count)
+    @file.puts '<li>'
+    @file.puts "<h3>#{part}</h3>"
+    @file.puts '<ul>'
+    write_chapters chapters_count
+    @file.puts '</ul>'
+    @file.puts '</li>'
+  end
+
+  def count_chapters_for(part)
+    directory = part.downcase.gsub(' ', '_')
+    `ls ../book/#{directory}/*.md | wc -l`.to_i
+  end
+
+  def write_chapters(chapters_count)
+    chapters_count.times do
+      chapter = chapters.first
+      chapter.remove
+      @file.puts chapter.to_s
+    end
+  end
+
+  def write_header
+    @file.puts '<section id="table-of-contents">'
+    @file.puts '<h3>Table of Contents</h3>'
+    @file.puts '<ul>'
+  end
+
+  def write_footer
+    @file.puts '</ul>'
+    @file.puts '</section>'
+  end
+
+  def html
+    IO.read('book.html')
+  end
+
+  def document
+    @document ||= Nokogiri::HTML::Document.parse(html)
+  end
+
+  def chapters
+    document.css('#TOC > ul > li')
+  end
+
+  def toc_element
+    @toc_element ||= document.css('#TOC > ul')
   end
 end
 
