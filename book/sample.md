@@ -10,7 +10,7 @@ style, and delivery of the product.
 If you enjoy the sample, you can get access to the entire book and sample
 application at:
 
-<http://rubyscience.com>
+<http://www.rubyscience.com>
 
 As a purchaser of the book, you also get access to:
 
@@ -63,4 +63,4 @@ to the full content, the example application, ongoing updates, and the ability
 to get your questions about Ruby on Rails answered by us, you can pick it up on
 our website:
 
-<http://rubyscience.com>
+<http://www.rubyscience.com>
