@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="thoughtbot">
+  <meta name="author" content="Joe Ferris">
+  <meta name="author" content="Harlow Ward">
+  <title>Ruby Science</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">Ruby Science</h1>
+<h2 class="author">thoughtbot</h2>
+<h2 class="author">Joe Ferris</h2>
+<h2 class="author">Harlow Ward</h2>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#code-reviews">Code Reviews</a></li>
+<li><a href="#just-follow-your-nose">Just Follow Your Nose</a></li>
+<li><a href="#removing-resistance">Removing Resistance</a></li>
+<li><a href="#bugs-and-churn">Bugs and Churn</a></li>
+<li><a href="#metrics">Metrics</a></li>
+<li><a href="#how-to-read-this-book">How To Read This Book</a></li>
+</ul></li>
+<li><a href="#long-method">Long Method</a><ul>
+<li><a href="#symptoms">Symptoms</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#solutions">Solutions</a></li>
+</ul></li>
+<li><a href="#large-class">Large Class</a><ul>
+<li><a href="#symptoms-1">Symptoms</a></li>
+<li><a href="#example-1">Example</a></li>
+<li><a href="#solutions-1">Solutions</a></li>
+<li><a href="#prevention">Prevention</a></li>
+<li><a href="#god-class">God Class</a></li>
+</ul></li>
+<li><a href="#feature-envy">Feature Envy</a></li>
+<li><a href="#case-statement">Case Statement</a><ul>
+<li><a href="#symptoms-2">Symptoms</a></li>
+<li><a href="#type-codes">Type Codes</a><ul>
+<li><a href="#example-2">Example</a></li>
+<li><a href="#solutions-2">Solutions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#high-fan-out">High Fan-out</a></li>
+<li><a href="#shotgun-surgery">Shotgun Surgery</a><ul>
+<li><a href="#symptoms-3">Symptoms</a></li>
+<li><a href="#example-3">Example</a></li>
+<li><a href="#solutions-3">Solutions</a></li>
+</ul></li>
+<li><a href="#divergent-change">Divergent Change</a></li>
+<li><a href="#long-parameter-list">Long Parameter List</a><ul>
+<li><a href="#symptoms-4">Symptoms</a></li>
+<li><a href="#example-4">Example</a></li>
+<li><a href="#solutions-4">Solutions</a></li>
+</ul></li>
+<li><a href="#duplicated-code">Duplicated Code</a><ul>
+<li><a href="#symptoms-5">Symptoms</a></li>
+<li><a href="#example-5">Example</a></li>
+<li><a href="#solutions-5">Solutions</a></li>
+</ul></li>
+<li><a href="#uncommunicative-name">Uncommunicative Name</a></li>
+<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#mixin">Mixin</a></li>
+<li><a href="#callback">Callback</a></li>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a><ul>
+<li><a href="#uses">Uses</a></li>
+<li><a href="#example-6">Example</a></li>
+<li><a href="#replace-type-code-with-subclasses">Replace Type Code With Subclasses</a></li>
+<li><a href="#single-table-inheritance-sti">Single Table Inheritance (STI)</a><ul>
+<li><a href="#extracting-type-specific-code">Extracting Type-Specific Code</a></li>
+</ul></li>
+<li><a href="#polymorphic-partials">Polymorphic Partials</a><ul>
+<li><a href="#multiple-polymorphic-views">Multiple Polymorphic Views</a></li>
+<li><a href="#drawbacks">Drawbacks</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#replace-conditional-with-null-object">Replace conditional with Null Object</a><ul>
+<li><a href="#uses-1">Uses</a></li>
+<li><a href="#example-7">Example</a></li>
+<li><a href="#drawbacks-1">Drawbacks</a></li>
+<li><a href="#next-steps-1">Next Steps</a></li>
+<li><a href="#truthiness-try-and-other-tricks">truthiness, try, and other tricks</a></li>
+</ul></li>
+<li><a href="#extract-method">Extract method</a><ul>
+<li><a href="#uses-2">Uses</a></li>
+<li><a href="#replace-temp-with-query">Replace temp with query</a><ul>
+<li><a href="#next-steps-2">Next Steps</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#extract-class">Extract Class</a></li>
+<li><a href="#extract-value-object">Extract Value Object</a></li>
+<li><a href="#extract-decorator">Extract Decorator</a></li>
+<li><a href="#extract-partial">Extract Partial</a><ul>
+<li><a href="#uses-3">Uses</a></li>
+<li><a href="#steps">Steps</a></li>
+<li><a href="#example-8">Example</a></li>
+<li><a href="#next-steps-3">Next Steps</a></li>
+</ul></li>
+<li><a href="#extract-service-object">Extract Service Object</a></li>
+<li><a href="#introduce-observer">Introduce Observer</a></li>
+<li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
+<li><a href="#uses-4">Uses</a></li>
+<li><a href="#next-steps-4">Next Steps</a></li>
+</ul></li>
+<li><a href="#use-class-as-factory">Use class as Factory</a></li>
+<li><a href="#move-method">Move method</a></li>
+<li><a href="#inline-class">Inline class</a></li>
+<li><a href="#inject-dependencies">Inject dependencies</a></li>
+<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
+<li><a href="#use-convention-over-configuration">Use convention over configuration</a></li>
+<li><a href="#introduce-visitor">Introduce Visitor</a></li>
+<li><a href="#dry">DRY</a></li>
+<li><a href="#single-responsibility-principle">Single responsibility principle</a></li>
+<li><a href="#tell-dont-ask">Tell, Don't Ask</a></li>
+<li><a href="#law-of-demeter">Law of Demeter</a></li>
+<li><a href="#composition-over-inheritance">Composition over inheritance</a></li>
+<li><a href="#open-closed-principle">Open closed principle</a></li>
+<li><a href="#dependency-inversion-principle">Dependency inversion principle</a></li>
+</ul>
+</nav>
+<p></p>
+<section class="level1" id="introduction">
+<h1><a href="#TOC">Introduction</a></h1>
+<p>Ruby on Rails is almost a decade old, and its community has developed a number of principles for building applications that are fast, fun, and easy to change: don't repeat yourself, keep your views dumb, keep your controllers skinny, and keep business logic in your models. These principles carry most applications to their first release or beyond.</p>
+<p>However, these principles only get you so far. After a few releases, most applications begin to suffer. Models become fat, classes become few and large, tests become slow, and changes become painful. In many applications, there comes a day when the developers realize that there's no going back; the application is a twisted mess, and the only way out is a rewrite or a new job.</p>
+<p>Fortunately, it doesn't have to be this way. Developers have been using object-oriented programming for several decades, and there's a wealth of knowledge out there which still applies to developing applications today. We can use the lessons learned by these developers to write good Rails applications by applying good object-oriented programming.</p>
+<p>Ruby Science will outline a process for detecting emerging problems in code, and will dive into the solutions, old and new.</p>
+<section class="level2" id="code-reviews">
+<h2><a href="#TOC">Code Reviews</a></h2>
+<p>The first step towards cleaner code is to make sure you read the code as you write it. Have you ever typed up a long e-mail, hit &quot;Send,&quot; and then realized later that you made several typos? The problem here is obvious: you didn't read what you'd written before sending it. Proofreading your e-mails will save you from all kinds of embarrassments. Proofreading your code will do the same.</p>
+<p>An easy way to make it simple to proofread code is to always work on a feature branch. Never commit directly to your master branch; doing so will make it tempting to either push code that hasn't been reviewed, or keep code on your local machine. Neither is a good idea.</p>
+<p>The first person who should look at every line of code you write is easy to find: it's you! Before merging your feature branch, look at the diff of what you've done. Read through each changed line, each new method, and each new class to make sure that you like what you see. One easy way to make sure that you look at everything before committing it is to use <code>git add --patch</code> instead of <code>git add</code>. This will force you to confirm each change you make.</p>
+<p>If you're working on a team, ask your teammates to review your code as well. After working on the same piece of code for a while, it's easy to develop tunnel vision. Getting a fresh and different perspective will help catch mistakes early. After you review your own code, don't merge your feature branch just yet. Push it up and invite your team members to view the diff as well. When reviewing somebody else's code, take the same approach you took above: page through the diff, and make sure you like everything you see.</p>
+<p>Team code reviews provide another benefit: you get immediate feedback on how understandable a piece of code is. Chances are good that you'll understand your own code. After all, you just wrote it. However, you want your team members to understand your code as well. Also, even though the code is clear now, it may not be as obvious looking over it again in six months. Your team members will be a good indicator of what your own understanding will be in the future. If it doesn't make sense to them now, it won't make sense to you later.</p>
+<p>Code reviews provide an opportunity to catch mistakes and improve code before it ever gets merged, but there's still a big question out there: what should you be looking for?</p>
+</section>
+<section class="level2" id="just-follow-your-nose">
+<h2><a href="#TOC">Just Follow Your Nose</a></h2>
+<p>The primary motivator for refactoring is the code smell. A code smell is an indicator that something may be wrong in the code. Not every smell means that you should fix something; however, smells are useful because they're easy to spot, and the root cause for a particular problem can be harder to track down.</p>
+<p>When performing code reviews, be on the lookout for smells. Whenever you see a smell, think about whether or not it would be better if you changed the code to remove the smell. If you're reviewing somebody else's code, suggest possible ways to refactor the code which would remove the smell.</p>
+<p>Don't treat code smells as bugs. Attempting to &quot;fix&quot; every smell you run across will end up being a waste of time, as not every smell is the symptom of an actual problem. Worse, removing code smells for the sake of process will end up obfuscating code because of the unnecessary hoops you'll jump through. In the end, it will prove impossible to remove every smell, as removing one smell will often introduce another.</p>
+<p>Each smell is associated with one or more common refactorings. If you see a long method, the most common way to improve the method is to extract new, smaller methods. Knowing the common refactorings that remove a smell will allow you to quickly think about how the code might change. Knowing that long methods can be removed by extracting methods, you can decide whether or not the end result of having several methods will be better or worse.</p>
+</section>
+<section class="level2" id="removing-resistance">
+<h2><a href="#TOC">Removing Resistance</a></h2>
+<p>There's another obvious opportunity for refactoring: any time you're having a hard time introducing a change to existing code, consider refactoring the code first. What you change will depend on what type of resistance you met.</p>
+<p>Did you have a hard time understanding the code? If the result you wanted seemed simple, but you couldn't figure out where to introduce it, the code isn't readable enough. Refactor the code until it's obvious where your change belongs, and it will make this change and every subsequent change easier. Refactor for readability first.</p>
+<p>Was it hard to change the code without breaking existing code? Change the existing code to be more flexible. Add extension points or extract code to be easier to reuse, and then try to introduce your change. Repeat this process until the change you want is easy to introduce.</p>
+<p>This work flow pairs well with fast branching systems like Git. First, create a new branch and attempt to make your change without any refactoring. If the change is difficult, make a work in progress commit, switch back to master, and create a new branch for refactoring. Refactor until you fix the resistance you met on your feature branch, and then rebase the feature branch on top of the refactoring branch. If the change is easier now, you're good to go. If not, switch back to your refactoring branch and try again.</p>
+<p>Each change should be easy to introduce. If it's not, it's time to refactor.</p>
+</section>
+<section class="level2" id="bugs-and-churn">
+<h2><a href="#TOC">Bugs and Churn</a></h2>
+<p>If you're spending a lot of time swatting bugs, you should consider refactoring the buggy portions of code. After each bug is fixed, examine the methods and classes you had to change to fix the bug. If you remove any smells you discover in the affected areas, then you'll make it less likely that a bug will be reintroduced.</p>
+<p>Bugs tend to crop up in the same places over and over. These places also tend to be the methods and classes with the highest rate of churn. When you find a bug, use Git to see if the buggy file changes often. If so, try refactoring the classes or methods which keep changing. If you separate the pieces that change often from the pieces that don't, then you'll spend less time fixing existing code. When you find files with high churn, look for smells in the areas that keep changing. The smell may reveal the reason for the high churn.</p>
+<p>Conversely, it may make sense to avoid refactoring areas with low churn. Although refactoring is an important part of keeping your code sane, refactoring changes code, and with each change, you risk introducing new bugs. Don't refactor just for the sake of &quot;cleaner&quot; code; refactor to address real problems. If a file hasn't changed in six months and you aren't finding bugs in it, leave it alone. It may not be the prettiest thing in your code base, but you'll have to spend more time looking at it when you break it while trying to fix something that wasn't broken.</p>
+</section>
+<section class="level2" id="metrics">
+<h2><a href="#TOC">Metrics</a></h2>
+<p>Various tool are available which can aid you in your search for code smells.</p>
+<p>You can use <a href="http://rubygems.org/gems/flog">flog</a> to detect complex parts of code. If you look at the classes and methods with the highest flog score, you'll probably find a few smells worth investigating.</p>
+<p>Duplication is one of the hardest problems to find by hand. If you're using diffs during code reviews, it will be invisible when you copy and paste existing methods. The original method will be unchanged and won't show up in the diff, so unless the reviewer knows and remembers that the original existed, they won't notice that the copied method isn't just a new addition. Use <a href="http://rubygems.org/gems/flay">flay</a> to find duplication. Every duplicated piece of code is a bug waiting to happen.</p>
+<p>When looking for smells, <a href="https://github.com/troessner/reek/wiki">reek</a> can find certain smells reliably and quickly. Attempting to maintain a &quot;reek free&quot; code base is costly, but using reek once you discover a problematic class or method may help you find the solution.</p>
+<p>To find files with a high churn rate, try out the aptly-named <a href="https://github.com/danmayer/churn">churn</a> gem. This works best with Git, but will also work with Subversion.</p>
+<p>You can also use <a href="http://https://codeclimate.com/">Code Climate</a>, a hosted tool which will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade.</p>
+<p>Getting obsessed with the counts and scores from these tools will distract from the actual issues in your code, but it's worthwhile to run them continually and watch out for potential warning signs.</p>
+</section>
+<section class="level2" id="how-to-read-this-book">
+<h2><a href="#TOC">How To Read This Book</a></h2>
+<p>This book contains three catalogs: smells, solutions, and principles.</p>
+<p>Start by looking up a smell that sounds familiar. Each chapter on smells explain the potential problems each smell may reveal and will reference possible solutions.</p>
+<p>Once you've identified the problem revealed by a smell, read the relevant solution chapter to learn how to fix it. Each solution chapter will explain which problems it addresses and potential problems which can be introduced.</p>
+<p>Lastly, smell and solution chapters will reference related principles. The smell chapters will reference principles that you can follow to avoid the root problem in the future. The solution chapters will explain how each solution changes your code to follow related principles.</p>
+<p>By following this process, you'll learn how to detect and fix actual problems in your code using smells and reusable solutions, and you'll learn about principles that you can follow to improve the code you write from the beginning.</p>
+<p></p>
+</section>
+</section>
+<section class="level1" id="long-method">
+<h1><a href="#TOC">Long Method</a></h1>
+<p>The most common smell in Rails applications is the Long Method.</p>
+<p>Long methods are exactly what they sound like: methods which are too long. They're easy to spot.</p>
+<section class="level3" id="symptoms">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>If you can't tell exactly what a method does at a glance, it's too long.</li>
+<li>Methods with more than one level of nesting are usually too long.</li>
+<li>Methods with more than one level of abstraction may be too long.</li>
+<li>Methods with a flog score of 10 or higher may be too long.</li>
+</ul>
+<p>You can watch out for long methods as you write them, but finding existing methods is easiest with tools like flog:</p>
+<pre><code>% flog app lib
+    72.9: flog total
+     5.6: flog/method average
+
+    15.7: QuestionsController#create       app/controllers/questions_controller.rb:9
+    11.7: QuestionsController#new          app/controllers/questions_controller.rb:2
+    11.0: Question#none
+     8.1: SurveysController#create         app/controllers/surveys_controller.rb:6</code></pre>
+<p>Methods with higher scores are more complicated. Anything with a score higher than 10 is worth looking at, but flog will only help you find potential trouble spots; use your own judgement when refactoring.</p>
+</section>
+<section class="level3" id="example">
+<h3><a href="#TOC">Example</a></h3>
+<p>For an example of a Long Method, let's take a look at the highest scored method from flog, <code>QuestionsController#create</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> create
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="ot">@submittable_type</span> = params[<span class="st">:submittable_type_id</span>]
+  question_params = params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:submittable_type</span>, <span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="ot">@question</span> = <span class="ot">@survey</span>.questions.new(question_params)
+  <span class="ot">@question</span>.submittable_type = <span class="ot">@submittable_type</span>
+
+  <span class="kw">if</span> <span class="ot">@question</span>.save
+    redirect_to <span class="ot">@survey</span>
+  <span class="kw">else</span>
+    render <span class="st">:new</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="solutions">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#extract-method">Extract Method</a> is the most common way to break apart long methods.</li>
+<li><a href="#replace-temp-with-query">Replace Temp with Query</a> if you have local variables in the method.</li>
+</ul>
+<p>After extracting methods, check for <a href="#feature-envy">Feature Envy</a> in the new methods to see if you should employ <a href="#move-method">Move Method</a> to provide the method with a better home.</p>
+</section>
+</section>
+<section class="level1" id="large-class">
+<h1><a href="#TOC">Large Class</a></h1>
+<p>Most Rails applications suffer from several Large Classes. Large classes are difficult to understand and they make it harder to change or reuse behavior. Tests for large classes are slow and churn tends to be higher, leading to more bugs and conflicts. Large classes likely also suffer from <a href="#divergent-change">Divergent Change</a>.</p>
+<section class="level3" id="symptoms-1">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>You can't easily describe what the class does in one sentence.</li>
+<li>You can't tell what the class does without scrolling.</li>
+<li>The class needs to change for more than one reason.</li>
+<li>The class has more private methods that public methods.</li>
+<li>The class has more than 7 methods.</li>
+<li>The class has a total flog score of 50.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-1">
+<h3><a href="#TOC">Example</a></h3>
+<p>This class has a high flog score, has a large number of methods, more private than public methods, and has multiple responsibility:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">class</span> <span class="dt">Question</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  <span class="kw">include</span> <span class="dt">ActiveModel</span>::<span class="dt">ForbiddenAttributesProtection</span>
+
+  <span class="dt">SUBMITTABLE_TYPES</span> =<span class="ot"> %w(</span><span class="st">Open MultipleChoice Scale</span><span class="ot">)</span>.freeze
+
+  validates <span class="st">:maximum</span>, presence: <span class="dv">true</span>, <span class="kw">if</span>: <span class="st">:scale?</span>
+  validates <span class="st">:minimum</span>, presence: <span class="dv">true</span>, <span class="kw">if</span>: <span class="st">:scale?</span>
+  validates <span class="st">:question_type</span>, presence: <span class="dv">true</span>, inclusion: <span class="dt">SUBMITTABLE_TYPES</span>
+  validates <span class="st">:title</span>, presence: <span class="dv">true</span>
+
+  belongs_to <span class="st">:survey</span>
+  has_many <span class="st">:answers</span>
+  has_many <span class="st">:options</span>
+
+  accepts_nested_attributes_for <span class="st">:options</span>, reject_if: <span class="st">:all_blank</span>
+
+  <span class="kw">def</span> summary
+    <span class="kw">case</span> question_type
+    <span class="kw">when</span> <span class="st">'MultipleChoice'</span>
+      summarize_multiple_choice_answers
+    <span class="kw">when</span> <span class="st">'Open'</span>
+      summarize_open_answers
+    <span class="kw">when</span> <span class="st">'Scale'</span>
+      summarize_scale_answers
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> steps
+    (minimum..maximum).to_a
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> scale?
+    question_type == <span class="st">'Scale'</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_multiple_choice_answers
+    total = answers.count
+    counts = answers.group(<span class="st">:text</span>).order(<span class="st">'COUNT(*) DESC'</span>).count
+    percents = counts.map <span class="kw">do</span> |text, count|
+      percent = (<span class="fl">100.0</span> * count / total).round
+      <span class="st">&quot;</span><span class="ot">#{</span>percent<span class="ot">}</span><span class="st">% </span><span class="ot">#{</span>text<span class="ot">}</span><span class="st">&quot;</span>
+    <span class="kw">end</span>
+    percents.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_open_answers
+    answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>).join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_scale_answers
+    sprintf(<span class="st">'Average: %.02f'</span>, answers.average(<span class="st">'text'</span>))
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="solutions-1">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#move-method">Move Method</a> to move methods to another class if an existing class could better handle the responsibility.</li>
+<li><a href="#extract-class">Extract Class</a> if the class has multiple responsibilities.</li>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> if the class contains private methods related to conditional branches.</li>
+<li><a href="#extract-value-object">Extract Value Object</a> if the class contains private query methods.</li>
+<li><a href="#extract-decorator">Extract Decorator</a> if the class contains delegation methods.</li>
+<li><a href="#extract-service-object">Extract Service Object</a> if the class contains numerous objects related to a single action.</li>
+</ul>
+</section>
+<section class="level3" id="prevention">
+<h3><a href="#TOC">Prevention</a></h3>
+<p>Following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> will prevent large classes from cropping up. It's difficult for any class to become too large without taking on more than one responsibility.</p>
+<p></p>
+<p>You can use flog to analyze classes as you write and modify them:</p>
+<pre><code>% flog -a app/models/question.rb 
+    48.3: flog total
+     6.9: flog/method average
+
+    15.6: Question#summarize_multiple_choice_answers app/models/question.rb:38
+    12.0: Question#none
+     6.3: Question#summary                 app/models/question.rb:17
+     5.2: Question#summarize_open_answers  app/models/question.rb:48
+     3.6: Question#summarize_scale_answers app/models/question.rb:52
+     3.4: Question#steps                   app/models/question.rb:28
+     2.2: Question#scale?                  app/models/question.rb:34</code></pre>
+</section>
+<section class="level2" id="god-class">
+<h2><a href="#TOC">God Class</a></h2>
+<p>A particular specimen of Large Class affects most Rails applications: the God Class. A God Class is any class that seems to know everything about an application. It has a reference to the majority of the other models, and it's difficult to answer any question or perform any action in the application without going through this class.</p>
+<p>Most applications have two God Classes: User, and the central focus of the application. For a todo list application, it will be User and Todo; for photo sharing application, it will be User and Photo.</p>
+<p>You need to be particularly vigilant about refactoring these classes. If you don't start splitting up your God Classes early on, then it will become impossible to separate them without rewriting most of your application.</p>
+<p>Treatment and prevention of God Classes is the same as for any Large Class.</p>
+</section>
+</section>
+<section class="level1" id="feature-envy">
+<h1><a href="#TOC">Feature Envy</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="case-statement">
+<h1><a href="#TOC">Case Statement</a></h1>
+<p>Case statements are a sign that a method contains too much knowledge.</p>
+<section class="level3" id="symptoms-2">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>Case statements that check the class of an object.</li>
+<li>Case statements that check a type code.</li>
+<li><a href="#divergent-change">Divergent Change</a> caused by changing or adding <code>when</code> clauses.</li>
+<li><a href="#shotgun-surgery">Shotgun Surgery</a> caused by duplicating the case statement.</li>
+</ul>
+<p>Actual <code>case</code> statements are extremely easy to find. Just grep your codebase for &quot;case.&quot; However, you should also be on the lookout for <code>case</code>'s sinister cousin, the repetitive <code>if-elsif</code>.</p>
+</section>
+<section class="level2" id="type-codes">
+<h2><a href="#TOC">Type Codes</a></h2>
+<p>Some applications contain type codes: fields that store type information about objects. These fields are easy to add and seem innocent, but they result in code that's harder to maintain. A better solution is to take advantage of Ruby's ability to invoke different behavior based on an object's class, called &quot;dynamic dispatch.&quot; Using a case statement with a type code inelegantly reproduces dynamic dispatch.</p>
+<p>The special <code>type</code> column that ActiveRecord uses is not necessarily a type code. The <code>type</code> column is used to serialize an object's class to the database, so that the correct class can be instantiated later on. If you're just using the <code>type</code> column to let ActiveRecord decide which class to instantiate, this isn't a smell. However, make sure to avoid referencing the <code>type</code> column from <code>case</code> or <code>if</code> statements.</p>
+<section class="level3" id="example-2">
+<h3><a href="#TOC">Example</a></h3>
+<p>This method summarizes the answers to a question. The summary varies based on the type of question.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary
+  <span class="kw">case</span> question_type
+  <span class="kw">when</span> <span class="st">'MultipleChoice'</span>
+    summarize_multiple_choice_answers
+  <span class="kw">when</span> <span class="st">'Open'</span>
+    summarize_open_answers
+  <span class="kw">when</span> <span class="st">'Scale'</span>
+    summarize_scale_answers
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Note that many applications replicate the same <code>case</code> statement, which is a more serious offence. This view duplicates the <code>case</code> logic from <code>Question#summary</code>, this time in the form of multiple <code>if</code> statements:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_question.html.erb
+<span class="kw">&lt;%</span> <span class="kw">if</span> question.question_type <span class="ch">==</span> <span class="st">'MultipleChoice'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;ol&gt;</span>
+    <span class="kw">&lt;%</span> question.options.each <span class="kw">do</span> <span class="ch">|</span>option<span class="ch">|</span> <span class="kw">-%&gt;</span>
+      <span class="kw">&lt;li&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.radio_button <span class="st">:text</span>, option.text, id: dom_id(option) <span class="kw">%&gt;</span>
+        <span class="kw">&lt;%=</span> content_tag <span class="st">:label</span>, option.text, <span class="kw">for</span>: dom_id(option) <span class="kw">%&gt;</span>
+      <span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;/ol&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+
+<span class="kw">&lt;%</span> <span class="kw">if</span> question.question_type <span class="ch">==</span> <span class="st">'Scale'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;ol&gt;</span>
+    <span class="kw">&lt;%</span> question.steps.each <span class="kw">do</span> <span class="ch">|</span>step<span class="ch">|</span> <span class="kw">-%&gt;</span>
+      <span class="kw">&lt;li&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.radio_button <span class="st">:text</span>, step <span class="kw">%&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.label <span class="st">&quot;text_</span><span class="ot">#{</span>step<span class="ot">}</span><span class="st">&quot;</span>, label: step <span class="kw">%&gt;</span>
+      <span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;/ol&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+</section>
+<section class="level3" id="solutions-2">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#replace-type-code-with-subclasses">Replace Type Code with Subclasses</a> if the <code>case</code> statement is checking a type code, such as <code>question_type</code>.</li>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> when the <code>case</code> statement is checking the class of an object.</li>
+</ul>
+</section>
+</section>
+</section>
+<section class="level1" id="high-fan-out">
+<h1><a href="#TOC">High Fan-out</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="shotgun-surgery">
+<h1><a href="#TOC">Shotgun Surgery</a></h1>
+<p>Shotgun Surgery is usually a more obvious symptom that reveals another smell.</p>
+<section class="level3" id="symptoms-3">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>You have to make the same small change across several different files.</li>
+<li>Changes become difficult to manage because they hard to keep track of.</li>
+</ul>
+<p>Make sure you look for related smells in the affected code:</p>
+<ul>
+<li><a href="#duplicated-code">Duplicated Code</a></li>
+<li><a href="#case-statement">Case Statement</a></li>
+<li><a href="#feature-envy">Feature Envy</a></li>
+<li><a href="#long-parameter-list">Long Parameter List</a></li>
+<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-3">
+<h3><a href="#TOC">Example</a></h3>
+<p>Users names are formatted and displayed as 'First Last' throughout the application. If we want to change the formating to include a middle initial (e.g. 'First M. Last') we'd need to make the same small change in several places.</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/users/show.html.erb
+<span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span>
+
+# app/views/users/index.html.erb
+<span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span>
+
+# app/views/layouts/application.html.erb
+<span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span>
+
+# app/views/mailers/completion_notification.html.erb
+<span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span></code></pre>
+</section>
+<section class="level3" id="solutions-3">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> to replace duplicated <code>case</code> statements and <code>if-elsif</code> blocks.</li>
+<li><a href="#replace-conditional-with-null-object">Replace Conditional with Null Object</a> if changing a method to return <code>nil</code> would require checks for <code>nil</code> in several places.</li>
+<li><a href="#extract-decorator">Extract Decorator</a> to replace duplicated display code in views/templates.</li>
+<li><a href="#introduce-parameter-object">Introduce Parameter Object</a> to hang useful formatting methods alongside a data clump of related attributes.</li>
+</ul>
+</section>
+</section>
+<section class="level1" id="divergent-change">
+<h1><a href="#TOC">Divergent Change</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="long-parameter-list">
+<h1><a href="#TOC">Long Parameter List</a></h1>
+<p>Ruby supports positional method arguments which can lead to Long Parameter Lists.</p>
+<section class="level3" id="symptoms-4">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>You can't easily change the method's arguments.</li>
+<li>The method has three or more arguments.</li>
+<li>The method is complex due to number of collaborating parameters.</li>
+<li>The method requires large amounts of setup during isolated testing.</li>
+</ul>
+</section>
+<section class="level3" id="example-4">
+<h3><a href="#TOC">Example</a></h3>
+<p>Look at this mailer for an example of Long Parameter List.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
+<span class="kw">class</span> <span class="dt">Mailer</span> &lt; <span class="dt">ActionMailer</span>::<span class="dt">Base</span>
+  default from: <span class="st">&quot;from@example.com&quot;</span>
+
+  <span class="kw">def</span> completion_notification(first_name, last_name, email)
+    <span class="ot">@first_name</span> = first_name
+    <span class="ot">@last_name</span> = last_name
+
+    mail(
+      to: email,
+      subject: <span class="st">'Thank you for completing the survey'</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="solutions-4">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#introduce-parameter-object">Introduce Parameter Object</a> and pass it in as an object of naturally grouped attributes.</li>
+</ul>
+<p>A common technique used to mask a long parameter list is grouping parameters using a hash of named parameters; this will replace connascence position with connascence of name (a good first step). However, it will not reduce the number of collaborators in the method.</p>
+<ul>
+<li><a href="#extract-class">Extract Class</a> if the method is complex due to the number of collaborators.</li>
+</ul>
+</section>
+</section>
+<section class="level1" id="duplicated-code">
+<h1><a href="#TOC">Duplicated Code</a></h1>
+<p>One of the first principles we're taught as developers: Keep your code <a href="#dry">DRY</a>.</p>
+<section class="level3" id="symptoms-5">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>You find yourself copy and pasting code from one place to another.</li>
+<li><a href="#shotgun-surgery">Shotgun Surgery</a> occurs when changes to your application require the same small edits in multiple places.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-5">
+<h3><a href="#TOC">Example</a></h3>
+<p>The <code>QuestionsController</code> suffers from duplication in the <code>create</code> and <code>update</code> methods.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="kw">def</span> create
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  question_params = params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="ot">@question</span> = type.constantize.new(question_params)
+  <span class="ot">@question</span>.survey = <span class="ot">@survey</span>
+
+  <span class="kw">if</span> <span class="ot">@question</span>.save
+    redirect_to <span class="ot">@survey</span>
+  <span class="kw">else</span>
+    render <span class="st">:new</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">def</span> update
+  <span class="ot">@question</span> = <span class="dt">Question</span>.find(params[<span class="st">:id</span>])
+  question_params = params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="ot">@question</span>.update_attributes(question_params)
+
+  <span class="kw">if</span> <span class="ot">@question</span>.save
+    redirect_to <span class="ot">@question</span>.survey
+  <span class="kw">else</span>
+    render <span class="st">:edit</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="solutions-5">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#extract-method">Extract Method</a> for duplicated code in the same file.</li>
+<li><a href="#extract-class">Extract Class</a> for duplicated code across multiple files.</li>
+<li><a href="#extract-partial">Extract Partial</a> for duplicated view and template code.</li>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> for duplicated conditional logic.</li>
+<li><a href="#replace-conditional-with-null-object">Replace Conditional with Null Object</a> to remove duplicated checks for <code>nil</code> values.</li>
+</ul>
+</section>
+</section>
+<section class="level1" id="uncommunicative-name">
+<h1><a href="#TOC">Uncommunicative Name</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="parallel-inheritance-hierarchies">
+<h1><a href="#TOC">Parallel Inheritance Hierarchies</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="comments">
+<h1><a href="#TOC">Comments</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="mixin">
+<h1><a href="#TOC">Mixin</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="callback">
+<h1><a href="#TOC">Callback</a></h1>
+<p>STUB</p>
+<p></p>
+</section>
+<section class="level1" id="replace-conditional-with-polymorphism">
+<h1><a href="#TOC">Replace Conditional with Polymorphism</a></h1>
+<p>Conditional code clutters methods, makes extraction and reuse harder, and can lead to leaky concerns. Object-oriented languages like Ruby allow developers to avoid conditionals using polymorphism. Rather than using <code>if</code>/<code>else</code> or <code>case</code>/<code>when</code> to create a conditional path for each possible situation, you can implement a method differently in different classes, adding (or reusing) a class for each situation.</p>
+<p>Replacing conditional code allows you to move decisions to the best point in the application. Depending on polymorphic interfaces will create classes that don't need to change when the application changes.</p>
+<section class="level3" id="uses">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Removes <a href="#divergent-change">Divergent Change</a> from classes that need to alter their behavior based on the outcome of the condition.</li>
+<li>Removes <a href="#shotgun-surgery">Shotgun Surgery</a> from adding new types.</li>
+<li>Removes <a href="#feature-envy">Feature Envy</a> by allowing dependent classes to make their own decisions.</li>
+<li>Makes it easier to remove <a href="#duplicated-code">Duplicated Code</a> by taking behavior out of conditional clauses and private methods.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-6">
+<h3><a href="#TOC">Example</a></h3>
+<p>This <code>Question</code> class summarizes its answers differently depending on its <code>question_type</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">class</span> <span class="dt">Question</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  <span class="kw">include</span> <span class="dt">ActiveModel</span>::<span class="dt">ForbiddenAttributesProtection</span>
+
+  <span class="dt">SUBMITTABLE_TYPES</span> =<span class="ot"> %w(</span><span class="st">Open MultipleChoice Scale</span><span class="ot">)</span>.freeze
+
+  validates <span class="st">:maximum</span>, presence: <span class="dv">true</span>, <span class="kw">if</span>: <span class="st">:scale?</span>
+  validates <span class="st">:minimum</span>, presence: <span class="dv">true</span>, <span class="kw">if</span>: <span class="st">:scale?</span>
+  validates <span class="st">:question_type</span>, presence: <span class="dv">true</span>, inclusion: <span class="dt">SUBMITTABLE_TYPES</span>
+  validates <span class="st">:title</span>, presence: <span class="dv">true</span>
+
+  belongs_to <span class="st">:survey</span>
+  has_many <span class="st">:answers</span>
+  has_many <span class="st">:options</span>
+
+  accepts_nested_attributes_for <span class="st">:options</span>, reject_if: <span class="st">:all_blank</span>
+
+  <span class="kw">def</span> summary
+    <span class="kw">case</span> question_type
+    <span class="kw">when</span> <span class="st">'MultipleChoice'</span>
+      summarize_multiple_choice_answers
+    <span class="kw">when</span> <span class="st">'Open'</span>
+      summarize_open_answers
+    <span class="kw">when</span> <span class="st">'Scale'</span>
+      summarize_scale_answers
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> steps
+    (minimum..maximum).to_a
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> scale?
+    question_type == <span class="st">'Scale'</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_multiple_choice_answers
+    total = answers.count
+    counts = answers.group(<span class="st">:text</span>).order(<span class="st">'COUNT(*) DESC'</span>).count
+    percents = counts.map <span class="kw">do</span> |text, count|
+      percent = (<span class="fl">100.0</span> * count / total).round
+      <span class="st">&quot;</span><span class="ot">#{</span>percent<span class="ot">}</span><span class="st">% </span><span class="ot">#{</span>text<span class="ot">}</span><span class="st">&quot;</span>
+    <span class="kw">end</span>
+    percents.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_open_answers
+    answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>).join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize_scale_answers
+    sprintf(<span class="st">'Average: %.02f'</span>, answers.average(<span class="st">'text'</span>))
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>There are a number of issues with the <code>summary</code> method:</p>
+<ul>
+<li>Adding a new question type will require modifying the method, leading to <a href="#divergent-change">Divergent Change</a>.</li>
+<li>The logic and data for summarizing every type of question and answer is jammed into the <code>Question</code> class, resulting in a <a href="#large-class">Large Class</a> with <a href="#obscure-code">Obscure Code</a>.</li>
+<li>This method isn't the only place in the application that checks question types, meaning that new types will cause <a href="#shotgun-surgery">Shotgun Surgery</a>.</li>
+</ul>
+</section>
+<section class="level2" id="replace-type-code-with-subclasses">
+<h2><a href="#TOC">Replace Type Code With Subclasses</a></h2>
+<p>Let's replace this case statement with polymorphism by introducing a subclass for each type of question.</p>
+<p>Our <code>Question</code> class is a subclass of <code>ActiveRecord::Base</code>. If we want to create subclasses of <code>Question</code>, we have to tell ActiveRecord which subclass to instantiate when it fetches records from the <code>questions</code> table. The mechanism Rails uses for storing instances of different classes in the same table is called &quot;Single Table Inheritance.&quot; Rails will take care of most of the details, but there are a few extra steps we need to take when refactoring to Single Table Inheritance.</p>
+</section>
+<section class="level2" id="single-table-inheritance-sti">
+<h2><a href="#TOC">Single Table Inheritance (STI)</a></h2>
+<p>The first step to convert to STI is generally to create a new subclass for each type. However, the existing type codes are named &quot;Open,&quot; &quot;Scale,&quot; and &quot;MultipleChoice,&quot; which won't make good class names; names like &quot;OpenQuestion&quot; would be better, so let's start by changing the existing type codes:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary
+  <span class="kw">case</span> question_type
+  <span class="kw">when</span> <span class="st">'MultipleChoiceQuestion'</span>
+    summarize_multiple_choice_answers
+  <span class="kw">when</span> <span class="st">'OpenQuestion'</span>
+    summarize_open_answers
+  <span class="kw">when</span> <span class="st">'ScaleQuestion'</span>
+    summarize_scale_answers
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20121128221331_add_question_suffix_to_question_type.rb</span>
+<span class="kw">class</span> <span class="dt">AddQuestionSuffixToQuestionType</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> up
+    connection.update(&lt;&lt;-<span class="kw">SQL</span><span class="ot">)</span>
+<span class="ot">      UPDATE questions SET question_type = question_type || 'Question'</span>
+<span class="ot">    </span><span class="kw">SQL</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> down
+    connection.update(&lt;&lt;-<span class="kw">SQL</span><span class="ot">)</span>
+<span class="ot">      UPDATE questions SET question_type = REPLACE(question_type, 'Question', '')</span>
+<span class="ot">    </span><span class="kw">SQL</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>See commit b535171 for the full change.</p>
+<p>The <code>Question</code> class stores its type code as <code>question_type</code>. The Rails convention is to use a column named <code>type</code>, but Rails will automatically start using STI if that column is present. That means that renaming <code>question_type</code> to <code>type</code> at this point would result in debugging two things at once: possible breaks from renaming, and possible breaks from using STI. Therefore, let's start by just marking <code>question_type</code> as the inheritance column, allowing us to debug STI failures by themselves:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+set_inheritance_column  <span class="st">'question_type'</span></code></pre>
+<p></p>
+<p>Running the tests after this will reveal that Rails wants the subclasses to be defined, so let's add some placeholder classes:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">class</span> <span class="dt">OpenQuestion</span> &lt; <span class="dt">Question</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/scale_question.rb</span>
+<span class="kw">class</span> <span class="dt">ScaleQuestion</span> &lt; <span class="dt">Question</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/multiple_choice_question.rb</span>
+<span class="kw">class</span> <span class="dt">MultipleChoiceQuestion</span> &lt; <span class="dt">Question</span>
+<span class="kw">end</span></code></pre>
+<p>Rails generates URLs and local variable names for partials based on class names. Our views will now be getting instances of subclasses like <code>OpenQuestion</code> rather than <code>Question</code>, so we'll need to update a few more references. For example, we'll have to change lines like:</p>
+<pre class="erb"><code>&lt;%= form_for @question do |form| %&gt;</code></pre>
+<p>To:</p>
+<pre class="erb"><code>&lt;%= form_for @question, as: :question do |form| %&gt;</code></pre>
+<p>Otherwise, it will generate <code>/open_questions</code> as a URL instead of <code>/questions</code>. See commit c18ebeb for the full change.</p>
+<p>At this point, the tests are passing with STI in place, so we can rename <code>question_type</code> to <code>type</code>, following the Rails convention:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20121128225425_rename_question_type_to_type.rb</span>
+<span class="kw">class</span> <span class="dt">RenameQuestionTypeToType</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> up
+    rename_column <span class="st">:questions</span>, <span class="st">:question_type</span>, <span class="st">:type</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> down
+    rename_column <span class="st">:questions</span>, <span class="st">:type</span>, <span class="st">:question_type</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p></p>
+<p>Now we need to build the appropriate subclass instead of <code>Question</code>. We can use a little Ruby meta-programming to make that fairly painless:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="kw">def</span> build_question
+  <span class="ot">@question</span> = type.constantize.new(question_params)
+  <span class="ot">@question</span>.survey = <span class="ot">@survey</span>
+<span class="kw">end</span>
+
+<span class="kw">def</span> type
+  params[<span class="st">:question</span>][<span class="st">:type</span>]
+<span class="kw">end</span></code></pre>
+<p>At this point, we're ready to proceed with a regular refactor.</p>
+<section class="level3" id="extracting-type-specific-code">
+<h3><a href="#TOC">Extracting Type-Specific Code</a></h3>
+<p>The next step is to move type-specific code from <code>Question</code> into the subclass for each specific type.</p>
+<p>Let's look at the <code>summary</code> method again:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary
+  <span class="kw">case</span> question_type
+  <span class="kw">when</span> <span class="st">'MultipleChoice'</span>
+    summarize_multiple_choice_answers
+  <span class="kw">when</span> <span class="st">'Open'</span>
+    summarize_open_answers
+  <span class="kw">when</span> <span class="st">'Scale'</span>
+    summarize_scale_answers
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>For each path of the condition, there is a sequence of steps.</p>
+<p>The first step is to use <a href="#extract-method">Extract Method</a> to move the path to its own method. In this case, we already extracted methods called 'summarize_multiple_choice_answers<code>,</code>summarize_open_answers<code>, and</code>summarize_scale_answers`, so we can proceed immediately.</p>
+<p></p>
+<p>The next step is to use <a href="#move-method">Move Method</a> to move the extracted method to the appropriate class. First, let's move the method <code>summarize_multiple_choice_answers</code> to <code>MultipleChoiceQuestion</code> and rename it to <code>summary</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">MultipleChoiceQuestion</span> &lt; <span class="dt">Question</span>
+  <span class="kw">def</span> summary
+    total = answers.count
+    counts = answers.group(<span class="st">:text</span>).order(<span class="st">'COUNT(*) DESC'</span>).count
+    percents = counts.map <span class="kw">do</span> |text, count|
+      percent = (<span class="fl">100.0</span> * count / total).round
+      <span class="st">&quot;</span><span class="ot">#{</span>percent<span class="ot">}</span><span class="st">% </span><span class="ot">#{</span>text<span class="ot">}</span><span class="st">&quot;</span>
+    <span class="kw">end</span>
+    percents.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p><code>MultipleChoiceQuestion#summary</code> now overrides <code>Question#summary</code>, so the correct implementation will now be chosen for multiple choice questions.</p>
+<p>Now that the code for multiple choice types is in place, we repeat the steps for each other path. Once every path is moved, we can remove <code>Question#summary</code> entirely.</p>
+<p>In this case, we've already created all our subclasses, but you can use <a href="#extract-class">Extract Class</a> to create them if you're extracting a conditional paths into a new classes.</p>
+<p>You can see the full change for this step in commit a08f801.</p>
+<p>The <code>summary</code> method is now much better. Adding new question types is easier. The new subclass will implement <code>summary</code>, and the <code>Question</code> class doesn't need to change. The summary code for each type now lives with its type, so no one class is cluttered up with the details.</p>
+<p></p>
+</section>
+</section>
+<section class="level2" id="polymorphic-partials">
+<h2><a href="#TOC">Polymorphic Partials</a></h2>
+<p>Applications rarely check the type code in just one place. Running grep on our example application reveals several more places. Most interestingly, the views check the type before deciding how to render a question:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_question.html.erb
+<span class="kw">&lt;%</span> <span class="kw">if</span> question.type <span class="ch">==</span> <span class="st">'MultipleChoiceQuestion'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;ol&gt;</span>
+    <span class="kw">&lt;%</span> question.options.each <span class="kw">do</span> <span class="ch">|</span>option<span class="ch">|</span> <span class="kw">-%&gt;</span>
+      <span class="kw">&lt;li&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.radio_button <span class="st">:text</span>, option.text, id: dom_id(option) <span class="kw">%&gt;</span>
+        <span class="kw">&lt;%=</span> content_tag <span class="st">:label</span>, option.text, <span class="kw">for</span>: dom_id(option) <span class="kw">%&gt;</span>
+      <span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;/ol&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+
+<span class="kw">&lt;%</span> <span class="kw">if</span> question.type <span class="ch">==</span> <span class="st">'ScaleQuestion'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;ol&gt;</span>
+    <span class="kw">&lt;%</span> question.steps.each <span class="kw">do</span> <span class="ch">|</span>step<span class="ch">|</span> <span class="kw">-%&gt;</span>
+      <span class="kw">&lt;li&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.radio_button <span class="st">:text</span>, step <span class="kw">%&gt;</span>
+        <span class="kw">&lt;%=</span> submission_fields.label <span class="st">&quot;text_</span><span class="ot">#{</span>step<span class="ot">}</span><span class="st">&quot;</span>, label: step <span class="kw">%&gt;</span>
+      <span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;/ol&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+
+<span class="kw">&lt;%</span> <span class="kw">if</span> question.type <span class="ch">==</span> <span class="st">'OpenQuestion'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> submission_fields.text_field <span class="st">:text</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>In the previous example, we moved type-specific code into <code>Question</code> subclasses. However, moving view code would violate MVC (introducing <a href="#divergent-change">Divergent Change</a> into the subclasses), and more importantly, it would be ugly and hard to understand.</p>
+<p>Rails has the ability to render views polymorphically. A line like this:</p>
+<pre class="erb"><code>&lt;%= render @question %&gt;</code></pre>
+<p>Will ask <code>@question</code> which view should be rendered by calling <code>to_partial_path</code>. As subclasses of <code>ActiveRecord::Base</code>, our <code>Question</code> subclasses will return a path based on their class name. This means that the above line will attempt to render <code>open_questions/_open_question.html.erb</code> for an open question, and so on.</p>
+<p>We can use this to move the type-specific view code into a view for each type:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/open_questions/_open_question.html.erb
+<span class="kw">&lt;%=</span> submission_fields.text_field <span class="st">:text</span> <span class="kw">%&gt;</span></code></pre>
+<p>You can see the full change in commit 8243493.</p>
+<section class="level3" id="multiple-polymorphic-views">
+<h3><a href="#TOC">Multiple Polymorphic Views</a></h3>
+<p>Our application also has different fields on the question form depending on the question type. Currently, that also performs type-checking:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/new.html.erb
+<span class="kw">&lt;%</span> <span class="kw">if</span> <span class="ot">@question</span>.type <span class="ch">==</span> <span class="st">'MultipleChoiceQuestion'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> form.fields_for(<span class="st">:options</span>, <span class="ot">@question</span>.options_for_form) <span class="kw">do</span> <span class="ch">|</span>option_fields<span class="ch">|</span> <span class="kw">-%&gt;</span>
+    <span class="kw">&lt;%=</span> option_fields.input <span class="st">:text</span>, label: <span class="st">'Option'</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span>
+
+<span class="kw">&lt;%</span> <span class="kw">if</span> <span class="ot">@question</span>.type <span class="ch">==</span> <span class="st">'ScaleQuestion'</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> form.input <span class="st">:minimum</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.input <span class="st">:maximum</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>We already used views like <code>open_questions/_open_question.html.erb</code> for showing a question, so we can't just put the edit code there. Rails doesn't support prefixes or suffixes in <code>render</code>, but we can do it ourselves easily enough:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/new.html.erb
+<span class="kw">&lt;%=</span> render <span class="st">&quot;</span><span class="ot">#{@question</span>.to_partial_path<span class="ot">}</span><span class="st">_form&quot;</span>, question: <span class="ot">@question</span>, form: form <span class="kw">%&gt;</span></code></pre>
+<p>This will render <code>app/views/open_questions/_open_question_form.html.erb</code> for an open question, and so on.</p>
+</section>
+<section class="level3" id="drawbacks">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<p>It's worth noting that, although this refactoring improved our particular example, replacing conditionals with polymorphism is not without drawbacks.</p>
+<p>Using polymorphism like this makes it easier to add new types, because adding a new type means you just need to add a new class and implement the required methods. Adding a new type won't require changes to any existing classes, and it's easy to understand what the types are, because each type is encapsulated within a class.</p>
+<p>However, this change makes it harder to add new behaviors. Adding a new behavior will mean finding every type and adding a new method. Understanding the behavior becomes more difficult, because the implementations are spread out among the types. Object-oriented languages lean towards polymorphic implementations, but if you find yourself adding behaviors much more often than adding types, you should look into using <a href="#introduce-observer">observers</a> or <a href="#introduce-visitor">visitors</a> instead.</p>
+</section>
+<section class="level3" id="next-steps">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check the new classes for <a href="#duplicated-code">Duplicated Code</a> that can be pulled up into the superclass.</li>
+<li>Pay attention to changes that affect the new types, watching out for <a href="#shotgun-surgery">Shotgun Surgery</a> that can result from splitting up classes.</li>
+</ul>
+</section>
+</section>
+</section>
+<section class="level1" id="replace-conditional-with-null-object">
+<h1><a href="#TOC">Replace conditional with Null Object</a></h1>
+<p>Every Ruby developer is familiar with <code>nil</code>, and Ruby on Rails comes with a full compliment of tools to handle it: <code>nil?</code>, <code>present?</code>, <code>try</code>, and more. However, it's easy to let these tools hide duplication and leak concerns. If you find yourself checking for <code>nil</code> all over your codebase, try replacing some of the <code>nil</code> values with null objects.</p>
+<section class="level3" id="uses-1">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Removes <a href="#shotgun-surgery">Shotgun Surgery</a> when an existing method begins returning <code>nil</code>.</li>
+<li>Removes <a href="#duplicated-code">Duplicated Code</a> related to checking for <code>nil</code>.</li>
+<li>Removes clutter, improving readability of code that consumes <code>nil</code>.</li>
+</ul>
+</section>
+<section class="level3" id="example-7">
+<h3><a href="#TOC">Example</a></h3>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> most_recent_answer_text
+  answers.most_recent.try(<span class="st">:text</span>) || <span class="dt">Answer</span>::<span class="dt">MISSING_TEXT</span>
+<span class="kw">end</span></code></pre>
+<p>The <code>most_recent_answer_text</code> method asks its <code>answers</code> association for <code>most_recent</code> answer. It only wants the <code>text</code> from that answer, but it must first check to make sure that an answer actually exists to get <code>text</code> from. It needs to perform this check because <code>most_recent</code> might return <code>nil</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
+<span class="kw">def</span> <span class="dv">self</span>.most_recent
+  order(<span class="st">:created_at</span>).last
+<span class="kw">end</span></code></pre>
+<p>This call clutters up the method, and returning <code>nil</code> is contagious: any method that calls <code>most_recent</code> must also check for <code>nil</code>. The concept of a missing answer is likely to come up more than once, as in this example:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/user.rb</span>
+<span class="kw">def</span> answer_text_for(question)
+  question.answers.for_user(<span class="dv">self</span>).try(<span class="st">:text</span>) || <span class="dt">Answer</span>::<span class="dt">MISSING_TEXT</span>
+<span class="kw">end</span></code></pre>
+<p>Again, <code>most_recent_answer_text</code> might return <code>nil</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
+<span class="kw">def</span> <span class="dv">self</span>.for_user(user)
+  joins(<span class="st">:completion</span>).where(completions: { user_id: user.id }).last
+<span class="kw">end</span></code></pre>
+<p>The <code>User#answer_text_for</code> method duplicates the check for a missing answer, and worse, it's repeating the logic of what happens when you need text without an answer.</p>
+<p>We can remove these checks entirely from <code>Question</code> and <code>User</code> by introducing a Null Object:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> most_recent_answer_text
+  answers.most_recent.text
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/user.rb</span>
+<span class="kw">def</span> answer_text_for(question)
+  question.answers.for_user(<span class="dv">self</span>).text
+<span class="kw">end</span></code></pre>
+<p></p>
+<p>We're now just assuming that <code>Answer</code> class methods will return something answer-like; specifically, we expect an object that returns useful <code>text</code>. We can refactor <code>Answer</code> to handle the <code>nil</code> check:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
+<span class="kw">class</span> <span class="dt">Answer</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  <span class="kw">include</span> <span class="dt">ActiveModel</span>::<span class="dt">ForbiddenAttributesProtection</span>
+
+  belongs_to <span class="st">:completion</span>
+  belongs_to <span class="st">:question</span>
+
+  validates <span class="st">:text</span>, presence: <span class="dv">true</span>
+
+  <span class="kw">def</span> <span class="dv">self</span>.for_user(user)
+    joins(<span class="st">:completion</span>).where(completions: { user_id: user.id }).last ||
+      <span class="dt">NullAnswer</span>.new
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> <span class="dv">self</span>.most_recent
+    order(<span class="st">:created_at</span>).last || <span class="dt">NullAnswer</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Note that <code>for_user</code> and <code>most_recent</code> return a <code>NullAnswer</code> if no answer can be found, so these methods will never return <code>nil</code>. The implementation for <code>NullAnswer</code> is simple:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/null_answer.rb</span>
+<span class="kw">class</span> <span class="dt">NullAnswer</span>
+  <span class="kw">def</span> text
+    <span class="st">'No response'</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p></p>
+<p>We can take things just a little further and remove a bit of duplication with a quick <a href="#extract-method">Extract Method</a>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
+<span class="kw">class</span> <span class="dt">Answer</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  <span class="kw">include</span> <span class="dt">ActiveModel</span>::<span class="dt">ForbiddenAttributesProtection</span>
+
+  belongs_to <span class="st">:completion</span>
+  belongs_to <span class="st">:question</span>
+
+  validates <span class="st">:text</span>, presence: <span class="dv">true</span>
+
+  <span class="kw">def</span> <span class="dv">self</span>.for_user(user)
+    joins(<span class="st">:completion</span>).where(completions: { user_id: user.id }).last_or_null
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> <span class="dv">self</span>.most_recent
+    order(<span class="st">:created_at</span>).last_or_null
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> <span class="dv">self</span>.last_or_null
+    last || <span class="dt">NullAnswer</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now we can easily create <code>Answer</code> class methods that return a usable answer, no matter what.</p>
+</section>
+<section class="level3" id="drawbacks-1">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<p>Introducing a null object can remove duplication and clutter, but it can also cause pain and confusion:</p>
+<ul>
+<li>As a developer reading a method like <code>Question#most_recent_answer_text</code>, you may be confused to find that <code>most_recent_answer</code> returned an instance of <code>NullAnswer</code> and not <code>Answer</code>.</li>
+<li>Whenever a method needs to worry about whether or not an actual answer exists, you'll need to add explicit <code>present?</code> checks and define <code>present?</code> to return <code>false</code> on your null object. This is common in views, when the view needs to add special markup to denote missing values.</li>
+<li><code>NullAnswer</code> may eventually need to reimplement large part of the <code>Answer</code> API, leading to potential <a href="#duplicated-code">Duplicated Code</a> and <a href="#shotgun-surgery">Shotgun Surgery</a>, which is largely what we hoped to solve in the first place.</li>
+</ul>
+<p>Don't introduce a null object until you find yourself swatting enough <code>nil</code> values to be annoying, and make sure you're actually cutting down on conditional logic when you introduce it.</p>
+</section>
+<section class="level3" id="next-steps-1">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Look for other <code>nil</code> checks from the return values of refactored methods.</li>
+<li>Make sure your Null Object class implements the required methods from the original class.</li>
+<li>Make sure no <a href="#duplicated-code">Duplicated Code</a> exists between the Null Object class and the original.</li>
+</ul>
+</section>
+<section class="level2" id="truthiness-try-and-other-tricks">
+<h2><a href="#TOC">truthiness, try, and other tricks</a></h2>
+<p>All checks for <code>nil</code> are a condition, but Ruby provides many ways to check for <code>nil</code> without using an explicit <code>if</code>. Watch out for <code>nil</code> conditional checks disguised behind other syntax. The following are all roughly equivalent:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Explicit if with nil?</span>
+<span class="kw">if</span> user.nil?
+  <span class="dv">nil</span>
+<span class="kw">else</span>
+  user.name
+<span class="kw">end</span>
+
+<span class="co"># Implicit nil check through truthy conditional</span>
+<span class="kw">if</span> user
+  user.name
+<span class="kw">end</span>
+
+<span class="co"># Relies on nil being falsey</span>
+user &amp;&amp; user.name
+
+<span class="co"># Call to try</span>
+user.try(<span class="st">:name</span>)</code></pre>
+</section>
+</section>
+<section class="level1" id="extract-method">
+<h1><a href="#TOC">Extract method</a></h1>
+<p>The simplest refactoring to perform is Extract Method. To extract a method:</p>
+<ul>
+<li>Pick a name for the new method.</li>
+<li>Move extracted code into the new method.</li>
+<li>Call the new method from the point of extraction.</li>
+</ul>
+<section class="level3" id="uses-2">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Removes <a href="#long-method">Long Methods</a>.</li>
+<li>Sets the stage for moving behavior via <a href="#move-method">Move Method</a>.</li>
+<li>Resolves obscurity by introducing intention-revealing names.</li>
+<li>Allows removal of <a href="#duplicated-code">Duplicated Code</a> by moving the common code into the extracted method.</li>
+<li>Reveals complexity.</li>
+</ul>
+<p></p>
+<p>Let's take a look at an example <a href="#long-method">Long Method</a> and improve it by extracting smaller methods:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> create
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="ot">@submittable_type</span> = params[<span class="st">:submittable_type_id</span>]
+  question_params = params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:submittable_type</span>, <span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="ot">@question</span> = <span class="ot">@survey</span>.questions.new(question_params)
+  <span class="ot">@question</span>.submittable_type = <span class="ot">@submittable_type</span>
+
+  <span class="kw">if</span> <span class="ot">@question</span>.save
+    redirect_to <span class="ot">@survey</span>
+  <span class="kw">else</span>
+    render <span class="st">:new</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>This method performs a number of tasks:</p>
+<ul>
+<li>It finds the survey that the question should belong to.</li>
+<li>It figures out what type of question we're creating (the <code>submittable_type</code>).</li>
+<li>It builds parameters for the new question by applying a white list to the HTTP parameters.</li>
+<li>It builds a question from the given survey, parameters, and submittable type.</li>
+<li>It attempts to save the question.</li>
+<li>It redirects back to the survey for a valid question.</li>
+<li>It re-renders the form for an invalid question.</li>
+</ul>
+<p></p>
+<p>Any of these tasks can be extracted to a method. Let's start by extracting the task of building the question.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> create
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="ot">@submittable_type</span> = params[<span class="st">:submittable_type_id</span>]
+  build_question
+
+  <span class="kw">if</span> <span class="ot">@question</span>.save
+    redirect_to <span class="ot">@survey</span>
+  <span class="kw">else</span>
+    render <span class="st">:new</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">private</span>
+
+<span class="kw">def</span> build_question
+  question_params = params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:submittable_type</span>, <span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="ot">@question</span> = <span class="ot">@survey</span>.questions.new(question_params)
+  <span class="ot">@question</span>.submittable_type = <span class="ot">@submittable_type</span>
+<span class="kw">end</span></code></pre>
+<p>The <code>create</code> method is already much more readable. The new <code>build_question</code> method is noisy, though, with the wrong details at the beginning. The task of pulling out question parameters is clouding up the task of building the question. Let's extract another method.</p>
+</section>
+<section class="level2" id="replace-temp-with-query">
+<h2><a href="#TOC">Replace temp with query</a></h2>
+<p>One simple way to extract methods is by replacing local variables. Let's pull <code>question_params</code> into its own method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> build_question
+  <span class="ot">@question</span> = <span class="ot">@survey</span>.questions.new(question_params)
+  <span class="ot">@question</span>.submittable_type = <span class="ot">@submittable_type</span>
+<span class="kw">end</span>
+
+<span class="kw">def</span> question_params
+  params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:submittable_type</span>, <span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
+<span class="kw">end</span></code></pre>
+<section class="level3" id="next-steps-2">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check the original method and the extracted method to make sure neither is a <a href="#long-method">Long Method</a>.</li>
+<li>Check the original method and the extracted method to make sure that they both relate to the same core concern. If the methods aren't highly related, the class will suffer from <a href="#divergent-change">Divergent Change</a>.</li>
+<li>Check newly extracted methods for <a href="#feature-envy">Feature Envy</a> in the new methods to see if you should employ <a href="#move-method">Move Method</a> to provide the method with a better home.</li>
+<li>Check the affected class to make sure it's not a <a href="#large-class">Large Class</a>. Extracting methods reveals complexity, making it clearer when a class is doing too much.</li>
+</ul>
+</section>
+</section>
+</section>
+<section class="level1" id="extract-class">
+<h1><a href="#TOC">Extract Class</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="extract-value-object">
+<h1><a href="#TOC">Extract Value Object</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="extract-decorator">
+<h1><a href="#TOC">Extract Decorator</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="extract-partial">
+<h1><a href="#TOC">Extract Partial</a></h1>
+<p>Extracting a partial is a technique used for removing complex or duplicated view code from your application. This is the equivalent of using <a href="#long-method">Long Method</a> and <a href="#extract-method">Extract Method</a> in your views and templates.</p>
+<section class="level3" id="uses-3">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Remove <a href="#duplicated-code">Duplicated Code</a> from views.</li>
+<li>Remove <a href="#shotgun-surgery">Shotgun Surgery</a> by forcing changes to happen in one place.</li>
+<li>Remove <a href="#divergent-change">Divergent Change</a> by removing a reason for the view to change.</li>
+<li>Group common code.</li>
+<li>Reduce view size and complexity.</li>
+</ul>
+</section>
+<section class="level3" id="steps">
+<h3><a href="#TOC">Steps</a></h3>
+<ul>
+<li>Create a new file for partial prefixed with an underscore (_filename.html.erb).</li>
+<li>Move common code into newly created file.</li>
+<li>Render the partial from the source file.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-8">
+<h3><a href="#TOC">Example</a></h3>
+<p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
+<p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/new.html.erb
+<span class="kw">&lt;h1&gt;</span>Add Question<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;%=</span> simple_form_for <span class="ot">@question</span>, as: <span class="st">:question</span>, url: survey_questions_path(<span class="ot">@survey</span>) <span class="kw">do</span> <span class="ch">|</span>form<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> form.hidden_field <span class="st">:type</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.input <span class="st">:title</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> render <span class="st">&quot;</span><span class="ot">#{@question</span>.to_partial_path<span class="ot">}</span><span class="st">_form&quot;</span>, question: <span class="ot">@question</span>, form: form <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.submit <span class="st">'Create Question'</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/edit.html.erb
+<span class="kw">&lt;h1&gt;</span>Edit Question<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;%=</span> simple_form_for <span class="ot">@question</span>, as: <span class="st">:question</span>, url: question_path <span class="kw">do</span> <span class="ch">|</span>form<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> form.hidden_field <span class="st">:type</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.input <span class="st">:title</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> render <span class="st">&quot;</span><span class="ot">#{@question</span>.to_partial_path<span class="ot">}</span><span class="st">_form&quot;</span>, question: <span class="ot">@question</span>, form: form <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.submit <span class="st">'Update Question'</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>First extract the common code into a partial, remove any instance variables, and use <code>question</code> and <code>url</code> as a local variables.</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_form.html.erb
+<span class="kw">&lt;%=</span> simple_form_for question, as: <span class="st">:question</span>, url: url <span class="kw">do</span> <span class="ch">|</span>form<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> form.hidden_field <span class="st">:type</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.input <span class="st">:title</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> render <span class="st">&quot;</span><span class="ot">#{</span>question.to_partial_path<span class="ot">}</span><span class="st">_form&quot;</span>, question: question, form: form <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> form.submit <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>Move the submit button text into the locales file.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># config/locales/en.yml</span>
+en:
+  helpers:
+    submit:
+      question:
+        create: <span class="st">'Create Question'</span>
+        update: <span class="st">'Update Question'</span></code></pre>
+<p>Then render the partial from each of the views, passing in the values for <code>question</code> and <code>url</code>.</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/new.html.erb
+<span class="kw">&lt;h1&gt;</span>Add Question<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;%=</span> render <span class="st">'form'</span>, question: <span class="ot">@question</span>, url: survey_questions_path(<span class="ot">@survey</span>) <span class="kw">%&gt;</span></code></pre>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/edit.html.erb
+<span class="kw">&lt;h1&gt;</span>Edit Question<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;%=</span> render <span class="st">'form'</span>, question: <span class="ot">@question</span>, url: question_path <span class="kw">%&gt;</span></code></pre>
+</section>
+<section class="level3" id="next-steps-3">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check for other occurances of the duplicated view code in your application and replace them with the newly extracted partial.</li>
+</ul>
+</section>
+</section>
+<section class="level1" id="extract-service-object">
+<h1><a href="#TOC">Extract Service Object</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="introduce-observer">
+<h1><a href="#TOC">Introduce Observer</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="introduce-parameter-object">
+<h1><a href="#TOC">Introduce Parameter Object</a></h1>
+<p>A technique to reduce the number of input parameters to a method.</p>
+<p>To introduce a parameter object:</p>
+<ul>
+<li>Pick a name for the object that represents the grouped parameters.</li>
+<li>Replace method's grouped parameters with the object.</li>
+</ul>
+<section class="level3" id="uses-4">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Remove <a href="#long-parameter-list">Long Parameter Lists</a>.</li>
+<li>Group parameters that naturally fit together.</li>
+<li>Encapsulate behavior between related parameters.</li>
+</ul>
+<p>Let's take a look at the example from <a href="#long-parameter-list">Long Parameter List</a> and improve it by grouping the related parameters into an object:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
+<span class="kw">class</span> <span class="dt">Mailer</span> &lt; <span class="dt">ActionMailer</span>::<span class="dt">Base</span>
+  default from: <span class="st">&quot;from@example.com&quot;</span>
+
+  <span class="kw">def</span> completion_notification(first_name, last_name, email)
+    <span class="ot">@first_name</span> = first_name
+    <span class="ot">@last_name</span> = last_name
+
+    mail(
+      to: email,
+      subject: <span class="st">'Thank you for completing the survey'</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
+<span class="kw">&lt;%=</span> <span class="ot">@first_name</span> <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> <span class="ot">@last_name</span> <span class="kw">%&gt;</span></code></pre>
+<p>By introducing the new parameter object <code>recipient</code> we can naturally group the attributes <code>first_name</code>, <code>last_name</code>, and <code>email</code> together.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
+<span class="kw">class</span> <span class="dt">Mailer</span> &lt; <span class="dt">ActionMailer</span>::<span class="dt">Base</span>
+  default from: <span class="st">&quot;from@example.com&quot;</span>
+
+  <span class="kw">def</span> completion_notification(recipient)
+    <span class="ot">@recipient</span> = recipient
+
+    mail(
+      to: recipient.email,
+      subject: <span class="st">'Thank you for completing the survey'</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>This also gives us the opportunity to create a new method <code>full_name</code> on the <code>recipient</code> object to encapsulate behavior between the <code>first_name</code> and <code>last_name</code>.</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
+<span class="kw">&lt;%=</span> <span class="ot">@recipient</span>.full_name <span class="kw">%&gt;</span></code></pre>
+</section>
+<section class="level3" id="next-steps-4">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check to see if the same Data Clump exists elsewhere in the application, and reuse the Parameter Object to group them together.</li>
+<li>Verify the methods using the Parameter Object don't have <a href="#feature-envy">Feature Envy</a>.</li>
+</ul>
+</section>
+</section>
+<section class="level1" id="use-class-as-factory">
+<h1><a href="#TOC">Use class as Factory</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="move-method">
+<h1><a href="#TOC">Move method</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="inline-class">
+<h1><a href="#TOC">Inline class</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="inject-dependencies">
+<h1><a href="#TOC">Inject dependencies</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="replace-mixin-with-composition">
+<h1><a href="#TOC">Replace mixin with composition</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="use-convention-over-configuration">
+<h1><a href="#TOC">Use convention over configuration</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="introduce-visitor">
+<h1><a href="#TOC">Introduce Visitor</a></h1>
+<p>STUB</p>
+<p></p>
+</section>
+<section class="level1" id="dry">
+<h1><a href="#TOC">DRY</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="single-responsibility-principle">
+<h1><a href="#TOC">Single responsibility principle</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="tell-dont-ask">
+<h1><a href="#TOC">Tell, Don't Ask</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="law-of-demeter">
+<h1><a href="#TOC">Law of Demeter</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="composition-over-inheritance">
+<h1><a href="#TOC">Composition over inheritance</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="open-closed-principle">
+<h1><a href="#TOC">Open closed principle</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="dependency-inversion-principle">
+<h1><a href="#TOC">Dependency inversion principle</a></h1>
+<p>STUB</p>
+</section>
+</body>
+</html>
