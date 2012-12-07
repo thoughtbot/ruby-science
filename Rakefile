@@ -232,7 +232,7 @@ class TableOfContents
       href = anchor['href']
       target = document.css(href).first
       if target.text.include?('STUB')
-        anchor.inner_html = "<i>#{anchor.content}</i>"
+        anchor.content = "#{anchor.content}*"
       end
     end
   end
@@ -252,7 +252,7 @@ class TableOfContents
   end
 
   def remove_deep_headers
-    toc_element.css('li li li').each(&:remove)
+    toc_element.css('li li').each(&:remove)
   end
 
   def write_introduction
