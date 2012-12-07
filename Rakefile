@@ -252,7 +252,7 @@ class TableOfContents
   end
 
   def remove_deep_headers
-    toc_element.css('li li').each(&:remove)
+    toc_element.css('li ul').each(&:remove)
   end
 
   def write_introduction
