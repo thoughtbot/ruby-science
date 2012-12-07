@@ -16,5 +16,5 @@ knowledge out there which still applies to developing applications today. We can
 use the lessons learned by these developers to write good Rails applications by
 applying good object-oriented programming.
 
-This book will outline a process for detecting emerging problems in code, and
+Ruby Science will outline a process for detecting emerging problems in code, and
 will dive into the solutions, old and new.

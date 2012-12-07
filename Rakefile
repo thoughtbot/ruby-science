@@ -47,9 +47,16 @@ task :update_backbone_support do
   sh "rm -rf backbone-support"
 end
 
-desc "Build an open a PDF version"
+desc "Build and open a PDF version"
 task :open => 'build:pdf' do
   sh 'open output/book.pdf'
+end
+
+namespace :open do
+  desc "Build and open the PDF sample"
+  task :sample => 'build:sample' do
+    sh 'open output/sample.pdf'
+  end
 end
 
 module Runner
