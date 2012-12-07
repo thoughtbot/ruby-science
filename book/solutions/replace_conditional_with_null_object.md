@@ -6,14 +6,14 @@ it's easy to let these tools hide duplication and leak concerns. If you find
 yourself checking for `nil` all over your codebase, try replacing some of the
 `nil` values with null objects.
 
-### Uses:
+### Uses
 
 * Removes [Shotgun Surgery](#shotgun-surgery) when an existing method begins
   returning `nil`.
 * Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
 
-### Example:
+### Example
 
 ` app/models/question.rb@7a43dff:14,16
 

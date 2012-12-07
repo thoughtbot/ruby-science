@@ -215,8 +215,10 @@ class TableOfContents
   end
 
   def write
+    add_work_in_progress_notations
     remove_excluded_headers
     remove_anchors
+    remove_deep_headers
     write_header
     write_introduction
     write_parts
@@ -224,6 +226,16 @@ class TableOfContents
   end
 
   private
+
+  def add_work_in_progress_notations
+    toc_element.css('a').each do |anchor|
+      href = anchor['href']
+      target = document.css(href).first
+      if target.text.include?('STUB')
+        anchor.inner_html = "<i>#{anchor.content}</i>"
+      end
+    end
+  end
 
   def remove_excluded_headers
     toc_element.css('li').each do |item|
@@ -235,8 +247,12 @@ class TableOfContents
 
   def remove_anchors
     toc_element.css('a').each do |anchor|
-      anchor.replace document.create_text_node(anchor.text)
+      anchor.replace anchor.children.first
     end
+  end
+
+  def remove_deep_headers
+    toc_element.css('li li li').each(&:remove)
   end
 
   def write_introduction
