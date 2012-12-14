@@ -1,6 +1,6 @@
 ## Metrics
 
-Various tool are available which can aid you in your search for code smells.
+Various tools are available which can aid you in your search for code smells.
 
 You can use [flog](http://rubygems.org/gems/flog) to detect complex parts of
 code. If you look at the classes and methods with the highest flog score, you'll
