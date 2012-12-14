@@ -23,7 +23,7 @@ To find files with a high churn rate, try out the aptly-named
 [churn](https://github.com/danmayer/churn) gem. This works best with Git, but
 will also work with Subversion.
 
-You can also use [Code Climate](http://https://codeclimate.com/), a hosted tool
+You can also use [Code Climate](https://codeclimate.com/), a hosted tool
 which will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
 through F grade.
