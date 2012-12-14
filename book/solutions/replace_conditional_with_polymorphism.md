@@ -132,7 +132,7 @@ For each path of the condition, there is a sequence of steps.
 
 The first step is to use [Extract Method](#extract-method) to move the path to
 its own method. In this case, we already extracted methods called
-'summarize_multiple_choice_answers`, `summarize_open_answers`, and
+`summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
 
 \clearpage
