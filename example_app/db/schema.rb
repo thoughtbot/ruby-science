@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20121128225425) do
+ActiveRecord::Schema.define(version: 20121217033300) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "completion_id", null: false
@@ -33,6 +33,19 @@ ActiveRecord::Schema.define(version: 20121128225425) do
 
   add_index "completions", ["survey_id"], name: "index_completions_on_survey_id"
   add_index "completions", ["user_id"], name: "index_completions_on_user_id"
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "survey_id"
+    t.string   "recipient_email"
+    t.string   "status",          default: "pending"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["survey_id"], name: "index_invitations_on_survey_id"
+  add_index "invitations", ["token"], name: "index_invitations_on_token", unique: true
 
   create_table "options", force: :cascade do |t|
     t.integer  "question_id", null: false
