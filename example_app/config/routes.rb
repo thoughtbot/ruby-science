@@ -3,8 +3,13 @@ ExampleApp::Application.routes.draw do
     resources :options, only: [:new, :create]
   end
 
+  resources :invitations, only: [] do
+    resources :users, only: [:new]
+  end
+
   resources :surveys, only: [:new, :create, :index, :show] do
     resources :completions, only: [:create, :index]
+    resources :invitations, only: [:create, :new]
     resources :questions, only: [:new, :create]
   end
 
