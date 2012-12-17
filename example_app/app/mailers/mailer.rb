@@ -9,4 +9,14 @@ class Mailer < ActionMailer::Base
       subject: 'Thank you for completing the survey'
     )
   end
+
+  def invitation_notification(invitation, message)
+    @invitation = invitation
+    @message = message
+
+    mail(
+      to: invitation.recipient_email,
+      subject: 'You have been invited to take an online survey'
+    )
+  end
 end

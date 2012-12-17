@@ -21,3 +21,42 @@ describe Mailer, '#completion_notification' do
     build(:user, email: 'email@example.com', first_name: 'First', last_name: 'Last')
   end
 end
+
+describe Mailer, '#invitation_notification' do
+  it 'sets the correct recipient' do
+    message.should deliver_to(recipient_email)
+  end
+
+  it 'sets the correct subject' do
+    message.should have_subject('You have been invited to take an online survey')
+  end
+
+  it 'displays the invitation url in the body' do
+    message.should have_body_text(invitation_text)
+    message.should have_body_text(invitation_path)
+  end
+
+  def message
+   Mailer.invitation_notification(invitation, invitation_text)
+  end
+
+  def invitation
+    @invitation ||= build(
+      :invitation,
+      token: 'unique_token',
+      recipient_email: recipient_email
+    )
+  end
+
+  def invitation_path
+    new_invitation_user_url(invitation)
+  end
+
+  def recipient_email
+    'tester@example.com'
+  end
+
+  def invitation_text
+    'Fill out this survey'
+  end
+end
