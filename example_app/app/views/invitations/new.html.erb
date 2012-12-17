@@ -1,0 +1,14 @@
+<%= simple_form_for :invitation, url: survey_invitations_path(@survey) do |f| %>
+  <%= f.input :message, as: :text, input_html: { value: @message } %>
+  <% if @invlid_message %>
+    <div class="error">Please provide a message</div>
+  <% end %>
+  <%= f.input :recipients, as: :text, input_html: { value: @recipients } %>
+  <% if @invalid_recipients %>
+    <div class="error">
+      Invalid email addresses: 
+      <%= @invalid_recipients.join(', ') %>
+    </div>
+  <% end %>
+  <%= f.button :submit, value: 'Invite' %>
+<% end %>

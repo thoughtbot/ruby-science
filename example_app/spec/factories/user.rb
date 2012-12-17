@@ -3,7 +3,7 @@ FactoryGirl.define do
     "user#{n}@example.com"
   end
 
-  factory :user do
+  factory :user, aliases: [:sender] do
     first_name 'Ron'
     last_name 'Burgundy'
     email

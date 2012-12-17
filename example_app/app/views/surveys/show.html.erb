@@ -1,5 +1,6 @@
 <h1><%= @survey.title %></h1>
 <p>Author: <%= @survey.author.email %></p>
+<p><%= link_to 'Invite', new_survey_invitation_path(@survey) %>
 
 <%= link_to(
   'Add Multiple Choice Question',
