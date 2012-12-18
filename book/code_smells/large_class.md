@@ -11,7 +11,7 @@ Change](#divergent-change).
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
 * The class needs to change for more than one reason.
-* The class has more private methods that public methods.
+* The class has more private methods than public methods.
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
