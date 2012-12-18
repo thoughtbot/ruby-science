@@ -26,4 +26,5 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include Features, type: :feature
+  config.before(:each) { ActionMailer::Base.deliveries.clear }
 end
