@@ -185,12 +185,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="metrics">
 <h2><a href="#TOC">Metrics</a></h2>
-<p>Various tool are available which can aid you in your search for code smells.</p>
+<p>Various tools are available which can aid you in your search for code smells.</p>
 <p>You can use <a href="http://rubygems.org/gems/flog">flog</a> to detect complex parts of code. If you look at the classes and methods with the highest flog score, you'll probably find a few smells worth investigating.</p>
 <p>Duplication is one of the hardest problems to find by hand. If you're using diffs during code reviews, it will be invisible when you copy and paste existing methods. The original method will be unchanged and won't show up in the diff, so unless the reviewer knows and remembers that the original existed, they won't notice that the copied method isn't just a new addition. Use <a href="http://rubygems.org/gems/flay">flay</a> to find duplication. Every duplicated piece of code is a bug waiting to happen.</p>
 <p>When looking for smells, <a href="https://github.com/troessner/reek/wiki">reek</a> can find certain smells reliably and quickly. Attempting to maintain a &quot;reek free&quot; code base is costly, but using reek once you discover a problematic class or method may help you find the solution.</p>
 <p>To find files with a high churn rate, try out the aptly-named <a href="https://github.com/danmayer/churn">churn</a> gem. This works best with Git, but will also work with Subversion.</p>
-<p>You can also use <a href="http://https://codeclimate.com/">Code Climate</a>, a hosted tool which will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade.</p>
+<p>You can also use <a href="https://codeclimate.com/">Code Climate</a>, a hosted tool which will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade.</p>
 <p>Getting obsessed with the counts and scores from these tools will distract from the actual issues in your code, but it's worthwhile to run them continually and watch out for potential warning signs.</p>
 </section>
 <section class="level2" id="how-to-read-this-book">
@@ -263,7 +263,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>You can't easily describe what the class does in one sentence.</li>
 <li>You can't tell what the class does without scrolling.</li>
 <li>The class needs to change for more than one reason.</li>
-<li>The class has more private methods that public methods.</li>
+<li>The class has more private methods than public methods.</li>
 <li>The class has more than 7 methods.</li>
 <li>The class has a total flog score of 50.</li>
 </ul>
@@ -444,7 +444,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>You have to make the same small change across several different files.</li>
-<li>Changes become difficult to manage because they hard to keep track of.</li>
+<li>Changes become difficult to manage because they are hard to keep track of.</li>
 </ul>
 <p>Make sure you look for related smells in the affected code:</p>
 <ul>
@@ -774,7 +774,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>For each path of the condition, there is a sequence of steps.</p>
-<p>The first step is to use <a href="#extract-method">Extract Method</a> to move the path to its own method. In this case, we already extracted methods called 'summarize_multiple_choice_answers<code>,</code>summarize_open_answers<code>, and</code>summarize_scale_answers`, so we can proceed immediately.</p>
+<p>The first step is to use <a href="#extract-method">Extract Method</a> to move the path to its own method. In this case, we already extracted methods called <code>summarize_multiple_choice_answers</code>, <code>summarize_open_answers</code>, and <code>summarize_scale_answers</code>, so we can proceed immediately.</p>
 <p></p>
 <p>The next step is to use <a href="#move-method">Move Method</a> to move the extracted method to the appropriate class. First, let's move the method <code>summarize_multiple_choice_answers</code> to <code>MultipleChoiceQuestion</code> and rename it to <code>summary</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">MultipleChoiceQuestion</span> &lt; <span class="dt">Question</span>

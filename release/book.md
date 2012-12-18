@@ -147,7 +147,7 @@ that wasn't broken.
 
 ## Metrics
 
-Various tool are available which can aid you in your search for code smells.
+Various tools are available which can aid you in your search for code smells.
 
 You can use [flog](http://rubygems.org/gems/flog) to detect complex parts of
 code. If you look at the classes and methods with the highest flog score, you'll
@@ -170,7 +170,7 @@ To find files with a high churn rate, try out the aptly-named
 [churn](https://github.com/danmayer/churn) gem. This works best with Git, but
 will also work with Subversion.
 
-You can also use [Code Climate](http://https://codeclimate.com/), a hosted tool
+You can also use [Code Climate](https://codeclimate.com/), a hosted tool
 which will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
 through F grade.
@@ -279,7 +279,7 @@ Change](#divergent-change).
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
 * The class needs to change for more than one reason.
-* The class has more private methods that public methods.
+* The class has more private methods than public methods.
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
@@ -506,7 +506,7 @@ Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 ### Symptoms
 
 * You have to make the same small change across several different files.
-* Changes become difficult to manage because they hard to keep track of.
+* Changes become difficult to manage because they are hard to keep track of.
 
 Make sure you look for related smells in the affected code:
 
@@ -945,7 +945,7 @@ For each path of the condition, there is a sequence of steps.
 
 The first step is to use [Extract Method](#extract-method) to move the path to
 its own method. In this case, we already extracted methods called
-'summarize_multiple_choice_answers`, `summarize_open_answers`, and
+`summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
 
 \clearpage

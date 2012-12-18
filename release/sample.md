@@ -208,7 +208,7 @@ Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 ### Symptoms
 
 * You have to make the same small change across several different files.
-* Changes become difficult to manage because they hard to keep track of.
+* Changes become difficult to manage because they are hard to keep track of.
 
 Make sure you look for related smells in the affected code:
 
