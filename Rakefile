@@ -46,22 +46,15 @@ namespace :build do
   end
 end
 
-desc "update backbone support code"
-task :update_backbone_support do
-  sh "git clone git@github.com:thoughtbot/backbone-support.git"
-  sh "mv backbone-support/lib/assets/backbone-support/*.js book/views_and_templates"
-  sh "rm -rf backbone-support"
-end
-
 desc "Build and open a PDF version"
 task :open => 'build:pdf' do
-  sh 'open output/book.pdf'
+  sh 'open output/ruby-science.pdf'
 end
 
 namespace :open do
   desc "Build and open the PDF sample"
   task :sample => 'build:sample' do
-    sh 'open output/sample.pdf'
+    sh 'open output/ruby-science-sample.pdf'
   end
 end
 
@@ -164,7 +157,7 @@ class Builder
   def generate_html
     Dir.chdir OUTPUT_DIR do
       puts "## Generating HTML version..."
-      run "pandoc book.md --section-divs --self-contained --toc --standalone -t html5 -o book.html"
+      run "pandoc book.md --section-divs --self-contained --toc --standalone -t html5 -o ruby-science.html"
     end
   end
 
@@ -172,7 +165,7 @@ class Builder
     Dir.chdir OUTPUT_DIR do
       puts "## Generating PDF version..."
       working = File.expand_path File.dirname(__FILE__)
-      run "pandoc book.md --data-dir=#{working} --template=template --chapters --toc -o book.pdf"
+      run "pandoc book.md --data-dir=#{working} --template=template --chapters --toc -o ruby-science.pdf"
     end
   end
 
@@ -183,7 +176,7 @@ class Builder
     Dir.chdir OUTPUT_DIR do
       puts "## Generating Sample PDF version..."
       working = File.expand_path File.dirname(__FILE__)
-      run "pandoc sample.md --data-dir=#{working} --template=template --chapters --toc -o sample.pdf"
+      run "pandoc sample.md --data-dir=#{working} --template=template --chapters --toc -o ruby-science-sample.pdf"
     end
   end
 
@@ -191,14 +184,14 @@ class Builder
     Dir.chdir OUTPUT_DIR do
       puts "## Generating EPUB version..."
       run "convert -density 400 -resize 1000x1000 images/cover.pdf images/cover.png"
-      run "pandoc book.md --toc --epub-cover-image=images/cover.png -o book.epub"
+      run "pandoc book.md --toc --epub-cover-image=images/cover.png -o ruby-science.epub"
     end
   end
 
   def generate_mobi
     Dir.chdir OUTPUT_DIR do
       puts "## Generating MOBI version..."
-      run "kindlegen book.epub -o book.mobi"
+      run "kindlegen ruby-science.epub -o ruby-science.mobi"
     end
   end
 end

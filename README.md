@@ -2,14 +2,14 @@
 
 The quickest way to start reading right now is to view the PDF version here:
 
-<https://github.com/thoughtbot/ruby-science/raw/master/release/book.pdf>
+<https://github.com/thoughtbot/ruby-science/raw/master/release/ruby-science.pdf>
 
 The book is currently available in the following formats:
 
-* PDF: [release/book.pdf](https://github.com/thoughtbot/ruby-science/raw/master/release/book.pdf)
-* Single-page HTML: [release/book.html](https://github.com/thoughtbot/ruby-science/raw/master/release/book.html)
-* Epub (iPad, Nook): [release/book.epub](https://github.com/thoughtbot/ruby-science/raw/master/release/book.epub)
-* Mobi (Kindle): [release/book.mobi](https://github.com/thoughtbot/ruby-science/raw/master/release/book.mobi)
+* PDF: [release/ruby-science.pdf](https://github.com/thoughtbot/ruby-science/raw/master/release/ruby-science.pdf)
+* Single-page HTML: [release/ruby-science.html](https://github.com/thoughtbot/ruby-science/raw/master/release/ruby-science.html)
+* Epub (iPad, Nook): [release/ruby-science.epub](https://github.com/thoughtbot/ruby-science/raw/master/release/ruby-science.epub)
+* Mobi (Kindle): [release/ruby-science.mobi](https://github.com/thoughtbot/ruby-science/raw/master/release/ruby-science.mobi)
 
 For the HTML version, clone the repository and look at the HTML so that images
 and other assets are properly loaded.
