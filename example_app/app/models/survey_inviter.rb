@@ -1,19 +1,19 @@
 class SurveyInviter
   include ActiveModel::Model
   attr_accessor :recipients, :message, :sender, :survey
-  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   validates :message, presence: true
-  validates :recipients, presence: true
+  validates :recipients, length: { minimum: 1 }
   validates :sender, presence: true
   validates :survey, presence: true
 
-  validate :recipient_email_validator
+  validates_with EnumerableValidator,
+    attributes: [:recipients],
+    unless: 'recipients.nil?',
+    validator: EmailValidator
 
   def recipients=(recipients)
-    unless recipients.blank?
-      @recipients = RecipientList.new(recipients)
-    end
+    @recipients = RecipientList.new(recipients)
   end
 
   def invite
@@ -38,16 +38,6 @@ class SurveyInviter
   def deliver_invitations
     create_invitations.each do |invitation|
       Mailer.invitation_notification(invitation, message).deliver
-    end
-  end
-
-  def recipient_email_validator
-    return if recipients.blank?
-
-    recipients.each do |recipient|
-      unless recipient.match(EMAIL_REGEX)
-        errors.add(:recipients, "#{recipient} is not a valid email address.")
-      end
     end
   end
 end
