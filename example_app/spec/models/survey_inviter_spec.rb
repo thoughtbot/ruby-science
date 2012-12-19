@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe SurveyInviter, 'Validations' do
+  it { should validate_length_of(:recipients).is_at_least(1) }
   it { should validate_presence_of(:message) }
-  it { should validate_presence_of(:recipients) }
   it { should validate_presence_of(:sender) }
   it { should validate_presence_of(:survey) }
 end
@@ -16,7 +16,7 @@ describe SurveyInviter, '#invite' do
   end
 
   it 'returns false for an invalid recipient' do
-    SurveyInviter.new(invalid_params).invite.should be_false
+    SurveyInviter.new(invalid_params).invite.should be_falsey
   end
 
   def valid_params
