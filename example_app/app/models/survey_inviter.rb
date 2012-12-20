@@ -3,19 +3,17 @@ class SurveyInviter
   attr_accessor :recipients, :message, :sender, :survey
 
   validates :message, presence: true
-  validates :recipients, presence: true
+  validates :recipients, length: { minimum: 1 }
   validates :sender, presence: true
   validates :survey, presence: true
 
   validates_with EnumerableValidator,
     attributes: [:recipients],
-    unless: 'recipients.blank?',
+    unless: 'recipients.nil?',
     validator: EmailValidator
 
   def recipients=(recipients)
-    unless recipients.blank?
-      @recipients = RecipientList.new(recipients)
-    end
+    @recipients = RecipientList.new(recipients)
   end
 
   def invite

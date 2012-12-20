@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe SurveyInviter, 'Validations' do
+  it { should ensure_length_of(:recipients).is_at_least(1) }
   it { should validate_presence_of(:message) }
-  it { should validate_presence_of(:recipients) }
   it { should validate_presence_of(:sender) }
   it { should validate_presence_of(:survey) }
 end
