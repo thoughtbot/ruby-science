@@ -68,7 +68,11 @@
 
 <<[solutions/extract_service_object.md]
 
+<<[solutions/extract_validator.md]
+
 <<[solutions/introduce_observer.md]
+
+<<[solutions/introduce_form_object.md]
 
 <<[solutions/introduce_parameter_object.md]
 
