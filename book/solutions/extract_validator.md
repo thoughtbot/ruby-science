@@ -1,0 +1,3 @@
+# Extract Validator
+
+STUB
