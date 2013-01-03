@@ -10,12 +10,15 @@
 </ol>
 
 <% @completions.each do |completion| -%>
-  <ol>
-    <% completion.answers.each do |answer| -%>
-      <li class="question">
-        <%= answer.question.title %>
-        <%= answer.text %>
-      </li>
-    <% end %>
-  </ol>
+  <div class="completion">
+    <p>Score: <%= completion.score %></p>
+    <ol>
+      <% completion.answers.each do |answer| -%>
+        <li class="question">
+          <%= answer.question.title %>
+          <%= answer.text %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
 <% end -%>
