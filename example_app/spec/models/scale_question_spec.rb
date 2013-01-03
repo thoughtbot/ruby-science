@@ -16,7 +16,7 @@ describe ScaleQuestion, '#summary' do
   it 'returns the average' do
     survey = create(:survey)
     question = create(:scale_question, minimum: 0, maximum: 10, survey: survey)
-    taker = SurveyTaker.new(survey)
+    taker = AnswerCreator.new(survey)
     taker.answer question, 6
     taker.answer question, 6
     taker.answer question, 8
