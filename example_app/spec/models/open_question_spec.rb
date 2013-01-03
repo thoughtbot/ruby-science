@@ -2,7 +2,7 @@ describe OpenQuestion, '#summary' do
   it 'returns all answers' do
     survey = create(:survey)
     question = create(:open_question, survey: survey)
-    taker = SurveyTaker.new(survey)
+    taker = AnswerCreator.new(survey)
 
     taker.answer question, 'Hey'
     taker.answer question, 'Hi'

@@ -7,9 +7,9 @@ describe User, '#answer_text_for' do
     other_question = create(:question, survey: survey)
     user = create(:user)
     other_user = create(:user)
-    SurveyTaker.new(survey, user: user).answer(question, 'expected')
-    SurveyTaker.new(survey, user: user).answer(other_question, 'other question')
-    SurveyTaker.new(survey, user: other_user).answer(question, 'other user')
+    AnswerCreator.new(survey, user: user).answer(question, 'expected')
+    AnswerCreator.new(survey, user: user).answer(other_question, 'other question')
+    AnswerCreator.new(survey, user: other_user).answer(question, 'other user')
 
     result = user.answer_text_for(question)
 
