@@ -13,6 +13,13 @@ class Completion < ActiveRecord::Base
     end
   end
 
+  def score
+    answers.inject(0) do |result, answer|
+      question = answer.question
+      result + question.score(answer.text)
+    end
+  end
+
   private
 
   def completion_notification
