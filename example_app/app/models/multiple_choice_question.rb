@@ -11,6 +11,10 @@ class MultipleChoiceQuestion < Question
     end
   end
 
+  def score(text)
+    options.score(text)
+  end
+
   def summary
     total = answers.count
     counts = answers.group(:text).order('COUNT(*) DESC').count

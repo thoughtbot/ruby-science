@@ -16,7 +16,7 @@ describe Completion, '#save' do
   end
 end
 
-describe Completion, 'answers_attributes=' do
+describe Completion, '#answers_attributes=' do
   it 'builds answers to each of the questions' do
     completion = build_stubbed(:completion)
 
@@ -35,5 +35,31 @@ describe Completion, 'answers_attributes=' do
       { 'completion_id' => completion.id, 'question_id' => 2, 'text' => 'two' },
       { 'completion_id' => completion.id, 'question_id' => 3, 'text' => 'three' }
     ]
+  end
+end
+
+describe Completion, '#save' do
+  it 'delivers a completion notification' do
+    Mailer.stubs(completion_notification: stub(deliver_now: true))
+    user = create(:user)
+    completion = create(:completion, user: user)
+
+    Mailer.should have_received(:completion_notification).with(user)
+  end
+end
+
+describe Completion, '#score' do
+  it 'adds up scores from the answers' do
+    survey = create(:survey)
+    completion = create(:completion, survey: survey)
+    scores = [1, 2, 3]
+    scores.each do |score|
+      question = create(:scale_question, survey: survey, minimum: 1, maximum: 3)
+      create(:answer, completion: completion, question: question, text: score)
+    end
+
+    result = completion.score
+
+    result.should eq 6
   end
 end

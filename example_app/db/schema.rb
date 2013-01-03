@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20121217033300) do
+ActiveRecord::Schema.define(version: 20130103215349) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "completion_id", null: false
@@ -48,10 +48,11 @@ ActiveRecord::Schema.define(version: 20121217033300) do
   add_index "invitations", ["token"], name: "index_invitations_on_token", unique: true
 
   create_table "options", force: :cascade do |t|
-    t.integer  "question_id", null: false
-    t.string   "text",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "question_id",             null: false
+    t.string   "text",                    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "score",       default: 0, null: false
   end
 
   create_table "questions", force: :cascade do |t|

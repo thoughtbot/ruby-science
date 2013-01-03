@@ -4,4 +4,8 @@ class Option < ActiveRecord::Base
   belongs_to :question
 
   validates :text, presence: true
+
+  def self.score(text)
+    find_by_text!(text).score
+  end
 end
