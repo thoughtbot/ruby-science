@@ -1,4 +1,4 @@
-class SurveyTaker
+class AnswerCreator
   include FactoryGirl::Syntax::Methods
 
   def initialize(survey, options = {})

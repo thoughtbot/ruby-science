@@ -23,7 +23,7 @@ describe MultipleChoiceQuestion, '#summary' do
       options_texts: %w(Blue Red),
       survey: survey
     )
-    taker = SurveyTaker.new(survey)
+    taker = AnswerCreator.new(survey)
     taker.answer question, 'Red'
     taker.answer question, 'Blue'
     taker.answer question, 'Red'

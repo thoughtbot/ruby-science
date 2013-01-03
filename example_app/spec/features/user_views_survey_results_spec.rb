@@ -45,11 +45,12 @@ feature 'user views survey results' do
   end
 
   def answer_survey(survey, name, color, airspeed_velocity)
-    view_survey survey
-    fill_in 'Name?', with: name
-    choose color
-    choose airspeed_velocity
-    submit_answers
+    taker = SurveyTaker.new(survey)
+    taker.start
+    taker.answer 'Name?', name
+    taker.answer 'Favorite color?', color
+    taker.answer 'Airspeed velocity?', airspeed_velocity
+    taker.finish
   end
 
   def view_results(survey)
