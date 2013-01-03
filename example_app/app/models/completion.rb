@@ -15,8 +15,7 @@ class Completion < ActiveRecord::Base
 
   def score
     answers.inject(0) do |result, answer|
-      question = answer.question
-      result + question.score(answer.text)
+      result + score_for_answer(answer)
     end
   end
 
@@ -24,5 +23,10 @@ class Completion < ActiveRecord::Base
 
   def completion_notification
     Mailer.completion_notification(user).deliver
+  end
+
+  def score_for_answer(answer)
+    question = answer.question
+    question.score(answer.text)
   end
 end
