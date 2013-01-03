@@ -47,3 +47,16 @@ describe Answer, '.most_recent_answer' do
     result.should be_a(NullAnswer)
   end
 end
+
+describe Answer, '#score' do
+  it 'asks its question to score its text' do
+    question = build_stubbed(:question)
+    question.stubs(score: 10)
+    answer = build_stubbed(:answer, question: question, text: 'the text')
+
+    result = answer.score
+
+    question.should have_received(:score).with('the text')
+    result.should eq 10
+  end
+end
