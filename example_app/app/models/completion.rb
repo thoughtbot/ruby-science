@@ -15,8 +15,7 @@ class Completion < ActiveRecord::Base
 
   def score
     answers.inject(0) do |result, answer|
-      question = answer.question
-      result + question.score(answer.text)
+      result + answer.score
     end
   end
 

@@ -14,6 +14,10 @@ class Answer < ActiveRecord::Base
     order(:created_at).last_or_null
   end
 
+  def score
+    question.score(text)
+  end
+
   private
 
   def self.last_or_null
