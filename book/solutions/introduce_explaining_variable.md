@@ -38,16 +38,46 @@ end
 
 This increases the overall size of the class and moves
 `text_from_ordered_answers` further away from `summary`, so you'll want to be
-careful when doing this.
+careful when doing this. The most obvious reason to extract a method is to reuse
+the value of the variable. However, there's another potential benefit: in
+changes the way developers read the code.
 
-However, it can be worth it. If you need to reuse the value in the variable,
-you'll need to extract a method. Further, methods can improve the readability.
-Expressions based on variables need to be read top-down, with the details first.
-Note that, with the variable, you naturally focus first on the code necessary to
-find the array of texts, and then progress to see what happens to those texts.
-Once a method is extracted, you naturally focus first on the high level concept
-("this will join text from ordered answers with a comma") and then progress to
-the details if necessary ("how do I find these ordered texts?").
+Developers instinctively read code top-down. Expressions based on variables
+place the details first, which means that a developer will start with the
+details:
+
+``` ruby
+text_from_ordered_answers = answers.order(:created_at).pluck(:text)
+```
+
+And work their way up to the overall goal of a method:
+
+``` ruby
+text_from_ordered_answers.join(', ')
+```
+
+Note that you naturally focus first on the code necessary to find the array of
+texts, and then progress to see what happens to those texts.
+
+Once a method is extracted, the high level concept comes first:
+
+``` ruby
+def summary
+  text_from_ordered_answers.join(', ')
+end
+```
+
+And then you progress to the details:
+
+``` ruby
+def text_from_ordered_answers
+  answers.order(:created_at).pluck(:text)
+end
+```
+
+You can use this technique of extracting methods to make sure that developers
+focus on what's important first, and only dive into the implementation details
+when necessary.
 
 ### Next Steps
 
