@@ -70,6 +70,8 @@
 
 <<[solutions/extract_validator.md]
 
+<<[solutions/introduce_explaining_variable.md]
+
 <<[solutions/introduce_observer.md]
 
 <<[solutions/introduce_form_object.md]
