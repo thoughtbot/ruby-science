@@ -4,6 +4,7 @@ class OpenQuestion < Question
   end
 
   def summary
+    # Text for each answer in order as a comma-separated string
     answers.order(:created_at).pluck(:text).join(', ')
   end
 end
