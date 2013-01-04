@@ -2,6 +2,12 @@ require 'spec_helper'
 
 feature 'user views score for answering survey' do
   scenario 'view score' do
+    survey = make_scored_survey
+    answer_survey survey
+    page.should have_survey_score
+  end
+
+  def make_scored_survey
     maker = SurveyMaker.new
     maker.scored_multiple_choice_question(
       'Choose a vowel',
@@ -10,14 +16,19 @@ feature 'user views score for answering survey' do
       'Y' => 5
     )
     maker.scale_question 'Grammer', 0..10
+    maker.survey
+  end
 
+  def answer_survey(survey)
     sign_in
-    taker = SurveyTaker.new(maker.survey)
+    taker = SurveyTaker.new(survey)
     taker.start
     taker.answer 'Choose a vowel', 'Y'
     taker.answer 'Grammer', 6
     taker.finish
+  end
 
-    page.should have_content('Score: 11')
+  def have_survey_score
+    have_content('Score: 11')
   end
 end
