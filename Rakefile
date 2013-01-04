@@ -292,7 +292,7 @@ class TableOfContents
   end
 
   def html
-    IO.read('book.html')
+    IO.read('ruby-science.html')
   end
 
   def document
