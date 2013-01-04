@@ -39,12 +39,12 @@ end
 This increases the overall size of the class and moves
 `text_from_ordered_answers` further away from `summary`, so you'll want to be
 careful when doing this. The most obvious reason to extract a method is to reuse
-the value of the variable. However, there's another potential benefit: it
-changes the way developers read the code.
+the value of the variable.
 
-Developers instinctively read code top-down. Expressions based on variables
-place the details first, which means that a developer will start with the
-details:
+However, there's another potential benefit: it changes the way developers read
+the code.  Developers instinctively read code top-down. Expressions based on
+variables place the details first, which means that a developer will start with
+the details:
 
 ``` ruby
 text_from_ordered_answers = answers.order(:created_at).pluck(:text)
