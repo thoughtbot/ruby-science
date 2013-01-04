@@ -50,7 +50,7 @@ details:
 text_from_ordered_answers = answers.order(:created_at).pluck(:text)
 ```
 
-And work their way up to the overall goal of a method:
+And work their way down to the overall goal of a method:
 
 ``` ruby
 text_from_ordered_answers.join(', ')
