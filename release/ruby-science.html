@@ -59,39 +59,47 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#prevention">Prevention</a></li>
 <li><a href="#god-class">God Class</a></li>
 </ul></li>
-<li><a href="#feature-envy">Feature Envy</a></li>
-<li><a href="#case-statement">Case Statement</a><ul>
+<li><a href="#feature-envy">Feature Envy</a><ul>
 <li><a href="#symptoms-2">Symptoms</a></li>
-<li><a href="#type-codes">Type Codes</a><ul>
 <li><a href="#example-2">Example</a></li>
 <li><a href="#solutions-2">Solutions</a></li>
+</ul></li>
+<li><a href="#case-statement">Case Statement</a><ul>
+<li><a href="#symptoms-3">Symptoms</a></li>
+<li><a href="#type-codes">Type Codes</a><ul>
+<li><a href="#example-3">Example</a></li>
+<li><a href="#solutions-3">Solutions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#high-fan-out">High Fan-out</a></li>
 <li><a href="#shotgun-surgery">Shotgun Surgery</a><ul>
-<li><a href="#symptoms-3">Symptoms</a></li>
-<li><a href="#example-3">Example</a></li>
-<li><a href="#solutions-3">Solutions</a></li>
-</ul></li>
-<li><a href="#divergent-change">Divergent Change</a></li>
-<li><a href="#long-parameter-list">Long Parameter List</a><ul>
 <li><a href="#symptoms-4">Symptoms</a></li>
 <li><a href="#example-4">Example</a></li>
 <li><a href="#solutions-4">Solutions</a></li>
 </ul></li>
-<li><a href="#duplicated-code">Duplicated Code</a><ul>
+<li><a href="#divergent-change">Divergent Change</a></li>
+<li><a href="#long-parameter-list">Long Parameter List</a><ul>
 <li><a href="#symptoms-5">Symptoms</a></li>
 <li><a href="#example-5">Example</a></li>
 <li><a href="#solutions-5">Solutions</a></li>
 </ul></li>
+<li><a href="#duplicated-code">Duplicated Code</a><ul>
+<li><a href="#symptoms-6">Symptoms</a></li>
+<li><a href="#example-6">Example</a></li>
+<li><a href="#solutions-6">Solutions</a></li>
+</ul></li>
 <li><a href="#uncommunicative-name">Uncommunicative Name</a></li>
 <li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
-<li><a href="#comments">Comments</a></li>
+<li><a href="#comments">Comments</a><ul>
+<li><a href="#symptoms-7">Symptoms</a></li>
+<li><a href="#example-7">Example</a></li>
+<li><a href="#solutions-7">Solutions</a></li>
+</ul></li>
 <li><a href="#mixin">Mixin</a></li>
 <li><a href="#callback">Callback</a></li>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a><ul>
 <li><a href="#uses">Uses</a></li>
-<li><a href="#example-6">Example</a></li>
+<li><a href="#example-8">Example</a></li>
 <li><a href="#replace-type-code-with-subclasses">Replace Type Code With Subclasses</a></li>
 <li><a href="#single-table-inheritance-sti">Single Table Inheritance (STI)</a><ul>
 <li><a href="#extracting-type-specific-code">Extracting Type-Specific Code</a></li>
@@ -104,7 +112,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#replace-conditional-with-null-object">Replace conditional with Null Object</a><ul>
 <li><a href="#uses-1">Uses</a></li>
-<li><a href="#example-7">Example</a></li>
+<li><a href="#example-9">Example</a></li>
 <li><a href="#drawbacks-1">Drawbacks</a></li>
 <li><a href="#next-steps-1">Next Steps</a></li>
 <li><a href="#truthiness-try-and-other-tricks">truthiness, try, and other tricks</a></li>
@@ -121,17 +129,32 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-partial">Extract Partial</a><ul>
 <li><a href="#uses-3">Uses</a></li>
 <li><a href="#steps">Steps</a></li>
-<li><a href="#example-8">Example</a></li>
+<li><a href="#example-10">Example</a></li>
 <li><a href="#next-steps-3">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-service-object">Extract Service Object</a></li>
-<li><a href="#introduce-observer">Introduce Observer</a></li>
-<li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
+<li><a href="#extract-validator">Extract Validator</a></li>
+<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
 <li><a href="#uses-4">Uses</a></li>
+<li><a href="#example-11">Example</a></li>
 <li><a href="#next-steps-4">Next Steps</a></li>
 </ul></li>
+<li><a href="#introduce-observer">Introduce Observer</a></li>
+<li><a href="#introduce-form-object">Introduce Form Object</a><ul>
+<li><a href="#uses-5">Uses</a></li>
+<li><a href="#example-12">Example</a></li>
+<li><a href="#next-steps-5">Next Steps</a></li>
+</ul></li>
+<li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
+<li><a href="#uses-6">Uses</a></li>
+<li><a href="#next-steps-6">Next Steps</a></li>
+</ul></li>
 <li><a href="#use-class-as-factory">Use class as Factory</a></li>
-<li><a href="#move-method">Move method</a></li>
+<li><a href="#move-method">Move method</a><ul>
+<li><a href="#uses-7">Uses</a></li>
+<li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
+<li><a href="#next-steps-7">Next Steps</a></li>
+</ul></li>
 <li><a href="#inline-class">Inline class</a></li>
 <li><a href="#inject-dependencies">Inject dependencies</a></li>
 <li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
@@ -367,12 +390,42 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level1" id="feature-envy">
 <h1><a href="#TOC">Feature Envy</a></h1>
-<p>STUB</p>
+<p>Feature envy reveals a method (or method-to-be) that would work better on a different class.</p>
+<p>Methods suffering from feature envy contain logic that is difficult to reuse, because the logic is trapped within a method on the wrong class. These methods are also often private methods, which makes them unavailable to other classes. Moving the method (or affected portion of a method) to a more appropriate class improves readability, makes the logic easier to reuse, and reduces coupling.</p>
+<section class="level3" id="symptoms-2">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>Repeated references to the same object.</li>
+<li>Parameters or local variables which are used more than methods and instance variables of the class in question.</li>
+<li>Methods that includes a class name in their own names (such as <code>invite_user</code>).</li>
+<li>Private methods on the same class that accept the same parameter.</li>
+<li><a href="#law-of-demeter">Law of Demeter</a> violations.</li>
+<li><a href="#tell-dont-ask">Tell, Don't Ask</a> violations.</li>
+</ul>
+</section>
+<section class="level3" id="example-2">
+<h3><a href="#TOC">Example</a></h3>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/completion.rb</span>
+<span class="kw">def</span> score
+  answers.inject(<span class="dv">0</span>) <span class="kw">do</span> |result, answer|
+    question = answer.question
+    result + question.score(answer.text)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>The <code>answer</code> local variable is used twice in the block: once to get its <code>question</code>, and once to get its <code>text</code>. This tells us that we can probably extract a new method and move it to the <code>Answer</code> class.</p>
+</section>
+<section class="level3" id="solutions-2">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#extract-method">Extract Method</a> if only part of the method suffers from feature envy, and then move the method.</li>
+<li><a href="#move-method">Move Method</a> if the entire method suffers from feature envy.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="case-statement">
 <h1><a href="#TOC">Case Statement</a></h1>
 <p>Case statements are a sign that a method contains too much knowledge.</p>
-<section class="level3" id="symptoms-2">
+<section class="level3" id="symptoms-3">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>Case statements that check the class of an object.</li>
@@ -386,7 +439,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2><a href="#TOC">Type Codes</a></h2>
 <p>Some applications contain type codes: fields that store type information about objects. These fields are easy to add and seem innocent, but they result in code that's harder to maintain. A better solution is to take advantage of Ruby's ability to invoke different behavior based on an object's class, called &quot;dynamic dispatch.&quot; Using a case statement with a type code inelegantly reproduces dynamic dispatch.</p>
 <p>The special <code>type</code> column that ActiveRecord uses is not necessarily a type code. The <code>type</code> column is used to serialize an object's class to the database, so that the correct class can be instantiated later on. If you're just using the <code>type</code> column to let ActiveRecord decide which class to instantiate, this isn't a smell. However, make sure to avoid referencing the <code>type</code> column from <code>case</code> or <code>if</code> statements.</p>
-<section class="level3" id="example-2">
+<section class="level3" id="example-3">
 <h3><a href="#TOC">Example</a></h3>
 <p>This method summarizes the answers to a question. The summary varies based on the type of question.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -424,7 +477,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="kw">&lt;/ol&gt;</span>
 <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
 </section>
-<section class="level3" id="solutions-2">
+<section class="level3" id="solutions-3">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#replace-type-code-with-subclasses">Replace Type Code with Subclasses</a> if the <code>case</code> statement is checking a type code, such as <code>question_type</code>.</li>
@@ -440,7 +493,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level1" id="shotgun-surgery">
 <h1><a href="#TOC">Shotgun Surgery</a></h1>
 <p>Shotgun Surgery is usually a more obvious symptom that reveals another smell.</p>
-<section class="level3" id="symptoms-3">
+<section class="level3" id="symptoms-4">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>You have to make the same small change across several different files.</li>
@@ -456,7 +509,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-3">
+<section class="level3" id="example-4">
 <h3><a href="#TOC">Example</a></h3>
 <p>Users names are formatted and displayed as 'First Last' throughout the application. If we want to change the formating to include a middle initial (e.g. 'First M. Last') we'd need to make the same small change in several places.</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/users/show.html.erb
@@ -471,7 +524,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 # app/views/mailers/completion_notification.html.erb
 <span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span></code></pre>
 </section>
-<section class="level3" id="solutions-3">
+<section class="level3" id="solutions-4">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> to replace duplicated <code>case</code> statements and <code>if-elsif</code> blocks.</li>
@@ -488,7 +541,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level1" id="long-parameter-list">
 <h1><a href="#TOC">Long Parameter List</a></h1>
 <p>Ruby supports positional method arguments which can lead to Long Parameter Lists.</p>
-<section class="level3" id="symptoms-4">
+<section class="level3" id="symptoms-5">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>You can't easily change the method's arguments.</li>
@@ -497,7 +550,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>The method requires large amounts of setup during isolated testing.</li>
 </ul>
 </section>
-<section class="level3" id="example-4">
+<section class="level3" id="example-5">
 <h3><a href="#TOC">Example</a></h3>
 <p>Look at this mailer for an example of Long Parameter List.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
@@ -515,7 +568,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 </section>
-<section class="level3" id="solutions-4">
+<section class="level3" id="solutions-5">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a> and pass it in as an object of naturally grouped attributes.</li>
@@ -529,7 +582,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level1" id="duplicated-code">
 <h1><a href="#TOC">Duplicated Code</a></h1>
 <p>One of the first principles we're taught as developers: Keep your code <a href="#dry">DRY</a>.</p>
-<section class="level3" id="symptoms-5">
+<section class="level3" id="symptoms-6">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>You find yourself copy and pasting code from one place to another.</li>
@@ -537,7 +590,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-5">
+<section class="level3" id="example-6">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>QuestionsController</code> suffers from duplication in the <code>create</code> and <code>update</code> methods.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
@@ -570,7 +623,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 </section>
-<section class="level3" id="solutions-5">
+<section class="level3" id="solutions-6">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#extract-method">Extract Method</a> for duplicated code in the same file.</li>
@@ -591,7 +644,45 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level1" id="comments">
 <h1><a href="#TOC">Comments</a></h1>
-<p>STUB</p>
+<p>Comments can be used appropriately to introduce classes and provide documentation, but used incorrectly, they mask readability and process problems by further obfuscating already unreadable code.</p>
+<section class="level3" id="symptoms-7">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>Comments within method bodies.</li>
+<li>More than one comment per method.</li>
+<li>Comments that restate the method name in English.</li>
+<li>TODO comments.</li>
+<li>Commented out, dead code.</li>
+</ul>
+</section>
+<section class="level3" id="example-7">
+<h3><a href="#TOC">Example</a></h3>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">def</span> summary
+  <span class="co"># Text for each answer in order as a comma-separated string</span>
+  answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>).join(<span class="st">', '</span>)
+<span class="kw">end</span></code></pre>
+<p>This comment is trying to explain what the following line of code does, because the code itself is too hard to understand. A better solution would be to improve the legibility of the code.</p>
+<p></p>
+<p>Some comments add no value at all and can safely be removed:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Invitation</span>
+  <span class="co"># Deliver the invitation</span>
+  <span class="kw">def</span> deliver
+    <span class="dt">Mailer</span>.invitation_notification(<span class="dv">self</span>, message).deliver
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>If there isn't a useful explanation to provide for a method or class beyond the name, don't leave a comment.</p>
+</section>
+<section class="level3" id="solutions-7">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a> to make obfuscated lines easier to read in pieces.</li>
+<li><a href="#extract-method">Extract Method</a> to break up methods that are difficult to read.</li>
+<li>Move TODO comments into a task management system.</li>
+<li>Delete commented out code, and rely on version control in the event that you want to get it back.</li>
+<li>Delete superfluous comments that don't add more value than the method or class name.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="mixin">
 <h1><a href="#TOC">Mixin</a></h1>
@@ -616,7 +707,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-6">
+<section class="level3" id="example-8">
 <h3><a href="#TOC">Example</a></h3>
 <p>This <code>Question</code> class summarizes its answers differently depending on its <code>question_type</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -878,7 +969,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <li>Removes clutter, improving readability of code that consumes <code>nil</code>.</li>
 </ul>
 </section>
-<section class="level3" id="example-7">
+<section class="level3" id="example-9">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 <span class="kw">def</span> most_recent_answer_text
@@ -1130,7 +1221,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-8">
+<section class="level3" id="example-10">
 <h3><a href="#TOC">Example</a></h3>
 <p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
 <p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
@@ -1189,9 +1280,244 @@ en:
 <h1><a href="#TOC">Extract Service Object</a></h1>
 <p>STUB</p>
 </section>
+<section class="level1" id="extract-validator">
+<h1><a href="#TOC">Extract Validator</a></h1>
+<p>STUB</p>
+</section>
+<section class="level1" id="introduce-explaining-variable">
+<h1><a href="#TOC">Introduce Explaining Variable</a></h1>
+<p>This refactoring allows you to break up a complex, hard-to-read statement by placing part of it in a local variable. The only difficult part is finding a good name for the variable.</p>
+<section class="level3" id="uses-4">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Improves legibility of code.</li>
+<li>Makes it easier to <a href="#extract-method">Extract Methods</a> by breaking up long statements.</li>
+<li>Removes the need for extra <a href="#comments">Comments</a>.</li>
+</ul>
+</section>
+<section class="level3" id="example-11">
+<h3><a href="#TOC">Example</a></h3>
+<p>This line of code was hard enough to understand that a comment was added:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">def</span> summary
+  <span class="co"># Text for each answer in order as a comma-separated string</span>
+  answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>).join(<span class="st">', '</span>)
+<span class="kw">end</span></code></pre>
+<p>Adding an explaining variable makes the line easy to understand without a comment:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">def</span> summary
+  text_from_ordered_answers = answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+  text_from_ordered_answers.join(<span class="st">', '</span>)
+<span class="kw">end</span></code></pre>
+<p>You can follow up by using <a href="#replace-temp-with-query">Replace Temp with Query</a>.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> summary
+  text_from_ordered_answers.join(<span class="st">', '</span>)
+<span class="kw">end</span>
+
+<span class="kw">private</span>
+
+<span class="kw">def</span> text_from_ordered_answers
+  answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+<span class="kw">end</span></code></pre>
+<p>This increases the overall size of the class and moves <code>text_from_ordered_answers</code> further away from <code>summary</code>, so you'll want to be careful when doing this. The most obvious reason to extract a method is to reuse the value of the variable.</p>
+<p>However, there's another potential benefit: it changes the way developers read the code. Developers instinctively read code top-down. Expressions based on variables place the details first, which means that a developer will start with the details:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby">text_from_ordered_answers = answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)</code></pre>
+<p>And work their way down to the overall goal of a method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby">text_from_ordered_answers.join(<span class="st">', '</span>)</code></pre>
+<p>Note that you naturally focus first on the code necessary to find the array of texts, and then progress to see what happens to those texts.</p>
+<p>Once a method is extracted, the high level concept comes first:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> summary
+  text_from_ordered_answers.join(<span class="st">', '</span>)
+<span class="kw">end</span></code></pre>
+<p>And then you progress to the details:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> text_from_ordered_answers
+  answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+<span class="kw">end</span></code></pre>
+<p>You can use this technique of extracting methods to make sure that developers focus on what's important first, and only dive into the implementation details when necessary.</p>
+</section>
+<section class="level3" id="next-steps-4">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li><a href="#replace-temp-with-query">Replace Temp with Query</a> if you want to reuse the expression or revert the naturally order in which a developer reads the method.</li>
+<li>Check the affected expression to make sure that it's easy to read. If it's still too dense, try extracting more variables or methods.</li>
+<li>Check the extracted variable or method for <a href="#feature-envy">Feature Envy</a>.</li>
+</ul>
+</section>
+</section>
 <section class="level1" id="introduce-observer">
 <h1><a href="#TOC">Introduce Observer</a></h1>
 <p>STUB</p>
+</section>
+<section class="level1" id="introduce-form-object">
+<h1><a href="#TOC">Introduce Form Object</a></h1>
+<p>A specialized type of <a href="#extract-class">Extract Class</a> used to remove business logic from controllers when processing data outside of an ActiveRecord model.</p>
+<section class="level3" id="uses-5">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Keep business logic out of Controllers and Views.</li>
+<li>Add validation support to plain old Ruby objects.</li>
+<li>Display form validation errors using Rails conventions.</li>
+<li>Set the stage for <a href="#extract-validator">Extract Validator</a>.</li>
+</ul>
+</section>
+<section class="level3" id="example-12">
+<h3><a href="#TOC">Example</a></h3>
+<p>The <code>create</code> action of our <code>InvitationsController</code> relies on user submitted data for <code>message</code> and <code>recipients</code> (a comma delimited list of email addresses).</p>
+<p>It performs a number of tasks:</p>
+<ul>
+<li>Finds the current survey.</li>
+<li>Validates the <code>message</code> is present.</li>
+<li>Validates each of the <code>recipients</code> are email addresses.</li>
+<li>Creates an invitation for each of the recipients.</li>
+<li>Sends an email to each of the recipients.</li>
+<li>Sets view data for validation failures.</li>
+</ul>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span>
+
+  <span class="kw">def</span> new
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> create
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+    <span class="kw">if</span> valid_recipients? &amp;&amp; valid_message?
+      recipient_list.each <span class="kw">do</span> |email|
+        invitation = <span class="dt">Invitation</span>.create(
+          survey: <span class="ot">@survey</span>,
+          sender: current_user,
+          recipient_email: email,
+          status: <span class="st">'pending'</span>
+        )
+        <span class="dt">Mailer</span>.invitation_notification(invitation, message)
+      <span class="kw">end</span>
+      redirect_to survey_path(<span class="ot">@survey</span>), notice: <span class="st">'Invitation successfully sent'</span>
+    <span class="kw">else</span>
+      <span class="ot">@recipients</span> = recipients
+      <span class="ot">@message</span> = message
+      render <span class="st">'new'</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> valid_recipients?
+    invalid_recipients.empty?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> valid_message?
+    message.present?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> invalid_recipients
+    <span class="ot">@invalid_recipients</span> ||= recipient_list.map <span class="kw">do</span> |item|
+      <span class="kw">unless</span> item.match(<span class="dt">EMAIL_REGEX</span>)
+        item
+      <span class="kw">end</span>
+    <span class="kw">end</span>.compact
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> recipient_list
+    <span class="ot">@recipient_list</span> ||= recipients.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">  end</span>
+
+<span class="ot">  def recipients</span>
+<span class="ot">    params[:invitation][:recipients]</span>
+<span class="ot">  end</span>
+
+<span class="ot">  def message</span>
+<span class="ot">    params[:invitation][:message]</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<p>By introducing a form object we can move the concerns of data validation, invitation creation, and notifications to the new model <code>SurveyInviter</code>.</p>
+<p>Including <a href="https://github.com/rails/rails/blob/master/activemodel/lib/active_model/model.rb">ActiveModel::Model</a> allows us to leverage the familiar <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validation</a> syntax.</p>
+<p>As we introduce the form object we'll also extract an enumerable class <code>RecipientList</code> and validators <code>EnumerableValidator</code> and <code>EmailValidator</code>. They will be covered in the chapters <a href="#extract-class">Extract Class</a> and <a href="#extract-validator">Extract Validator</a>.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">class</span> <span class="dt">SurveyInviter</span>
+  <span class="kw">include</span> <span class="dt">ActiveModel</span>::<span class="dt">Model</span>
+  <span class="ot">attr_accessor</span> <span class="st">:recipients</span>, <span class="st">:message</span>, <span class="st">:sender</span>, <span class="st">:survey</span>
+
+  validates <span class="st">:message</span>, presence: <span class="dv">true</span>
+  validates <span class="st">:recipients</span>, length: { minimum: <span class="dv">1</span> }
+  validates <span class="st">:sender</span>, presence: <span class="dv">true</span>
+  validates <span class="st">:survey</span>, presence: <span class="dv">true</span>
+
+  validates_with <span class="dt">EnumerableValidator</span>,
+    attributes: [<span class="st">:recipients</span>],
+    <span class="kw">unless</span>: <span class="st">'recipients.nil?'</span>,
+    validator: <span class="dt">EmailValidator</span>
+
+  <span class="kw">def</span> recipients=(recipients)
+    <span class="ot">@recipients</span> = <span class="dt">RecipientList</span>.new(recipients)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> invite
+    <span class="kw">if</span> valid?
+      deliver_invitations
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> create_invitations
+    recipients.map <span class="kw">do</span> |recipient_email|
+      <span class="dt">Invitation</span>.create!(
+        survey: survey,
+        sender: sender,
+        recipient_email: recipient_email,
+        status: <span class="st">'pending'</span>
+      )
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> deliver_invitations
+    create_invitations.each <span class="kw">do</span> |invitation|
+      <span class="dt">Mailer</span>.invitation_notification(invitation, message).deliver
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Moving business logic into the new form object dramatically reduces the size and complexity of the <code>InvitationsController</code>. The controller is now focused on the interaction between the user and the models.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="kw">def</span> new
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+    <span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> create
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+    <span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new(survey_inviter_params)
+
+    <span class="kw">if</span> <span class="ot">@survey_inviter</span>.invite
+      redirect_to survey_path(<span class="ot">@survey</span>), notice: <span class="st">'Invitation successfully sent'</span>
+    <span class="kw">else</span>
+      render <span class="st">'new'</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> survey_inviter_params
+    params.require(<span class="st">:survey_inviter</span>).permit(
+      <span class="st">:message</span>,
+      <span class="st">:recipients</span>
+    ).merge(
+      sender: current_user,
+      survey: <span class="ot">@survey</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="next-steps-5">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check that the controller no longer has <a href="#long-method">Long Methods</a>.</li>
+<li>Verify the new form object is not a <a href="#large-class">Large Class</a>.</li>
+<li>Check for places to re-use any new validators if <a href="#extract-validator">Extract Validator</a> was used during the refactoring.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="introduce-parameter-object">
 <h1><a href="#TOC">Introduce Parameter Object</a></h1>
@@ -1201,7 +1527,7 @@ en:
 <li>Pick a name for the object that represents the grouped parameters.</li>
 <li>Replace method's grouped parameters with the object.</li>
 </ul>
-<section class="level3" id="uses-4">
+<section class="level3" id="uses-6">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#long-parameter-list">Long Parameter Lists</a>.</li>
@@ -1243,7 +1569,7 @@ en:
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
 <span class="kw">&lt;%=</span> <span class="ot">@recipient</span>.full_name <span class="kw">%&gt;</span></code></pre>
 </section>
-<section class="level3" id="next-steps-4">
+<section class="level3" id="next-steps-6">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check to see if the same Data Clump exists elsewhere in the application, and reuse the Parameter Object to group them together.</li>
@@ -1257,7 +1583,67 @@ en:
 </section>
 <section class="level1" id="move-method">
 <h1><a href="#TOC">Move method</a></h1>
-<p>STUB</p>
+<p>Moving methods is generally easy. Moving a method allows you to place a method closer to the state it uses by moving it to the class which owns the related state.</p>
+<p>To move a method:</p>
+<ul>
+<li>Move the entire method definition and body into the new class.</li>
+<li>Change any parameters which are part of the state of the new class to simply reference the instance variables or methods.</li>
+<li>Introduce any necessary parameters because of state which belongs to the old class.</li>
+<li>Rename the method if the new name no longer makes sense in the new context (for example, rename <code>invite_user</code> to <code>invite</code> once the method is moved to the <code>User</code> class).</li>
+<li>Replace calls to the old method to calls to the new method. This may require introducing delegation or building an instance of the new class.</li>
+</ul>
+<section class="level3" id="uses-7">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Remove <a href="#feature-envy">Feature Envy</a> by moving a method to the class where the envied methods live.</li>
+<li>Make private, parameterized methods easier to reuse by moving them to public, unparameterized methods.</li>
+<li>Improve readability by keeping methods close to the other methods they use.</li>
+</ul>
+<p>Let's take a look at an example method that suffers from <a href="#feature-envy">Feature Envy</a> and use <a href="#extract-method">Extract Method</a> and Move Method to improve it:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/completion.rb</span>
+<span class="kw">def</span> score
+  answers.inject(<span class="dv">0</span>) <span class="kw">do</span> |result, answer|
+    question = answer.question
+    result + question.score(answer.text)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>The block in this method suffers from <a href="#feature-envy">Feature Envy</a>: it references <code>answer</code> more than it references methods or instance variables from its own class. We can't move the entire method; we only want to move the block, so let's first extract a method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/completion.rb</span>
+<span class="kw">def</span> score
+  answers.inject(<span class="dv">0</span>) <span class="kw">do</span> |result, answer|
+    result + score_for_answer(answer)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/completion.rb</span>
+<span class="kw">def</span> score_for_answer(answer)
+  question = answer.question
+  question.score(answer.text)
+<span class="kw">end</span></code></pre>
+<p>The <code>score</code> method no longer suffers from <a href="#feature-envy">Feature Envy</a>, and the new <code>score_for_answer</code> method is easy to move, because it only references its own state. See the chapter on <a href="#extract-method">Extract Method</a> for details on the mechanics and properties of this refactoring.</p>
+<p>Now that the <a href="#feature-envy">Feature Envy</a> is isolated, let's resolve it by moving the method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/completion.rb</span>
+<span class="kw">def</span> score
+  answers.inject(<span class="dv">0</span>) <span class="kw">do</span> |result, answer|
+    result + answer.score
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
+<span class="kw">def</span> score
+  question.score(text)
+<span class="kw">end</span></code></pre>
+<p>The newly extracted and moved <code>Question#score</code> method no longer suffers from <a href="#feature-envy">Feature Envy</a>. It's easier to reuse, because the logic is freed from the internal block in <code>Completion#score</code>. It's also available to other classes, because it's no longer a private method. Both methods are also easier to follow, because the methods they invoke are close to the methods they depend on.</p>
+</section>
+<section class="level3" id="dangerous-move-and-extract-at-the-same-time">
+<h3><a href="#TOC">Dangerous: move and extract at the same time</a></h3>
+<p>It's tempting to do everything as one change: create a new method in <code>Answer</code>, move the code over from <code>Completion</code>, and change <code>Completion#score</code> to call the new method. Although this frequently works without a hitch, with practice, you can perform the two, smaller refactorings just as quickly as the single, larger refactoring. By breaking the refactoring into two steps, you reduce the duration of &quot;down time&quot; for your code; that is, you reduce the amount of time during which something is broken. Improving code in tiny steps makes it easier to debug when something goes wrong and prevents you from writing more code than you need to. Because the code still works after each step, you can simply stop whenever you're happy with the results.</p>
+</section>
+<section class="level3" id="next-steps-7">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Make sure the new method doesn't suffer from <a href="#feature-envy">Feature Envy</a> because of state it used from its original class. If it does, try splitting the method up and moving part of it back.</li>
+<li>Check the class of the new method to make sure it's not a <a href="#large-class">Large Class</a>.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="inline-class">
 <h1><a href="#TOC">Inline class</a></h1>

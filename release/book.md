@@ -406,7 +406,46 @@ Treatment and prevention of God Classes is the same as for any Large Class.
 
 # Feature Envy
 
-STUB
+Feature envy reveals a method (or method-to-be) that would work better on a
+different class.
+
+Methods suffering from feature envy contain logic that is difficult to reuse,
+because the logic is trapped within a method on the wrong class. These methods
+are also often private methods, which makes them unavailable to other classes.
+Moving the method (or affected portion of a method) to a more appropriate class
+improves readability, makes the logic easier to reuse, and reduces coupling.
+
+### Symptoms
+
+* Repeated references to the same object.
+* Parameters or local variables which are used more than methods and instance
+  variables of the class in question.
+* Methods that includes a class name in their own names (such as `invite_user`).
+* Private methods on the same class that accept the same parameter.
+* [Law of Demeter](#law-of-demeter) violations.
+* [Tell, Don't Ask](#tell-dont-ask) violations.
+
+### Example
+
+```ruby
+# app/models/completion.rb
+def score
+  answers.inject(0) do |result, answer|
+    question = answer.question
+    result + question.score(answer.text)
+  end
+end
+```
+
+The `answer` local variable is used twice in the block: once to get its
+`question`, and once to get its `text`. This tells us that we can probably
+extract a new method and move it to the `Answer` class.
+
+### Solutions
+
+* [Extract Method](#extract-method) if only part of the method suffers from
+  feature envy, and then move the method.
+* [Move Method](#move-method) if the entire method suffers from feature envy.
 
 # Case Statement
 
@@ -667,7 +706,59 @@ STUB
 
 # Comments
 
-STUB
+Comments can be used appropriately to introduce classes and provide
+documentation, but used incorrectly, they mask readability and process problems
+by further obfuscating already unreadable code.
+
+### Symptoms
+
+* Comments within method bodies.
+* More than one comment per method.
+* Comments that restate the method name in English.
+* TODO comments.
+* Commented out, dead code.
+
+### Example
+
+```ruby
+# app/models/open_question.rb
+def summary
+  # Text for each answer in order as a comma-separated string
+  answers.order(:created_at).pluck(:text).join(', ')
+end
+```
+
+This comment is trying to explain what the following line of code does, because
+the code itself is too hard to understand. A better solution would be to improve
+the legibility of the code.
+
+\clearpage
+
+Some comments add no value at all and can safely be removed:
+
+``` ruby
+class Invitation
+  # Deliver the invitation
+  def deliver
+    Mailer.invitation_notification(self, message).deliver
+  end
+end
+```
+
+If there isn't a useful explanation to provide for a method or class beyond the
+name, don't leave a comment.
+
+### Solutions
+
+* [Introduce Explaining Variable](#introduce-explaining-variable) to make
+  obfuscated lines easier to read in pieces.
+* [Extract Method](#extract-method) to break up methods that are difficult
+  to read.
+* Move TODO comments into a task management system.
+* Delete commented out code, and rely on version control in the event that you
+  want to get it back.
+* Delete superfluous comments that don't add more value than the method or class
+  name.
 
 # Mixin
 
@@ -1546,9 +1637,307 @@ replace them with the newly extracted partial.
 
 STUB
 
+# Extract Validator
+
+STUB
+
+# Introduce Explaining Variable
+
+This refactoring allows you to break up a complex, hard-to-read statement by
+placing part of it in a local variable. The only difficult part is finding a
+good name for the variable.
+
+### Uses
+
+* Improves legibility of code.
+* Makes it easier to [Extract Methods](#extract-method) by breaking up long
+  statements.
+* Removes the need for extra [Comments](#comments).
+
+### Example
+
+This line of code was hard enough to understand that a comment was added:
+
+```ruby
+# app/models/open_question.rb
+def summary
+  # Text for each answer in order as a comma-separated string
+  answers.order(:created_at).pluck(:text).join(', ')
+end
+```
+
+Adding an explaining variable makes the line easy to understand without a
+comment:
+
+```ruby
+# app/models/open_question.rb
+def summary
+  text_from_ordered_answers = answers.order(:created_at).pluck(:text)
+  text_from_ordered_answers.join(', ')
+end
+```
+
+You can follow up by using [Replace Temp with Query](#replace-temp-with-query).
+
+``` ruby
+def summary
+  text_from_ordered_answers.join(', ')
+end
+
+private
+
+def text_from_ordered_answers
+  answers.order(:created_at).pluck(:text)
+end
+```
+
+This increases the overall size of the class and moves
+`text_from_ordered_answers` further away from `summary`, so you'll want to be
+careful when doing this. The most obvious reason to extract a method is to reuse
+the value of the variable.
+
+However, there's another potential benefit: it changes the way developers read
+the code.  Developers instinctively read code top-down. Expressions based on
+variables place the details first, which means that a developer will start with
+the details:
+
+``` ruby
+text_from_ordered_answers = answers.order(:created_at).pluck(:text)
+```
+
+And work their way down to the overall goal of a method:
+
+``` ruby
+text_from_ordered_answers.join(', ')
+```
+
+Note that you naturally focus first on the code necessary to find the array of
+texts, and then progress to see what happens to those texts.
+
+Once a method is extracted, the high level concept comes first:
+
+``` ruby
+def summary
+  text_from_ordered_answers.join(', ')
+end
+```
+
+And then you progress to the details:
+
+``` ruby
+def text_from_ordered_answers
+  answers.order(:created_at).pluck(:text)
+end
+```
+
+You can use this technique of extracting methods to make sure that developers
+focus on what's important first, and only dive into the implementation details
+when necessary.
+
+### Next Steps
+
+* [Replace Temp with Query](#replace-temp-with-query) if you want to reuse the
+  expression or revert the naturally order in which a developer reads the
+  method.
+* Check the affected expression to make sure that it's easy to read. If it's
+  still too dense, try extracting more variables or methods.
+* Check the extracted variable or method for [Feature Envy](#feature-envy).
+
 # Introduce Observer
 
 STUB
+
+# Introduce Form Object
+
+A specialized type of [Extract Class](#extract-class) used to remove business
+logic from controllers when processing data outside of an ActiveRecord model.
+
+### Uses
+
+* Keep business logic out of Controllers and Views.
+* Add validation support to plain old Ruby objects.
+* Display form validation errors using Rails conventions.
+* Set the stage for [Extract Validator](#extract-validator).
+
+### Example
+
+The `create` action of our `InvitationsController` relies on user submitted data for
+`message` and `recipients` (a comma delimited list of email addresses).
+
+It performs a number of tasks:
+
+* Finds the current survey.
+* Validates the `message` is present.
+* Validates each of the `recipients` are email addresses.
+* Creates an invitation for each of the recipients.
+* Sends an email to each of the recipients.
+* Sets view data for validation failures.
+
+\clearpage
+
+```ruby
+# app/controllers/invitations_controller.rb
+class InvitationsController < ApplicationController
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+
+  def new
+    @survey = Survey.find(params[:survey_id])
+  end
+
+  def create
+    @survey = Survey.find(params[:survey_id])
+    if valid_recipients? && valid_message?
+      recipient_list.each do |email|
+        invitation = Invitation.create(
+          survey: @survey,
+          sender: current_user,
+          recipient_email: email,
+          status: 'pending'
+        )
+        Mailer.invitation_notification(invitation, message)
+      end
+      redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
+    else
+      @recipients = recipients
+      @message = message
+      render 'new'
+    end
+  end
+
+  private
+
+  def valid_recipients?
+    invalid_recipients.empty?
+  end
+
+  def valid_message?
+    message.present?
+  end
+
+  def invalid_recipients
+    @invalid_recipients ||= recipient_list.map do |item|
+      unless item.match(EMAIL_REGEX)
+        item
+      end
+    end.compact
+  end
+
+  def recipient_list
+    @recipient_list ||= recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+  end
+
+  def recipients
+    params[:invitation][:recipients]
+  end
+
+  def message
+    params[:invitation][:message]
+  end
+end
+```
+
+By introducing a form object we can move the concerns of data validation, invitation
+creation, and notifications to the new model `SurveyInviter`.
+
+Including [ActiveModel::Model](https://github.com/rails/rails/blob/master/activemodel/lib/active_model/model.rb)
+allows us to leverage the familiar
+[Active Record Validation](http://guides.rubyonrails.org/active_record_validations_callbacks.html)
+syntax.
+
+As we introduce the form object we'll also extract an enumerable class `RecipientList`
+and validators `EnumerableValidator` and `EmailValidator`. They will be covered 
+in the chapters [Extract Class](#extract-class) and [Extract Validator](#extract-validator).
+
+```ruby
+# app/models/survey_inviter.rb
+class SurveyInviter
+  include ActiveModel::Model
+  attr_accessor :recipients, :message, :sender, :survey
+
+  validates :message, presence: true
+  validates :recipients, length: { minimum: 1 }
+  validates :sender, presence: true
+  validates :survey, presence: true
+
+  validates_with EnumerableValidator,
+    attributes: [:recipients],
+    unless: 'recipients.nil?',
+    validator: EmailValidator
+
+  def recipients=(recipients)
+    @recipients = RecipientList.new(recipients)
+  end
+
+  def invite
+    if valid?
+      deliver_invitations
+    end
+  end
+
+  private
+
+  def create_invitations
+    recipients.map do |recipient_email|
+      Invitation.create!(
+        survey: survey,
+        sender: sender,
+        recipient_email: recipient_email,
+        status: 'pending'
+      )
+    end
+  end
+
+  def deliver_invitations
+    create_invitations.each do |invitation|
+      Mailer.invitation_notification(invitation, message).deliver
+    end
+  end
+end
+```
+
+Moving business logic into the new form object dramatically reduces the size and
+complexity of the `InvitationsController`. The controller is now focused on the
+interaction between the user and the models.
+
+```ruby
+# app/controllers/invitations_controller.rb
+class InvitationsController < ApplicationController
+  def new
+    @survey = Survey.find(params[:survey_id])
+    @survey_inviter = SurveyInviter.new
+  end
+
+  def create
+    @survey = Survey.find(params[:survey_id])
+    @survey_inviter = SurveyInviter.new(survey_inviter_params)
+
+    if @survey_inviter.invite
+      redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
+    else
+      render 'new'
+    end
+  end
+
+  private
+
+  def survey_inviter_params
+    params.require(:survey_inviter).permit(
+      :message,
+      :recipients
+    ).merge(
+      sender: current_user,
+      survey: @survey
+    )
+  end
+end
+```
+
+### Next Steps
+
+* Check that the controller no longer has [Long Methods](#long-method).
+* Verify the new form object is not a [Large Class](#large-class).
+* Check for places to re-use any new validators if [Extract Validator](#extract-validator)
+was used during the refactoring.
 
 # Introduce Parameter Object
 
@@ -1629,7 +2018,118 @@ STUB
 
 # Move method
 
-STUB
+Moving methods is generally easy. Moving a method allows you to place a method
+closer to the state it uses by moving it to the class which owns the related
+state.
+
+To move a method:
+
+* Move the entire method definition and body into the new class.
+* Change any parameters which are part of the state of the new class to simply
+  reference the instance variables or methods.
+* Introduce any necessary parameters because of state which belongs to the old
+  class.
+* Rename the method if the new name no longer makes sense in the new context
+  (for example, rename `invite_user` to `invite` once the method is moved to the
+  `User` class).
+* Replace calls to the old method to calls to the new method. This may require
+  introducing delegation or building an instance of the new class.
+
+### Uses
+
+* Remove [Feature Envy](#feature-envy) by moving a method to the class where the
+  envied methods live.
+* Make private, parameterized methods easier to reuse by moving them to public,
+  unparameterized methods.
+* Improve readability by keeping methods close to the other methods they use.
+
+Let's take a look at an example method that suffers from [Feature
+Envy](#feature-envy) and use [Extract Method](#extract-method) and Move Method
+to improve it:
+
+```ruby
+# app/models/completion.rb
+def score
+  answers.inject(0) do |result, answer|
+    question = answer.question
+    result + question.score(answer.text)
+  end
+end
+```
+
+The block in this method suffers from [Feature Envy](#feature-envy): it
+references `answer` more than it references methods or instance variables from
+its own class. We can't move the entire method; we only want to move the block,
+so let's first extract a method:
+
+```ruby
+# app/models/completion.rb
+def score
+  answers.inject(0) do |result, answer|
+    result + score_for_answer(answer)
+  end
+end
+```
+
+```ruby
+# app/models/completion.rb
+def score_for_answer(answer)
+  question = answer.question
+  question.score(answer.text)
+end
+```
+
+The `score` method no longer suffers from [Feature Envy](#feature-envy), and the
+new `score_for_answer` method is easy to move, because it only references its
+own state. See the chapter on [Extract Method](#extract-method) for details on
+the mechanics and properties of this refactoring.
+
+Now that the [Feature Envy](#feature-envy) is isolated, let's resolve it by
+moving the method:
+
+```ruby
+# app/models/completion.rb
+def score
+  answers.inject(0) do |result, answer|
+    result + answer.score
+  end
+end
+```
+
+```ruby
+# app/models/answer.rb
+def score
+  question.score(text)
+end
+```
+
+The newly extracted and moved `Question#score` method no longer suffers from
+[Feature Envy](#feature-envy). It's easier to reuse, because the logic is freed
+from the internal block in `Completion#score`. It's also available to other
+classes, because it's no longer a private method. Both methods are also easier
+to follow, because the methods they invoke are close to the methods they depend
+on.
+
+### Dangerous: move and extract at the same time
+
+It's tempting to do everything as one change: create a new method in `Answer`,
+move the code over from `Completion`, and change `Completion#score` to call the
+new method. Although this frequently works without a hitch, with practice, you
+can perform the two, smaller refactorings just as quickly as the single, larger
+refactoring. By breaking the refactoring into two steps, you reduce the duration
+of "down time" for your code; that is, you reduce the amount of time during
+which something is broken. Improving code in tiny steps makes it easier to debug
+when something goes wrong and prevents you from writing more code than you need
+to. Because the code still works after each step, you can simply stop whenever
+you're happy with the results.
+
+### Next Steps
+
+* Make sure the new method doesn't suffer from [Feature Envy](#feature-envy)
+  because of state it used from its original class. If it does, try splitting
+  the method up and moving part of it back.
+* Check the class of the new method to make sure it's not a [Large
+  Class](#large-class).
 
 # Inline class
 
