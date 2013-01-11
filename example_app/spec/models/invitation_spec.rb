@@ -7,6 +7,8 @@ end
 
 describe Invitation, 'Validations' do
   it { should validate_presence_of(:recipient_email) }
+  it { should allow_value('user@example.com').for(:recipient_email) }
+  it { should_not allow_value('invalid_email').for(:recipient_email) }
   it { should ensure_inclusion_of(:status).in_array(Invitation::STATUSES) }
 end
 

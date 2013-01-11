@@ -1,11 +1,12 @@
 class Invitation < ActiveRecord::Base
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   STATUSES = %w(pending accepted)
 
   belongs_to :sender, class_name: 'User'
   belongs_to :survey
   before_create :set_token
 
-  validates :recipient_email, presence: true
+  validates :recipient_email, presence: true, format: EMAIL_REGEX
   validates :status, inclusion: { in: STATUSES }
 
   def to_param
