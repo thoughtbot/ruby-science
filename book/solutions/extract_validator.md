@@ -20,7 +20,6 @@ The `Invitation` class has validation details in-line. It checks that the
 class Invitation < ActiveRecord::Base
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :recipient_email, presence: true, format: EMAIL_REGEX
-  # ...
 end
 ```
 
@@ -39,7 +38,6 @@ arguments.
 # app/models/invitation.rb
 class Invitation < ActiveRecord::Base
   validates :recipient_email, presence: true, email: true
-  # ...
 end
 ```
 
