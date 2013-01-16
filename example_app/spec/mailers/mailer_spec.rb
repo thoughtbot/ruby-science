@@ -37,14 +37,15 @@ describe Mailer, '#invitation_notification' do
   end
 
   def message
-   Mailer.invitation_notification(invitation, invitation_text)
+   Mailer.invitation_notification(invitation)
   end
 
   def invitation
     @invitation ||= build(
       :invitation,
       token: 'unique_token',
-      recipient_email: recipient_email
+      recipient_email: recipient_email,
+      message: invitation_text
     )
   end
 

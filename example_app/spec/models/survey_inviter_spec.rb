@@ -9,10 +9,11 @@ end
 
 describe SurveyInviter, '#invite' do
   it 'invites a valid recipient' do
-    SurveyInviter.new(valid_params).invite
+    params = valid_params
+    SurveyInviter.new(params).invite
 
     Invitation.count.should eq 1
-    ActionMailer::Base.deliveries.count.should eq 1
+    ActionMailer::Base.deliveries.last.should have_body_text(params[:message])
   end
 
   it 'returns false for an invalid recipient' do
