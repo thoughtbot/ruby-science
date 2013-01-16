@@ -8,7 +8,7 @@ code across several files.
 
 * Keep validation implementation details out of models.
 * Encapsulate validation details into a single file.
-* Remove duplication among classes validating types of data.
+* Remove duplication among classes performing the same validation logic.
 
 ### Example
 
