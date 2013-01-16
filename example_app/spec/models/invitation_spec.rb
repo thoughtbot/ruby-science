@@ -12,6 +12,18 @@ describe Invitation, 'Validations' do
   it { should validate_inclusion_of(:status).in_array(Invitation::STATUSES) }
 end
 
+describe Invitation, 'After create' do
+  it 'sends email notifications' do
+    notification = stub('notification', deliver_now: true)
+    Mailer.stubs(invitation_notification: notification)
+    invitation = build(:invitation)
+
+    invitation.save!
+
+    notification.should have_received(:deliver_now)
+  end
+end
+
 describe Invitation, '#to_param' do
   it 'returns the invitation token' do
     invitation = create(:invitation)
