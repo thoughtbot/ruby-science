@@ -30,14 +30,15 @@ class SurveyInviter
         survey: survey,
         sender: sender,
         recipient_email: recipient_email,
-        status: 'pending'
+        status: 'pending',
+        message: @message
       )
     end
   end
 
   def deliver_invitations
     create_invitations.each do |invitation|
-      Mailer.invitation_notification(invitation, message).deliver
+      Mailer.invitation_notification(invitation).deliver
     end
   end
 end

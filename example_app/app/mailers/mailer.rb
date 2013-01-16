@@ -10,9 +10,8 @@ class Mailer < ActionMailer::Base
     )
   end
 
-  def invitation_notification(invitation, message)
+  def invitation_notification(invitation)
     @invitation = invitation
-    @message = message
 
     mail(
       to: invitation.recipient_email,
