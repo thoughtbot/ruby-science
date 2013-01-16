@@ -24,7 +24,7 @@ class SurveyInviter
 
   private
 
-  def create_invitations
+  def deliver_invitations
     recipients.map do |recipient_email|
       Invitation.create!(
         survey: survey,
@@ -33,12 +33,6 @@ class SurveyInviter
         status: 'pending',
         message: @message
       )
-    end
-  end
-
-  def deliver_invitations
-    create_invitations.each do |invitation|
-      Mailer.invitation_notification(invitation).deliver
     end
   end
 end
