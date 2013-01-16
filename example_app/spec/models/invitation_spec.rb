@@ -12,13 +12,13 @@ describe Invitation, 'Validations' do
   it { should ensure_inclusion_of(:status).in_array(Invitation::STATUSES) }
 end
 
-describe Invitation, 'After create' do
+describe Invitation, '#deliver' do
   it 'sends email notifications' do
     notification = stub('notification', deliver: true)
     Mailer.stubs(invitation_notification: notification)
-    invitation = build(:invitation)
+    invitation = build_stubbed(:invitation)
 
-    invitation.save!
+    invitation.deliver
 
     notification.should have_received(:deliver)
   end
