@@ -25,14 +25,20 @@ class SurveyInviter
   private
 
   def deliver_invitations
-    recipients.map do |recipient_email|
-      Invitation.create!(
-        survey: survey,
-        sender: sender,
-        recipient_email: recipient_email,
-        status: 'pending',
-        message: @message
-      )
+    create_invitations.each(&:deliver)
+  end
+
+  def create_invitations
+    Invitation.transaction do
+      recipients.map do |recipient_email|
+        Invitation.create!(
+          survey: survey,
+          sender: sender,
+          recipient_email: recipient_email,
+          status: 'pending',
+          message: @message
+        )
+      end
     end
   end
 end

@@ -6,7 +6,6 @@ class Invitation < ActiveRecord::Base
   belongs_to :survey
 
   before_create :set_token
-  after_create :deliver
 
   validates :recipient_email, presence: true, format: EMAIL_REGEX
   validates :status, inclusion: { in: STATUSES }
@@ -15,11 +14,11 @@ class Invitation < ActiveRecord::Base
     token
   end
 
-  private
-
   def deliver
     Mailer.invitation_notification(self).deliver_now
   end
+
+  private
 
   def set_token
     self.token = SecureRandom.urlsafe_base64

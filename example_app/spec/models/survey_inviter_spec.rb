@@ -20,13 +20,25 @@ describe SurveyInviter, '#invite' do
     SurveyInviter.new(invalid_params).invite.should be_falsey
   end
 
-  def valid_params
+  it "doesn't send emails if any invitations fail to save" do
+    invitation = stub('invitation', deliver: true)
+    error = StandardError.new('failure')
+    Invitation.stubs(:create!).returns(invitation).then.raises(error)
+    params = valid_params(recipients: 'one@example.com,two@example.com')
+    inviter = SurveyInviter.new(params)
+
+    lambda { inviter.invite }.should raise_error(error)
+
+    invitation.should have_received(:deliver).never
+  end
+
+  def valid_params(overrides = {})
     {
       survey: build(:survey),
       sender: build(:sender),
       message: 'Take my survey!',
       recipients: 'valid@example.com'
-    }
+    }.merge(overrides)
   end
 
   def invalid_params
