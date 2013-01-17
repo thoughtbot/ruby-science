@@ -11,6 +11,7 @@ ExampleApp::Application.routes.draw do
     resources :completions, only: [:create, :index]
     resources :invitations, only: [:create, :new]
     resources :questions, only: [:new, :create]
+    resource :summary, only: [:show]
   end
 
   root to: 'surveys#index'
