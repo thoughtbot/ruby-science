@@ -88,6 +88,8 @@
 
 <<[solutions/replace_mixin_with_composition.md]
 
+<<[solutions/replace_callback_with_method.md]
+
 <<[solutions/use_convention_over_configuration.md]
 
 <<[solutions/introduce_visitor.md]
