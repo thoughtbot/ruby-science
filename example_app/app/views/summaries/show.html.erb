@@ -1,0 +1,10 @@
+<ol class="summary">
+  <% @survey.questions.each do |question| -%>
+    <li>
+      <%= question.title %>:
+      <%= question.summary %>
+      (Most recent: <%= question.most_recent_answer_text %>)
+      (Your answer: <%= current_user.answer_text_for(question) %>)
+    </li>
+  <% end -%>
+</ol>
