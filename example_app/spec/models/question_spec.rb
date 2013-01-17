@@ -35,3 +35,15 @@ describe Question, '#most_recent_answer_text' do
     result.should be_present
   end
 end
+
+describe Question, '#summarize' do
+  it 'builds a summary with the result from the summarizer' do
+    question = build_stubbed(:question)
+    summarizer = stub('summarizer', summarize: 'result')
+
+    summary = question.summarize(summarizer)
+
+    summary.title.should eq question.title
+    summary.value.should eq 'result'
+  end
+end

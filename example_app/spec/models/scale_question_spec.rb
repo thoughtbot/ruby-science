@@ -22,7 +22,7 @@ describe ScaleQuestion, '#steps' do
   end
 end
 
-describe ScaleQuestion, '#summary' do
+describe ScaleQuestion, '#breakdown' do
   it 'returns the average' do
     survey = create(:survey)
     question = create(:scale_question, minimum: 0, maximum: 10, survey: survey)
@@ -31,6 +31,6 @@ describe ScaleQuestion, '#summary' do
     taker.answer question, 6
     taker.answer question, 8
 
-    question.summary.should eq 'Average: 6.67'
+    question.breakdown.should eq 'Average: 6.67'
   end
 end

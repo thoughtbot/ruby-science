@@ -15,7 +15,7 @@ class MultipleChoiceQuestion < Question
     options.score(text)
   end
 
-  def summary
+  def breakdown
     total = answers.count
     counts = answers.group(:text).order('COUNT(*) DESC').count
     percents = counts.map do |text, count|

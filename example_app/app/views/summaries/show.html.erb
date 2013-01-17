@@ -1,10 +1,10 @@
+<%= render 'nav', survey: @survey %>
+
 <ol class="summary">
-  <% @survey.questions.each do |question| -%>
+  <% @summaries.each do |summary| -%>
     <li>
-      <%= question.title %>:
-      <%= question.summary %>
-      (Most recent: <%= question.most_recent_answer_text %>)
-      (Your answer: <%= current_user.answer_text_for(question) %>)
+      <span class="question"><%= summary.title %>:</span>
+      <span class="summary"><%= summary.value %></span>
     </li>
   <% end -%>
 </ol>

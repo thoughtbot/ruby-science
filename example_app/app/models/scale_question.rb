@@ -10,7 +10,7 @@ class ScaleQuestion < Question
     (minimum..maximum).to_a
   end
 
-  def summary
+  def breakdown
     sprintf('Average: %.02f', answers.average('text'))
   end
 end
