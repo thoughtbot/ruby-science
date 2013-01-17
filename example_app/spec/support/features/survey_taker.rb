@@ -7,6 +7,16 @@ class SurveyTaker
     @survey = survey
   end
 
+  def complete(*answer_texts)
+    start
+
+    @survey.questions.zip(answer_texts).each do |question, answer_text|
+      answer question.title, answer_text
+    end
+
+    finish
+  end
+
   def start
     view_survey @survey
   end
