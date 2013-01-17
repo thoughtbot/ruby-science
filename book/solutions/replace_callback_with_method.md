@@ -6,8 +6,7 @@ coupled with business logic, one way to loosen things up is by replacing
 
 ### Uses
 
-* Removes callbacks which couple persistence logic with business
-  logic.
+* Reduces coupling persistence logic with business logic.
 * Makes it easier to extract concerns from models.
 * Fixes bugs from accidentally triggered callbacks.
 * Fixes bugs from callbacks with side effects when transactions roll back.
