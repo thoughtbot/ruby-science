@@ -14,4 +14,9 @@ class Question < ActiveRecord::Base
   def most_recent_answer_text
     answers.most_recent.text
   end
+
+  def summarize(summarizer)
+    value = summarizer.summarize(self)
+    Summary.new(title, value)
+  end
 end
