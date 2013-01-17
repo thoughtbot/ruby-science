@@ -3,7 +3,7 @@ class OpenQuestion < Question
     0
   end
 
-  def summary
+  def breakdown
     text_from_ordered_answers = answers.order(:created_at).pluck(:text)
     text_from_ordered_answers.join(', ')
   end

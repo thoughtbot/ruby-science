@@ -2,6 +2,8 @@
 <p>Author: <%= @survey.author.email %></p>
 <p><%= link_to 'Invite', new_survey_invitation_path(@survey) %>
 
+<%= render 'summaries/nav', survey: @survey %>
+
 <%= link_to(
   'Add Multiple Choice Question',
   new_survey_question_path(@survey, question: { type: 'MultipleChoiceQuestion' })
