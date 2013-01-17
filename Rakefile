@@ -11,6 +11,22 @@ task :prepare do
   Builder.new.prepare_output_directory
 end
 
+desc "Print page and chapter counts"
+task :stats do
+  total_page_count =
+    `gs \
+      -q \
+      -dNODISPLAY \
+      -c "(output/ruby-science.pdf) (r) file runpdfbegin pdfpagecount = quit"`.
+      to_i
+  total_chapter_count = `grep -e '^# ' book/*/*.md | wc -l`.to_i
+  stub_page_count = `grep -l STUB book/*/*.md | wc -l`.to_i
+  puts "Total pages: #{total_page_count}"
+  puts "Complete pages: #{total_page_count - stub_page_count}"
+  puts "Chapters complete: #{total_chapter_count - stub_page_count}"
+  puts "Chapters remaining: #{stub_page_count}"
+end
+
 namespace :build do
   task :markdown => :prepare do
     Builder.new.generate_markdown
