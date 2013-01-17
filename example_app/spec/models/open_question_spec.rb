@@ -8,7 +8,7 @@ describe OpenQuestion, '#score' do
   end
 end
 
-describe OpenQuestion, '#summary' do
+describe OpenQuestion, '#breakdown' do
   it 'returns all answers' do
     survey = create(:survey)
     question = create(:open_question, survey: survey)
@@ -18,6 +18,6 @@ describe OpenQuestion, '#summary' do
     taker.answer question, 'Hi'
     taker.answer question, 'Hello'
 
-    question.summary.should eq 'Hey, Hi, Hello'
+    question.breakdown.should eq 'Hey, Hi, Hello'
   end
 end

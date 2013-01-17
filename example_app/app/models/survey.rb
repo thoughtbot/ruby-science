@@ -6,4 +6,10 @@ class Survey < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
   has_many :completions
   has_many :questions
+
+  def summarize(summarizer)
+    questions.map do |question|
+      question.summarize(summarizer)
+    end
+  end
 end

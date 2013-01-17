@@ -27,7 +27,7 @@ describe MultipleChoiceQuestion, '#score' do
   end
 end
 
-describe MultipleChoiceQuestion, '#summary' do
+describe MultipleChoiceQuestion, '#breakdown' do
   it 'returns a percentage breakdown' do
     survey = create(:survey)
     question = create(
@@ -40,6 +40,6 @@ describe MultipleChoiceQuestion, '#summary' do
     taker.answer question, 'Blue'
     taker.answer question, 'Red'
 
-    question.summary.should eq '67% Red, 33% Blue'
+    question.breakdown.should eq '67% Red, 33% Blue'
   end
 end
