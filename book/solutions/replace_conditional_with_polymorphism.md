@@ -117,7 +117,7 @@ a little Ruby meta-programming to make that fairly painless:
 
 ` app/controllers/questions_controller.rb@80deb8c:19,26
 
-At this point, we're ready to proceed with a regular refactor.
+At this point, we're ready to proceed with a regular refactoring.
 
 ### Extracting Type-Specific Code
 
@@ -130,7 +130,7 @@ Let's look at the `summary` method again:
 
 For each path of the condition, there is a sequence of steps.
 
-The first step is to use [Extract Method](#extract-method) to move the path to
+The first step is to use [Extract Method](#extract-method) to move each path to
 its own method. In this case, we already extracted methods called
 `summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
@@ -164,8 +164,8 @@ each other path. Once every path is moved, we can remove `Question#summary`
 entirely.
 
 In this case, we've already created all our subclasses, but you can use [Extract
-Class](#extract-class) to create them if you're extracting a conditional paths
-into a new classes.
+Class](#extract-class) to create them if you're extracting each conditional path
+into a new class.
 
 You can see the full change for this step in commit a08f801.
 

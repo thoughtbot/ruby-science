@@ -1,7 +1,7 @@
 # Large Class
 
 Most Rails applications suffer from several Large Classes. Large classes are
-difficult to understand and they make it harder to change or reuse behavior.
+difficult to understand and make it harder to change or reuse behavior.
 Tests for large classes are slow and churn tends to be higher, leading to more
 bugs and conflicts. Large classes likely also suffer from [Divergent
 Change](#divergent-change).
