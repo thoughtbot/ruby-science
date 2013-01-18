@@ -96,10 +96,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#solutions-7">Solutions</a></li>
 </ul></li>
 <li><a href="#mixin">Mixin</a></li>
-<li><a href="#callback">Callback</a></li>
+<li><a href="#callback">Callback</a><ul>
+<li><a href="#symptoms-8">Symptoms</a></li>
+<li><a href="#example-8">Example</a></li>
+<li><a href="#solutions-8">Solutions</a></li>
+</ul></li>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a><ul>
 <li><a href="#uses">Uses</a></li>
-<li><a href="#example-8">Example</a></li>
+<li><a href="#example-9">Example</a></li>
 <li><a href="#replace-type-code-with-subclasses">Replace Type Code With Subclasses</a></li>
 <li><a href="#single-table-inheritance-sti">Single Table Inheritance (STI)</a><ul>
 <li><a href="#extracting-type-specific-code">Extracting Type-Specific Code</a></li>
@@ -112,7 +116,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#replace-conditional-with-null-object">Replace conditional with Null Object</a><ul>
 <li><a href="#uses-1">Uses</a></li>
-<li><a href="#example-9">Example</a></li>
+<li><a href="#example-10">Example</a></li>
 <li><a href="#drawbacks-1">Drawbacks</a></li>
 <li><a href="#next-steps-1">Next Steps</a></li>
 <li><a href="#truthiness-try-and-other-tricks">truthiness, try, and other tricks</a></li>
@@ -129,35 +133,45 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-partial">Extract Partial</a><ul>
 <li><a href="#uses-3">Uses</a></li>
 <li><a href="#steps">Steps</a></li>
-<li><a href="#example-10">Example</a></li>
+<li><a href="#example-11">Example</a></li>
 <li><a href="#next-steps-3">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-service-object">Extract Service Object</a></li>
-<li><a href="#extract-validator">Extract Validator</a></li>
-<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
+<li><a href="#extract-validator">Extract Validator</a><ul>
 <li><a href="#uses-4">Uses</a></li>
-<li><a href="#example-11">Example</a></li>
+<li><a href="#example-12">Example</a></li>
 <li><a href="#next-steps-4">Next Steps</a></li>
+</ul></li>
+<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
+<li><a href="#uses-5">Uses</a></li>
+<li><a href="#example-13">Example</a></li>
+<li><a href="#next-steps-5">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-observer">Introduce Observer</a></li>
 <li><a href="#introduce-form-object">Introduce Form Object</a><ul>
-<li><a href="#uses-5">Uses</a></li>
-<li><a href="#example-12">Example</a></li>
-<li><a href="#next-steps-5">Next Steps</a></li>
+<li><a href="#uses-6">Uses</a></li>
+<li><a href="#example-14">Example</a></li>
+<li><a href="#next-steps-6">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
-<li><a href="#uses-6">Uses</a></li>
-<li><a href="#next-steps-6">Next Steps</a></li>
+<li><a href="#uses-7">Uses</a></li>
+<li><a href="#next-steps-7">Next Steps</a></li>
 </ul></li>
 <li><a href="#use-class-as-factory">Use class as Factory</a></li>
 <li><a href="#move-method">Move method</a><ul>
-<li><a href="#uses-7">Uses</a></li>
+<li><a href="#uses-8">Uses</a></li>
 <li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
-<li><a href="#next-steps-7">Next Steps</a></li>
+<li><a href="#next-steps-8">Next Steps</a></li>
 </ul></li>
 <li><a href="#inline-class">Inline class</a></li>
 <li><a href="#inject-dependencies">Inject dependencies</a></li>
 <li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
+<li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
+<li><a href="#uses-9">Uses</a></li>
+<li><a href="#steps-1">Steps</a></li>
+<li><a href="#example-15">Example</a></li>
+<li><a href="#next-steps-9">Next Steps</a></li>
+</ul></li>
 <li><a href="#use-convention-over-configuration">Use convention over configuration</a></li>
 <li><a href="#introduce-visitor">Introduce Visitor</a></li>
 <li><a href="#dry">DRY</a></li>
@@ -690,8 +704,48 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level1" id="callback">
 <h1><a href="#TOC">Callback</a></h1>
-<p>STUB</p>
+<p>Callbacks are a convenient way to decorate the default <code>save</code> method with custom persistence logic, without the drudgery of template methods, overriding, or calling <code>super</code>.</p>
+<p>However, callbacks are frequently abused by adding non-persistence logic to the persistence life cycle, such as sending emails or processing payments. Models riddled with callbacks are harder to refactor and prone to bugs, such as accidentally sending emails or performing external changes before a database transaction is committed.</p>
+<section class="level3" id="symptoms-8">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>Callbacks which contain business logic such as processing payments.</li>
+<li>Attributes which allow certain callbacks to be skipped.</li>
+<li>Methods such as <code>save_without_sending_email</code> which skip callbacks.</li>
+<li>Callbacks which need to be invoked conditionally.</li>
+</ul>
+</section>
+<section class="level3" id="example-8">
+<h3><a href="#TOC">Example</a></h3>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> deliver_invitations
+  recipients.map <span class="kw">do</span> |recipient_email|
+    <span class="dt">Invitation</span>.create!(
+      survey: survey,
+      sender: sender,
+      recipient_email: recipient_email,
+      status: <span class="st">'pending'</span>,
+      message: <span class="ot">@message</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+after_create <span class="st">:deliver</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">def</span> deliver
+  <span class="dt">Mailer</span>.invitation_notification(<span class="dv">self</span>).deliver
+<span class="kw">end</span></code></pre>
+<p>In the above code, the <code>SurveyInviter</code> is simply creating <code>Invitation</code> records, and the actual delivery of the invitation email is hidden behind <code>Invitation.create!</code> via a callback.</p>
+<p>If one of several invitations fails to save, the user will see a 500 page, but some of the invitations will already have been saved and delivered. The user will be unable to tell which invitations were sent.</p>
+<p>Because delivery is coupled with persistence, there's no way to make sure that all of the invitations are saved before starting to deliver emails.</p>
+</section>
+<section class="level3" id="solutions-8">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li><a href="#replace-callback-with-method">Replace Callback with Method</a> if the callback logic is unrelated to persistence.</li>
+</ul>
 <p></p>
+</section>
 </section>
 <section class="level1" id="replace-conditional-with-polymorphism">
 <h1><a href="#TOC">Replace Conditional with Polymorphism</a></h1>
@@ -707,7 +761,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-8">
+<section class="level3" id="example-9">
 <h3><a href="#TOC">Example</a></h3>
 <p>This <code>Question</code> class summarizes its answers differently depending on its <code>question_type</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -969,7 +1023,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <li>Removes clutter, improving readability of code that consumes <code>nil</code>.</li>
 </ul>
 </section>
-<section class="level3" id="example-9">
+<section class="level3" id="example-10">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 <span class="kw">def</span> most_recent_answer_text
@@ -1221,7 +1275,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-10">
+<section class="level3" id="example-11">
 <h3><a href="#TOC">Example</a></h3>
 <p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
 <p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
@@ -1282,12 +1336,79 @@ en:
 </section>
 <section class="level1" id="extract-validator">
 <h1><a href="#TOC">Extract Validator</a></h1>
-<p>STUB</p>
+<p>A form of <a href="#extract-class">Extract Class</a> used to remove complex validation details from <code>ActiveRecord</code> models. This technique also prevents duplication of validation code across several files.</p>
+<section class="level3" id="uses-4">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Keep validation implementation details out of models.</li>
+<li>Encapsulate validation details into a single file.</li>
+<li>Remove duplication among classes performing the same validation logic.</li>
+</ul>
+</section>
+<section class="level3" id="example-12">
+<h3><a href="#TOC">Example</a></h3>
+<p>The <code>Invitation</code> class has validation details in-line. It checks that the <code>repient_email</code> matches the formatting of the regular expression <code>EMAIL_REGEX</code>.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">class</span> <span class="dt">Invitation</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i</span>
+  validates <span class="st">:recipient_email</span>, presence: <span class="dv">true</span>, format: <span class="dt">EMAIL_REGEX</span>
+<span class="kw">end</span></code></pre>
+<p>We extract the validation details into a new class <code>EmailValidator</code>, and place the new class into the <code>app/validators</code> directory.</p>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/validators/email_validator.rb</span>
+<span class="kw">class</span> <span class="dt">EmailValidator</span> &lt; <span class="dt">ActiveModel</span>::<span class="dt">EachValidator</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i</span>
+  <span class="kw">def</span> validate_each(record, attribute, value)
+    <span class="kw">unless</span> value.match <span class="dt">EMAIL_REGEX</span>
+      record.errors.add(attribute, <span class="st">&quot;</span><span class="ot">#{</span>value<span class="ot">}</span><span class="st"> is not a valid email&quot;</span>)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Once the validator has been extracted. Rails has a convention for using the new validation class. <code>EmailValidator</code> is used by setting <code>email: true</code> in the validation arguments.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">class</span> <span class="dt">Invitation</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  validates <span class="st">:recipient_email</span>, presence: <span class="dv">true</span>, email: <span class="dv">true</span>
+<span class="kw">end</span></code></pre>
+<p>The convention is to use the validation class name (in lowercase, and removing <code>Validator</code> from the name). For exmaple, if we were validating an attribute with <code>ZipCodeValidator</code> we'd set <code>zip_code: true</code> as an argument to the validation call.</p>
+<p>When validating an array of data as we do in <code>SurveyInviter</code>, we use the <code>EnumerableValidator</code> to loop over the contents of an array.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+validates_with <span class="dt">EnumerableValidator</span>,
+  attributes: [<span class="st">:recipients</span>],
+  <span class="kw">unless</span>: <span class="st">'recipients.nil?'</span>,
+  validator: <span class="dt">EmailValidator</span></code></pre>
+<p>The <code>EmailValidator</code> is passed in as an argument, and each element in the array is validated against it.</p>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/validators/enumerable_validator.rb</span>
+<span class="kw">class</span> <span class="dt">EnumerableValidator</span> &lt; <span class="dt">ActiveModel</span>::<span class="dt">EachValidator</span>
+  <span class="kw">def</span> validate_each(record, attribute, enumerable)
+    enumerable.each <span class="kw">do</span> |value|
+      validator.validate_each(record, attribute, value)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> validator
+    options[<span class="st">:validator</span>].new(validator_options)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> validator_options
+    options.except(<span class="st">:validator</span>).merge(attributes: attributes)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="next-steps-4">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Verify the extracted validator does not have any <a href="#long-methods">Long Methods</a>.</li>
+<li>Check for other models that could use the validator.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="introduce-explaining-variable">
 <h1><a href="#TOC">Introduce Explaining Variable</a></h1>
 <p>This refactoring allows you to break up a complex, hard-to-read statement by placing part of it in a local variable. The only difficult part is finding a good name for the variable.</p>
-<section class="level3" id="uses-4">
+<section class="level3" id="uses-5">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Improves legibility of code.</li>
@@ -1295,7 +1416,7 @@ en:
 <li>Removes the need for extra <a href="#comments">Comments</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-11">
+<section class="level3" id="example-13">
 <h3><a href="#TOC">Example</a></h3>
 <p>This line of code was hard enough to understand that a comment was added:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
@@ -1335,7 +1456,7 @@ en:
 <span class="kw">end</span></code></pre>
 <p>You can use this technique of extracting methods to make sure that developers focus on what's important first, and only dive into the implementation details when necessary.</p>
 </section>
-<section class="level3" id="next-steps-4">
+<section class="level3" id="next-steps-5">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li><a href="#replace-temp-with-query">Replace Temp with Query</a> if you want to reuse the expression or revert the naturally order in which a developer reads the method.</li>
@@ -1351,7 +1472,7 @@ en:
 <section class="level1" id="introduce-form-object">
 <h1><a href="#TOC">Introduce Form Object</a></h1>
 <p>A specialized type of <a href="#extract-class">Extract Class</a> used to remove business logic from controllers when processing data outside of an ActiveRecord model.</p>
-<section class="level3" id="uses-5">
+<section class="level3" id="uses-6">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Keep business logic out of Controllers and Views.</li>
@@ -1360,7 +1481,7 @@ en:
 <li>Set the stage for <a href="#extract-validator">Extract Validator</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-12">
+<section class="level3" id="example-14">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>create</code> action of our <code>InvitationsController</code> relies on user submitted data for <code>message</code> and <code>recipients</code> (a comma delimited list of email addresses).</p>
 <p>It performs a number of tasks:</p>
@@ -1510,7 +1631,7 @@ en:
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 </section>
-<section class="level3" id="next-steps-5">
+<section class="level3" id="next-steps-6">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check that the controller no longer has <a href="#long-method">Long Methods</a>.</li>
@@ -1527,7 +1648,7 @@ en:
 <li>Pick a name for the object that represents the grouped parameters.</li>
 <li>Replace method's grouped parameters with the object.</li>
 </ul>
-<section class="level3" id="uses-6">
+<section class="level3" id="uses-7">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#long-parameter-list">Long Parameter Lists</a>.</li>
@@ -1569,7 +1690,7 @@ en:
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
 <span class="kw">&lt;%=</span> <span class="ot">@recipient</span>.full_name <span class="kw">%&gt;</span></code></pre>
 </section>
-<section class="level3" id="next-steps-6">
+<section class="level3" id="next-steps-7">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check to see if the same Data Clump exists elsewhere in the application, and reuse the Parameter Object to group them together.</li>
@@ -1592,7 +1713,7 @@ en:
 <li>Rename the method if the new name no longer makes sense in the new context (for example, rename <code>invite_user</code> to <code>invite</code> once the method is moved to the <code>User</code> class).</li>
 <li>Replace calls to the old method to calls to the new method. This may require introducing delegation or building an instance of the new class.</li>
 </ul>
-<section class="level3" id="uses-7">
+<section class="level3" id="uses-8">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#feature-envy">Feature Envy</a> by moving a method to the class where the envied methods live.</li>
@@ -1637,7 +1758,7 @@ en:
 <h3><a href="#TOC">Dangerous: move and extract at the same time</a></h3>
 <p>It's tempting to do everything as one change: create a new method in <code>Answer</code>, move the code over from <code>Completion</code>, and change <code>Completion#score</code> to call the new method. Although this frequently works without a hitch, with practice, you can perform the two, smaller refactorings just as quickly as the single, larger refactoring. By breaking the refactoring into two steps, you reduce the duration of &quot;down time&quot; for your code; that is, you reduce the amount of time during which something is broken. Improving code in tiny steps makes it easier to debug when something goes wrong and prevents you from writing more code than you need to. Because the code still works after each step, you can simply stop whenever you're happy with the results.</p>
 </section>
-<section class="level3" id="next-steps-7">
+<section class="level3" id="next-steps-8">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Make sure the new method doesn't suffer from <a href="#feature-envy">Feature Envy</a> because of state it used from its original class. If it does, try splitting the method up and moving part of it back.</li>
@@ -1656,6 +1777,88 @@ en:
 <section class="level1" id="replace-mixin-with-composition">
 <h1><a href="#TOC">Replace mixin with composition</a></h1>
 <p>STUB</p>
+</section>
+<section class="level1" id="replace-callback-with-method">
+<h1><a href="#TOC">Replace Callback with Method</a></h1>
+<p>If your models are hard to use and change because their persistence logic is coupled with business logic, one way to loosen things up is by replacing <a href="#callback">callbacks</a>.</p>
+<section class="level3" id="uses-9">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Reduces coupling persistence logic with business logic.</li>
+<li>Makes it easier to extract concerns from models.</li>
+<li>Fixes bugs from accidentally triggered callbacks.</li>
+<li>Fixes bugs from callbacks with side effects when transactions roll back.</li>
+</ul>
+</section>
+<section class="level3" id="steps-1">
+<h3><a href="#TOC">Steps</a></h3>
+<ul>
+<li>Use <a href="#extract-method">Extract Method</a> if the callback is an anonymous block.</li>
+<li>Promote the callback method to a public method if it's private.</li>
+<li>Call the public method explicitly rather than relying on <code>save</code> and callbacks.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-15">
+<h3><a href="#TOC">Example</a></h3>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> deliver_invitations
+  recipients.map <span class="kw">do</span> |recipient_email|
+    <span class="dt">Invitation</span>.create!(
+      survey: survey,
+      sender: sender,
+      recipient_email: recipient_email,
+      status: <span class="st">'pending'</span>,
+      message: <span class="ot">@message</span>
+    )
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+after_create <span class="st">:deliver</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">private</span>
+
+<span class="kw">def</span> deliver
+  <span class="dt">Mailer</span>.invitation_notification(<span class="dv">self</span>).deliver
+<span class="kw">end</span></code></pre>
+<p>In the above code, the <code>SurveyInviter</code> is simply creating <code>Invitation</code> records, and the actual delivery of the invitation email is hidden behind <code>Invitation.create!</code> via a callback.</p>
+<p>If one of several invitations fails to save, the user will see a 500 page, but some of the invitations will already have been saved and delivered. The user will be unable to tell which invitations were sent.</p>
+<p>Because delivery is coupled with persistence, there's no way to make sure that all of the invitations are saved before starting to deliver emails.</p>
+<p>Let's make the callback method public so that it can be called from <code>SurveyInviter</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">def</span> deliver
+  <span class="dt">Mailer</span>.invitation_notification(<span class="dv">self</span>).deliver
+<span class="kw">end</span>
+
+<span class="kw">private</span></code></pre>
+<p>Then remove the <code>after_create</code> line to detach the method from persistence.</p>
+<p>Now we can split invitations into separate persistence and delivery phases:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> deliver_invitations
+  create_invitations.each(&amp;<span class="st">:deliver</span>)
+<span class="kw">end</span>
+
+<span class="kw">def</span> create_invitations
+  <span class="dt">Invitation</span>.transaction <span class="kw">do</span>
+    recipients.map <span class="kw">do</span> |recipient_email|
+      <span class="dt">Invitation</span>.create!(
+        survey: survey,
+        sender: sender,
+        recipient_email: recipient_email,
+        status: <span class="st">'pending'</span>,
+        message: <span class="ot">@message</span>
+      )
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>If any of the invitations fail to save, the transaction will roll back. Nothing will be committed, and no messages will be delivered.</p>
+</section>
+<section class="level3" id="next-steps-9">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Find other instances where the model is saved to make sure that the extracted method doesn't need to be called.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="use-convention-over-configuration">
 <h1><a href="#TOC">Use convention over configuration</a></h1>
