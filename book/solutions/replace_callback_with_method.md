@@ -41,13 +41,13 @@ all of the invitations are saved before starting to deliver emails.
 Let's make the callback method public so that it can be called from
 `SurveyInviter`:
 
-` app/models/invitation.rb@1932c998:17,21
+` app/models/invitation.rb@db6cad48:17,21
 
 Then remove the `after_create` line to detach the method from persistence.
 
 Now we can split invitations into separate persistence and delivery phases:
 
-` app/models/survey_inviter.rb@1932c998:27,43
+` app/models/survey_inviter.rb@db6cad48:27,43
 
 If any of the invitations fail to save, the transaction will roll back. Nothing
 will be committed, and no messages will be delivered.
