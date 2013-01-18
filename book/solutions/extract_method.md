@@ -108,8 +108,8 @@ end
 * Check the original method and the extracted method to make sure that they both
   relate to the same core concern. If the methods aren't highly related, the
   class will suffer from [Divergent Change](#divergent-change).
-* Check newly extracted methods for [Feature Envy](#feature-envy) in the new
-  methods to see if you should employ [Move Method](#move-method) to provide the
+* Check newly extracted methods for [Feature Envy](#feature-envy). If you find
+  some, you may wish to employ [Move Method](#move-method) to provide the new
   method with a better home.
 * Check the affected class to make sure it's not a [Large Class](#large-class).
   Extracting methods reveals complexity, making it clearer when a class is doing
