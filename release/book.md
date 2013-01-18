@@ -766,7 +766,67 @@ STUB
 
 # Callback
 
-STUB
+Callbacks are a convenient way to decorate the default `save` method with custom
+persistence logic, without the drudgery of template methods, overriding, or
+calling `super`.
+
+However, callbacks are frequently abused by adding non-persistence logic to the
+persistence life cycle, such as sending emails or processing payments. Models
+riddled with callbacks are harder to refactor and prone to bugs, such as
+accidentally sending emails or performing external changes before a database
+transaction is committed.
+
+### Symptoms
+
+* Callbacks which contain business logic such as processing payments.
+* Attributes which allow certain callbacks to be skipped.
+* Methods such as `save_without_sending_email` which skip callbacks.
+* Callbacks which need to be invoked conditionally.
+
+### Example
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver_invitations
+  recipients.map do |recipient_email|
+    Invitation.create!(
+      survey: survey,
+      sender: sender,
+      recipient_email: recipient_email,
+      status: 'pending',
+      message: @message
+    )
+  end
+end
+```
+
+```ruby
+# app/models/invitation.rb
+after_create :deliver
+```
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  Mailer.invitation_notification(self).deliver
+end
+```
+
+In the above code, the `SurveyInviter` is simply creating `Invitation` records,
+and the actual delivery of the invitation email is hidden behind
+`Invitation.create!` via a callback.
+
+If one of several invitations fails to save, the user will see a 500 page, but
+some of the invitations will already have been saved and delivered. The user
+will be unable to tell which invitations were sent.
+
+Because delivery is coupled with persistence, there's no way to make sure that
+all of the invitations are saved before starting to deliver emails.
+
+### Solutions
+
+* [Replace Callback with Method](#replace-callback-with-method) if the callback
+  logic is unrelated to persistence.
 
 \part{Solutions}
 
@@ -1639,7 +1699,102 @@ STUB
 
 # Extract Validator
 
-STUB
+A form of [Extract Class](#extract-class) used to remove complex validation details
+from `ActiveRecord` models. This technique also prevents duplication of validation
+code across several files.
+
+### Uses
+
+* Keep validation implementation details out of models.
+* Encapsulate validation details into a single file.
+* Remove duplication among classes performing the same validation logic.
+
+### Example
+
+The `Invitation` class has validation details in-line. It checks that the
+`repient_email` matches the formatting of the regular expression `EMAIL_REGEX`.
+
+```ruby
+# app/models/invitation.rb
+class Invitation < ActiveRecord::Base
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates :recipient_email, presence: true, format: EMAIL_REGEX
+end
+```
+
+We extract the validation details into a new class `EmailValidator`, and place the
+new class into the `app/validators` directory.
+
+\clearpage
+
+```ruby
+# app/validators/email_validator.rb
+class EmailValidator < ActiveModel::EachValidator
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  def validate_each(record, attribute, value)
+    unless value.match EMAIL_REGEX
+      record.errors.add(attribute, "#{value} is not a valid email")
+    end
+  end
+end
+```
+
+Once the validator has been extracted. Rails has a convention for using the new
+validation class. `EmailValidator` is used by setting `email: true` in the validation
+arguments.
+
+```ruby
+# app/models/invitation.rb
+class Invitation < ActiveRecord::Base
+  validates :recipient_email, presence: true, email: true
+end
+```
+
+The convention is to use the validation class name (in lowercase, and removing
+`Validator` from the name). For exmaple, if we were validating an attribute with
+`ZipCodeValidator` we'd set `zip_code: true` as an argument to the validation call.
+
+When validating an array of data as we do in `SurveyInviter`, we use
+the `EnumerableValidator` to loop over the contents of an array.
+
+```ruby
+# app/models/survey_inviter.rb
+validates_with EnumerableValidator,
+  attributes: [:recipients],
+  unless: 'recipients.nil?',
+  validator: EmailValidator
+```
+
+The `EmailValidator` is passed in as an argument, and each element in the array
+is validated against it.
+
+\clearpage
+
+```ruby
+# app/validators/enumerable_validator.rb
+class EnumerableValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, enumerable)
+    enumerable.each do |value|
+      validator.validate_each(record, attribute, value)
+    end
+  end
+
+  private
+
+  def validator
+    options[:validator].new(validator_options)
+  end
+
+  def validator_options
+    options.except(:validator).merge(attributes: attributes)
+  end
+end
+```
+
+### Next Steps
+
+* Verify the extracted validator does not have any [Long Methods](#long-methods).
+* Check for other models that could use the validator.
 
 # Introduce Explaining Variable
 
@@ -2142,6 +2297,114 @@ STUB
 # Replace mixin with composition
 
 STUB
+
+# Replace Callback with Method
+
+If your models are hard to use and change because their persistence logic is
+coupled with business logic, one way to loosen things up is by replacing
+[callbacks](#callback).
+
+### Uses
+
+* Reduces coupling persistence logic with business logic.
+* Makes it easier to extract concerns from models.
+* Fixes bugs from accidentally triggered callbacks.
+* Fixes bugs from callbacks with side effects when transactions roll back.
+
+### Steps
+
+* Use [Extract Method](#extract-method) if the callback is an anonymous block.
+* Promote the callback method to a public method if it's private.
+* Call the public method explicitly rather than relying on `save` and callbacks.
+
+\clearpage
+
+### Example
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver_invitations
+  recipients.map do |recipient_email|
+    Invitation.create!(
+      survey: survey,
+      sender: sender,
+      recipient_email: recipient_email,
+      status: 'pending',
+      message: @message
+    )
+  end
+end
+```
+
+```ruby
+# app/models/invitation.rb
+after_create :deliver
+```
+
+```ruby
+# app/models/invitation.rb
+private
+
+def deliver
+  Mailer.invitation_notification(self).deliver
+end
+```
+
+In the above code, the `SurveyInviter` is simply creating `Invitation` records,
+and the actual delivery of the invitation email is hidden behind
+`Invitation.create!` via a callback.
+
+If one of several invitations fails to save, the user will see a 500 page, but
+some of the invitations will already have been saved and delivered. The user
+will be unable to tell which invitations were sent.
+
+Because delivery is coupled with persistence, there's no way to make sure that
+all of the invitations are saved before starting to deliver emails.
+
+Let's make the callback method public so that it can be called from
+`SurveyInviter`:
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  Mailer.invitation_notification(self).deliver
+end
+
+private
+```
+
+Then remove the `after_create` line to detach the method from persistence.
+
+Now we can split invitations into separate persistence and delivery phases:
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver_invitations
+  create_invitations.each(&:deliver)
+end
+
+def create_invitations
+  Invitation.transaction do
+    recipients.map do |recipient_email|
+      Invitation.create!(
+        survey: survey,
+        sender: sender,
+        recipient_email: recipient_email,
+        status: 'pending',
+        message: @message
+      )
+    end
+  end
+end
+```
+
+If any of the invitations fail to save, the transaction will roll back. Nothing
+will be committed, and no messages will be delivered.
+
+### Next Steps
+
+* Find other instances where the model is saved to make sure that the extracted
+  method doesn't need to be called.
 
 # Use convention over configuration
 
