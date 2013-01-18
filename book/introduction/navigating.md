@@ -2,8 +2,8 @@
 
 This book contains three catalogs: smells, solutions, and principles.
 
-Start by looking up a smell that sounds familiar. Each chapter on smells explain
-the potential problems each smell may reveal and will reference possible
+Start by looking up a smell that sounds familiar. Each chapter on smells explains
+the potential problems each smell may reveal and references possible
 solutions.
 
 Once you've identified the problem revealed by a smell, read the relevant
