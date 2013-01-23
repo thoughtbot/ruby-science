@@ -20,7 +20,7 @@ This controller has multiple reasons to change:
 ### Solutions
 
 * [Extract Class](#extract-class) to move one cause of change to a new class.
-* [Move Method](#move method) if the class is changing because of methods that
+* [Move Method](#move-method) if the class is changing because of methods that
   relate to another class.
 * [Extract Validator](#extract-validator) to move validation logic out of
   models.
