@@ -7,13 +7,17 @@ class SummariesController < ApplicationController
   private
 
   def summarizer
+    summarizer_class.new(user: current_user)
+  end
+
+  def summarizer_class
     case params[:id]
     when 'breakdown'
-      Breakdown.new(user: current_user)
+      Breakdown
     when 'most_recent'
-      MostRecent.new(user: current_user)
+      MostRecent
     when 'user_answer'
-      UserAnswer.new(user: current_user)
+      UserAnswer
     else
       raise "Unknown summary type: #{params[:id]}"
     end
