@@ -1,4 +1,4 @@
-class UserAnswer
+class Summarizer::UserAnswer
   def initialize(options)
     @user = options[:user]
   end

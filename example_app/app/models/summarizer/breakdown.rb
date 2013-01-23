@@ -1,8 +1,8 @@
-class MostRecent
+class Summarizer::Breakdown
   def initialize(options)
   end
 
   def summarize(question)
-    question.most_recent_answer_text
+    question.breakdown
   end
 end
