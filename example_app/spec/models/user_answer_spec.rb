@@ -4,7 +4,7 @@ describe UserAnswer, '#summarize' do
   it 'returns the answer for the given user' do
     question = build_stubbed(:question)
     user = build_stubbed(:user)
-    summarizer = UserAnswer.new(user)
+    summarizer = UserAnswer.new(user: user)
     user.stubs(answer_text_for: 'result')
 
     result = summarizer.summarize(question)

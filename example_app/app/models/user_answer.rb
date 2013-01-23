@@ -1,6 +1,6 @@
 class UserAnswer
-  def initialize(user)
-    @user = user
+  def initialize(options)
+    @user = options[:user]
   end
 
   def summarize(question)
