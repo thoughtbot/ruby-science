@@ -45,7 +45,9 @@ this time in the form of multiple `if` statements:
 
 ### Solutions
 
-* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the 
-`case` statement is checking a type code, such as `question_type`.
+* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the
+  `case` statement is checking a type code, such as `question_type`.
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
-when the `case` statement is checking the class of an object.
+  when the `case` statement is checking the class of an object.
+* [Use Convention over Configuration](#use-convention-over-configuration) when
+  selecting a strategy based on a string name.
