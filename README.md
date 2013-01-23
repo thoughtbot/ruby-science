@@ -39,7 +39,12 @@ Now install the pandoc dependencies:
 
 #### Installing dependencies on OSX
 
-    brew install https://raw.github.com/adamv/homebrew-alt/master/non-free/kindlegen.rb
+Download and install KindleGen from Amazon:
+
+  http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000234621
+
+You'll also need imagemagick, which you can install using homebrew:
+
     brew install imagemagick
 
 Latex is needed for PDF distribution:
