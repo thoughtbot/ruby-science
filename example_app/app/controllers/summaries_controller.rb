@@ -7,15 +7,10 @@ class SummariesController < ApplicationController
   private
 
   def summarizer
-    case params[:id]
-    when 'breakdown'
-      Breakdown.new
-    when 'most_recent'
-      MostRecent.new
-    when 'your_answers'
-      UserAnswer.new(current_user)
-    else
-      raise "Unknown summary type: #{params[:id]}"
-    end
+    summarizer_class.new(user: current_user)
+  end
+
+  def summarizer_class
+    "Summarizer::#{params[:id].classify}".constantize
   end
 end
