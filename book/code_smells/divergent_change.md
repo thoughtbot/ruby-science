@@ -24,7 +24,7 @@ This controller has multiple reasons to change:
   relate to another class.
 * [Extract Validator](#extract-validator) to move validation logic out of
   models.
-* [Extract Form Object](#extract-form-object) to move form logic out of
+* [Introduce Form Object](#introduce-form-object) to move form logic out of
   controllers.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate changes that can be inferred by a convention such as a name.
