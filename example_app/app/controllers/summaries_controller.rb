@@ -11,15 +11,6 @@ class SummariesController < ApplicationController
   end
 
   def summarizer_class
-    case params[:id]
-    when 'breakdown'
-      Breakdown
-    when 'most_recent'
-      MostRecent
-    when 'user_answer'
-      UserAnswer
-    else
-      raise "Unknown summary type: #{params[:id]}"
-    end
+    params[:id].classify.constantize
   end
 end
