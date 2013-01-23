@@ -49,3 +49,6 @@ to replace duplicated `case` statements and `if-elsif` blocks.
 views/templates.
 * [Introduce Parameter Object](#introduce-parameter-object) to hang useful
 formatting methods alongside a data clump of related attributes.
+* [Use Convention over Configuration](#use-convention-over-configuration) to
+  eliminate small steps that can be inferred based on a convention such as a
+  name.
