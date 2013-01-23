@@ -9,11 +9,11 @@ class SummariesController < ApplicationController
   def summarizer
     case params[:id]
     when 'breakdown'
-      Breakdown.new
+      Breakdown.new(user: current_user)
     when 'most_recent'
-      MostRecent.new
-    when 'your_answers'
-      UserAnswer.new(current_user)
+      MostRecent.new(user: current_user)
+    when 'user_answer'
+      UserAnswer.new(user: current_user)
     else
       raise "Unknown summary type: #{params[:id]}"
     end

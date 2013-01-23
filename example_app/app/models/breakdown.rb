@@ -1,4 +1,7 @@
 class Breakdown
+  def initialize(options)
+  end
+
   def summarize(question)
     question.breakdown
   end
