@@ -11,6 +11,6 @@ class SummariesController < ApplicationController
   end
 
   def summarizer_class
-    params[:id].classify.constantize
+    "Summarizer::#{params[:id].classify}".constantize
   end
 end

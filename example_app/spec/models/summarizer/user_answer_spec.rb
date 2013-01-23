@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe UserAnswer, '#summarize' do
+describe Summarizer::UserAnswer, '#summarize' do
   it 'returns the answer for the given user' do
     question = build_stubbed(:question)
     user = build_stubbed(:user)
-    summarizer = UserAnswer.new(user: user)
+    summarizer = Summarizer::UserAnswer.new(user: user)
     user.stubs(answer_text_for: 'result')
 
     result = summarizer.summarize(question)
