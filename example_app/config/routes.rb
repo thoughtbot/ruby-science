@@ -1,6 +1,7 @@
 ExampleApp::Application.routes.draw do
   resources :questions, only: [:edit, :update] do
     resources :options, only: [:new, :create]
+    resources :types, only: [:new, :create]
   end
 
   resources :invitations, only: [] do
