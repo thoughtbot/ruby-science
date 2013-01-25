@@ -19,4 +19,20 @@ class Question < ActiveRecord::Base
     value = summarizer.summarize(self)
     Summary.new(title, value)
   end
+
+  def switch_to(type, new_attributes)
+    attributes = self.attributes.merge(new_attributes)
+    new_question = type.constantize.new(attributes.except('id', 'type'))
+    new_question.id = id
+
+    begin
+      Question.transaction do
+        destroy
+        new_question.save!
+      end
+    rescue ActiveRecord::RecordInvalid
+    end
+
+    new_question
+  end
 end

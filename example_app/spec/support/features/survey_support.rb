@@ -23,6 +23,12 @@ module Features
     click_on 'Submit Answers'
   end
 
+  def edit_question(question)
+    sign_in
+    click_link question.survey_title
+    page.find('li', text: question.title).click_link('Edit')
+  end
+
   def answer_to_question(question)
     find('.question', text: question)
   end

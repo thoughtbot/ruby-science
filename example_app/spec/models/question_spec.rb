@@ -47,3 +47,27 @@ describe Question, '#summarize' do
     summary.value.should eq 'result'
   end
 end
+
+describe Question, '#switch_to' do
+  it 'changes the question type and deletes the old question when valid' do
+    question = create(:open_question)
+
+    new_question = question.switch_to('ScaleQuestion', minimum: 1, maximum: 2)
+
+    new_question.errors.should be_empty
+    new_question.should be_a(ScaleQuestion)
+    new_question.minimum.should eq 1
+    new_question.maximum.should eq 2
+    Question.count.should eq 1
+  end
+
+  it 'leaves the question alone when the new attributes are invalid' do
+    question = create(:open_question)
+
+    new_question = question.switch_to('ScaleQuestion', minimum: 1)
+
+    new_question.errors.should be_present
+    new_question.should be_a(ScaleQuestion)
+    new_question.minimum.should eq 1
+  end
+end
