@@ -1,3 +1,25 @@
 <h1>Edit Question</h1>
 
+<p>
+  Switch to:
+
+  <%= link_to(
+    'Scale Question',
+    new_question_type_path(@question, question: { type: 'ScaleQuestion' })
+  ) %>
+
+  <%= link_to(
+    'Multiple Choice Question',
+    new_question_type_path(
+      @question,
+      question: { type: 'MultipleChoiceQuestion' }
+    )
+  ) %>
+
+  <%= link_to(
+    'Open Question',
+    new_question_type_path(@question, question: { type: 'OpenQuestion' })
+  ) %>
+</p>
+
 <%= render 'form', question: @question, url: question_path %>

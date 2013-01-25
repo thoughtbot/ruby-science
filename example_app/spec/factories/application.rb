@@ -34,6 +34,8 @@ FactoryGirl.define do
     end
 
     factory :scale_question, class: 'ScaleQuestion' do
+      minimum 1
+      maximum 2
     end
   end
 
