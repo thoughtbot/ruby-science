@@ -183,8 +183,8 @@ watch out for potential warning signs.
 
 This book contains three catalogs: smells, solutions, and principles.
 
-Start by looking up a smell that sounds familiar. Each chapter on smells explain
-the potential problems each smell may reveal and will reference possible
+Start by looking up a smell that sounds familiar. Each chapter on smells explains
+the potential problems each smell may reveal and references possible
 solutions.
 
 Once you've identified the problem revealed by a smell, read the relevant
@@ -269,7 +269,7 @@ method with a better home.
 # Large Class
 
 Most Rails applications suffer from several Large Classes. Large classes are
-difficult to understand and they make it harder to change or reuse behavior.
+difficult to understand and make it harder to change or reuse behavior.
 Tests for large classes are slow and churn tends to be higher, leading to more
 bugs and conflicts. Large classes likely also suffer from [Divergent
 Change](#divergent-change).
@@ -529,10 +529,12 @@ this time in the form of multiple `if` statements:
 
 ### Solutions
 
-* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the 
-`case` statement is checking a type code, such as `question_type`.
+* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the
+  `case` statement is checking a type code, such as `question_type`.
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
-when the `case` statement is checking the class of an object.
+  when the `case` statement is checking the class of an object.
+* [Use Convention over Configuration](#use-convention-over-configuration) when
+  selecting a strategy based on a string name.
 
 # High Fan-out
 
@@ -589,10 +591,73 @@ to replace duplicated `case` statements and `if-elsif` blocks.
 views/templates.
 * [Introduce Parameter Object](#introduce-parameter-object) to hang useful
 formatting methods alongside a data clump of related attributes.
+* [Use Convention over Configuration](#use-convention-over-configuration) to
+  eliminate small steps that can be inferred based on a convention such as a
+  name.
 
 # Divergent Change
 
-STUB
+A class suffers from Divergent Change when it changes for multiple reasons.
+
+### Symptoms
+
+* You can't easily describe what the class does in one sentence.
+* The class is changed more frequently than other classes in the application.
+* Different changes to the class aren't related to each other.
+
+### Example
+
+```ruby
+# app/controllers/summaries_controller.rb
+class SummariesController < ApplicationController
+  def show
+    @survey = Survey.find(params[:survey_id])
+    @summaries = @survey.summarize(summarizer)
+  end
+
+  private
+
+  def summarizer
+    case params[:id]
+    when 'breakdown'
+      Breakdown.new
+    when 'most_recent'
+      MostRecent.new
+    when 'your_answers'
+      UserAnswer.new(current_user)
+    else
+      raise "Unknown summary type: #{params[:id]}"
+    end
+  end
+end
+```
+
+This controller has multiple reasons to change:
+
+* Control flow logic related to summaries, such as authentication.
+* Any time a summarizer strategy is added or changed.
+
+### Solutions
+
+* [Extract Class](#extract-class) to move one cause of change to a new class.
+* [Move Method](#move-method) if the class is changing because of methods that
+  relate to another class.
+* [Extract Validator](#extract-validator) to move validation logic out of
+  models.
+* [Introduce Form Object](#introduce-form-object) to move form logic out of
+  controllers.
+* [Use Convention over Configuration](#use-convention-over-configuration) to
+  eliminate changes that can be inferred by a convention such as a name.
+
+### Prevention
+
+You can prevent Divergent Change from occurring by following the [Single
+Responsibility Principle](#single-responsibility-principle). If a class has only
+one responsibility, it has only one reason to change.
+
+You can use churn to discover which files are changing most frequently. This
+isn't a direct relationship, but frequently changed files often have more than
+one responsibility, and thus more than one reason to change.
 
 # Long Parameter List
 
@@ -1069,7 +1134,7 @@ def type
 end
 ```
 
-At this point, we're ready to proceed with a regular refactor.
+At this point, we're ready to proceed with a regular refactoring.
 
 ### Extracting Type-Specific Code
 
@@ -1094,7 +1159,7 @@ end
 
 For each path of the condition, there is a sequence of steps.
 
-The first step is to use [Extract Method](#extract-method) to move the path to
+The first step is to use [Extract Method](#extract-method) to move each path to
 its own method. In this case, we already extracted methods called
 `summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
@@ -1128,8 +1193,8 @@ each other path. Once every path is moved, we can remove `Question#summary`
 entirely.
 
 In this case, we've already created all our subclasses, but you can use [Extract
-Class](#extract-class) to create them if you're extracting a conditional paths
-into a new classes.
+Class](#extract-class) to create them if you're extracting each conditional path
+into a new class.
 
 You can see the full change for this step in commit a08f801.
 
@@ -1260,7 +1325,7 @@ should look into using [observers](#introduce-observer) or
 # Replace conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
-compliment of tools to handle it: `nil?`, `present?`, `try`, and more. However,
+complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
 it's easy to let these tools hide duplication and leak concerns. If you find
 yourself checking for `nil` all over your codebase, try replacing some of the
 `nil` values with null objects.
@@ -1416,22 +1481,22 @@ cause pain and confusion:
 * As a developer reading a method like `Question#most_recent_answer_text`, you
   may be confused to find that `most_recent_answer` returned an instance of
   `NullAnswer` and not `Answer`.
-* Whenever a method needs to worry about whether or not an actual answer exists,
-  you'll need to add explicit `present?` checks and define `present?` to return
-  `false` on your null object. This is common in views, when the view needs to
-  add special markup to denote missing values.
+* It's possible some methods will need to distinguish between `NullAnswer`s and
+  real `Answer`s. This is common in views, when special markup is required to
+  denote missing values. In this case, you'll need to add explicit `present?`
+  checks and define `present?` to return `false` on your null object.
 * `NullAnswer` may eventually need to reimplement large part of the `Answer`
   API, leading to potential [Duplicated Code](#duplicated-code) and [Shotgun
   Surgery](#shotgun-surgery), which is largely what we hoped to solve in the
   first place.
 
 Don't introduce a null object until you find yourself swatting enough `nil`
-values to be annoying, and make sure you're actually cutting down on conditional
-logic when you introduce it.
+values to grow annoyed. And make sure the removal of the `nil`-handling logic
+outweighs the drawbacks above.
 
 ### Next Steps
 
-* Look for other `nil` checks from the return values of refactored methods.
+* Look for other `nil` checks of the return values of refactored methods.
 * Make sure your Null Object class implements the required methods from the
   original class.
 * Make sure no [Duplicated Code](#duplicated-code) exists between the Null
@@ -1574,8 +1639,8 @@ end
 * Check the original method and the extracted method to make sure that they both
   relate to the same core concern. If the methods aren't highly related, the
   class will suffer from [Divergent Change](#divergent-change).
-* Check newly extracted methods for [Feature Envy](#feature-envy) in the new
-  methods to see if you should employ [Move Method](#move-method) to provide the
+* Check newly extracted methods for [Feature Envy](#feature-envy). If you find
+  some, you may wish to employ [Move Method](#move-method) to provide the new
   method with a better home.
 * Check the affected class to make sure it's not a [Large Class](#large-class).
   Extracting methods reveals complexity, making it clearer when a class is doing
@@ -2408,7 +2473,199 @@ will be committed, and no messages will be delivered.
 
 # Use convention over configuration
 
-STUB
+Ruby's metaprogramming allows us to avoid boilerplate code and duplication by
+relying on conventions for class names, file names, and directory structure.
+Although depending on class names can be constricting in some situations,
+careful use of conventions will make your applications less tedious and more
+bug-proof.
+
+### Uses
+
+* Eliminate [Case Statements](#case-statement) by finding classes by name.
+* Eliminate [Shotgun Surgery](#shotgun-surgery) by removing the need to register
+  or configure new strategies and services.
+* Remove [Duplicated Code](#duplicated-code) by removing manual associations
+  from identifiers to class names.
+
+### Example
+
+This controller accepts an `id` parameter identifying which summarizer strategy
+to use and renders a summary of the survey based on the chosen strategy:
+
+```ruby
+# app/controllers/summaries_controller.rb
+class SummariesController < ApplicationController
+  def show
+    @survey = Survey.find(params[:survey_id])
+    @summaries = @survey.summarize(summarizer)
+  end
+
+  private
+
+  def summarizer
+    case params[:id]
+    when 'breakdown'
+      Breakdown.new
+    when 'most_recent'
+      MostRecent.new
+    when 'your_answers'
+      UserAnswer.new(current_user)
+    else
+      raise "Unknown summary type: #{params[:id]}"
+    end
+  end
+end
+```
+
+The controller is manually mapping a given strategy name to an object
+that can perform the strategy with the given name. In most cases, a strategy
+name directly maps to a class of the same name.
+
+We can use the `constantize` method from Rails to retrieve a class by name:
+
+``` ruby
+params[:id].classify.constantize
+```
+
+This will find the `MostRecent` class from the string `"most_recent"`, and so
+on. This means we can rely on a convention for our summarizer strategies: each
+named strategy will map to a class which the controller can instantiate to
+obtain a summarizer.
+
+However, we can't simplify start using `constantize` in our example, because
+there's one outlier case: the `UserAnswer` class is referenced using
+`"your_answers"` instead of `"user_answer"`, and `UserAnswer` takes different
+parameters than the other two strategies.
+
+Before refactoring the code to rely on our new convention, let's refactor to
+obey it. All our names should map directly to class names, and each class should
+accept the same parameters:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def summarizer
+  case params[:id]
+  when 'breakdown'
+    Breakdown.new(user: current_user)
+  when 'most_recent'
+    MostRecent.new(user: current_user)
+  when 'user_answer'
+    UserAnswer.new(user: current_user)
+  else
+    raise "Unknown summary type: #{params[:id]}"
+  end
+end
+```
+
+Now that we know we can instantiate any of the summarizer classes the same way,
+let's extract a method for determining the summarizer class:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def summarizer
+  summarizer_class.new(user: current_user)
+end
+
+def summarizer_class
+  case params[:id]
+  when 'breakdown'
+    Breakdown
+  when 'most_recent'
+    MostRecent
+  when 'user_answer'
+    UserAnswer
+  else
+    raise "Unknown summary type: #{params[:id]}"
+  end
+end
+```
+
+Now the extracted class performs exactly the same logic as `constantize`, so
+let's use it:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def summarizer
+  summarizer_class.new(user: current_user)
+end
+
+def summarizer_class
+  params[:id].classify.constantize
+end
+```
+
+Now we'll never need to change our controller when adding a new strategy; we
+just add a new class following the naming convention.
+
+There are two drawbacks we should fix before merging:
+
+* Before, a developer could simply look at the controller to find the list of
+  available strategies. Now you'd need to perform a complicated search to find
+  the relevant classes.
+* The original code had a whitelist of strategies; that is, a user couldn't
+  instantiate any class they wanted just by hacking parameters. The new code
+  will instantiate anything you want.
+
+We can solve both easily by altering our convention slightly: scope all the
+summarizer classes within a module.
+
+```ruby
+# app/controllers/summaries_controller.rb
+def summarizer_class
+  "Summarizer::#{params[:id].classify}".constantize
+end
+```
+
+With this convention in place, you can find all summaries by just looking in the
+`Summarizer` module. In a Rails application, this will be in a `summarizer`
+directory by convention.
+
+Users also won't be able to instantiate anything they want by abusing our
+`constantize`, because only classes in the `Summarizer` module are available.
+
+### Drawbacks
+
+#### Weak Conventions
+
+Conventions are most valuable when they're completely consistent.
+
+The convention is slightly forced in this case because `UserAnswer` needs
+different parameters than the other two strategies. This means that we now need
+to add no-op `initializer` methods to the other two classes:
+
+```ruby
+# app/models/summarizer/breakdown.rb
+class Summarizer::Breakdown
+  def initialize(options)
+  end
+
+  def summarize(question)
+    question.breakdown
+  end
+end
+```
+
+This isn't a deal-breaker, but it makes the other classes a little noisier, and
+adds the risk that a developer will waste time trying to remove the unused
+parameter.
+
+Every compromise made weakens the convention, and having a weak convention is
+worse than having no convention. If you have to change the convention for every
+class you add that follows it, try something else.
+
+#### Class-Oriented Programming
+
+Another drawback to this solution is that it's entirely class-based, which means
+you can't assemble strategies at run-time. This means that reuse requires
+inheritance.
+
+Also, this class-based approach, while convenient when developing an
+application, is more likely to cause frustration when writing a library. Forcing
+developers to pass a class name instead of an object limits the amount of
+runtime information strategies can use. In our example, only a `user` was
+required. When you control both sides of the API, it's fine to assume that this
+is safe. When writing a library that will interface with other developers'
+applications, it's better not to rely on class names.
 
 # Introduce Visitor
 
