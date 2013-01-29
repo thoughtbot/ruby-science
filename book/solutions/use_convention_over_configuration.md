@@ -91,7 +91,7 @@ The convention is slightly forced in this case because `UserAnswer` needs
 different parameters than the other two strategies. This means that we now need
 to add no-op `initializer` methods to the other two classes:
 
-` app/models/summarizer/breakdown.rb@83f73f4b
+` app/models/summarizer/breakdown.rb@4addd764
 
 This isn't a deal-breaker, but it makes the other classes a little noisier, and
 adds the risk that a developer will waste time trying to remove the unused
