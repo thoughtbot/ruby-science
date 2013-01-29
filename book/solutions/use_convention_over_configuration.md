@@ -1,9 +1,10 @@
 # Use convention over configuration
 
-Ruby's metaprogramming allows you to avoid boilerplate and duplication by
-relying more on conventions. Although depending on class names can be
-constricting in some situations, careful application of conventions will make
-your applications less tedious and more bug-proof.
+Ruby's metaprogramming allows us to avoid boilerplate code and duplication by
+relying on conventions for class names, file names, and directory structure.
+Although depending on class names can be constricting in some situations,
+careful use of conventions will make your applications less tedious and more
+bug-proof.
 
 ### Uses
 
@@ -57,8 +58,9 @@ let's use it:
 ` app/controllers/summaries_controller.rb@2c632f078:9,15
 
 Now we'll never need to change our controller when adding a new strategy; we
-just add a new class following the naming convention. However, there are two
-drawbacks we should fix before merging:
+just add a new class following the naming convention.
+
+There are two drawbacks we should fix before merging:
 
 * Before, a developer could simply look at the controller to find the list of
   available strategies. Now you'd need to perform a complicated search to find
@@ -81,12 +83,13 @@ Users also won't be able to instantiate anything they want by abusing our
 
 ### Drawbacks
 
-This approach is not without drawbacks.
+#### Weak Conventions
 
-Conventions are most valuable when they're completely consistent. The convention
-is slightly ugly in this case because `UserAnswer` needs different parameters
-than the other two strategies. This means that we now need to add no-op
-`initializer` methods to the other two classes:
+Conventions are most valuable when they're completely consistent.
+
+The convention is slightly forced in this case because `UserAnswer` needs
+different parameters than the other two strategies. This means that we now need
+to add no-op `initializer` methods to the other two classes:
 
 ` app/models/summarizer/breakdown.rb@83f73f4b
 
@@ -94,18 +97,20 @@ This isn't a deal-breaker, but it makes the other classes a little noisier, and
 adds the risk that a developer will waste time trying to remove the unused
 parameter.
 
-Every compromise you have to make weakens the convention, and having a weak
-convention is worse than having no convention. If you have to change the
-convention for every class you add that follows it, try something else.
+Every compromise made weakens the convention, and having a weak convention is
+worse than having no convention. If you have to change the convention for every
+class you add that follows it, try something else.
 
-There's another weakness to this solution: it's entirely class-based, which
-means you can't assemble strategies at run-time. This means that reuse requires
+#### Class-Oriented Programming
+
+Another drawback to this solution is that it's entirely class-based, which means
+you can't assemble strategies at run-time. This means that reuse requires
 inheritance.
 
 Also, this class-based approach, while convenient when developing an
-application, is much weaker when writing a library. Forcing developers to pass a
-class name instead of an object limits the amount of runtime information
-strategies can use. In our example, only a `user` was required. When you control
-both sides of the API, it's fine to assume that this is safe. When writing a
-library that will interface with other developers' applications, it's better not
-to rely on class names.
+application, is more likely to cause frustration when writing a library. Forcing
+developers to pass a class name instead of an object limits the amount of
+runtime information strategies can use. In our example, only a `user` was
+required. When you control both sides of the API, it's fine to assume that this
+is safe. When writing a library that will interface with other developers'
+applications, it's better not to rely on class names.
