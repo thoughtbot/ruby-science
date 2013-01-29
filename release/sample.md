@@ -196,10 +196,12 @@ this time in the form of multiple `if` statements:
 
 ### Solutions
 
-* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the 
-`case` statement is checking a type code, such as `question_type`.
+* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the
+  `case` statement is checking a type code, such as `question_type`.
 * [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
-when the `case` statement is checking the class of an object.
+  when the `case` statement is checking the class of an object.
+* [Use Convention over Configuration](#use-convention-over-configuration) when
+  selecting a strategy based on a string name.
 
 # Shotgun Surgery
 
@@ -252,13 +254,16 @@ to replace duplicated `case` statements and `if-elsif` blocks.
 views/templates.
 * [Introduce Parameter Object](#introduce-parameter-object) to hang useful
 formatting methods alongside a data clump of related attributes.
+* [Use Convention over Configuration](#use-convention-over-configuration) to
+  eliminate small steps that can be inferred based on a convention such as a
+  name.
 
 \part{Solutions}
 
 # Replace conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
-compliment of tools to handle it: `nil?`, `present?`, `try`, and more. However,
+complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
 it's easy to let these tools hide duplication and leak concerns. If you find
 yourself checking for `nil` all over your codebase, try replacing some of the
 `nil` values with null objects.
@@ -414,22 +419,22 @@ cause pain and confusion:
 * As a developer reading a method like `Question#most_recent_answer_text`, you
   may be confused to find that `most_recent_answer` returned an instance of
   `NullAnswer` and not `Answer`.
-* Whenever a method needs to worry about whether or not an actual answer exists,
-  you'll need to add explicit `present?` checks and define `present?` to return
-  `false` on your null object. This is common in views, when the view needs to
-  add special markup to denote missing values.
+* It's possible some methods will need to distinguish between `NullAnswer`s and
+  real `Answer`s. This is common in views, when special markup is required to
+  denote missing values. In this case, you'll need to add explicit `present?`
+  checks and define `present?` to return `false` on your null object.
 * `NullAnswer` may eventually need to reimplement large part of the `Answer`
   API, leading to potential [Duplicated Code](#duplicated-code) and [Shotgun
   Surgery](#shotgun-surgery), which is largely what we hoped to solve in the
   first place.
 
 Don't introduce a null object until you find yourself swatting enough `nil`
-values to be annoying, and make sure you're actually cutting down on conditional
-logic when you introduce it.
+values to grow annoyed. And make sure the removal of the `nil`-handling logic
+outweighs the drawbacks above.
 
 ### Next Steps
 
-* Look for other `nil` checks from the return values of refactored methods.
+* Look for other `nil` checks of the return values of refactored methods.
 * Make sure your Null Object class implements the required methods from the
   original class.
 * Make sure no [Duplicated Code](#duplicated-code) exists between the Null
@@ -572,8 +577,8 @@ end
 * Check the original method and the extracted method to make sure that they both
   relate to the same core concern. If the methods aren't highly related, the
   class will suffer from [Divergent Change](#divergent-change).
-* Check newly extracted methods for [Feature Envy](#feature-envy) in the new
-  methods to see if you should employ [Move Method](#move-method) to provide the
+* Check newly extracted methods for [Feature Envy](#feature-envy). If you find
+  some, you may wish to employ [Move Method](#move-method) to provide the new
   method with a better home.
 * Check the affected class to make sure it's not a [Large Class](#large-class).
   Extracting methods reveals complexity, making it clearer when a class is doing
