@@ -1,6 +1,22 @@
+describe OpenSubmittable, '#breakdown' do
+  it 'returns all answers' do
+    survey = create(:survey)
+    question = create(:open_question, survey: survey)
+    submittable = OpenSubmittable.new(question)
+    taker = AnswerCreator.new(survey)
+
+    taker.answer question, 'Hey'
+    taker.answer question, 'Hi'
+    taker.answer question, 'Hello'
+
+    submittable.breakdown.should eq 'Hey, Hi, Hello'
+  end
+end
+
 describe OpenSubmittable, '#score' do
   it 'returns zero' do
-    submittable = OpenSubmittable.new
+    question = build_stubbed(:open_question)
+    submittable = OpenSubmittable.new(question)
 
     result = submittable.score('anything')
 

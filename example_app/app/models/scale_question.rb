@@ -6,11 +6,7 @@ class ScaleQuestion < Question
     (minimum..maximum).to_a
   end
 
-  def breakdown
-    sprintf('Average: %.02f', answers.average('text'))
-  end
-
   def submittable
-    ScaleSubmittable.new
+    ScaleSubmittable.new(self)
   end
 end

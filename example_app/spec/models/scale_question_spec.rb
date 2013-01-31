@@ -11,16 +11,3 @@ describe ScaleQuestion, '#steps' do
     question.steps.should eq [2, 3, 4, 5]
   end
 end
-
-describe ScaleQuestion, '#breakdown' do
-  it 'returns the average' do
-    survey = create(:survey)
-    question = create(:scale_question, minimum: 0, maximum: 10, survey: survey)
-    taker = AnswerCreator.new(survey)
-    taker.answer question, 6
-    taker.answer question, 6
-    taker.answer question, 8
-
-    question.breakdown.should eq 'Average: 6.67'
-  end
-end

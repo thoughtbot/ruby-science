@@ -1,3 +1,21 @@
+describe MultipleChoiceSubmittable, '#breakdown' do
+  it 'returns a percentage breakdown' do
+    survey = create(:survey)
+    question = create(
+      :multiple_choice_question,
+      options_texts: %w(Blue Red),
+      survey: survey
+    )
+    submittable = MultipleChoiceSubmittable.new(question)
+    taker = AnswerCreator.new(survey)
+    taker.answer question, 'Red'
+    taker.answer question, 'Blue'
+    taker.answer question, 'Red'
+
+    submittable.breakdown.should eq '67% Red, 33% Blue'
+  end
+end
+
 describe MultipleChoiceSubmittable, '#score' do
   it 'returns the score for the option with the given text' do
     question = build_stubbed(:multiple_choice_question)

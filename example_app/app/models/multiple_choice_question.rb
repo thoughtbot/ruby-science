@@ -11,16 +11,6 @@ class MultipleChoiceQuestion < Question
     end
   end
 
-  def breakdown
-    total = answers.count
-    counts = answers.group(:text).order('COUNT(*) DESC').count
-    percents = counts.map do |text, count|
-      percent = (100.0 * count / total).round
-      "#{percent}% #{text}"
-    end
-    percents.join(', ')
-  end
-
   def submittable
     MultipleChoiceSubmittable.new(self)
   end
