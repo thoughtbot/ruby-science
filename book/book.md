@@ -42,6 +42,8 @@
 
 <<[code_smells/uncommunicative_name.md]
 
+<<[code_smells/sti.md]
+
 <<[code_smells/parallel_inheritance_hierarchies.md]
 
 <<[code_smells/comments.md]
@@ -85,6 +87,8 @@
 <<[solutions/inline_class.md]
 
 <<[solutions/inject_dependencies.md]
+
+<<[solutions/replace_subclasses_with_strategies.md]
 
 <<[solutions/replace_mixin_with_composition.md]
 
