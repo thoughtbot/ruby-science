@@ -1,7 +1,5 @@
-class OpenSubmittable
-  def initialize(question)
-    @question = question
-  end
+class OpenSubmittable < ActiveRecord::Base
+  has_one :question, as: :submittable
 
   def breakdown
     text_from_ordered_answers = answers.order(:created_at).pluck(:text)
@@ -15,6 +13,6 @@ class OpenSubmittable
   private
 
   def answers
-    @question.answers
+    question.answers
   end
 end
