@@ -5,16 +5,6 @@ describe ScaleQuestion do
   it { should validate_presence_of(:minimum) }
 end
 
-describe ScaleQuestion, '#score' do
-  it 'returns the integer value of the text' do
-    question = build_stubbed(:scale_question)
-
-    result = question.score('5')
-
-    result.should eq 5
-  end
-end
-
 describe ScaleQuestion, '#steps' do
   it 'returns all numbers starting at the minimum and ending at the maximum' do
     question = build_stubbed(:scale_question, minimum: 2, maximum: 5)

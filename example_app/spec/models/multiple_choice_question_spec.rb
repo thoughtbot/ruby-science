@@ -15,18 +15,6 @@ describe MultipleChoiceQuestion, '#options_for_form' do
   end
 end
 
-describe MultipleChoiceQuestion, '#score' do
-  it 'returns the score for the option with the given text' do
-    question = create(:multiple_choice_question)
-    question.options.stubs(score: 2)
-
-    result = question.score('two')
-
-    question.options.should have_received(:score).with('two')
-    result.should eq 2
-  end
-end
-
 describe MultipleChoiceQuestion, '#breakdown' do
   it 'returns a percentage breakdown' do
     survey = create(:survey)
