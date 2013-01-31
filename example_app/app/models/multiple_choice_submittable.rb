@@ -1,7 +1,5 @@
-class MultipleChoiceSubmittable
-  def initialize(question)
-    @question = question
-  end
+class MultipleChoiceSubmittable < ActiveRecord::Base
+  has_one :question, as: :submittable
 
   def breakdown
     total = answers.count
@@ -28,10 +26,10 @@ class MultipleChoiceSubmittable
   private
 
   def answers
-    @question.answers
+    question.answers
   end
 
   def options
-    @question.options
+    question.options
   end
 end

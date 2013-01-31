@@ -1,7 +1,5 @@
-class ScaleSubmittable
-  def initialize(question)
-    @question = question
-  end
+class ScaleSubmittable < ActiveRecord::Base
+  has_one :question, as: :submittable
 
   def breakdown
     sprintf('Average: %.02f', answers.average('text'))
@@ -12,12 +10,12 @@ class ScaleSubmittable
   end
 
   def steps
-    (@question.minimum..@question.maximum).to_a
+    (question.minimum..question.maximum).to_a
   end
 
   private
 
   def answers
-    @question.answers
+    question.answers
   end
 end
