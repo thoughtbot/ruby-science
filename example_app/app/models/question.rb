@@ -9,6 +9,7 @@ class Question < ActiveRecord::Base
   belongs_to :survey
   has_many :answers
 
+  delegate :score, to: :submittable
   delegate :title, to: :survey, prefix: true
 
   def most_recent_answer_text

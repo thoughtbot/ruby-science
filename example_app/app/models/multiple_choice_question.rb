@@ -11,10 +11,6 @@ class MultipleChoiceQuestion < Question
     end
   end
 
-  def score(text)
-    submittable.score(text)
-  end
-
   def breakdown
     total = answers.count
     counts = answers.group(:text).order('COUNT(*) DESC').count

@@ -2,10 +2,6 @@ class ScaleQuestion < Question
   validates :maximum, presence: true
   validates :minimum, presence: true
 
-  def score(text)
-    submittable.score(text)
-  end
-
   def steps
     (minimum..maximum).to_a
   end
