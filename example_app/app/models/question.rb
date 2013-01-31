@@ -16,6 +16,11 @@ class Question < ActiveRecord::Base
     answers.most_recent.text
   end
 
+  def submittable
+    submittable_class_name = type.sub('Question', 'Submittable')
+    submittable_class_name.constantize.new(self)
+  end
+
   def summarize(summarizer)
     value = summarizer.summarize(self)
     Summary.new(title, value)

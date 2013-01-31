@@ -36,6 +36,13 @@ describe Question, '#most_recent_answer_text' do
   end
 end
 
+describe Question, '#submittable' do
+  it 'instantiates a submittable based on its type' do
+    question = OpenQuestion.new
+    question.submittable.should be_a(OpenSubmittable)
+  end
+end
+
 describe Question, '#summarize' do
   it 'builds a summary with the result from the summarizer' do
     question = build_stubbed(:question)
