@@ -17,8 +17,8 @@ class Question < ActiveRecord::Base
   end
 
   def submittable
-    submittable_class_name = type.sub('Question', 'Submittable')
-    submittable_class_name.constantize.new(self)
+    submittable_class = type.sub('Question', 'Submittable').constantize
+    submittable_class.new(question: self)
   end
 
   def summarize(summarizer)
@@ -28,7 +28,8 @@ class Question < ActiveRecord::Base
 
   def switch_to(type, new_attributes)
     attributes = self.attributes.merge(new_attributes)
-    new_question = type.constantize.new(attributes.except('id', 'type'))
+    cloned_attributes = attributes.except('id', 'type', 'submittable_type')
+    new_question = type.constantize.new(cloned_attributes)
     new_question.id = id
 
     begin

@@ -38,7 +38,7 @@ end
 
 describe Question, '#submittable' do
   it 'instantiates a submittable based on its type' do
-    question = OpenQuestion.new
+    question = create(:open_question)
     question.submittable.should be_a(OpenSubmittable)
   end
 end
@@ -63,6 +63,7 @@ describe Question, '#switch_to' do
 
     new_question.errors.should be_empty
     new_question.should be_a(ScaleQuestion)
+    new_question.submittable.should be_a(ScaleSubmittable)
     new_question.minimum.should eq 1
     new_question.maximum.should eq 2
     Question.count.should eq 1
@@ -75,6 +76,7 @@ describe Question, '#switch_to' do
 
     new_question.errors.should be_present
     new_question.should be_a(ScaleQuestion)
+    new_question.submittable.should be_a(ScaleSubmittable)
     new_question.minimum.should eq 1
   end
 end

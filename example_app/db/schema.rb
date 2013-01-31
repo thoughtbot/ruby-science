@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116211337) do
+ActiveRecord::Schema.define(:version => 20130131205918) do
 
   create_table "answers", :force => true do |t|
     t.integer  "completion_id", :null => false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(:version => 20130116211337) do
   add_index "invitations", ["survey_id"], :name => "index_invitations_on_survey_id"
   add_index "invitations", ["token"], :name => "index_invitations_on_token", :unique => true
 
+  create_table "multiple_choice_submittables", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "open_submittables", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "options", :force => true do |t|
     t.integer  "question_id",                :null => false
     t.string   "text",                       :null => false
@@ -64,6 +74,11 @@ ActiveRecord::Schema.define(:version => 20130116211337) do
     t.datetime "updated_at", :null => false
     t.integer  "minimum"
     t.integer  "maximum"
+  end
+
+  create_table "scale_submittables", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "surveys", :force => true do |t|
