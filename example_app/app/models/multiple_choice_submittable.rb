@@ -13,6 +13,14 @@ class MultipleChoiceSubmittable
     percents.join(', ')
   end
 
+  def options_for_form
+    if options.any?
+      options
+    else
+      [Option.new, Option.new, Option.new]
+    end
+  end
+
   def score(text)
     options.score(text)
   end
