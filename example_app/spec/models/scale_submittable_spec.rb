@@ -22,3 +22,11 @@ describe ScaleSubmittable, '#score' do
     result.should eq 5
   end
 end
+
+describe ScaleSubmittable, '#steps' do
+  it 'returns all numbers starting at the minimum and ending at the maximum' do
+    question = build_stubbed(:scale_question, minimum: 2, maximum: 5)
+    submittable = ScaleSubmittable.new(question)
+    submittable.steps.should eq [2, 3, 4, 5]
+  end
+end

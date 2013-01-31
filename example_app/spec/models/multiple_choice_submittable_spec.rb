@@ -16,6 +16,21 @@ describe MultipleChoiceSubmittable, '#breakdown' do
   end
 end
 
+describe MultipleChoiceSubmittable, '#options_for_form' do
+  it 'adds empty options when none are present' do
+    question = build_stubbed(:multiple_choice_question, options: [])
+    submittable = MultipleChoiceSubmittable.new(question)
+    submittable.options_for_form.count.should == 3
+  end
+
+  it 'leaves existing options alone' do
+    options = [Option.new(text: 'hey'), Option.new(text: 'hello')]
+    question = build_stubbed(:multiple_choice_question, options: options)
+    submittable = MultipleChoiceSubmittable.new(question)
+    submittable.options_for_form.map(&:text).should match_array(['hey', 'hello'])
+  end
+end
+
 describe MultipleChoiceSubmittable, '#score' do
   it 'returns the score for the option with the given text' do
     question = build_stubbed(:multiple_choice_question)

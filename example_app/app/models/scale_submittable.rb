@@ -11,6 +11,10 @@ class ScaleSubmittable
     text.to_i
   end
 
+  def steps
+    (@question.minimum..@question.maximum).to_a
+  end
+
   private
 
   def answers

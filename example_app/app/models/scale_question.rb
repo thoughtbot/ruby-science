@@ -3,7 +3,7 @@ class ScaleQuestion < Question
   validates :minimum, presence: true
 
   def steps
-    (minimum..maximum).to_a
+    submittable.steps
   end
 
   def submittable
