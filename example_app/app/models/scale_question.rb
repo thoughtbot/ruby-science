@@ -3,7 +3,7 @@ class ScaleQuestion < Question
   validates :minimum, presence: true
 
   def score(text)
-    text.to_i
+    submittable.score(text)
   end
 
   def steps
@@ -12,5 +12,9 @@ class ScaleQuestion < Question
 
   def breakdown
     sprintf('Average: %.02f', answers.average('text'))
+  end
+
+  def submittable
+    ScaleSubmittable.new
   end
 end
