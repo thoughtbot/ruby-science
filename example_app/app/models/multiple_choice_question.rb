@@ -12,7 +12,7 @@ class MultipleChoiceQuestion < Question
   end
 
   def score(text)
-    options.score(text)
+    submittable.score(text)
   end
 
   def breakdown
@@ -23,5 +23,9 @@ class MultipleChoiceQuestion < Question
       "#{percent}% #{text}"
     end
     percents.join(', ')
+  end
+
+  def submittable
+    MultipleChoiceSubmittable.new(self)
   end
 end
