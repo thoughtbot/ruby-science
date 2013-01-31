@@ -49,14 +49,14 @@ Our `Question` class is a subclass of `ActiveRecord::Base`. If we want to create
 subclasses of `Question`, we have to tell ActiveRecord which subclass to
 instantiate when it fetches records from the `questions` table. The mechanism
 Rails uses for storing instances of different classes in the same table is
-called "Single Table Inheritance." Rails will take care of most of the details,
-but there are a few extra steps we need to take when refactoring to Single Table
-Inheritance.
+called [Single Table Inheritance](#sti). Rails will take care of most of the
+details, but there are a few extra steps we need to take when refactoring to
+Single Table Inheritance.
 
 ## Single Table Inheritance (STI)
 
-The first step to convert to STI is generally to create a new subclass for each
-type. However, the existing type codes are named "Open," "Scale," and
+The first step to convert to [STI](#sti) is generally to create a new subclass
+for each type. However, the existing type codes are named "Open," "Scale," and
 "MultipleChoice," which won't make good class names; names like "OpenQuestion"
 would be better, so let's start by changing the existing type codes:
 
@@ -240,6 +240,9 @@ types. Object-oriented languages lean towards polymorphic implementations, but
 if you find yourself adding behaviors much more often than adding types, you
 should look into using [observers](#introduce-observer) or
 [visitors](#introduce-visitor) instead.
+
+Also, using STI has specific disadvantages. See the [chapter on STI](#sti) for
+details.
 
 ### Next Steps
 
