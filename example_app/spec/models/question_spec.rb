@@ -58,6 +58,7 @@ describe Question, '#switch_to' do
     new_question.should be_a(ScaleQuestion)
     new_question.minimum.should eq 1
     new_question.maximum.should eq 2
+    Question.count.should eq 1
   end
 
   it 'leaves the question alone when the new attributes are invalid' do

@@ -5,12 +5,10 @@
 ) do |form| -%>
 
   <%= form.hidden_field :type %>
-
   <%= render(
     "#{@new_type}s/#{@new_type}_form",
     question: @new_question,
     form: form
   ) %>
   <%= form.submit 'Change Type' %>
-
 <% end -%>
