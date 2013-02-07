@@ -1,13 +1,18 @@
 describe MultipleChoiceSubmittable do
+  it { should have_many(:options) }
   it { should have_one(:question) }
 end
 
 describe MultipleChoiceSubmittable, '#breakdown' do
   it 'returns a percentage breakdown' do
     survey = create(:survey)
+    submittable = create(
+      :multiple_choice_submittable,
+      options_texts: %w(Blue Red)
+    )
     question = create(
       :multiple_choice_question,
-      options_texts: %w(Blue Red),
+      submittable: submittable,
       survey: survey
     )
     submittable = MultipleChoiceSubmittable.new(question: question)
@@ -22,15 +27,13 @@ end
 
 describe MultipleChoiceSubmittable, '#options_for_form' do
   it 'adds empty options when none are present' do
-    question = build_stubbed(:multiple_choice_question, options: [])
-    submittable = MultipleChoiceSubmittable.new(question: question)
+    submittable = MultipleChoiceSubmittable.new(options: [])
     submittable.options_for_form.count.should == 3
   end
 
   it 'leaves existing options alone' do
     options = [Option.new(text: 'hey'), Option.new(text: 'hello')]
-    question = build_stubbed(:multiple_choice_question, options: options)
-    submittable = MultipleChoiceSubmittable.new(question: question)
+    submittable = MultipleChoiceSubmittable.new(options: options)
     submittable.options_for_form.map(&:text).should match_array(['hey', 'hello'])
   end
 end
@@ -39,11 +42,11 @@ describe MultipleChoiceSubmittable, '#score' do
   it 'returns the score for the option with the given text' do
     question = build_stubbed(:multiple_choice_question)
     submittable = MultipleChoiceSubmittable.new(question: question)
-    question.options.stubs(score: 2)
+    submittable.options.stubs(score: 2)
 
     result = submittable.score('two')
 
-    question.options.should have_received(:score).with('two')
+    submittable.options.should have_received(:score).with('two')
     result.should eq 2
   end
 end
