@@ -1,5 +1,8 @@
 class MultipleChoiceSubmittable < ActiveRecord::Base
+  has_many :options, foreign_key: :question_id
   has_one :question, as: :submittable
+
+  accepts_nested_attributes_for :options, reject_if: :all_blank
 
   def breakdown
     total = answers.count
@@ -27,9 +30,5 @@ class MultipleChoiceSubmittable < ActiveRecord::Base
 
   def answers
     question.answers
-  end
-
-  def options
-    question.options
   end
 end
