@@ -2,7 +2,7 @@ class TypesController < ApplicationController
   def new
     @question = Question.find(params[:question_id])
     assign_type
-    @new_question = type.constantize.new
+    @new_question = Question.new
     @new_question.build_submittable(type, {})
   end
 
@@ -37,6 +37,6 @@ class TypesController < ApplicationController
   end
 
   def type
-    params[:question][:type]
+    params[:question][:submittable_type]
   end
 end

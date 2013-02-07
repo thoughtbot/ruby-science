@@ -31,13 +31,13 @@ class QuestionsController < ApplicationController
   private
 
   def build_question
-    @question = type.constantize.new(question_params)
+    @question = Question.new(question_params)
     @question.build_submittable(type, submittable_params)
     @question.survey = @survey
   end
 
   def type
-    params[:question][:type]
+    params[:question][:submittable_type]
   end
 
   def question_params

@@ -23,10 +23,10 @@ class SurveyTaker
 
   def answer(question_title, answer_text)
     question = Question.find_by_title!(question_title)
-    case question
-    when OpenQuestion
+    case question.submittable
+    when OpenSubmittable
       fill_in question_title, with: answer_text
-    when ScaleQuestion, MultipleChoiceQuestion
+    when ScaleSubmittable, MultipleChoiceSubmittable
       within %{li:contains("#{question_title}")} do
         choose answer_text
       end
