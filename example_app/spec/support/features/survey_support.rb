@@ -9,9 +9,13 @@ module Features
     view_survey survey
   end
 
-  def view_survey_with_question(type, attributes = {})
+  def view_survey_with_question(type, question_attrs = {}, submittable_attrs = {})
     survey = create(:survey)
-    question = create(:"#{type}_question", attributes.merge(survey: survey))
+    submittable = create(:"#{type}_submittable", submittable_attrs)
+    question = create(
+      :"#{type}_question",
+      question_attrs.merge(survey: survey, submittable: submittable)
+    )
     view_survey survey
   end
 

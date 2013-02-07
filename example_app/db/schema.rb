@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130131205918) do
+ActiveRecord::Schema.define(version: 20130131211856) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "completion_id", null: false
@@ -72,8 +72,6 @@ ActiveRecord::Schema.define(version: 20130131205918) do
     t.integer  "survey_id",        null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "minimum"
-    t.integer  "maximum"
     t.integer  "submittable_id"
     t.string   "submittable_type"
   end
@@ -81,6 +79,8 @@ ActiveRecord::Schema.define(version: 20130131205918) do
   create_table "scale_submittables", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "minimum"
+    t.integer  "maximum"
   end
 
   create_table "surveys", force: :cascade do |t|
