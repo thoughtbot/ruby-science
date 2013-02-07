@@ -17,11 +17,11 @@ describe Question do
 end
 
 describe Question, '#build_submittable' do
-  it 'builds a submittable with its type and the given attributes' do
+  it 'builds a submittable with the given type and attributes' do
     expected_value = 1.day.ago
-    question = build(:open_question)
+    question = build(:question)
 
-    question.build_submittable(created_at: expected_value)
+    question.build_submittable('OpenSubmittable', created_at: expected_value)
 
     question.submittable.created_at.should eq expected_value
     question.submittable.should be_a(OpenSubmittable)
