@@ -7,7 +7,7 @@ class TypesController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @new_question = @question.switch_to(type, params[:question])
+    @new_question = @question.switch_to(type, params[:question], {})
 
     if @new_question.errors.empty?
       redirect_to @question.survey
