@@ -1,13 +1,14 @@
 <%= simple_form_for(
-  @new_question,
+  @question,
   as: :question,
-  url: question_types_path(@question)
+  url: question_types_path(@question),
+  method: :post
 ) do |form| -%>
 
   <%= form.hidden_field :submittable_type %>
   <%= render(
-    "#{@new_type}s/#{@new_type}_form",
-    question: @new_question,
+    "#{@question.submittable.to_partial_path}_form",
+    submittable: @question.submittable,
     form: form
   ) %>
   <%= form.submit 'Change Type' %>
