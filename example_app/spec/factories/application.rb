@@ -11,6 +11,15 @@ FactoryGirl.define do
   end
 
   factory :multiple_choice_submittable do
+    ignore do
+      options_texts { [] }
+    end
+
+    options do |attributes|
+      attributes.options_texts.map do |text|
+        FactoryGirl.build(:option, text: text, question_id: attributes.id)
+      end
+    end
   end
 
   factory :open_submittable do
@@ -25,16 +34,6 @@ FactoryGirl.define do
     sequence(:title) { |n| "Question #{n}" }
 
     factory :multiple_choice_question, class: 'MultipleChoiceQuestion' do
-      ignore do
-        options_texts { [] }
-      end
-
-      options do |attributes|
-        attributes.options_texts.map do |text|
-          FactoryGirl.build(:option, text: text, question_id: attributes.id)
-        end
-      end
-
       submittable factory: :multiple_choice_submittable
     end
 

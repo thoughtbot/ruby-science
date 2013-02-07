@@ -14,7 +14,10 @@ feature 'user adds multiple choice question to survey' do
 
   def add_options_with_text(*texts)
     texts.each_with_index do |text, index|
-      fill_in "question_options_attributes_#{index}_text", with: text
+      fill_in(
+        "question_submittable_attributes_options_attributes_#{index}_text",
+        with: text
+      )
     end
   end
 end

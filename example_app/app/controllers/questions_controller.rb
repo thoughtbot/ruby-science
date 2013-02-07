@@ -41,14 +41,12 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.
-      require(:question).
-      permit(:title, :options_attributes)
+    params.require(:question).permit(:title)
   end
 
   def submittable_params
     if submittable_attributes = params[:question][:submittable_attributes]
-      submittable_attributes.permit(:minimum, :maximum)
+      submittable_attributes.permit(:minimum, :maximum, :options_attributes)
     else
       {}
     end
