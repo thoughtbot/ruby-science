@@ -1,0 +1,9 @@
+<%= form.fields_for(:submittable) do |submittable_fields| -%>
+  <%= submittable_fields.fields_for(
+    :options,
+    submittable.options_for_form
+  ) do |option_fields| -%>
+
+    <%= option_fields.input :text, label: 'Option' %>
+  <% end -%>
+<% end -%>

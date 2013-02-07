@@ -10,33 +10,46 @@ FactoryGirl.define do
     user
   end
 
+  factory :multiple_choice_submittable do
+    ignore do
+      options_texts { [] }
+    end
+
+    options do |attributes|
+      attributes.options_texts.map do |text|
+        FactoryGirl.build(:option, text: text, question_id: attributes.id)
+      end
+    end
+  end
+
+  factory :open_submittable do
+  end
+
   factory :option do
     text 'Hello'
   end
 
-  factory :question, class: 'OpenQuestion' do
-    survey
+  factory :question do
     sequence(:title) { |n| "Question #{n}" }
+    submittable factory: :open_submittable
+    survey
 
-    factory :multiple_choice_question, class: 'MultipleChoiceQuestion' do
-      ignore do
-        options_texts { [] }
-      end
-
-      options do |attributes|
-        attributes.options_texts.map do |text|
-          FactoryGirl.build(:option, text: text, question_id: attributes.id)
-        end
-      end
+    factory :multiple_choice_question do
+      submittable factory: :multiple_choice_submittable
     end
 
-    factory :open_question, class: 'OpenQuestion' do
+    factory :open_question do
+      submittable factory: :open_submittable
     end
 
-    factory :scale_question, class: 'ScaleQuestion' do
-      minimum 1
-      maximum 2
+    factory :scale_question do
+      submittable factory: :scale_submittable
     end
+  end
+
+  factory :scale_submittable do
+    minimum 1
+    maximum 2
   end
 
   factory :survey do

@@ -1,29 +1,30 @@
 class TypesController < ApplicationController
   def new
     @question = Question.find(params[:question_id])
-    assign_type
-    @new_question = type.constantize.new
+    @question.build_submittable(type, {})
   end
 
   def create
     @question = Question.find(params[:question_id])
-    @new_question = @question.switch_to(type, params[:question])
+    @question.switch_to(
+      type,
+      submittable_attributes
+    )
 
-    if @new_question.errors.empty?
+    if @question.errors.empty?
       redirect_to @question.survey
     else
-      assign_type
       render 'new'
     end
   end
 
   private
 
-  def assign_type
-    @new_type = type.underscore
+  def submittable_attributes
+    params[:question][:submittable_attributes] || {}
   end
 
   def type
-    params[:question][:type]
+    params[:question][:submittable_type]
   end
 end

@@ -1,5 +1,5 @@
 <ol>
-  <% multiple_choice_question.options.each do |option| -%>
+  <% multiple_choice_submittable.options.each do |option| -%>
     <li>
       <%= submission_fields.radio_button :text, option.text, id: dom_id(option) %>
       <%= content_tag :label, option.text, for: dom_id(option) %>

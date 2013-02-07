@@ -18,21 +18,30 @@ class SurveyMaker
       build(:option, text: text, score: score)
     end
 
+    submittable = create(
+      :multiple_choice_submittable,
+      options: options
+    )
+
     create(
       :multiple_choice_question,
-      title: title,
-      options: options,
-      survey: survey
+      submittable: submittable,
+      survey: survey,
+      title: title
     )
   end
 
   def scale_question(title, range)
+    submittable = create(
+      :scale_submittable,
+      minimum: range.first,
+      maximum: range.last
+    )
     create(
       :scale_question,
-      title: title,
-      minimum: range.first,
-      maximum: range.last,
-      survey: survey
+      submittable: submittable,
+      survey: survey,
+      title: title
     )
   end
 

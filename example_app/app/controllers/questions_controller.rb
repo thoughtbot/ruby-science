@@ -31,17 +31,24 @@ class QuestionsController < ApplicationController
   private
 
   def build_question
-    @question = type.constantize.new(question_params)
+    @question = Question.new(question_params)
+    @question.build_submittable(type, submittable_params)
     @question.survey = @survey
   end
 
   def type
-    params[:question][:type]
+    params[:question][:submittable_type]
   end
 
   def question_params
-    params.
-      require(:question).
-      permit(:title, :options_attributes, :minimum, :maximum)
+    params.require(:question).permit(:title)
+  end
+
+  def submittable_params
+    if submittable_attributes = params[:question][:submittable_attributes]
+      submittable_attributes.permit(:minimum, :maximum, :options_attributes)
+    else
+      {}
+    end
   end
 end

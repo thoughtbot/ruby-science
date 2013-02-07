@@ -1,18 +1,32 @@
 class Question < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  QUESTION_TYPES = %w(OpenQuestion MultipleChoiceQuestion ScaleQuestion).freeze
+  QUESTION_TYPES = %w(
+    OpenSubmittable
+    MultipleChoiceSubmittable
+    ScaleSubmittable
+  ).freeze
 
-  validates :type, presence: true, inclusion: QUESTION_TYPES
+  validates :submittable, associated: true
+  validates :submittable_type, presence: true, inclusion: QUESTION_TYPES
   validates :title, presence: true
 
+  belongs_to :submittable, polymorphic: true
   belongs_to :survey
   has_many :answers
 
+  accepts_nested_attributes_for :submittable
+
+  delegate :breakdown, :score, to: :submittable
   delegate :title, to: :survey, prefix: true
 
   def most_recent_answer_text
     answers.most_recent.text
+  end
+
+  def build_submittable(type, attributes)
+    submittable_class = type.sub('Question', 'Submittable').constantize
+    self.submittable = submittable_class.new(attributes.merge(question: self))
   end
 
   def summarize(summarizer)
@@ -20,19 +34,14 @@ class Question < ActiveRecord::Base
     Summary.new(title, value)
   end
 
-  def switch_to(type, new_attributes)
-    attributes = self.attributes.merge(new_attributes)
-    new_question = type.constantize.new(attributes.except('id', 'type'))
-    new_question.id = id
+  def switch_to(type, attributes)
+    old_submittable = submittable
+    build_submittable type, attributes
 
-    begin
-      Question.transaction do
-        destroy
-        new_question.save!
+    transaction do
+      if save
+        old_submittable.destroy
       end
-    rescue ActiveRecord::RecordInvalid
     end
-
-    new_question
   end
 end

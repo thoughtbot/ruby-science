@@ -6,17 +6,26 @@
 
 <%= link_to(
   'Add Multiple Choice Question',
-  new_survey_question_path(@survey, question: { type: 'MultipleChoiceQuestion' })
+  new_survey_question_path(
+    @survey,
+    question: { submittable_type: 'MultipleChoiceSubmittable' }
+  )
 ) %>
 
 <%= link_to(
   'Add Open Question',
-  new_survey_question_path(@survey, question: { type: 'OpenQuestion' })
+  new_survey_question_path(
+    @survey,
+    question: { submittable_type: 'OpenSubmittable' }
+  )
 ) %>
 
 <%= link_to(
   'Add Scale Question',
-  new_survey_question_path(@survey, question: { type: 'ScaleQuestion' })
+  new_survey_question_path(
+    @survey,
+    question: { submittable_type: 'ScaleSubmittable' }
+  )
 ) %>
 
 <%= simple_form_for [@survey, @completion] do |form| -%>
@@ -25,7 +34,10 @@
       <li>
         <%= form.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
           <%= submission_fields.label :text, label: question.title %>
-          <%= render question, submission_fields: submission_fields %>
+          <%= render(
+            question.submittable,
+            submission_fields: submission_fields
+          ) %>
           <%= link_to 'Edit', edit_question_path(question) %>
         <% end -%>
       </li>
