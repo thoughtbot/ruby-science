@@ -27,12 +27,16 @@ class SurveyMaker
   end
 
   def scale_question(title, range)
+    submittable = create(
+      :scale_submittable,
+      minimum: range.first,
+      maximum: range.last
+    )
     create(
       :scale_question,
-      title: title,
-      minimum: range.first,
-      maximum: range.last,
-      survey: survey
+      submittable: submittable,
+      survey: survey,
+      title: title
     )
   end
 

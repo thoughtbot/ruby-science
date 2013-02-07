@@ -25,13 +25,14 @@ feature 'User changes question type' do
   end
 
   scenario 'with valid open question' do
-    question = create(:scale_question)
+    submittable = create(:scale_submittable)
+    question = create(:scale_question, submittable: submittable)
     edit_question question
 
     change_type 'Open Question' do
     end
 
-    page.should_not have_step(question.minimum)
+    page.should_not have_step(submittable.minimum)
   end
 
   scenario 'with invalid question' do

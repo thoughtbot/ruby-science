@@ -43,14 +43,13 @@ FactoryGirl.define do
     end
 
     factory :scale_question, class: 'ScaleQuestion' do
-      minimum 1
-      maximum 2
-
       submittable factory: :scale_submittable
     end
   end
 
   factory :scale_submittable do
+    minimum 1
+    maximum 2
   end
 
   factory :survey do
