@@ -6,6 +6,7 @@ class Question < ActiveRecord::Base
   validates :type, presence: true, inclusion: QUESTION_TYPES
   validates :title, presence: true
 
+  belongs_to :submittable, polymorphic: true
   belongs_to :survey
   has_many :answers
 
@@ -16,9 +17,9 @@ class Question < ActiveRecord::Base
     answers.most_recent.text
   end
 
-  def submittable
+  def build_submittable
     submittable_class = type.sub('Question', 'Submittable').constantize
-    submittable_class.new(question: self)
+    self.submittable = submittable_class.new(question: self)
   end
 
   def summarize(summarizer)
@@ -30,6 +31,7 @@ class Question < ActiveRecord::Base
     attributes = self.attributes.merge(new_attributes)
     cloned_attributes = attributes.except('id', 'type', 'submittable_type')
     new_question = type.constantize.new(cloned_attributes)
+    new_question.build_submittable
     new_question.id = id
 
     begin
