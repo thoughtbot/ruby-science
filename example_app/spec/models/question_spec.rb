@@ -65,26 +65,27 @@ describe Question, '#switch_to' do
   it 'changes the question type and deletes the old question when valid' do
     question = create(:open_question)
 
-    new_question = question.switch_to(
+    question.switch_to(
       'ScaleQuestion',
-      {},
-      { minimum: 1, maximum: 2 })
+      { minimum: 1, maximum: 2 }
+    )
 
-    new_question.errors.should be_empty
-    submittable = new_question.submittable
+    question.errors.should be_empty
+    submittable = question.submittable
     submittable.should be_a(ScaleSubmittable)
     submittable.minimum.should eq 1
     submittable.maximum.should eq 2
     Question.count.should eq 1
+    OpenSubmittable.count.should eq 0
   end
 
   it 'leaves the question alone when the new attributes are invalid' do
     question = create(:open_question)
 
-    new_question = question.switch_to('ScaleQuestion', {}, { minimum: 1 })
+    question.switch_to('ScaleQuestion', { minimum: 1 })
 
-    new_question.errors.should be_present
-    new_question.submittable.should be_a(ScaleSubmittable)
-    new_question.submittable.minimum.should eq 1
+    question.errors.should be_present
+    question.submittable.should be_a(ScaleSubmittable)
+    question.submittable.minimum.should eq 1
   end
 end
