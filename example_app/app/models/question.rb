@@ -34,21 +34,14 @@ class Question < ActiveRecord::Base
     Summary.new(title, value)
   end
 
-  def switch_to(type, new_attributes, submittable_attributes)
-    attributes = self.attributes.merge(new_attributes)
-    cloned_attributes = attributes.except('id', 'type', 'submittable_type')
-    new_question = Question.new(cloned_attributes)
-    new_question.build_submittable(type, submittable_attributes)
-    new_question.id = id
+  def switch_to(type, attributes)
+    old_submittable = submittable
+    build_submittable type, attributes
 
-    begin
-      Question.transaction do
-        destroy
-        new_question.save!
+    transaction do
+      if save
+        old_submittable.destroy
       end
-    rescue ActiveRecord::RecordInvalid
     end
-
-    new_question
   end
 end
