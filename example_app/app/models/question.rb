@@ -1,10 +1,14 @@
 class Question < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  QUESTION_TYPES = %w(OpenQuestion MultipleChoiceQuestion ScaleQuestion).freeze
+  QUESTION_TYPES = %w(
+    OpenSubmittable
+    MultipleChoiceSubmittable
+    ScaleSubmittable
+  ).freeze
 
   validates :submittable, associated: true
-  validates :type, presence: true, inclusion: QUESTION_TYPES
+  validates :submittable_type, presence: true, inclusion: QUESTION_TYPES
   validates :title, presence: true
 
   belongs_to :submittable, polymorphic: true
@@ -33,7 +37,7 @@ class Question < ActiveRecord::Base
   def switch_to(type, new_attributes, submittable_attributes)
     attributes = self.attributes.merge(new_attributes)
     cloned_attributes = attributes.except('id', 'type', 'submittable_type')
-    new_question = type.constantize.new(cloned_attributes)
+    new_question = Question.new(cloned_attributes)
     new_question.build_submittable(type, submittable_attributes)
     new_question.id = id
 

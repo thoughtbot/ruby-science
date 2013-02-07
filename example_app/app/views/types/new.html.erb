@@ -4,7 +4,7 @@
   url: question_types_path(@question)
 ) do |form| -%>
 
-  <%= form.hidden_field :type %>
+  <%= form.hidden_field :submittable_type %>
   <%= render(
     "#{@new_type}s/#{@new_type}_form",
     question: @new_question,
