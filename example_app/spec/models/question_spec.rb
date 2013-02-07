@@ -11,8 +11,19 @@ describe Question do
 
   it { should validate_presence_of :title }
 
+  it { should belong_to(:submittable) }
   it { should belong_to(:survey) }
   it { should have_many(:answers) }
+end
+
+describe Question, '#build_submittable' do
+  it 'builds a submittable with its type' do
+    question = build(:open_question)
+
+    question.build_submittable
+
+    question.submittable.should be_a(OpenSubmittable)
+  end
 end
 
 describe Question, '#most_recent_answer_text' do
@@ -33,13 +44,6 @@ describe Question, '#most_recent_answer_text' do
     result = question.most_recent_answer_text
 
     result.should be_present
-  end
-end
-
-describe Question, '#submittable' do
-  it 'instantiates a submittable based on its type' do
-    question = create(:open_question)
-    question.submittable.should be_a(OpenSubmittable)
   end
 end
 

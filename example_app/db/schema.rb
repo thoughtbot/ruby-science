@@ -67,13 +67,15 @@ ActiveRecord::Schema.define(version: 20130131205918) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string   "title",      null: false
-    t.string   "type",       null: false
-    t.integer  "survey_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",            null: false
+    t.string   "type",             null: false
+    t.integer  "survey_id",        null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "minimum"
     t.integer  "maximum"
+    t.integer  "submittable_id"
+    t.string   "submittable_type"
   end
 
   create_table "scale_submittables", force: :cascade do |t|
