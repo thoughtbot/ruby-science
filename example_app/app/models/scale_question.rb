@@ -1,2 +1,0 @@
-class ScaleQuestion < Question
-end

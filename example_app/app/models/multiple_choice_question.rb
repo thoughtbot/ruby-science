@@ -1,2 +1,0 @@
-class MultipleChoiceQuestion < Question
-end
