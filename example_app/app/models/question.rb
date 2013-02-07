@@ -17,9 +17,9 @@ class Question < ActiveRecord::Base
     answers.most_recent.text
   end
 
-  def build_submittable
+  def build_submittable(attributes)
     submittable_class = type.sub('Question', 'Submittable').constantize
-    self.submittable = submittable_class.new(question: self)
+    self.submittable = submittable_class.new(attributes.merge(question: self))
   end
 
   def summarize(summarizer)
@@ -27,11 +27,11 @@ class Question < ActiveRecord::Base
     Summary.new(title, value)
   end
 
-  def switch_to(type, new_attributes)
+  def switch_to(type, new_attributes, submittable_attributes)
     attributes = self.attributes.merge(new_attributes)
     cloned_attributes = attributes.except('id', 'type', 'submittable_type')
     new_question = type.constantize.new(cloned_attributes)
-    new_question.build_submittable
+    new_question.build_submittable(submittable_attributes)
     new_question.id = id
 
     begin
