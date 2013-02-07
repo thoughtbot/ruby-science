@@ -17,11 +17,13 @@ describe Question do
 end
 
 describe Question, '#build_submittable' do
-  it 'builds a submittable with its type' do
+  it 'builds a submittable with its type and the given attributes' do
+    expected_value = 1.day.ago
     question = build(:open_question)
 
-    question.build_submittable
+    question.build_submittable(created_at: expected_value)
 
+    question.submittable.created_at.should eq expected_value
     question.submittable.should be_a(OpenSubmittable)
   end
 end
@@ -62,12 +64,17 @@ end
 describe Question, '#switch_to' do
   it 'changes the question type and deletes the old question when valid' do
     question = create(:open_question)
+    expected_value = 1.day.ago
 
-    new_question = question.switch_to('ScaleQuestion', minimum: 1, maximum: 2)
+    new_question = question.switch_to(
+      'ScaleQuestion',
+      { minimum: 1, maximum: 2 },
+      { created_at: expected_value })
 
     new_question.errors.should be_empty
     new_question.should be_a(ScaleQuestion)
     new_question.submittable.should be_a(ScaleSubmittable)
+    new_question.submittable.created_at.should eq expected_value
     new_question.minimum.should eq 1
     new_question.maximum.should eq 2
     Question.count.should eq 1
@@ -76,7 +83,7 @@ describe Question, '#switch_to' do
   it 'leaves the question alone when the new attributes are invalid' do
     question = create(:open_question)
 
-    new_question = question.switch_to('ScaleQuestion', minimum: 1)
+    new_question = question.switch_to('ScaleQuestion', { minimum: 1 }, {})
 
     new_question.errors.should be_present
     new_question.should be_a(ScaleQuestion)

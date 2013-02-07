@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
 
   def build_question
     @question = type.constantize.new(question_params)
-    @question.build_submittable
+    @question.build_submittable({})
     @question.survey = @survey
   end
 
