@@ -3,12 +3,15 @@ class Question < ActiveRecord::Base
 
   QUESTION_TYPES = %w(OpenQuestion MultipleChoiceQuestion ScaleQuestion).freeze
 
+  validates :submittable, associated: true
   validates :type, presence: true, inclusion: QUESTION_TYPES
   validates :title, presence: true
 
   belongs_to :submittable, polymorphic: true
   belongs_to :survey
   has_many :answers
+
+  accepts_nested_attributes_for :submittable
 
   delegate :breakdown, :score, to: :submittable
   delegate :title, to: :survey, prefix: true

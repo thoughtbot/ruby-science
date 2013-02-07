@@ -54,7 +54,12 @@ describe Completion, '#score' do
     completion = create(:completion, survey: survey)
     scores = [1, 2, 3]
     scores.each do |score|
-      question = create(:scale_question, survey: survey, minimum: 1, maximum: 3)
+      submittable = create(:scale_submittable, minimum: 1, maximum: 3)
+      question = create(
+        :scale_question,
+        survey: survey,
+        submittable: submittable
+      )
       create(:answer, completion: completion, question: question, text: score)
     end
 
