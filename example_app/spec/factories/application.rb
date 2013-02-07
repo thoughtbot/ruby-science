@@ -29,19 +29,20 @@ FactoryGirl.define do
     text 'Hello'
   end
 
-  factory :question, class: 'OpenQuestion' do
-    survey
+  factory :question do
     sequence(:title) { |n| "Question #{n}" }
+    submittable factory: :open_submittable
+    survey
 
-    factory :multiple_choice_question, class: 'MultipleChoiceQuestion' do
+    factory :multiple_choice_question do
       submittable factory: :multiple_choice_submittable
     end
 
-    factory :open_question, class: 'OpenQuestion' do
+    factory :open_question do
       submittable factory: :open_submittable
     end
 
-    factory :scale_question, class: 'ScaleQuestion' do
+    factory :scale_question do
       submittable factory: :scale_submittable
     end
   end

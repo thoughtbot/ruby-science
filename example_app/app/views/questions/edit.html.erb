@@ -5,20 +5,26 @@
 
   <%= link_to(
     'Scale Question',
-    new_question_type_path(@question, question: { type: 'ScaleQuestion' })
+    new_question_type_path(
+      @question,
+      question: { submittable_type: 'ScaleSubmittable' }
+    )
   ) %>
 
   <%= link_to(
     'Multiple Choice Question',
     new_question_type_path(
       @question,
-      question: { type: 'MultipleChoiceQuestion' }
+      question: { submittable_type: 'MultipleChoiceSubmittable' }
     )
   ) %>
 
   <%= link_to(
     'Open Question',
-    new_question_type_path(@question, question: { type: 'OpenQuestion' })
+    new_question_type_path(
+      @question,
+      question: { submittable_type: 'OpenSubmittable' }
+    )
   ) %>
 </p>
 

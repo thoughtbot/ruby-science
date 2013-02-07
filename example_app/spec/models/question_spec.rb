@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Question do
-  it { should validate_presence_of :type }
+  it { should validate_presence_of :submittable_type }
 
   Question::QUESTION_TYPES.each do |type|
-    it { should allow_value(type).for(:type) }
+    it { should allow_value(type).for(:submittable_type) }
   end
 
-  it { should_not allow_value('Other').for(:type) }
+  it { should_not allow_value('Other').for(:submittable_type) }
 
   it { should validate_presence_of :title }
 
@@ -71,7 +71,6 @@ describe Question, '#switch_to' do
       { minimum: 1, maximum: 2 })
 
     new_question.errors.should be_empty
-    new_question.should be_a(ScaleQuestion)
     submittable = new_question.submittable
     submittable.should be_a(ScaleSubmittable)
     submittable.minimum.should eq 1
@@ -85,7 +84,6 @@ describe Question, '#switch_to' do
     new_question = question.switch_to('ScaleQuestion', {}, { minimum: 1 })
 
     new_question.errors.should be_present
-    new_question.should be_a(ScaleQuestion)
     new_question.submittable.should be_a(ScaleSubmittable)
     new_question.submittable.minimum.should eq 1
   end
