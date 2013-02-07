@@ -20,7 +20,7 @@ class Question < ActiveRecord::Base
     answers.most_recent.text
   end
 
-  def build_submittable(attributes)
+  def build_submittable(type, attributes)
     submittable_class = type.sub('Question', 'Submittable').constantize
     self.submittable = submittable_class.new(attributes.merge(question: self))
   end
@@ -34,7 +34,7 @@ class Question < ActiveRecord::Base
     attributes = self.attributes.merge(new_attributes)
     cloned_attributes = attributes.except('id', 'type', 'submittable_type')
     new_question = type.constantize.new(cloned_attributes)
-    new_question.build_submittable(submittable_attributes)
+    new_question.build_submittable(type, submittable_attributes)
     new_question.id = id
 
     begin
