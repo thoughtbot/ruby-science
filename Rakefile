@@ -1,4 +1,5 @@
 require 'rake'
+require 'nokogiri'
 
 desc "Print page and chapter counts"
 task :stats => :build do
@@ -138,7 +139,7 @@ class TableOfContents
   end
 
   def html
-    IO.read('ruby-science.html')
+    IO.read('book.html')
   end
 
   def document
