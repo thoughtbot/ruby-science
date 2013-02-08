@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:thoughtbot/paperback.git
-  revision: fb71ee9721ac19de699ba994853f1c9e0d093c48
+  revision: 63c85987cbc4abe835ac28e0ba5fb99277770c6f
   specs:
     paperback (0.0.1)
       activesupport (~> 3.2.11)
@@ -25,7 +25,7 @@ GEM
       systemu
     multi_json (1.5.0)
     pandoc-ruby (0.6.0)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     systemu (2.5.2)
     thor (0.16.0)
 
