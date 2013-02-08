@@ -94,23 +94,29 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#solutions-7">Solutions</a></li>
 </ul></li>
 <li><a href="#uncommunicative-name">Uncommunicative Name</a></li>
-<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
-<li><a href="#comments">Comments</a><ul>
+<li><a href="#single-table-inheritance-sti">Single Table Inheritance (STI)</a><ul>
 <li><a href="#symptoms-8">Symptoms</a></li>
 <li><a href="#example-8">Example</a></li>
 <li><a href="#solutions-8">Solutions</a></li>
+<li><a href="#prevention-2">Prevention</a></li>
 </ul></li>
-<li><a href="#mixin">Mixin</a></li>
-<li><a href="#callback">Callback</a><ul>
+<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
+<li><a href="#comments">Comments</a><ul>
 <li><a href="#symptoms-9">Symptoms</a></li>
 <li><a href="#example-9">Example</a></li>
 <li><a href="#solutions-9">Solutions</a></li>
 </ul></li>
+<li><a href="#mixin">Mixin</a></li>
+<li><a href="#callback">Callback</a><ul>
+<li><a href="#symptoms-10">Symptoms</a></li>
+<li><a href="#example-10">Example</a></li>
+<li><a href="#solutions-10">Solutions</a></li>
+</ul></li>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a><ul>
 <li><a href="#uses">Uses</a></li>
-<li><a href="#example-10">Example</a></li>
+<li><a href="#example-11">Example</a></li>
 <li><a href="#replace-type-code-with-subclasses">Replace Type Code With Subclasses</a></li>
-<li><a href="#single-table-inheritance-sti">Single Table Inheritance (STI)</a><ul>
+<li><a href="#single-table-inheritance-sti-1">Single Table Inheritance (STI)</a><ul>
 <li><a href="#extracting-type-specific-code">Extracting Type-Specific Code</a></li>
 </ul></li>
 <li><a href="#polymorphic-partials">Polymorphic Partials</a><ul>
@@ -121,7 +127,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#replace-conditional-with-null-object">Replace conditional with Null Object</a><ul>
 <li><a href="#uses-1">Uses</a></li>
-<li><a href="#example-11">Example</a></li>
+<li><a href="#example-12">Example</a></li>
 <li><a href="#drawbacks-1">Drawbacks</a></li>
 <li><a href="#next-steps-1">Next Steps</a></li>
 <li><a href="#truthiness-try-and-other-tricks">truthiness, try, and other tricks</a></li>
@@ -138,24 +144,24 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-partial">Extract Partial</a><ul>
 <li><a href="#uses-3">Uses</a></li>
 <li><a href="#steps">Steps</a></li>
-<li><a href="#example-12">Example</a></li>
+<li><a href="#example-13">Example</a></li>
 <li><a href="#next-steps-3">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-service-object">Extract Service Object</a></li>
 <li><a href="#extract-validator">Extract Validator</a><ul>
 <li><a href="#uses-4">Uses</a></li>
-<li><a href="#example-13">Example</a></li>
+<li><a href="#example-14">Example</a></li>
 <li><a href="#next-steps-4">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
 <li><a href="#uses-5">Uses</a></li>
-<li><a href="#example-14">Example</a></li>
+<li><a href="#example-15">Example</a></li>
 <li><a href="#next-steps-5">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-observer">Introduce Observer</a></li>
 <li><a href="#introduce-form-object">Introduce Form Object</a><ul>
 <li><a href="#uses-6">Uses</a></li>
-<li><a href="#example-15">Example</a></li>
+<li><a href="#example-16">Example</a></li>
 <li><a href="#next-steps-6">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
@@ -170,17 +176,41 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#inline-class">Inline class</a></li>
 <li><a href="#inject-dependencies">Inject dependencies</a></li>
-<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
-<li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
+<li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a><ul>
 <li><a href="#uses-9">Uses</a></li>
-<li><a href="#steps-1">Steps</a></li>
-<li><a href="#example-16">Example</a></li>
+<li><a href="#example-17">Example</a><ul>
+<li><a href="#use-extract-class-to-extract-non-railsy-methods-from-subclasses">Use Extract Class to Extract Non-Railsy Methods From Subclasses</a></li>
+<li><a href="#pull-up-delegate-method-into-base-class">Pull Up Delegate Method Into Base Class</a></li>
+<li><a href="#move-remaining-common-api-into-strategies">Move Remaining Common API Into Strategies</a></li>
+<li><a href="#move-remaining-non-railsy-public-methods-into-strategies">Move Remaining Non-Railsy Public Methods Into Strategies</a></li>
+<li><a href="#remove-delegators-from-subclasses">Remove Delegators From Subclasses</a></li>
+<li><a href="#instantiate-strategy-directly-from-base-class">Instantiate Strategy Directly From Base Class</a></li>
+<li><a href="#a-fork-in-the-road">A Fork In the Road</a></li>
+<li><a href="#convert-strategies-to-activerecord-subclasses">Convert Strategies to ActiveRecord subclasses</a></li>
+<li><a href="#introduce-a-polymorphic-association">Introduce A Polymorphic Association</a></li>
+<li><a href="#pass-attributes-to-strategies">Pass Attributes to Strategies</a></li>
+<li><a href="#move-remaining-railsy-behavior-out-of-subclasses">Move Remaining Railsy Behavior Out of Subclasses</a></li>
+<li><a href="#backfill-strategies-for-existing-records">Backfill Strategies For Existing Records</a></li>
+<li><a href="#pass-the-type-when-instantiating-the-strategy">Pass the Type When Instantiating the Strategy</a></li>
+<li><a href="#always-instantiate-the-base-class">Always Instantiate the Base Class</a></li>
+<li><a href="#remove-subclasses">Remove Subclasses</a></li>
+<li><a href="#simplify-type-switching">Simplify Type Switching</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+<li><a href="#drawbacks-2">Drawbacks</a></li>
 <li><a href="#next-steps-9">Next Steps</a></li>
 </ul></li>
-<li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
+<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
+<li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
 <li><a href="#uses-10">Uses</a></li>
-<li><a href="#example-17">Example</a></li>
-<li><a href="#drawbacks-2">Drawbacks</a><ul>
+<li><a href="#steps-1">Steps</a></li>
+<li><a href="#example-18">Example</a></li>
+<li><a href="#next-steps-10">Next Steps</a></li>
+</ul></li>
+<li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
+<li><a href="#uses-11">Uses</a></li>
+<li><a href="#example-19">Example</a></li>
+<li><a href="#drawbacks-3">Drawbacks</a><ul>
 <li><a href="#weak-conventions">Weak Conventions</a></li>
 <li><a href="#class-oriented-programming">Class-Oriented Programming</a></li>
 </ul></li>
@@ -387,6 +417,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-value-object">Extract Value Object</a> if the class contains private query methods.</li>
 <li><a href="#extract-decorator">Extract Decorator</a> if the class contains delegation methods.</li>
 <li><a href="#extract-service-object">Extract Service Object</a> if the class contains numerous objects related to a single action.</li>
+<li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> if the large class is a base class in an inheritance hierarchy.</li>
 </ul>
 </section>
 <section class="level3" id="prevention">
@@ -719,6 +750,67 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1><a href="#TOC">Uncommunicative Name</a></h1>
 <p>STUB</p>
 </section>
+<section class="level1" id="single-table-inheritance-sti">
+<h1><a href="#TOC">Single Table Inheritance (STI)</a></h1>
+<p>Using subclasses is a common method of achieving reuse in object-oriented software. Rails provides a mechanism for storing instances of different classes in the same table, called Single Table Inheritance. Rails will take care of most of the details, writing the class's name to the type column and instantiating the correct class when results come back from the database.</p>
+<p>Inheritance has its own pitfalls - see <a href="#composition-over-inheritance">Composition Over Inheritance</a> - and STI introduces a few new gotchas that may cause you to consider an alternate solution.</p>
+<section class="level3" id="symptoms-8">
+<h3><a href="#TOC">Symptoms</a></h3>
+<ul>
+<li>You need to change from one subclass to another.</li>
+<li>Behavior is shared among some subclasses but not others.</li>
+<li>One subclass is a fusion of one or more other subclasses.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-8">
+<h3><a href="#TOC">Example</a></h3>
+<p>This method on <code>Question</code> changes the question to a new type. Any necessary attributes for the new subclass are provided to the <code>attributes</code> method.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> switch_to(type, new_attributes)
+  attributes = <span class="dv">self</span>.attributes.merge(new_attributes)
+  new_question = type.constantize.new(attributes.except(<span class="st">'id'</span>, <span class="st">'type'</span>))
+  new_question.id = id
+
+  <span class="kw">begin</span>
+    <span class="dt">Question</span>.transaction <span class="kw">do</span>
+      destroy
+      new_question.save!
+    <span class="kw">end</span>
+  <span class="kw">rescue</span> <span class="dt">ActiveRecord</span>::<span class="dt">RecordInvalid</span>
+  <span class="kw">end</span>
+
+  new_question
+<span class="kw">end</span></code></pre>
+<p>This transition is difficult for a number of reasons:</p>
+<ul>
+<li>You need to worry about common <code>Question</code> validations.</li>
+<li>You need to make sure validations for the old subclass are not used.</li>
+<li>You need to make sure validations for the new subclass are used.</li>
+<li>You need to delete data from the old subclass, including associations.</li>
+<li>You need to support data from the new subclass.</li>
+<li>Common attributes need to remain the same.</li>
+</ul>
+<p>The implementation achieves all these requirements, but is awkward:</p>
+<ul>
+<li>You can't actually change the class of an instance in Ruby, so you need to return the instance of the new class.</li>
+<li>The implementation requires deleting and creating records, but part of the transaction (<code>destroy</code>) must execute before we can validate the new instance. This results in control flow using exceptions.</li>
+<li>The STI abstraction leaks into the model, because it needs to understand that it has a <code>type</code> column. STI models normally don't need to understand that they're implemented using STI.</li>
+<li>It's hard to understand why this method is implemented the way it is, so other developers fixing bugs or refactoring in the future will have a hard time navigating it.</li>
+</ul>
+</section>
+<section class="level3" id="solutions-8">
+<h3><a href="#TOC">Solutions</a></h3>
+<ul>
+<li>If you're using STI to reuse common behavior, use <a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> to switch to a composition-based model.</li>
+<li>If you're using STI so that you can easily refer to several different classes in the same table, switch to using a polymorphic association instead.</li>
+</ul>
+</section>
+<section class="level3" id="prevention-2">
+<h3><a href="#TOC">Prevention</a></h3>
+<p>By following <a href="#composition-over-inheritance">Composition Over Inheritance</a>, you'll use STI as a solution less often.</p>
+</section>
+</section>
 <section class="level1" id="parallel-inheritance-hierarchies">
 <h1><a href="#TOC">Parallel Inheritance Hierarchies</a></h1>
 <p>STUB</p>
@@ -726,7 +818,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level1" id="comments">
 <h1><a href="#TOC">Comments</a></h1>
 <p>Comments can be used appropriately to introduce classes and provide documentation, but used incorrectly, they mask readability and process problems by further obfuscating already unreadable code.</p>
-<section class="level3" id="symptoms-8">
+<section class="level3" id="symptoms-9">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>Comments within method bodies.</li>
@@ -736,7 +828,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Commented out, dead code.</li>
 </ul>
 </section>
-<section class="level3" id="example-8">
+<section class="level3" id="example-9">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
 <span class="kw">def</span> summary
@@ -754,7 +846,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="kw">end</span></code></pre>
 <p>If there isn't a useful explanation to provide for a method or class beyond the name, don't leave a comment.</p>
 </section>
-<section class="level3" id="solutions-8">
+<section class="level3" id="solutions-9">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a> to make obfuscated lines easier to read in pieces.</li>
@@ -773,7 +865,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1><a href="#TOC">Callback</a></h1>
 <p>Callbacks are a convenient way to decorate the default <code>save</code> method with custom persistence logic, without the drudgery of template methods, overriding, or calling <code>super</code>.</p>
 <p>However, callbacks are frequently abused by adding non-persistence logic to the persistence life cycle, such as sending emails or processing payments. Models riddled with callbacks are harder to refactor and prone to bugs, such as accidentally sending emails or performing external changes before a database transaction is committed.</p>
-<section class="level3" id="symptoms-9">
+<section class="level3" id="symptoms-10">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
 <li>Callbacks which contain business logic such as processing payments.</li>
@@ -782,7 +874,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Callbacks which need to be invoked conditionally.</li>
 </ul>
 </section>
-<section class="level3" id="example-9">
+<section class="level3" id="example-10">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">def</span> deliver_invitations
@@ -806,7 +898,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <p>If one of several invitations fails to save, the user will see a 500 page, but some of the invitations will already have been saved and delivered. The user will be unable to tell which invitations were sent.</p>
 <p>Because delivery is coupled with persistence, there's no way to make sure that all of the invitations are saved before starting to deliver emails.</p>
 </section>
-<section class="level3" id="solutions-9">
+<section class="level3" id="solutions-10">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
 <li><a href="#replace-callback-with-method">Replace Callback with Method</a> if the callback logic is unrelated to persistence.</li>
@@ -828,7 +920,7 @@ after_create <span class="st">:deliver</span></code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-10">
+<section class="level3" id="example-11">
 <h3><a href="#TOC">Example</a></h3>
 <p>This <code>Question</code> class summarizes its answers differently depending on its <code>question_type</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -897,11 +989,11 @@ after_create <span class="st">:deliver</span></code></pre>
 <section class="level2" id="replace-type-code-with-subclasses">
 <h2><a href="#TOC">Replace Type Code With Subclasses</a></h2>
 <p>Let's replace this case statement with polymorphism by introducing a subclass for each type of question.</p>
-<p>Our <code>Question</code> class is a subclass of <code>ActiveRecord::Base</code>. If we want to create subclasses of <code>Question</code>, we have to tell ActiveRecord which subclass to instantiate when it fetches records from the <code>questions</code> table. The mechanism Rails uses for storing instances of different classes in the same table is called &quot;Single Table Inheritance.&quot; Rails will take care of most of the details, but there are a few extra steps we need to take when refactoring to Single Table Inheritance.</p>
+<p>Our <code>Question</code> class is a subclass of <code>ActiveRecord::Base</code>. If we want to create subclasses of <code>Question</code>, we have to tell ActiveRecord which subclass to instantiate when it fetches records from the <code>questions</code> table. The mechanism Rails uses for storing instances of different classes in the same table is called <a href="#single-table-inheritance-sti">Single Table Inheritance</a>. Rails will take care of most of the details, but there are a few extra steps we need to take when refactoring to Single Table Inheritance.</p>
 </section>
-<section class="level2" id="single-table-inheritance-sti">
+<section class="level2" id="single-table-inheritance-sti-1">
 <h2><a href="#TOC">Single Table Inheritance (STI)</a></h2>
-<p>The first step to convert to STI is generally to create a new subclass for each type. However, the existing type codes are named &quot;Open,&quot; &quot;Scale,&quot; and &quot;MultipleChoice,&quot; which won't make good class names; names like &quot;OpenQuestion&quot; would be better, so let's start by changing the existing type codes:</p>
+<p>The first step to convert to <a href="#single-table-inheritance-sti">STI</a> is generally to create a new subclass for each type. However, the existing type codes are named &quot;Open,&quot; &quot;Scale,&quot; and &quot;MultipleChoice,&quot; which won't make good class names; names like &quot;OpenQuestion&quot; would be better, so let's start by changing the existing type codes:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 <span class="kw">def</span> summary
   <span class="kw">case</span> question_type
@@ -1069,6 +1161,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p>It's worth noting that, although this refactoring improved our particular example, replacing conditionals with polymorphism is not without drawbacks.</p>
 <p>Using polymorphism like this makes it easier to add new types, because adding a new type means you just need to add a new class and implement the required methods. Adding a new type won't require changes to any existing classes, and it's easy to understand what the types are, because each type is encapsulated within a class.</p>
 <p>However, this change makes it harder to add new behaviors. Adding a new behavior will mean finding every type and adding a new method. Understanding the behavior becomes more difficult, because the implementations are spread out among the types. Object-oriented languages lean towards polymorphic implementations, but if you find yourself adding behaviors much more often than adding types, you should look into using <a href="#introduce-observer">observers</a> or <a href="#introduce-visitor">visitors</a> instead.</p>
+<p>Also, using STI has specific disadvantages. See the <a href="#single-table-inheritance-sti">chapter on STI</a> for details.</p>
 </section>
 <section class="level3" id="next-steps">
 <h3><a href="#TOC">Next Steps</a></h3>
@@ -1090,7 +1183,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <li>Removes clutter, improving readability of code that consumes <code>nil</code>.</li>
 </ul>
 </section>
-<section class="level3" id="example-11">
+<section class="level3" id="example-12">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 <span class="kw">def</span> most_recent_answer_text
@@ -1342,7 +1435,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-12">
+<section class="level3" id="example-13">
 <h3><a href="#TOC">Example</a></h3>
 <p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
 <p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
@@ -1412,7 +1505,7 @@ en:
 <li>Remove duplication among classes performing the same validation logic.</li>
 </ul>
 </section>
-<section class="level3" id="example-13">
+<section class="level3" id="example-14">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>Invitation</code> class has validation details in-line. It checks that the <code>repient_email</code> matches the formatting of the regular expression <code>EMAIL_REGEX</code>.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
@@ -1483,7 +1576,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Removes the need for extra <a href="#comments">Comments</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-14">
+<section class="level3" id="example-15">
 <h3><a href="#TOC">Example</a></h3>
 <p>This line of code was hard enough to understand that a comment was added:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
@@ -1548,7 +1641,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Set the stage for <a href="#extract-validator">Extract Validator</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-15">
+<section class="level3" id="example-16">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>create</code> action of our <code>InvitationsController</code> relies on user submitted data for <code>message</code> and <code>recipients</code> (a comma delimited list of email addresses).</p>
 <p>It performs a number of tasks:</p>
@@ -1841,6 +1934,494 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <h1><a href="#TOC">Inject dependencies</a></h1>
 <p>STUB</p>
 </section>
+<section class="level1" id="replace-subclasses-with-strategies">
+<h1><a href="#TOC">Replace Subclasses with Strategies</a></h1>
+<p>Subclasses are a common method of achieving reuse and polymorphism, but inheritance has its drawbacks. See <a href="#composition-over-inheritance">Composition Over Inheritance</a> for reasons why you might decide to avoid an inheritance-based model.</p>
+<p>During this refactoring, we will replace the subclasses with individual strategy classes. Each strategy class will implement a common interface. The original base class is promoted from an abstract class to the composition root, which composes the strategy classes.</p>
+<p>This allows for smaller interfaces, stricter separation of concerns, and easier testing. It also makes it possible to swap out part of the structure, which would require converting to a new type in an inheritance-based model.</p>
+<p>When applying this refactoring to an <code>ActiveRecord::Base</code> subclass, <a href="#single-table-inheritance-sti">STI</a> is removed, often in favor of a polymorphic association.</p>
+<section class="level3" id="uses-9">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Eliminate <a href="#large-class">Large Classes</a> by splitting up a bloated base class.</li>
+<li>Convert <a href="#single-table-inheritance-sti">STI</a> to a composition-based scheme.</li>
+<li>Make it easier to change part of the structure by separating the parts that change from the parts that don't.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-17">
+<h3><a href="#TOC">Example</a></h3>
+<p>The <code>switch_to</code> method on <code>Question</code> changes the question to a new type. Any necessary attributes for the new subclass are provided to the <code>attributes</code> method.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> switch_to(type, new_attributes)
+  attributes = <span class="dv">self</span>.attributes.merge(new_attributes)
+  new_question = type.constantize.new(attributes.except(<span class="st">'id'</span>, <span class="st">'type'</span>))
+  new_question.id = id
+
+  <span class="kw">begin</span>
+    <span class="dt">Question</span>.transaction <span class="kw">do</span>
+      destroy
+      new_question.save!
+    <span class="kw">end</span>
+  <span class="kw">rescue</span> <span class="dt">ActiveRecord</span>::<span class="dt">RecordInvalid</span>
+  <span class="kw">end</span>
+
+  new_question
+<span class="kw">end</span></code></pre>
+<p>Using inheritance makes changing question types awkward for a number of reasons:</p>
+<ul>
+<li>You can't actually change the class of an instance in Ruby, so you need to return the instance of the new class.</li>
+<li>The implementation requires deleting and creating records, but part of the transaction (<code>destroy</code>) must execute before we can validate the new instance. This results in control flow using exceptions.</li>
+<li>It's hard to understand why this method is implemented the way it is, so other developers fixing bugs or refactoring in the future will have a hard time navigating it.</li>
+</ul>
+<p>We can make this operation easier by using composition instead of inheritance.</p>
+<p>This is a difficult change that becomes larger as more behavior is added to the inheritance tree. We can make the change easier by breaking it down into smaller steps, ensuring that the application is in a fully-functional state with passing tests after each change. This allows us to debug is smaller sessions and create safe checkpoint commits that we can retreat to if something goes wrong.</p>
+<section class="level4" id="use-extract-class-to-extract-non-railsy-methods-from-subclasses">
+<h4><a href="#TOC">Use Extract Class to Extract Non-Railsy Methods From Subclasses</a></h4>
+<p>The easiest way to start is by extracting a strategy class from each subclass and moving (and delegating) as many methods as you can to the new class. There's some class-level wizardry that goes on in some Rails features like associations, so let's start by moving simple, instance-level methods that aren't part of the framework.</p>
+<p>Let's start with a simple subclass: <code>OpenQuestion.</code></p>
+<p>Here's the <code>OpenQuestion</code> class using an STI model:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">class</span> <span class="dt">OpenQuestion</span> &lt; <span class="dt">Question</span>
+  <span class="kw">def</span> score(text)
+    <span class="dv">0</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> breakdown
+    text_from_ordered_answers = answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+    text_from_ordered_answers.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>We can start by creating a new strategy class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">OpenSubmittable</span>
+<span class="kw">end</span></code></pre>
+<p>When switching from inheritance to composition, you need to add a new word to the application's vocabulary. Before, we had questions, and different subclasses of questions handled the variations in behavior and data. Now, we're switching to a model where there's only one question class, and question will compose <em>something</em> that will handle the variations. In our case, that <em>something</em> is a &quot;submittable.&quot; In our new model, each question is just a question, and every question composes a submittable that decides how the question can be submitted. Thus, our first extracted class is called <code>OpenSubmittable,</code> extracted from <code>OpenQuestion.</code></p>
+<p>Let's move our first method over to <code>OpenSubmittable</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_submittable.rb</span>
+<span class="kw">class</span> <span class="dt">OpenSubmittable</span>
+  <span class="kw">def</span> score(text)
+    <span class="dv">0</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>And change <code>OpenQuestion</code> to delegate to it:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">class</span> <span class="dt">OpenQuestion</span> &lt; <span class="dt">Question</span>
+  <span class="kw">def</span> score(text)
+    submittable.score(text)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> breakdown
+    text_from_ordered_answers = answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+    text_from_ordered_answers.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> submittable
+    <span class="dt">OpenSubmittable</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Each question subclass implements the <code>score</code> method, so we repeat this process for <code>MultipleChoiceQuestion</code> and <code>ScaleQuestion</code>. You can see the full change for this step in the <a href="https://github.com/thoughtbot/ruby-science/commit/7747366a12b3f6f21d0008063c5655faba8e4890">example app</a>.</p>
+<p>At this point, we've introduced a <a href="#parallel-inheritance-hierarchies">parallel inheritance hierarchy</a>. During a longer refactor, things may get worse before they get better. This is one of several reasons that it's always best to refactor on a branch, separately from any feature work. We'll make sure that the parallel inheritance hierarchy is removed before merging.</p>
+</section>
+<section class="level4" id="pull-up-delegate-method-into-base-class">
+<h4><a href="#TOC">Pull Up Delegate Method Into Base Class</a></h4>
+<p>After the first step, each subclass implements a <code>submittable</code> method to build its parallel strategy class. The <code>score</code> score method in each subclass simply delegates to its submittable. We can now pull the <code>score</code> method up into the base <code>Question</code> class, completely removing this concern from the subclasses.</p>
+<p>First, we add a delegator to <code>Question</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+delegate <span class="st">:score</span>, to: <span class="st">:submittable</span></code></pre>
+<p>Then, we simply remove the <code>score</code> method from each subclass.</p>
+<p>You can see this change in full in the <a href="https://github.com/thoughtbot/ruby-science/commit/9c2ddc65e7248bab1f010d8a2c74c8f994a8b26d">example app</a>.</p>
+</section>
+<section class="level4" id="move-remaining-common-api-into-strategies">
+<h4><a href="#TOC">Move Remaining Common API Into Strategies</a></h4>
+<p>We can now repeat the first two steps for every non-Railsy method that the subclasses implement. In our case, this is just the <code>breakdown</code> method.</p>
+<p>The most interesting part of this change is that the <code>breakdown</code> method requires state from the subclasses, so the question is now provided to the submittable:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/multiple_choice_question.rb</span>
+<span class="kw">def</span> submittable
+  <span class="dt">MultipleChoiceSubmittable</span>.new(<span class="dv">self</span>)
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/multiple_choice_submittable.rb</span>
+<span class="kw">def</span> answers
+  <span class="ot">@question</span>.answers
+<span class="kw">end</span>
+
+<span class="kw">def</span> options
+  <span class="ot">@question</span>.options
+<span class="kw">end</span></code></pre>
+<p>You can view this change in the <a href="https://github.com/thoughtbot/ruby-science/commit/db3658cd1c4601c07f49a7c666f57c00f5c22ffd">example app</a>.</p>
+</section>
+<section class="level4" id="move-remaining-non-railsy-public-methods-into-strategies">
+<h4><a href="#TOC">Move Remaining Non-Railsy Public Methods Into Strategies</a></h4>
+<p>We can take a similar approach for the uncommon API; that is, public methods that are only implemented in one subclass.</p>
+<p>First, move the body of the method into the strategy:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/scale_submittable.rb</span>
+<span class="kw">def</span> steps
+  (<span class="ot">@question</span>.minimum..<span class="ot">@question</span>.maximum).to_a
+<span class="kw">end</span></code></pre>
+<p>Then, add a delegator. This time, the delegator can live directly on the subclass, rather than the base class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/scale_question.rb</span>
+<span class="kw">def</span> steps
+  submittable.steps
+<span class="kw">end</span></code></pre>
+<p>Repeat this step for the remaining public methods that aren't part of the Rails framework. You can see the full change for this step in our <a href="https://github.com/thoughtbot/ruby-science/commit/2bce7f7b0812b417dc41af369d18b83e057419ac">example app</a>.</p>
+</section>
+<section class="level4" id="remove-delegators-from-subclasses">
+<h4><a href="#TOC">Remove Delegators From Subclasses</a></h4>
+<p>Our subclasses now contain only delegators, code to instantiate the submittable, and framework code. Eventually, we want to completely delete these subclasses, so let's start stripping them down. The delegators are easiest to delete, so let's take them on before the framework code.</p>
+<p>First, find where the delegators are used:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/multiple_choice_questions/_multiple_choice_question_form.html.erb
+<span class="kw">&lt;%=</span> form.fields_for(<span class="st">:options</span>, question.options_for_form) <span class="kw">do</span> <span class="ch">|</span>option_fields<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> option_fields.input <span class="st">:text</span>, label: <span class="st">'Option'</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>And change the code to directly use the strategy instead:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/multiple_choice_questions/_multiple_choice_question_form.html.erb
+<span class="kw">&lt;%=</span> form.fields_for(<span class="st">:options</span>, submittable.options_for_form) <span class="kw">do</span> <span class="ch">|</span>option_fields<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> option_fields.input <span class="st">:text</span>, label: <span class="st">'Option'</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<p>You may need to pass the strategy in where the subclass was used before:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_form.html.erb
+<span class="kw">&lt;%=</span> render(
+  <span class="st">&quot;</span><span class="ot">#{</span>question.to_partial_path<span class="ot">}</span><span class="st">_form&quot;</span>,
+  submittable: question.submittable,
+  form: form
+) <span class="kw">%&gt;</span></code></pre>
+<p>We can come back to these locations later and see if we need to pass in the question at all.</p>
+<p>After fixing the code that uses the delegator, remove the delegator from the subclass. Repeat this process for each delegator until they've all been removed.</p>
+<p>You can see how we do this in the <a href="https://github.com/thoughtbot/ruby-science/commit/c7a61dadfed53b9d93b578064d982f22d62f7b8d">example app</a>.</p>
+<p></p>
+</section>
+<section class="level4" id="instantiate-strategy-directly-from-base-class">
+<h4><a href="#TOC">Instantiate Strategy Directly From Base Class</a></h4>
+<p>If you look carefully at the <code>submittable</code> method from each question subclass, you'll notice that it simply instantiates a class based on its own class name and passes itself to the <code>initialize</code> method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
+<span class="kw">def</span> submittable
+  <span class="dt">OpenSubmittable</span>.new(<span class="dv">self</span>)
+<span class="kw">end</span></code></pre>
+<p>This is a pretty strong convention, so let's apply some <a href="#use-convention-over-configuration">Convention Over Configuration</a> and pull the method up into the base class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> submittable
+  submittable_class_name = type.sub(<span class="st">'Question'</span>, <span class="st">'Submittable'</span>)
+  submittable_class_name.constantize.new(<span class="dv">self</span>)
+<span class="kw">end</span></code></pre>
+<p>We can then delete <code>submittable</code> from each of the subclasses.</p>
+<p>At this point, the subclasses contain only Rails-specific code like associations and validations.</p>
+<p>You can see the full change in the <a href="https://github.com/thoughtbot/ruby-science/commit/75075985e6050e5c1008010855e75df14547890c">example app</a>.</p>
+</section>
+<section class="level4" id="a-fork-in-the-road">
+<h4><a href="#TOC">A Fork In the Road</a></h4>
+<p>At this point, we're faced with a difficult decision. At a glance, it seems as though only associations and validations live in our subclasses, and we could easily move those to our strategy. However, there are two major issues.</p>
+<p>First, you can't move the association to a strategy class without making that strategy an <code>ActiveRecord::Base</code> subclass. Associations are deeply coupled with <code>ActiveRecord::Base</code>, and they simply won't work in other situations.</p>
+<p>Also, one of our submittable strategies has state specific to that strategy. Scale questions have a minimum and maximum. These fields are only used by scale questions, but they're on the questions table. We can't remove this pollution without creating a table for scale questions.</p>
+<p>There are two obvious ways to proceed:</p>
+<ul>
+<li>Continue without making the strategies <code>ActiveRecord::Base</code> subclasses. Keep the association for multiple choice questions and the minimum and maximum for scale questions on the <code>Question</code> class, and use that data from the strategy. This will result in <a href="#divergent-change">Divergent Change</a> and probably a <a href="#large-class">Large Class</a> on <code>Question</code>, as every change in the data required for new or existing strategies will require new behavior on <code>Question</code>.</li>
+<li>Convert the strategies to <code>ActiveRecord::Base</code> subclasses. Move the association and state specific to strategies to those classes. This involves creating a table for each strategy and adding a polymorphic association to <code>Question.</code> This will avoid polluting the <code>Question</code> class with future strategy changes, but is awkward right now, because the tables for multiple choice questions and open questions would contain no data except the primary key. These tables provide a placeholder for future strategy-specific data, but those strategies may never require any more data and until they do, the tables are a waste of queries and developer mental space.</li>
+</ul>
+<p>In this example, I'm going to move forward with the second approach, because:</p>
+<ul>
+<li>It's easier with ActiveRecord. ActiveRecord will take care of instantiating the strategy in most situations if it's an association, and it has special behavior for associations using nested attribute forms.</li>
+<li>It's the easiest way to avoid <a href="#divergent-change">Divergent Change</a> and <a href="#large-class">Large Classes</a> in a Rails application. Both of these smells can cause problems that are hard to fix if you wait too long.</li>
+</ul>
+</section>
+<section class="level4" id="convert-strategies-to-activerecord-subclasses">
+<h4><a href="#TOC">Convert Strategies to ActiveRecord subclasses</a></h4>
+<p>Continuing with our refactor, we'll change each of our strategy classes to inherit from <code>ActiveRecord::Base</code>.</p>
+<p>First, simply declare that the class is a child of <code>ActiveRecord::Base</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_submittable.rb</span>
+<span class="kw">class</span> <span class="dt">OpenSubmittable</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span></code></pre>
+<p>Your tests will complain that the corresponding table doesn't exist, so create it:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20130131205432_create_open_submittables.rb</span>
+<span class="kw">class</span> <span class="dt">CreateOpenSubmittables</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> change
+    create_table <span class="st">:open_submittables</span> <span class="kw">do</span> |table|
+      table.timestamps null: <span class="dv">false</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Our strategies currently accept the question as a parameter to <code>initialize</code> and assign it as an instance variable. In an <code>ActiveRecord::Base</code> subclass, we don't control <code>initialize</code>, so let's change <code>question</code> from an instance variable to an association and pass a hash:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_submittable.rb</span>
+<span class="kw">class</span> <span class="dt">OpenSubmittable</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
+  has_one <span class="st">:question</span>, as: <span class="st">:submittable</span>
+
+  <span class="kw">def</span> breakdown
+    text_from_ordered_answers = answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>)
+    text_from_ordered_answers.join(<span class="st">', '</span>)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> score(text)
+    <span class="dv">0</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> answers
+    question.answers
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> submittable
+  submittable_class = type.sub(<span class="st">'Question'</span>, <span class="st">'Submittable'</span>).constantize
+  submittable_class.new(question: <span class="dv">self</span>)
+<span class="kw">end</span></code></pre>
+<p>Our strategies are now ready to use Rails-specific functionality like associations and validations.</p>
+<p>View the full change on <a href="https://github.com/thoughtbot/ruby-science/commit/e4809cd43da76bf1e6b0933040bffd9cc3ea810c">GitHub</a>.</p>
+</section>
+<section class="level4" id="introduce-a-polymorphic-association">
+<h4><a href="#TOC">Introduce A Polymorphic Association</a></h4>
+<p>Now that our strategies are persistable using ActiveRecord, we can use them in a polymorphic association. Let's add the association:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+belongs_to <span class="st">:submittable</span>, polymorphic: <span class="dv">true</span></code></pre>
+<p>And add the necessary columns:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20130131203344_add_submittable_type_and_id_to_questions.rb</span>
+<span class="kw">class</span> <span class="dt">AddSubmittableTypeAndIdToQuestions</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> change
+    add_column <span class="st">:questions</span>, <span class="st">:submittable_id</span>, <span class="st">:integer</span>
+    add_column <span class="st">:questions</span>, <span class="st">:submittable_type</span>, <span class="st">:string</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>We're currently defining a <code>submittable</code> method that overrides the association. Let's change that to a method that will build the association based on the STI type:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> build_submittable
+  submittable_class = type.sub(<span class="st">'Question'</span>, <span class="st">'Submittable'</span>).constantize
+  <span class="dv">self</span>.submittable = submittable_class.new(question: <span class="dv">self</span>)
+<span class="kw">end</span></code></pre>
+<p>Previously, the <code>submittable</code> method built the submittable on demand, but now it's persisted in an association and built explicitly. Let's change our controllers accordingly:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="kw">def</span> build_question
+  <span class="ot">@question</span> = type.constantize.new(question_params)
+  <span class="ot">@question</span>.build_submittable
+  <span class="ot">@question</span>.survey = <span class="ot">@survey</span>
+<span class="kw">end</span></code></pre>
+<p>View the full change on <a href="https://github.com/thoughtbot/ruby-science/commit/7d6e294ef8d0e427f83710f74448768da80af2d4">GitHub</a>.</p>
+</section>
+<section class="level4" id="pass-attributes-to-strategies">
+<h4><a href="#TOC">Pass Attributes to Strategies</a></h4>
+<p>We're persisting the strategy as an association, but the strategies currently don't have any state. We need to change that, since scale submittables need a minimum and maximum.</p>
+<p>Let's change our <code>build_submittable</code> method to accept attributes:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> build_submittable(attributes)
+  submittable_class = type.sub(<span class="st">'Question'</span>, <span class="st">'Submittable'</span>).constantize
+  <span class="dv">self</span>.submittable = submittable_class.new(attributes.merge(question: <span class="dv">self</span>))
+<span class="kw">end</span></code></pre>
+<p>We can quickly change the invocations to pass an empty hash, and we're back to green.</p>
+<p>Next, let's move the <code>minimum</code> and <code>maximum</code> fields over to the <code>scale_submittables</code> table:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20130131211856_move_scale_question_state_to_scale_submittable.rb</span>
+add_column <span class="st">:scale_submittables</span>, <span class="st">:minimum</span>, <span class="st">:integer</span>
+add_column <span class="st">:scale_submittables</span>, <span class="st">:maximum</span>, <span class="st">:integer</span></code></pre>
+<p>Note that this migration is <a href="https://github.com/thoughtbot/ruby-science/blob/41b49f49706135572a1b907f6a4c9747fb8446bb/example_app/db/migrate/20130131211856_move_scale_question_state_to_scale_submittable.rb">rather lengthy</a>, because we also need to move over the minimum and maximum values for existing questions. The SQL in our example app will work on most databases, but is cumbersome. If you're using Postgresql, you can handle the <code>down</code> method easier using an <code>UPDATE FROM</code> statement.</p>
+<p>Next, we'll move validations for these attributes over from <code>ScaleQuestion</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/scale_submittable.rb</span>
+validates <span class="st">:maximum</span>, presence: <span class="dv">true</span>
+validates <span class="st">:minimum</span>, presence: <span class="dv">true</span></code></pre>
+<p>And change <code>ScaleSubmittable</code> methods to use those attributes directly, rather than looking for them on <code>question</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/scale_submittable.rb</span>
+<span class="kw">def</span> steps
+  (minimum..maximum).to_a
+<span class="kw">end</span></code></pre>
+<p>We can pass those attributes in our form by using <code>fields_for</code> and <code>accepts_nested_attributes_for</code>:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/scale_questions/_scale_question_form.html.erb
+<span class="kw">&lt;%=</span> form.fields_for <span class="st">:submittable</span> <span class="kw">do</span> <span class="ch">|</span>submittable_fields<span class="ch">|</span> <span class="kw">-%&gt;</span>
+  <span class="kw">&lt;%=</span> submittable_fields.input <span class="st">:minimum</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> submittable_fields.input <span class="st">:maximum</span> <span class="kw">%&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+accepts_nested_attributes_for <span class="st">:submittable</span></code></pre>
+<p>In order to make sure the <code>Question</code> fails when its submittable is invalid, we can cascade the validation:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+validates <span class="st">:submittable</span>, associated: <span class="dv">true</span></code></pre>
+<p>Now we just need our controllers to pass the appropriate submittable params:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="kw">def</span> build_question
+  <span class="ot">@question</span> = type.constantize.new(question_params)
+  <span class="ot">@question</span>.build_submittable(submittable_params)
+  <span class="ot">@question</span>.survey = <span class="ot">@survey</span>
+<span class="kw">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="kw">def</span> question_params
+  params.
+    require(<span class="st">:question</span>).
+    permit(<span class="st">:title</span>, <span class="st">:options_attributes</span>)
+<span class="kw">end</span>
+
+<span class="kw">def</span> submittable_params
+  <span class="kw">if</span> submittable_attributes = params[<span class="st">:question</span>][<span class="st">:submittable_attributes</span>]
+    submittable_attributes.permit(<span class="st">:minimum</span>, <span class="st">:maximum</span>)
+  <span class="kw">else</span>
+    {}
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>All behavior and state is now moved from <code>ScaleQuestion</code> to <code>ScaleSubmittable</code>, and the <code>ScaleQuestion</code> class is completely empty.</p>
+<p>You can view the full change in the <a href="https://github.com/thoughtbot/ruby-science/commit/41b49f49706135572a1b907f6a4c9747fb8446bb">example app</a>.</p>
+</section>
+<section class="level4" id="move-remaining-railsy-behavior-out-of-subclasses">
+<h4><a href="#TOC">Move Remaining Railsy Behavior Out of Subclasses</a></h4>
+<p>We can now repeat this process for remaining Rails-specific behavior. In our case, this is the logic to handle the <code>options</code> association for multiple choice questions.</p>
+<p>We can move the association and behavior over to the strategy class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/multiple_choice_submittable.rb</span>
+has_many <span class="st">:options</span>, foreign_key: <span class="st">:question_id</span>
+has_one <span class="st">:question</span>, as: <span class="st">:submittable</span>
+
+accepts_nested_attributes_for <span class="st">:options</span>, reject_if: <span class="st">:all_blank</span></code></pre>
+<p>Again, we remove the <code>options</code> method which delegated to <code>question</code> and rely on <code>options</code> being directly available. Then we update the form to use <code>fields_for</code> and move the allowed attributes in the controller from <code>question</code> to <code>submittable</code>.</p>
+<p>At this point, every question subclass is completely empty.</p>
+<p>You can view the full change in the <a href="https://github.com/thoughtbot/ruby-science/commit/662e50874a377f8050ea2ad1326a7a4e47125f86">example app</a>.</p>
+</section>
+<section class="level4" id="backfill-strategies-for-existing-records">
+<h4><a href="#TOC">Backfill Strategies For Existing Records</a></h4>
+<p>Now that everything is moved over to the strategies, we need to make sure that submittables exist for every existing question. We can write a quick backfill migration to take care of that:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20130207164259_backfill_submittables.rb</span>
+<span class="kw">class</span> <span class="dt">BackfillSubmittables</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> up
+    backfill <span class="st">'open'</span>
+    backfill <span class="st">'multiple_choice'</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> down
+    connection.delete <span class="st">'DELETE FROM open_submittables'</span>
+    connection.delete <span class="st">'DELETE FROM multiple_choice_submittables'</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> backfill(type)
+    say_with_time <span class="st">&quot;Backfilling </span><span class="ot">#{</span>type<span class="ot">}</span><span class="st">  submittables&quot;</span> <span class="kw">do</span>
+      connection.update(&lt;&lt;-<span class="kw">SQL</span><span class="ot">)</span>
+<span class="ot">        UPDATE questions</span>
+<span class="ot">        SET</span>
+<span class="ot">          submittable_id = id,</span>
+<span class="ot">          submittable_type = '#{</span>type.camelize<span class="ot">}Submittable'</span>
+<span class="ot">        WHERE type = '#{</span>type.camelize<span class="ot">}Question'</span>
+<span class="ot">      SQL</span>
+<span class="ot">      connection.insert(&lt;&lt;-SQL)</span>
+<span class="ot">        INSERT INTO #{</span>type<span class="ot">}_submittables</span>
+<span class="ot">          (id, created_at, updated_at)</span>
+<span class="ot">        SELECT</span>
+<span class="ot">          id, created_at, updated_at</span>
+<span class="ot">        FROM questions</span>
+<span class="ot">        WHERE questions.type = '#{</span>type.camelize<span class="ot">}Question'</span>
+<span class="ot">      SQL</span>
+<span class="ot">    end</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<p>We don't port over scale questions, because we took care of them in a <a href="https://github.com/thoughtbot/ruby-science/blob/41b49f49706135572a1b907f6a4c9747fb8446bb/example_app/db/migrate/20130131211856_move_scale_question_state_to_scale_submittable.rb">previous migration</a>.</p>
+</section>
+<section class="level4" id="pass-the-type-when-instantiating-the-strategy">
+<h4><a href="#TOC">Pass the Type When Instantiating the Strategy</a></h4>
+<p>At this point, the subclasses are just dead weight. However, we can't delete them just yet. We're relying on the <code>type</code> column to decide what type of strategy to build, and Rails will complain if we have a <code>type</code> column without corresponding subclasses.</p>
+<p>Let's remove our dependence on that <code>type</code> column. Accept a <code>type</code> when building the submittable:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> build_submittable(type, attributes)
+  submittable_class = type.sub(<span class="st">'Question'</span>, <span class="st">'Submittable'</span>).constantize
+  <span class="dv">self</span>.submittable = submittable_class.new(attributes.merge(question: <span class="dv">self</span>))
+<span class="kw">end</span></code></pre>
+<p>And pass it in when calling:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="ot">@question</span>.build_submittable(type, submittable_params)</code></pre>
+<p><a href="https://github.com/thoughtbot/ruby-science/commit/a3b36db9f0ec2d66e0ec1e7732662732380e6fc8">Full Change</a></p>
+</section>
+<section class="level4" id="always-instantiate-the-base-class">
+<h4><a href="#TOC">Always Instantiate the Base Class</a></h4>
+<p>Now we can remove our dependence on the STI subclasses by always building an instance of <code>Question</code>.</p>
+<p>In our controller, we change this line:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="ot">@question</span> = type.constantize.new(question_params)</code></pre>
+<p>To this:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+<span class="ot">@question</span> = <span class="dt">Question</span>.new(question_params)</code></pre>
+<p>We're still relying on <code>type</code> as a parameter in forms and links to decide what type of submittable to build. Let's change that to <code>submittable_type</code>, which is already available because of our polymorphic association:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
+params[<span class="st">:question</span>][<span class="st">:submittable_type</span>]</code></pre>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_form.html.erb
+<span class="kw">&lt;%=</span> form.hidden_field <span class="st">:submittable_type</span> <span class="kw">%&gt;</span></code></pre>
+<p>We'll also need to revisit views that rely on <a href="#polymorphic-partials">polymorphic partials</a> based on the question type and change them to rely on the submittable type instead:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/surveys/show.html.erb
+<span class="kw">&lt;%=</span> render(
+  question.submittable,
+  submission_fields: submission_fields
+) <span class="kw">%&gt;</span></code></pre>
+<p>Now we can finally remove our <code>type</code> column entirely:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20130207214017_remove_questions_type.rb</span>
+<span class="kw">class</span> <span class="dt">RemoveQuestionsType</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
+  <span class="kw">def</span> up
+    remove_column <span class="st">:questions</span>, <span class="st">:type</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> down
+    add_column <span class="st">:questions</span>, <span class="st">:type</span>, <span class="st">:string</span>
+
+    connection.update(&lt;&lt;-<span class="kw">SQL</span><span class="ot">)</span>
+<span class="ot">      UPDATE questions</span>
+<span class="ot">      SET type = REPLACE(submittable_type, 'Submittable', 'Question')</span>
+<span class="ot">    </span><span class="kw">SQL</span>
+
+    change_column_null <span class="st">:questions</span>, <span class="st">:type</span>, <span class="dv">true</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p><a href="https://github.com/thoughtbot/ruby-science/commit/19ee3047f57807f342cb7cefd1b6589aff15ea6b">Full Change</a></p>
+</section>
+<section class="level4" id="remove-subclasses">
+<h4><a href="#TOC">Remove Subclasses</a></h4>
+<p>Now for a quick, glorious change: those <code>Question</code> subclasses are entirely empty and unused, so we can <a href="https://github.com/thoughtbot/ruby-science/commit/c6f0e545ae9b3da017b3318f2882cb40954213ee">delete them</a>.</p>
+<p>This also removes the <a href="#parallel-inheritance-hierarchies">parallel inheritance hierarchy</a> that we introduced earlier.</p>
+<p>At this point, the code is as good as we found it.</p>
+</section>
+<section class="level4" id="simplify-type-switching">
+<h4><a href="#TOC">Simplify Type Switching</a></h4>
+<p>If you were previously switching from one subclass to another as we did to change question types, you can now greatly simplify that code.</p>
+<p>Instead of deleting the old question and cloning it with a merged set of old generic attributes and new specific attributes, you can simply swap in a new strategy for the old one.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> switch_to(type, attributes)
+  old_submittable = submittable
+  build_submittable type, attributes
+
+  transaction <span class="kw">do</span>
+    <span class="kw">if</span> save
+      old_submittable.destroy
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Our new <code>switch_to</code> method is greatly improved:</p>
+<ul>
+<li>This method no longer needs to return anything, because there's no need to clone. This is nice because <code>switch_to</code> is now simply a command method (it does something) rather than a mixed command and query method (it does something and returns something).</li>
+<li>The method no longer needs to delete the old question, and the new submittable is valid before we delete the old one. This means we no longer need to use exceptions for control flow.</li>
+<li>It's simpler and its code is obvious, so other developers will have no trouble refactoring or fixing bugs.</li>
+</ul>
+<p>You can see the full change that resulted in our new method in the <a href="https://github.com/thoughtbot/ruby-science/commit/5f4a14ff6c43bf5b846d1c58d7509861c6fe3ac1">example app</a>.</p>
+</section>
+<section class="level4" id="conclusion">
+<h4><a href="#TOC">Conclusion</a></h4>
+<p>Our new, composition-based model is improved in a number of ways:</p>
+<ul>
+<li>It's easy to change types.</li>
+<li>Each submittable is easy to use independently of its question, reducing coupling.</li>
+<li>There's a clear boundary in the API for questions and submittables, making it easier to test and making it less likely that concerns leak between the two.</li>
+<li>Shared behavior happens via composition, making it less likely that the base class becomes a <a href="#large-class">large class</a>.</li>
+<li>It's easy to add new state without effecting other types, because strategy-specific state is stored on a table for that strategy.</li>
+</ul>
+<p>You can view the entire refactor will all steps combined in the <a href="https://github.com/thoughtbot/ruby-science/compare/4939d3e3c539c5caaa36400d75258cc3f3f4e7d8...5f4a14ff6c43bf5b846d1c58d7509861c6fe3ac1">example app</a> to get an idea of what changed at the macro level.</p>
+<p>This is a difficult transition to make, and the more behavior and data that you shove into an inheritance scheme, the harder it becomes. In situations where <a href="#single-table-inheritance-sti">STI</a> is not significantly easier than using a polymorphic relationship, it's better to start with composition. STI provides few advantages over composition, and it's easier to merge models than to split them.</p>
+</section>
+</section>
+<section class="level3" id="drawbacks-2">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<p>Our application also got worse in a number of ways:</p>
+<ul>
+<li>We introduced a new word into the application vocabulary. This can increase understanding of a complex system, but vocabulary overload makes simpler systems unnecessarily hard to learn.</li>
+<li>We now need two queries to get a question's full state, and we'll need to query up to four tables to get information about a set of questions.</li>
+<li>We introduced useless tables for two of our question types. This will happen whenever you use ActiveRecord to back a strategy without state.</li>
+<li>We increased the overall complexity of the system. In this case, it may have been worth it, because we reduced the complexity per component. However, it's worth keeping an eye on.</li>
+</ul>
+<p>Before performing a large change like this, try to imagine what will be easy to change in the new world that's hard right now.</p>
+<p>After performing a large change, keep track of difficult changes you make. Would they have been easier in the old world?</p>
+<p>Answering this questions will increase your ability to judge whether or not to use composition or inheritance in future situations.</p>
+</section>
+<section class="level3" id="next-steps-9">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check the extracted strategy classes to make sure they don't have <a href="#feature-envy">Feature Envy</a> related to the original base class. You may want to use <a href="#move-method">Move Method</a> to move methods between strategies and the root class.</li>
+<li>Check the extracted strategy classes for <a href="#duplicated-code">Duplicated Code</a> introduced while splitting up the base class. Use <a href="#extract-method">Extract Method</a> or <a href="#extract-class">Extract Class</a> to extract common behavior.</li>
+</ul>
+</section>
+</section>
 <section class="level1" id="replace-mixin-with-composition">
 <h1><a href="#TOC">Replace mixin with composition</a></h1>
 <p>STUB</p>
@@ -1848,7 +2429,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <section class="level1" id="replace-callback-with-method">
 <h1><a href="#TOC">Replace Callback with Method</a></h1>
 <p>If your models are hard to use and change because their persistence logic is coupled with business logic, one way to loosen things up is by replacing <a href="#callback">callbacks</a>.</p>
-<section class="level3" id="uses-9">
+<section class="level3" id="uses-10">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Reduces coupling persistence logic with business logic.</li>
@@ -1866,7 +2447,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-16">
+<section class="level3" id="example-18">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">def</span> deliver_invitations
@@ -1920,7 +2501,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <span class="kw">end</span></code></pre>
 <p>If any of the invitations fail to save, the transaction will roll back. Nothing will be committed, and no messages will be delivered.</p>
 </section>
-<section class="level3" id="next-steps-9">
+<section class="level3" id="next-steps-10">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Find other instances where the model is saved to make sure that the extracted method doesn't need to be called.</li>
@@ -1930,7 +2511,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <section class="level1" id="use-convention-over-configuration">
 <h1><a href="#TOC">Use convention over configuration</a></h1>
 <p>Ruby's metaprogramming allows us to avoid boilerplate code and duplication by relying on conventions for class names, file names, and directory structure. Although depending on class names can be constricting in some situations, careful use of conventions will make your applications less tedious and more bug-proof.</p>
-<section class="level3" id="uses-10">
+<section class="level3" id="uses-11">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#case-statement">Case Statements</a> by finding classes by name.</li>
@@ -1938,7 +2519,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <li>Remove <a href="#duplicated-code">Duplicated Code</a> by removing manual associations from identifiers to class names.</li>
 </ul>
 </section>
-<section class="level3" id="example-17">
+<section class="level3" id="example-19">
 <h3><a href="#TOC">Example</a></h3>
 <p>This controller accepts an <code>id</code> parameter identifying which summarizer strategy to use and renders a summary of the survey based on the chosen strategy:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
@@ -2023,7 +2604,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <p>With this convention in place, you can find all summaries by just looking in the <code>Summarizer</code> module. In a Rails application, this will be in a <code>summarizer</code> directory by convention.</p>
 <p>Users also won't be able to instantiate anything they want by abusing our <code>constantize</code>, because only classes in the <code>Summarizer</code> module are available.</p>
 </section>
-<section class="level3" id="drawbacks-2">
+<section class="level3" id="drawbacks-3">
 <h3><a href="#TOC">Drawbacks</a></h3>
 <section class="level4" id="weak-conventions">
 <h4><a href="#TOC">Weak Conventions</a></h4>
