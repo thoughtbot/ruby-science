@@ -37,6 +37,8 @@ if the class contains private methods related to conditional branches.
   methods.
 * [Extract Service Object](#extract-service-object) if the class contains
   numerous objects related to a single action.
+* [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) if
+  the large class is a base class in an inheritance hierarchy.
 
 ### Prevention
 
