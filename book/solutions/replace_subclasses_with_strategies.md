@@ -5,9 +5,10 @@ inheritance has its drawbacks. See [Composition Over
 Inheritance](#composition-over-inheritance) for reasons why you might decide to
 avoid an inheritance-based model.
 
-During this refactoring, you replace the subclasses with individual strategy
-classes that implement a common interface and compose them from the original
-base class, which is promoted from an abstract class to the composition root.
+During this refactoring, we will replace the subclasses with individual strategy
+classes. Each strategy class will implement a common interface. The original
+base class is promoted from an abstract class to the composition root, which
+composes the strategy classes.
 
 This allows for smaller interfaces, stricter separation of concerns, and easier
 testing. It also makes it possible to swap out part of the structure, which
@@ -28,8 +29,9 @@ association.
 
 ### Example
 
-This method on `Question` changes the question to a new type. Any necessary
-attributes for the new subclass are provided to the `attributes` method.
+The `switch_to` method on `Question` changes the question to a new type. Any
+necessary attributes for the new subclass are provided to the `attributes`
+method.
 
 ` app/models/question.rb@8c929881:23,37
 
@@ -45,6 +47,7 @@ Using inheritance makes changing question types awkward for a number of reasons:
   navigating it.
 
 We can make this operation easier by using composition instead of inheritance.
+
 This is a difficult change that becomes larger as more behavior is added to the
 inheritance tree. We can make the change easier by breaking it down into smaller
 steps, ensuring that the application is in a fully-functional state with passing
@@ -72,15 +75,15 @@ class OpenSubmittable
 end
 ```
 
-When using switching from inheritance to composition, you need to add a new word
-to the application's vocabulary. Before, we had questions, and different
-subclasses of questions handled the variations in behavior and data. Now, we're
-switching to a model where there's only one question class, and question will
-compose _something_ that will handle the variations. In our case, that
-_something_ is a "submittable." In our new model, each question is just a
-question, and every question composes a submittable that decides how the
-question can be submitted. Thus, our first extracted class is called
-`OpenSubmittable,` extracted from `OpenQuestion.`
+When switching from inheritance to composition, you need to add a new word to
+the application's vocabulary. Before, we had questions, and different subclasses
+of questions handled the variations in behavior and data. Now, we're switching
+to a model where there's only one question class, and question will compose
+_something_ that will handle the variations. In our case, that _something_ is a
+"submittable." In our new model, each question is just a question, and every
+question composes a submittable that decides how the question can be submitted.
+Thus, our first extracted class is called `OpenSubmittable,` extracted from
+`OpenQuestion.`
 
 Let's move our first method over to `OpenSubmittable`:
 
