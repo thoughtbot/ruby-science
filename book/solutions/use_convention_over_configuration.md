@@ -14,6 +14,8 @@ bug-proof.
 * Remove [Duplicated Code](#duplicated-code) by removing manual associations
   from identifiers to class names.
 
+\clearpage
+
 ### Example
 
 This controller accepts an `id` parameter identifying which summarizer strategy
@@ -60,22 +62,31 @@ let's use it:
 Now we'll never need to change our controller when adding a new strategy; we
 just add a new class following the naming convention.
 
-There are two drawbacks we should fix before merging:
+## Scoping `constantize`
 
-* Before, a developer could simply look at the controller to find the list of
-  available strategies. Now you'd need to perform a complicated search to find
-  the relevant classes.
-* The original code had a whitelist of strategies; that is, a user couldn't
-  instantiate any class they wanted just by hacking parameters. The new code
-  will instantiate anything you want.
+Our controller currently takes a string directly from user input (`params`) and
+instantiates a class with that name.
+
+There are two issues with this approach that should be fixed:
+
+* There's no list of available strategies, so a developer would need to perform
+  a complicated search to find the relevant classes.
+* Without a whitelist, a user can make the application instantiate any class
+  they want by hacking parameters. This can result in security vulnerabilities.
 
 We can solve both easily by altering our convention slightly: scope all the
-summarizer classes within a module.
+strategy classes within a module.
+
+We change our strategy factory method:
+
+` app/controllers/summaries_controller.rb@2c632f078:9,15
+
+To:
 
 ` app/controllers/summaries_controller.rb@4addd764:13,15
 
-With this convention in place, you can find all summaries by just looking in the
-`Summarizer` module. In a Rails application, this will be in a `summarizer`
+With this convention in place, you can find all strategies by just looking in
+the `Summarizer` module. In a Rails application, this will be in a `summarizer`
 directory by convention.
 
 Users also won't be able to instantiate anything they want by abusing our
