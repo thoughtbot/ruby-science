@@ -107,7 +107,7 @@ make sure that the parallel inheritance hierarchy is removed before merging.
 #### Pull Up Delegate Method Into Base Class
 
 After the first step, each subclass implements a `submittable` method to build
-its parallel strategy class. The `score` score method in each subclass simply
+its parallel strategy class. The `score` method in each subclass simply
 delegates to its submittable. We can now pull the `score` method up into the
 base `Question` class, completely removing this concern from the subclasses.
 
@@ -115,7 +115,7 @@ First, we add a delegator to `Question`:
 
 ` app/models/question.rb@9c2ddc65:12
 
-Then, we simply remove the `score` method from each subclass.
+Then, we remove the `score` method from each subclass.
 
 You can see this change in full in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/9c2ddc65e7248bab1f010d8a2c74c8f994a8b26d).
