@@ -202,6 +202,10 @@ and validations.
 
 You can see the full change in the [example app](https://github.com/thoughtbot/ruby-science/commit/75075985e6050e5c1008010855e75df14547890c).
 
+Also, note that you may want to [scope the `constantize`
+call](#scoping-constantize) in order to make the strategies easy for developers
+to discover and close potential security vulnerabilities.
+
 #### A Fork In the Road
 
 At this point, we're faced with a difficult decision. At a glance, it seems as
