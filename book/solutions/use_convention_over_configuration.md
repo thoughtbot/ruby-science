@@ -33,10 +33,11 @@ params[:id].classify.constantize
 
 This will find the `MostRecent` class from the string `"most_recent"`, and so
 on. This means we can rely on a convention for our summarizer strategies: each
-named strategy will map to a class which the controller can instantiate to
-obtain a summarizer.
+named strategy will map to a class implementing that strategy. The controller
+can [use the class as an Abstract Factory](#use-class-as-factory) and obtain a
+summarizer.
 
-However, we can't simplify start using `constantize` in our example, because
+However, we can't immediately start using `constantize` in our example, because
 there's one outlier case: the `UserAnswer` class is referenced using
 `"your_answers"` instead of `"user_answer"`, and `UserAnswer` takes different
 parameters than the other two strategies.
