@@ -26,7 +26,7 @@ string.
 `InvitationsController` is bloated with methods and logic relating to parsing a
 string that contains a list of email addresses:
 
-` app/controllers/invitations_controller.rb@72c2a0d6
+` app/controllers/invitations_controller.rb@72c2a0d6:46,52
 
 We can [extract a new class](#extract-class) to offload this responsibility:
 
