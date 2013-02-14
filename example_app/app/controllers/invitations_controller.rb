@@ -7,6 +7,7 @@ class InvitationsController < ApplicationController
 
   def create
     @survey = Survey.find(params[:survey_id])
+    @survey_inviter = SurveyInviter.new
     if valid_recipients? && valid_message?
       recipient_list.each do |email|
         invitation = Invitation.create(
