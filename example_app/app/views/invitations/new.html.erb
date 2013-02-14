@@ -4,10 +4,10 @@
     <div class="error">Please provide a message</div>
   <% end %>
   <%= f.input :recipients, as: :text, input_html: { value: @recipients } %>
-  <% if @invalid_recipients %>
+  <% if @survey_inviter.invalid_recipients %>
     <div class="error">
       Invalid email addresses: 
-      <%= @invalid_recipients.join(', ') %>
+      <%= @survey_inviter.invalid_recipients.join(', ') %>
     </div>
   <% end %>
   <%= f.button :submit, value: 'Invite' %>

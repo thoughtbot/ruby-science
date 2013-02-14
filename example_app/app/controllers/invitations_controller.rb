@@ -1,8 +1,7 @@
 class InvitationsController < ApplicationController
-  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
-
   def new
     @survey = Survey.find(params[:survey_id])
+    @survey_inviter = SurveyInviter.new('')
   end
 
   def create
@@ -37,11 +36,7 @@ class InvitationsController < ApplicationController
   end
 
   def invalid_recipients
-    @invalid_recipients ||= recipient_list.map do |item|
-      unless item.match(EMAIL_REGEX)
-        item
-      end
-    end.compact
+    @survey_inviter.invalid_recipients
   end
 
   def recipient_list
