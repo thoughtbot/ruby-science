@@ -7,7 +7,19 @@ class InvitationsController < ApplicationController
 
   def create
     @survey = Survey.find(params[:survey_id])
-    if valid_recipients? && valid_message?
+
+    @recipients = params[:invitation][:recipients]
+    recipient_list = @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+
+    @invalid_recipients = recipient_list.map do |item|
+      unless item.match(EMAIL_REGEX)
+        item
+      end
+    end.compact
+
+    @message = params[:invitation][:message]
+
+    if @invalid_recipients.empty? && @message.present?
       recipient_list.each do |email|
         invitation = Invitation.create(
           survey: @survey,
@@ -15,43 +27,12 @@ class InvitationsController < ApplicationController
           recipient_email: email,
           status: 'pending'
         )
-        Mailer.invitation_notification(invitation, message)
+        Mailer.invitation_notification(invitation, @message)
       end
+
       redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
     else
-      @recipients = recipients
-      @message = message
       render 'new'
     end
-  end
-
-  private
-
-  def valid_recipients?
-    invalid_recipients.empty?
-  end
-
-  def valid_message?
-    message.present?
-  end
-
-  def invalid_recipients
-    @invalid_recipients ||= recipient_list.map do |item|
-      unless item.match(EMAIL_REGEX)
-        item
-      end
-    end.compact
-  end
-
-  def recipient_list
-    @recipient_list ||= recipients.gsub(/\s+/, '').split(/[\n,;]+/)
-  end
-
-  def recipients
-    params[:invitation][:recipients]
-  end
-
-  def message
-    params[:invitation][:message]
   end
 end
