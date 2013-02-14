@@ -8,6 +8,8 @@ class SurveyInviter
     @sender = attributes[:sender]
   end
 
+  attr_reader :message, :recipients, :survey
+
   def valid?
     valid_message? && valid_recipients?
   end
