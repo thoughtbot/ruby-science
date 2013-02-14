@@ -1,13 +1,13 @@
 class InvitationsController < ApplicationController
   def new
     @survey = Survey.find(params[:survey_id])
-    @survey_inviter = SurveyInviter.new('')
+    @survey_inviter = SurveyInviter.new('', '')
   end
 
   def create
     @survey = Survey.find(params[:survey_id])
-    @survey_inviter = SurveyInviter.new(recipients)
-    if valid_recipients? && valid_message?
+    @survey_inviter = SurveyInviter.new(message, recipients)
+    if @survey_inviter.valid?
       recipient_list.each do |email|
         invitation = Invitation.create(
           survey: @survey,
@@ -26,14 +26,6 @@ class InvitationsController < ApplicationController
   end
 
   private
-
-  def valid_recipients?
-    invalid_recipients.empty?
-  end
-
-  def valid_message?
-    message.present?
-  end
 
   def invalid_recipients
     @survey_inviter.invalid_recipients

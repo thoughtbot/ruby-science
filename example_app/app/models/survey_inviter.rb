@@ -1,8 +1,13 @@
 class SurveyInviter
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
 
-  def initialize(recipients)
+  def initialize(message, recipients)
+    @message = message
     @recipients = recipients
+  end
+
+  def valid?
+    valid_message? && valid_recipients?
   end
 
   def invalid_recipients
@@ -15,5 +20,15 @@ class SurveyInviter
 
   def recipient_list
     @recipient_list ||= @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+  end
+
+  private
+
+  def valid_message?
+    @message.present?
+  end
+
+  def valid_recipients?
+    invalid_recipients.empty?
   end
 end
