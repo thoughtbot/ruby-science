@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
 
   def create
     @survey = Survey.find(params[:survey_id])
-    @survey_inviter = SurveyInviter.new
+    @survey_inviter = SurveyInviter.new(recipients)
     if valid_recipients? && valid_message?
       recipient_list.each do |email|
         invitation = Invitation.create(
@@ -45,7 +45,7 @@ class InvitationsController < ApplicationController
   end
 
   def recipient_list
-    @recipient_list ||= recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+    @survey_inviter.recipient_list
   end
 
   def recipients
