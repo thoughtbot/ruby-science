@@ -1,22 +1,14 @@
 class InvitationsController < ApplicationController
   def new
     @survey = Survey.find(params[:survey_id])
-    @survey_inviter = SurveyInviter.new('', '')
+    @survey_inviter = SurveyInviter.new
   end
 
   def create
     @survey = Survey.find(params[:survey_id])
-    @survey_inviter = SurveyInviter.new(message, recipients)
+    @survey_inviter = SurveyInviter.new(survey_inviter_attributes)
     if @survey_inviter.valid?
-      recipient_list.each do |email|
-        invitation = Invitation.create(
-          survey: @survey,
-          sender: current_user,
-          recipient_email: email,
-          status: 'pending'
-        )
-        Mailer.invitation_notification(invitation, message)
-      end
+      @survey_inviter.deliver
       redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
     else
       @recipients = recipients
@@ -27,12 +19,8 @@ class InvitationsController < ApplicationController
 
   private
 
-  def invalid_recipients
-    @survey_inviter.invalid_recipients
-  end
-
-  def recipient_list
-    @survey_inviter.recipient_list
+  def survey_inviter_attributes
+    params[:invitation].merge(survey: @survey, sender: current_user)
   end
 
   def recipients
