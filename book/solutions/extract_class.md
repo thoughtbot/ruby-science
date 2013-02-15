@@ -1,7 +1,7 @@
 # Extract Class
 
 Dividing responsibilities into classes is the primary way to manage complexity
-in object-oriented software. Extract class is the primary mechanism for
+in object-oriented software. Extract Class is the primary mechanism for
 introducing new classes. This refactoring takes one class and splits it into two
 by moving one or more methods and instance variables into a new class.
 
