@@ -1,6 +1,4 @@
 class Survey < ActiveRecord::Base
-  NO_ANSWER = "You haven't answered this question".freeze
-
   include ActiveModel::ForbiddenAttributesProtection
 
   validates_presence_of :title
@@ -19,7 +17,7 @@ class Survey < ActiveRecord::Base
 
   def summary_or_hidden_answer(summarizer, question, answered_by)
     if hide_unanswered_question?(question, answered_by)
-      hide_answer_to_question(question)
+      UnansweredQuestionHider.new.hide_answer_to_question(question)
     else
       question.summary_using(summarizer)
     end
@@ -27,9 +25,5 @@ class Survey < ActiveRecord::Base
 
   def hide_unanswered_question?(question, answered_by)
     answered_by && !question.answered_by?(answered_by)
-  end
-
-  def hide_answer_to_question(question)
-    Summary.new(question.title, NO_ANSWER)
   end
 end
