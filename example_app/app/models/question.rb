@@ -20,6 +20,14 @@ class Question < ActiveRecord::Base
   delegate :breakdown, :score, to: :submittable
   delegate :title, to: :survey, prefix: true
 
+  def answered_by?(user)
+    answers.
+      joins(:completion).
+      where(completions: { user_id: user }).
+      where("answers.text <> ''").
+      exists?
+  end
+
   def most_recent_answer_text
     answers.most_recent.text
   end
