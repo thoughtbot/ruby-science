@@ -34,6 +34,28 @@ feature 'user views survey summary' do
     summary_for_question('Name?').should eq('Billy')
   end
 
+  scenario 'only view questions which you have answered' do
+    maker = SurveyMaker.new
+    maker.open_question 'Name?'
+    maker.open_question 'Favorite color?'
+    survey = maker.survey
+    taker = SurveyTaker.new(survey)
+    sign_in
+    taker.complete 'Brian', ''
+    as_another_user { taker.complete 'Billy', 'Red' }
+
+    view_summary survey, 'Most Recent'
+
+    summary_for_question('Name?').should eq('Billy')
+    summary_for_question('Favorite color?').
+      should eq("You haven't answered this question")
+
+    show_unanswered_questions
+
+    summary_for_question('Favorite color?').
+      should eq('Red')
+  end
+
   scenario 'view your answers' do
     maker = SurveyMaker.new
     maker.open_question 'Name?'
@@ -57,16 +79,17 @@ feature 'user views survey summary' do
     as_another_user { taker.complete 'Billy' }
 
     view_summary survey, 'Your Answers'
+    show_unanswered_questions
 
     summary_for_question('Name?').should eq('No response')
+  end
+
+  def show_unanswered_questions
+    click_on "Show questions I haven't answered"
   end
 
   def view_summary(survey, type)
     visit survey_path(survey)
     click_link type
-  end
-
-  def summary_for_question(question)
-    page.find('.summary li', text: question).find('.summary').text
   end
 end
