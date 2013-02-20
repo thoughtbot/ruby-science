@@ -13,6 +13,10 @@ feature 'user views survey completions' do
     taker.complete 'Brian', 'Red', '10'
     taker.complete 'Billy', 'Blue', '5'
 
+    summary_for_question('Name?').should eq('Brian, Billy')
+    summary_for_question('Favorite color?').should eq('50% Blue, 50% Red')
+    summary_for_question('Airspeed velocity?').should eq('Average: 7.50')
+
     view_completions survey
 
     page.should have_content('Brian')
@@ -24,6 +28,6 @@ feature 'user views survey completions' do
   end
 
   def view_completions(survey)
-    visit survey_completions_path(survey)
+    click_on 'View all answers'
   end
 end

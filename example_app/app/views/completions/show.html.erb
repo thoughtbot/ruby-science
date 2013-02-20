@@ -1,0 +1,7 @@
+<%= render @completion %>
+
+<ol class="summary">
+  <%= render partial: 'summaries/summary', collection: @completion.breakdown %>
+</ol>
+
+<%= link_to 'View all answers', survey_completions_path(@completion.survey) %>
