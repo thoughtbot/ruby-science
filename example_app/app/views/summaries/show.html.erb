@@ -1,5 +1,7 @@
 <%= render 'nav', survey: @survey %>
 
+<%= link_to "Show questions I haven't answered", unanswered: true %>
+
 <ol class="summary">
   <%= render partial: 'summaries/summary', collection: @summaries %>
 </ol>
