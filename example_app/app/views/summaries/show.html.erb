@@ -1,10 +1,5 @@
 <%= render 'nav', survey: @survey %>
 
 <ol class="summary">
-  <% @summaries.each do |summary| -%>
-    <li>
-      <span class="question"><%= summary.title %>:</span>
-      <span class="summary"><%= summary.value %></span>
-    </li>
-  <% end -%>
+  <%= render partial: 'summaries/summary', collection: @summaries %>
 </ol>

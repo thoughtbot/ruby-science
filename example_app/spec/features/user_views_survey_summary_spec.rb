@@ -65,8 +65,4 @@ feature 'user views survey summary' do
     visit survey_path(survey)
     click_link type
   end
-
-  def summary_for_question(question)
-    page.find('.summary li', text: question).find('.summary').text
-  end
 end

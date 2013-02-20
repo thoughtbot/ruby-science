@@ -7,11 +7,15 @@ class CompletionsController < ApplicationController
     completion = @survey.completions.new(completion_params)
     completion.user = current_user
     completion.save!
-    redirect_to [@survey, :completions]
+    redirect_to completion
   end
 
   def index
     @survey = Survey.find(params[:survey_id])
     @completions = @survey.completions
+  end
+
+  def show
+    @completion = Completion.find(params[:id])
   end
 end

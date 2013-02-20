@@ -13,6 +13,11 @@ class Completion < ActiveRecord::Base
     end
   end
 
+  def breakdown
+    summarizer = Summarizer::Breakdown.new({})
+    survey.summaries_using(summarizer)
+  end
+
   def score
     answers.inject(0) do |result, answer|
       result + answer.score

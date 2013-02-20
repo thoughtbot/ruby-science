@@ -38,6 +38,22 @@ describe Completion, '#answers_attributes=' do
   end
 end
 
+describe Completion, '#breakdown' do
+  it 'returns results from the breakdown summarizer' do
+    survey = build_stubbed(:survey)
+    completion = build_stubbed(:completion, survey: survey)
+    summaries = [stub('summary'), stub('summary')]
+    summarizer = stub('summarizer')
+    Summarizer::Breakdown.stubs(:new).with({}).returns(summarizer)
+    survey.stubs(summaries_using: summaries)
+
+    result = completion.breakdown
+
+    survey.should have_received(:summaries_using).with(summarizer)
+    result.should == summaries
+  end
+end
+
 describe Completion, '#save' do
   it 'delivers a completion notification' do
     Mailer.stubs(completion_notification: stub(deliver_now: true))
