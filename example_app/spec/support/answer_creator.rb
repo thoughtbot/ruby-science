@@ -6,7 +6,7 @@ class AnswerCreator
     @completion = create(:completion, options.merge(survey: @survey))
   end
 
-  def answer(question, answer_text)
+  def answer(question, answer_text = 'hello')
     create(
       :answer,
       question: question,

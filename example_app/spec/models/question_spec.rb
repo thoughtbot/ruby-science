@@ -16,6 +16,30 @@ describe Question do
   it { should have_many(:answers) }
 end
 
+describe Question, '#answered_by?' do
+  it 'returns true for a user with an answer' do
+    user = create(:user)
+    question = create(:question)
+    AnswerCreator.new(question.survey, user: user).answer(question)
+
+    question.should be_answered_by(user)
+  end
+
+  it 'returns false for a user without an answer' do
+    user = create(:user)
+    other_user = create(:user)
+    survey = create(:survey)
+    question = create(:question, survey: survey)
+    other_question = create(:question, survey: survey)
+    creator = AnswerCreator.new(survey, user: user)
+    creator.answer(question, '')
+    creator.answer(other_question, 'hello')
+    AnswerCreator.new(survey, user: other_user).answer(question)
+
+    question.should_not be_answered_by(user)
+  end
+end
+
 describe Question, '#build_submittable' do
   it 'builds a submittable with the given type and attributes' do
     expected_value = 1.day.ago
