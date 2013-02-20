@@ -1,4 +1,6 @@
 ExampleApp::Application.routes.draw do
+  resources :completions, only: [:show]
+
   resources :questions, only: [:edit, :update] do
     resources :options, only: [:new, :create]
     resources :types, only: [:new, :create]

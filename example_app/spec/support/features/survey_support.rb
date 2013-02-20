@@ -34,7 +34,11 @@ module Features
   end
 
   def answer_to_question(question)
-    find('.question', text: question)
+    find('.completion .question', text: question)
+  end
+
+  def summary_for_question(question)
+    page.find('.summary li', text: question).find('.summary').text
   end
 
   def start_new_survey
