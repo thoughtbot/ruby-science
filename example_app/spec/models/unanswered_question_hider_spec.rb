@@ -9,36 +9,33 @@ describe UnansweredQuestionHider, '#summarize' do
 
     result = hider.summarize(question)
 
-    result.title.should eq question.title
-    result.value.should eq UnansweredQuestionHider::NO_ANSWER
+    result.should eq UnansweredQuestionHider::NO_ANSWER
   end
 
   it 'delegates to the summarizer given a user with an answer' do
-    summary = stub('summary')
     user = build_stubbed(:user)
     question = stub_answered_question(user, true)
-    summarizer = stub_summarizer(question, summary)
+    summarizer = stub_summarizer(question, 'value')
     hider = UnansweredQuestionHider.new(summarizer, user)
 
     result = hider.summarize(question)
 
-    result.should eq summary
+    result.should eq 'value'
   end
 
   it 'delegates to the summarizer without a user' do
-    summary = stub('summary')
     question = build_stubbed(:question)
-    summarizer = stub_summarizer(question, summary)
+    summarizer = stub_summarizer(question, 'value')
     hider = UnansweredQuestionHider.new(summarizer, nil)
 
     result = hider.summarize(question)
 
-    result.should eq summary
+    result.should eq 'value'
   end
 
-  def stub_summarizer(question, summary)
+  def stub_summarizer(question, value)
     stub('summarizer').tap do |summarizer|
-      question.stubs(:summary_using).with(summarizer).returns(summary)
+      summarizer.stubs(:summarize).with(question).returns(value)
     end
   end
 
