@@ -6,7 +6,7 @@ class UnansweredQuestionHider
     @user = user
   end
 
-  def summary_or_hidden_answer(question)
+  def summarize(question)
     if hide_unanswered_question?(question)
       hide_answer_to_question(question)
     else
