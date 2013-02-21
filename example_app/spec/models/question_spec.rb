@@ -49,12 +49,12 @@ describe Question, '#most_recent_answer_text' do
   end
 end
 
-describe Question, '#summarize' do
+describe Question, '#summary_using' do
   it 'builds a summary with the result from the summarizer' do
     question = build_stubbed(:question)
     summarizer = stub('summarizer', summarize: 'result')
 
-    summary = question.summarize(summarizer)
+    summary = question.summary_using(summarizer)
 
     summary.title.should eq question.title
     summary.value.should eq 'result'
