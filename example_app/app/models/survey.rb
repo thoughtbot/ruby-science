@@ -1,6 +1,4 @@
 class Survey < ActiveRecord::Base
-  NO_ANSWER = "You haven't answered this question".freeze
-
   include ActiveModel::ForbiddenAttributesProtection
 
   validates_presence_of :title
@@ -9,13 +7,9 @@ class Survey < ActiveRecord::Base
   has_many :completions
   has_many :questions
 
-  def summaries_using(summarizer, options = {})
+  def summaries_using(summarizer)
     questions.map do |question|
-      if !options[:answered_by] || question.answered_by?(options[:answered_by])
-        question.summary_using(summarizer)
-      else
-        Summary.new(question.title, NO_ANSWER)
-      end
+      question.summary_using(summarizer)
     end
   end
 end
