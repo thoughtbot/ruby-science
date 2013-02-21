@@ -7,7 +7,7 @@ class Survey < ActiveRecord::Base
   has_many :completions
   has_many :questions
 
-  def summarize(summarizer)
+  def summaries_using(summarizer)
     questions.map do |question|
       question.summarize(summarizer)
     end

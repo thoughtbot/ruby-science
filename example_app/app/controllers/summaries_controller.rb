@@ -1,7 +1,7 @@
 class SummariesController < ApplicationController
   def show
     @survey = Survey.find(params[:survey_id])
-    @summaries = @survey.summarize(summarizer)
+    @summaries = @survey.summaries_using(summarizer)
   end
 
   private

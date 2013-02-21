@@ -7,13 +7,13 @@ describe Survey do
   it { should have_many(:questions) }
 end
 
-describe Survey, '#summarize' do
+describe Survey, '#summaries_using' do
   it 'applies the given summarizer to each question' do
     questions = [build_stubbed(:question), build_stubbed(:question)]
     survey = build_stubbed(:survey, questions: questions)
     summarizer = stub('summarizer', summarize: 'result')
 
-    result = survey.summarize(summarizer)
+    result = survey.summaries_using(summarizer)
 
     should_summarize_questions questions, summarizer
     result.map(&:title).should == questions.map(&:title)
