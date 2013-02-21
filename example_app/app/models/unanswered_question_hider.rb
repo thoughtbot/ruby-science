@@ -17,6 +17,6 @@ class UnansweredQuestionHider
   private
 
   def hide_unanswered_question?(question)
-    @user && !question.answered_by?(@user)
+    !question.answered_by?(@user)
   end
 end
