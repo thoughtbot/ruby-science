@@ -5,9 +5,9 @@ describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
     summarizer = stub('summarizer')
     user = build_stubbed(:user)
     question = stub_answered_question(user, false)
-    hider = UnansweredQuestionHider.new
+    hider = UnansweredQuestionHider.new(summarizer, user)
 
-    result = hider.summary_or_hidden_answer(summarizer, question, user)
+    result = hider.summary_or_hidden_answer(question)
 
     result.title.should eq question.title
     result.value.should eq UnansweredQuestionHider::NO_ANSWER
@@ -18,9 +18,9 @@ describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
     user = build_stubbed(:user)
     question = stub_answered_question(user, true)
     summarizer = stub_summarizer(question, summary)
-    hider = UnansweredQuestionHider.new
+    hider = UnansweredQuestionHider.new(summarizer, user)
 
-    result = hider.summary_or_hidden_answer(summarizer, question, user)
+    result = hider.summary_or_hidden_answer(question)
 
     result.should eq summary
   end
@@ -29,9 +29,9 @@ describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
     summary = stub('summary')
     question = build_stubbed(:question)
     summarizer = stub_summarizer(question, summary)
-    hider = UnansweredQuestionHider.new
+    hider = UnansweredQuestionHider.new(summarizer, nil)
 
-    result = hider.summary_or_hidden_answer(summarizer, question, nil)
+    result = hider.summary_or_hidden_answer(question)
 
     result.should eq summary
   end
