@@ -1,11 +1,16 @@
 class UnansweredQuestionHider
   NO_ANSWER = "You haven't answered this question".freeze
 
-  def summary_or_hidden_answer(summarizer, question, user)
-    if hide_unanswered_question?(question, user)
+  def initialize(summarizer, user)
+    @summarizer = summarizer
+    @user = user
+  end
+
+  def summary_or_hidden_answer(question)
+    if hide_unanswered_question?(question)
       hide_answer_to_question(question)
     else
-      question.summary_using(summarizer)
+      question.summary_using(@summarizer)
     end
   end
 
@@ -15,7 +20,7 @@ class UnansweredQuestionHider
     Summary.new(question.title, NO_ANSWER)
   end
 
-  def hide_unanswered_question?(question, user)
-    user && !question.answered_by?(user)
+  def hide_unanswered_question?(question)
+    @user && !question.answered_by?(@user)
   end
 end
