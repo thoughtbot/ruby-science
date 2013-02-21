@@ -16,14 +16,11 @@ class Survey < ActiveRecord::Base
   private
 
   def summary_or_hidden_answer(summarizer, question, answered_by)
-    if hide_unanswered_question?(question, answered_by)
-      UnansweredQuestionHider.new.hide_answer_to_question(question)
+    hider = UnansweredQuestionHider.new
+    if hider.hide_unanswered_question?(question, answered_by)
+      hider.hide_answer_to_question(question)
     else
       question.summary_using(summarizer)
     end
-  end
-
-  def hide_unanswered_question?(question, answered_by)
-    answered_by && !question.answered_by?(answered_by)
   end
 end
