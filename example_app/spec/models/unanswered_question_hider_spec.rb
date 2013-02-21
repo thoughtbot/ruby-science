@@ -1,39 +1,45 @@
 require 'spec_helper'
 
-describe UnansweredQuestionHider, '#hide_answer_to_question' do
-  it 'returns a hidden summary' do
-    question = build_stubbed(:question)
-    hider = UnansweredQuestionHider.new
-
-    result = hider.hide_answer_to_question(question)
-
-    result.title.should eq question.title
-    result.value.should eq UnansweredQuestionHider::NO_ANSWER
-  end
-end
-
-describe UnansweredQuestionHider, '#hide_unanswered_question?' do
-  it 'returns true given a user without an answer' do
+describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
+  it 'returns a hidden summary given a user without an answer' do
+    summarizer = stub('summarizer')
     user = build_stubbed(:user)
     question = stub_answered_question(user, false)
     hider = UnansweredQuestionHider.new
 
-    hider.hide_unanswered_question?(question, user).should be_truthy
+    result = hider.summary_or_hidden_answer(summarizer, question, user)
+
+    result.title.should eq question.title
+    result.value.should eq UnansweredQuestionHider::NO_ANSWER
   end
 
-  it 'returns false given a user with an answer' do
+  it 'delegates to the summarizer given a user with an answer' do
+    summary = stub('summary')
     user = build_stubbed(:user)
     question = stub_answered_question(user, true)
+    summarizer = stub_summarizer(question, summary)
     hider = UnansweredQuestionHider.new
 
-    hider.hide_unanswered_question?(question, user).should be_falsey
+    result = hider.summary_or_hidden_answer(summarizer, question, user)
+
+    result.should eq summary
   end
 
-  it 'returns false without a user' do
+  it 'delegates to the summarizer without a user' do
+    summary = stub('summary')
     question = build_stubbed(:question)
+    summarizer = stub_summarizer(question, summary)
     hider = UnansweredQuestionHider.new
 
-    hider.hide_unanswered_question?(question, nil).should be_falsey
+    result = hider.summary_or_hidden_answer(summarizer, question, nil)
+
+    result.should eq summary
+  end
+
+  def stub_summarizer(question, summary)
+    stub('summarizer').tap do |summarizer|
+      question.stubs(:summary_using).with(summarizer).returns(summary)
+    end
   end
 
   def stub_answered_question(user, answered)
