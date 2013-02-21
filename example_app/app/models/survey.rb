@@ -10,7 +10,7 @@ class Survey < ActiveRecord::Base
   def summaries_using(summarizer, options = {})
     questions.map do |question|
       UnansweredQuestionHider.new(summarizer, options[:answered_by]).
-        summary_or_hidden_answer(question)
+        summarize(question)
     end
   end
 end
