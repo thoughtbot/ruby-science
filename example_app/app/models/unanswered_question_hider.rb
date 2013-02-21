@@ -10,14 +10,14 @@ class UnansweredQuestionHider
     if hide_unanswered_question?(question)
       hide_answer_to_question(question)
     else
-      question.summary_using(@summarizer)
+      @summarizer.summarize(question)
     end
   end
 
   private
 
   def hide_answer_to_question(question)
-    Summary.new(question.title, NO_ANSWER)
+    NO_ANSWER
   end
 
   def hide_unanswered_question?(question)
