@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
+describe UnansweredQuestionHider, '#summarize' do
   it 'returns a hidden summary given a user without an answer' do
     summarizer = stub('summarizer')
     user = build_stubbed(:user)
     question = stub_answered_question(user, false)
     hider = UnansweredQuestionHider.new(summarizer, user)
 
-    result = hider.summary_or_hidden_answer(question)
+    result = hider.summarize(question)
 
     result.title.should eq question.title
     result.value.should eq UnansweredQuestionHider::NO_ANSWER
@@ -20,7 +20,7 @@ describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
     summarizer = stub_summarizer(question, summary)
     hider = UnansweredQuestionHider.new(summarizer, user)
 
-    result = hider.summary_or_hidden_answer(question)
+    result = hider.summarize(question)
 
     result.should eq summary
   end
@@ -31,7 +31,7 @@ describe UnansweredQuestionHider, '#summary_or_hidden_answer' do
     summarizer = stub_summarizer(question, summary)
     hider = UnansweredQuestionHider.new(summarizer, nil)
 
-    result = hider.summary_or_hidden_answer(question)
+    result = hider.summarize(question)
 
     result.should eq summary
   end
