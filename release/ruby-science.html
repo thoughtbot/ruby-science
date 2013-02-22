@@ -138,47 +138,60 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#next-steps-2">Next Steps</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#extract-class">Extract Class</a></li>
-<li><a href="#extract-value-object">Extract Value Object</a></li>
-<li><a href="#extract-decorator">Extract Decorator</a></li>
-<li><a href="#extract-partial">Extract Partial</a><ul>
+<li><a href="#extract-class">Extract Class</a><ul>
 <li><a href="#uses-3">Uses</a></li>
-<li><a href="#steps">Steps</a></li>
 <li><a href="#example-13">Example</a></li>
+<li><a href="#drawbacks-2">Drawbacks</a></li>
 <li><a href="#next-steps-3">Next Steps</a></li>
 </ul></li>
-<li><a href="#extract-service-object">Extract Service Object</a></li>
-<li><a href="#extract-validator">Extract Validator</a><ul>
+<li><a href="#extract-value-object">Extract Value Object</a><ul>
 <li><a href="#uses-4">Uses</a></li>
 <li><a href="#example-14">Example</a></li>
 <li><a href="#next-steps-4">Next Steps</a></li>
 </ul></li>
-<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
+<li><a href="#extract-decorator">Extract Decorator</a></li>
+<li><a href="#extract-partial">Extract Partial</a><ul>
 <li><a href="#uses-5">Uses</a></li>
+<li><a href="#steps">Steps</a></li>
 <li><a href="#example-15">Example</a></li>
 <li><a href="#next-steps-5">Next Steps</a></li>
 </ul></li>
-<li><a href="#introduce-observer">Introduce Observer</a></li>
-<li><a href="#introduce-form-object">Introduce Form Object</a><ul>
+<li><a href="#extract-service-object">Extract Service Object</a></li>
+<li><a href="#extract-validator">Extract Validator</a><ul>
 <li><a href="#uses-6">Uses</a></li>
 <li><a href="#example-16">Example</a></li>
 <li><a href="#next-steps-6">Next Steps</a></li>
 </ul></li>
-<li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
+<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
 <li><a href="#uses-7">Uses</a></li>
+<li><a href="#example-17">Example</a></li>
 <li><a href="#next-steps-7">Next Steps</a></li>
 </ul></li>
-<li><a href="#use-class-as-factory">Use class as Factory</a></li>
-<li><a href="#move-method">Move method</a><ul>
+<li><a href="#introduce-observer">Introduce Observer</a></li>
+<li><a href="#introduce-form-object">Introduce Form Object</a><ul>
 <li><a href="#uses-8">Uses</a></li>
-<li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
+<li><a href="#example-18">Example</a></li>
 <li><a href="#next-steps-8">Next Steps</a></li>
+</ul></li>
+<li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
+<li><a href="#uses-9">Uses</a></li>
+<li><a href="#next-steps-9">Next Steps</a></li>
+</ul></li>
+<li><a href="#use-class-as-factory">Use class as Factory</a><ul>
+<li><a href="#uses-10">Uses</a></li>
+<li><a href="#example-19">Example</a></li>
+<li><a href="#next-steps-10">Next Steps</a></li>
+</ul></li>
+<li><a href="#move-method">Move method</a><ul>
+<li><a href="#uses-11">Uses</a></li>
+<li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
+<li><a href="#next-steps-11">Next Steps</a></li>
 </ul></li>
 <li><a href="#inline-class">Inline class</a></li>
 <li><a href="#inject-dependencies">Inject dependencies</a></li>
 <li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a><ul>
-<li><a href="#uses-9">Uses</a></li>
-<li><a href="#example-17">Example</a><ul>
+<li><a href="#uses-12">Uses</a></li>
+<li><a href="#example-20">Example</a><ul>
 <li><a href="#use-extract-class-to-extract-non-railsy-methods-from-subclasses">Use Extract Class to Extract Non-Railsy Methods From Subclasses</a></li>
 <li><a href="#pull-up-delegate-method-into-base-class">Pull Up Delegate Method Into Base Class</a></li>
 <li><a href="#move-remaining-common-api-into-strategies">Move Remaining Common API Into Strategies</a></li>
@@ -197,22 +210,24 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#simplify-type-switching">Simplify Type Switching</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 </ul></li>
-<li><a href="#drawbacks-2">Drawbacks</a></li>
-<li><a href="#next-steps-9">Next Steps</a></li>
+<li><a href="#drawbacks-3">Drawbacks</a></li>
+<li><a href="#next-steps-12">Next Steps</a></li>
 </ul></li>
 <li><a href="#replace-mixin-with-composition">Replace mixin with composition</a></li>
 <li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
-<li><a href="#uses-10">Uses</a></li>
+<li><a href="#uses-13">Uses</a></li>
 <li><a href="#steps-1">Steps</a></li>
-<li><a href="#example-18">Example</a></li>
-<li><a href="#next-steps-10">Next Steps</a></li>
+<li><a href="#example-21">Example</a></li>
+<li><a href="#next-steps-13">Next Steps</a></li>
 </ul></li>
 <li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
-<li><a href="#uses-11">Uses</a></li>
-<li><a href="#example-19">Example</a></li>
-<li><a href="#drawbacks-3">Drawbacks</a><ul>
+<li><a href="#uses-14">Uses</a></li>
+<li><a href="#example-22">Example</a></li>
+<li><a href="#scoping-constantize">Scoping <code>constantize</code></a><ul>
+<li><a href="#drawbacks-4">Drawbacks</a><ul>
 <li><a href="#weak-conventions">Weak Conventions</a></li>
 <li><a href="#class-oriented-programming">Class-Oriented Programming</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li><a href="#introduce-visitor">Introduce Visitor</a></li>
@@ -1403,11 +1418,436 @@ user.try(<span class="st">:name</span>)</code></pre>
 </section>
 <section class="level1" id="extract-class">
 <h1><a href="#TOC">Extract Class</a></h1>
-<p>STUB</p>
+<p>Dividing responsibilities into classes is the primary way to manage complexity in object-oriented software. Extract Class is the primary mechanism for introducing new classes. This refactoring takes one class and splits it into two by moving one or more methods and instance variables into a new class.</p>
+<p>The process for extracting a class looks like this:</p>
+<ol type="1">
+<li>Create a new, empty class.</li>
+<li>Instantiate the new class from the original class.</li>
+<li><a href="#move-method">Move a method</a> from the original class to the new class.</li>
+<li>Repeat step 3 until you're happy with the original class.</li>
+</ol>
+<section class="level3" id="uses-3">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Removes <a href="#large-class">Large Class</a> by splitting up the class.</li>
+<li>Eliminates <a href="#divergent-change">Divergent Change</a> by moving one reason to change into a new class.</li>
+<li>Provides a cohesive set of functionality with a meaningful name, making it easier to understand and talk about.</li>
+<li>Fully encapsulates a concern within a single class, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and making it easier to change and reuse that functionality.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-13">
+<h3><a href="#TOC">Example</a></h3>
+<p>The <code>InvitationsController</code> is a <a href="#large-class">Large Class</a> hidden behind a <a href="#long-method">Long Method</a>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span>
+
+  <span class="kw">def</span> new
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> create
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+
+    <span class="ot">@recipients</span> = params[<span class="st">:invitation</span>][<span class="st">:recipients</span>]
+    recipient_list = <span class="ot">@recipients</span>.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+
+<span class="ot">    @invalid_recipients = recipient_list.map do |item|</span>
+<span class="ot">      unless item.match(EMAIL_REGEX)</span>
+<span class="ot">        item</span>
+<span class="ot">      end</span>
+<span class="ot">    end.compact</span>
+
+<span class="ot">    @message = params[:invitation][:message]</span>
+
+<span class="ot">    if @invalid_recipients.empty? &amp;&amp; @message.present?</span>
+<span class="ot">      recipient_list.each do |email|</span>
+<span class="ot">        invitation = Invitation.create(</span>
+<span class="ot">          survey: @survey,</span>
+<span class="ot">          sender: current_user,</span>
+<span class="ot">          recipient_email: email,</span>
+<span class="ot">          status: 'pending'</span>
+<span class="ot">        )</span>
+<span class="ot">        Mailer.invitation_notification(invitation, @message)</span>
+<span class="ot">      end</span>
+
+<span class="ot">      redirect_to survey_path(@survey), notice: 'Invitation successfully sent'</span>
+<span class="ot">    else</span>
+<span class="ot">      render 'new'</span>
+<span class="ot">    end</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<p>Although it contains only two methods, there's a lot going on under the hood. It parses and validates emails, manages several pieces of state which the view needs to know about, handles control flow for the user, and creates and delivers invitations.</p>
+<p><a href="https://github.com/thoughtbot/ruby-science/commit/65f1b428">A liberal application</a> of <a href="#extract-method">Extract Method</a> to break up this <a href="#long-method">Long Method</a> will reveal the complexity:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span>
+
+  <span class="kw">def</span> new
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> create
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+    <span class="kw">if</span> valid_recipients? &amp;&amp; valid_message?
+      recipient_list.each <span class="kw">do</span> |email|
+        invitation = <span class="dt">Invitation</span>.create(
+          survey: <span class="ot">@survey</span>,
+          sender: current_user,
+          recipient_email: email,
+          status: <span class="st">'pending'</span>
+        )
+        <span class="dt">Mailer</span>.invitation_notification(invitation, message)
+      <span class="kw">end</span>
+      redirect_to survey_path(<span class="ot">@survey</span>), notice: <span class="st">'Invitation successfully sent'</span>
+    <span class="kw">else</span>
+      <span class="ot">@recipients</span> = recipients
+      <span class="ot">@message</span> = message
+      render <span class="st">'new'</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> valid_recipients?
+    invalid_recipients.empty?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> valid_message?
+    message.present?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> invalid_recipients
+    <span class="ot">@invalid_recipients</span> ||= recipient_list.map <span class="kw">do</span> |item|
+      <span class="kw">unless</span> item.match(<span class="dt">EMAIL_REGEX</span>)
+        item
+      <span class="kw">end</span>
+    <span class="kw">end</span>.compact
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> recipient_list
+    <span class="ot">@recipient_list</span> ||= recipients.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">  end</span>
+
+<span class="ot">  def recipients</span>
+<span class="ot">    params[:invitation][:recipients]</span>
+<span class="ot">  end</span>
+
+<span class="ot">  def message</span>
+<span class="ot">    params[:invitation][:message]</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<p>Let's extract all of the non-controller logic into a new class. We'll start by defining and instantiating a new, empty class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new</code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">class</span> <span class="dt">SurveyInviter</span>
+<span class="kw">end</span></code></pre>
+<p>At this point, we've <a href="https://github.com/thoughtbot/ruby-science/commit/cce33485">created a staging area</a> for using <a href="#move-method">Move Method</a> to transfer complexity from one class to the other.</p>
+<p>Next, we'll move one method from the controller to our new class. It's best to move methods which depend on few private methods or instance variables from the original class, so we'll start with a method which only uses one private method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> recipient_list
+  <span class="ot">@recipient_list</span> ||= <span class="ot">@recipients</span>.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">end</span></code></pre>
+<p>We need the recipients for this method, so we'll accept it in the <code>initialize</code> method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> initialize(recipients)
+  <span class="ot">@recipients</span> = recipients
+<span class="kw">end</span></code></pre>
+<p>And pass it from our controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new(recipients)</code></pre>
+<p>The original controller method can delegate to the extracted method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">def</span> recipient_list
+  <span class="ot">@survey_inviter</span>.recipient_list
+<span class="kw">end</span></code></pre>
+<p>We've <a href="https://github.com/thoughtbot/ruby-science/commit/ac014750">moved a little complexity out of our controller</a>, and we now have a repeatable process for doing so: we can continue to move methods out until we feel good about what's left in the controller.</p>
+<p>Next, let's move out <code>invalid_recipients</code> from the controller, since it depends on <code>recipient_list</code>, which we already moved:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> invalid_recipients
+  <span class="ot">@invalid_recipients</span> ||= recipient_list.map <span class="kw">do</span> |item|
+    <span class="kw">unless</span> item.match(<span class="dt">EMAIL_REGEX</span>)
+      item
+    <span class="kw">end</span>
+  <span class="kw">end</span>.compact
+<span class="kw">end</span></code></pre>
+<p>Again, the original controller method can delegate:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">def</span> invalid_recipients
+  <span class="ot">@survey_inviter</span>.invalid_recipients
+<span class="kw">end</span></code></pre>
+<p>This method references a constant from the controller. This was the only place where the constant was used, so we can move it to our new class:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span></code></pre>
+<p>We can remove an instance variable in the controller by invoking this method directly in the view:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/invitations/new.html.erb
+<span class="kw">&lt;%</span> <span class="kw">if</span> <span class="ot">@survey_inviter</span>.invalid_recipients <span class="kw">%&gt;</span>
+  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;error&quot;</span><span class="kw">&gt;</span>
+    Invalid email addresses: 
+    <span class="kw">&lt;%=</span> <span class="ot">@survey_inviter</span>.invalid_recipients.join(<span class="st">', '</span>) <span class="kw">%&gt;</span>
+  <span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">%&gt;</span></code></pre>
+<p>Now that parsing email lists is <a href="https://github.com/thoughtbot/ruby-science/commit/0fefb969">moved out of our controller</a>, let's extract and delegate the only method in the controller which depends on <code>invalid_recipients</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> valid_recipients?
+  invalid_recipients.empty?
+<span class="kw">end</span></code></pre>
+<p>Now we can remove <code>invalid_recipients</code> from the controller entirely.</p>
+<p>The <code>valid_recipients?</code> method is only used in the compound validation condition:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">if</span> valid_recipients? &amp;&amp; valid_message?</code></pre>
+<p>If we extract <code>valid_message?</code> as well, we can fully encapsulate validation within <code>SurveyInviter</code>.</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> valid_message?
+  <span class="ot">@message</span>.present?
+<span class="kw">end</span></code></pre>
+<p>We need <code>message</code> for this method, so we'll add that to <code>initialize</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> initialize(message, recipients)
+  <span class="ot">@message</span> = message
+  <span class="ot">@recipients</span> = recipients
+<span class="kw">end</span></code></pre>
+<p>And pass it in:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new(message, recipients)</code></pre>
+<p>We can now extract a method to encapsulate this compound condition:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> valid?
+  valid_message? &amp;&amp; valid_recipients?
+<span class="kw">end</span></code></pre>
+<p>And use that new method in our controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">if</span> <span class="ot">@survey_inviter</span>.valid?</code></pre>
+<p>Now these methods can be private, trimming down the public interface for <code>SurveyInviter</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">private</span>
+
+<span class="kw">def</span> valid_message?
+  <span class="ot">@message</span>.present?
+<span class="kw">end</span>
+
+<span class="kw">def</span> valid_recipients?
+  invalid_recipients.empty?
+<span class="kw">end</span></code></pre>
+<p>We've <a href="https://github.com/thoughtbot/ruby-science/commit/b434954d">pulled out most of the private methods</a>, so the remaining complexity is largely from saving and delivering the invitations.</p>
+<p>Let's extract and move a <code>deliver</code> method for that:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> deliver
+  recipient_list.each <span class="kw">do</span> |email|
+    invitation = <span class="dt">Invitation</span>.create(
+      survey: <span class="ot">@survey</span>,
+      sender: <span class="ot">@sender</span>,
+      recipient_email: email,
+      status: <span class="st">'pending'</span>
+    )
+    <span class="dt">Mailer</span>.invitation_notification(invitation, <span class="ot">@message</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>We need the sender (the currently signed in user) as well as the survey from the controller to do this. This pushes our initialize method up to four parameters, so let's switch to a hash:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">def</span> initialize(attributes = {})
+  <span class="ot">@survey</span> = attributes[<span class="st">:survey</span>]
+  <span class="ot">@message</span> = attributes[<span class="st">:message</span>] || <span class="st">''</span>
+  <span class="ot">@recipients</span> = attributes[<span class="st">:recipients</span>] || <span class="st">''</span>
+  <span class="ot">@sender</span> = attributes[<span class="st">:sender</span>]
+<span class="kw">end</span></code></pre>
+<p>And extract a method in our controller to build it:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">def</span> survey_inviter_attributes
+  params[<span class="st">:invitation</span>].merge(survey: <span class="ot">@survey</span>, sender: current_user)
+<span class="kw">end</span></code></pre>
+<p>Now we can invoke this method in our controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">if</span> <span class="ot">@survey_inviter</span>.valid?
+  <span class="ot">@survey_inviter</span>.deliver
+  redirect_to survey_path(<span class="ot">@survey</span>), notice: <span class="st">'Invitation successfully sent'</span>
+<span class="kw">else</span>
+  <span class="ot">@recipients</span> = recipients
+  <span class="ot">@message</span> = message
+  render <span class="st">'new'</span>
+<span class="kw">end</span></code></pre>
+<p>The <code>recipient_list</code> method is now only used internally in <code>SurveyInviter</code>, so let's make it private.</p>
+<p>We've <a href="https://github.com/thoughtbot/ruby-science/commit/000babe1">moved most of the behavior out of the controller</a>, but we're still assigning a number of instance variables for the view, which have corresponding private methods in the controller. These values are also available on <code>SurveyInviter</code>, which is already assigned to the view, so let's expose those using <code>attr_reader</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="ot">attr_reader</span> <span class="st">:message</span>, <span class="st">:recipients</span>, <span class="st">:survey</span></code></pre>
+<p>And use them directly from the view:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/invitations/new.html.erb
+<span class="kw">&lt;%=</span> simple_form_for(
+  <span class="st">:invitation</span>,
+  url: survey_invitations_path(<span class="ot">@survey_inviter</span>.survey)
+) <span class="kw">do</span> <span class="ch">|</span>f<span class="ch">|</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> f.input(
+    <span class="st">:message</span>,
+    as: <span class="st">:text</span>,
+    input_html: <span class="ch">{</span> value: <span class="ot">@survey_inviter</span>.message <span class="ch">}</span>
+  ) <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%</span> <span class="kw">if</span> <span class="ot">@invlid_message</span> <span class="kw">%&gt;</span>
+    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;error&quot;</span><span class="kw">&gt;</span>Please provide a message<span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> f.input(
+    <span class="st">:recipients</span>,
+    as: <span class="st">:text</span>,
+    input_html: <span class="ch">{</span> value: <span class="ot">@survey_inviter</span>.recipients <span class="ch">}</span>
+  ) <span class="kw">%&gt;</span></code></pre>
+<p>Only the <code>SurveyInviter</code> is used in the controller now, so we can <a href="https://github.com/thoughtbot/ruby-science/commit/a0505921">remove the remaining instance variables and private methods</a>.</p>
+<p>Our controller is now much simpler:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="kw">def</span> new
+    <span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new(survey: survey)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> create
+    <span class="ot">@survey_inviter</span> = <span class="dt">SurveyInviter</span>.new(survey_inviter_attributes)
+    <span class="kw">if</span> <span class="ot">@survey_inviter</span>.valid?
+      <span class="ot">@survey_inviter</span>.deliver
+      redirect_to survey_path(survey), notice: <span class="st">'Invitation successfully sent'</span>
+    <span class="kw">else</span>
+      render <span class="st">'new'</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> survey_inviter_attributes
+    params[<span class="st">:invitation</span>].merge(survey: survey, sender: current_user)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> survey
+    <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>It only assigns one instance variable, it doesn't have too many methods, and all of its methods are fairly small.</p>
+<p>The newly extracted <code>SurveyInviter</code> class absorbed much of the complexity, but still isn't as bad as the original controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
+<span class="kw">class</span> <span class="dt">SurveyInviter</span>
+  <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span>
+
+  <span class="kw">def</span> initialize(attributes = {})
+    <span class="ot">@survey</span> = attributes[<span class="st">:survey</span>]
+    <span class="ot">@message</span> = attributes[<span class="st">:message</span>] || <span class="st">''</span>
+    <span class="ot">@recipients</span> = attributes[<span class="st">:recipients</span>] || <span class="st">''</span>
+    <span class="ot">@sender</span> = attributes[<span class="st">:sender</span>]
+  <span class="kw">end</span>
+
+  <span class="ot">attr_reader</span> <span class="st">:message</span>, <span class="st">:recipients</span>, <span class="st">:survey</span>
+
+  <span class="kw">def</span> valid?
+    valid_message? &amp;&amp; valid_recipients?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> deliver
+    recipient_list.each <span class="kw">do</span> |email|
+      invitation = <span class="dt">Invitation</span>.create(
+        survey: <span class="ot">@survey</span>,
+        sender: <span class="ot">@sender</span>,
+        recipient_email: email,
+        status: <span class="st">'pending'</span>
+      )
+      <span class="dt">Mailer</span>.invitation_notification(invitation, <span class="ot">@message</span>)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> invalid_recipients
+    <span class="ot">@invalid_recipients</span> ||= recipient_list.map <span class="kw">do</span> |item|
+      <span class="kw">unless</span> item.match(<span class="dt">EMAIL_REGEX</span>)
+        item
+      <span class="kw">end</span>
+    <span class="kw">end</span>.compact
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> valid_message?
+    <span class="ot">@message</span>.present?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> valid_recipients?
+    invalid_recipients.empty?
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> recipient_list
+    <span class="ot">@recipient_list</span> ||= <span class="ot">@recipients</span>.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<p>We can take this further by extracting more classes from <code>SurveyInviter</code>. See our <a href="https://github.com/thoughtbot/ruby-science/commit/fd6cd8d5">full solution on GitHub</a>.</p>
+</section>
+<section class="level3" id="drawbacks-2">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<p>Extracting classes decreases the amount of complexity in each class, but increases the overall complexity of the application. Extracting too many classes will create a maze of indirection which developers will be unable to navigate.</p>
+<p>Every class also requires a name. Introducing new names can help to explain functionality at a higher level and facilitates communication between developers. However, introducing too many names results in vocabulary overload, which makes the system difficult to learn for new developers.</p>
+<p>Extract classes in response to pain and resistance, and you'll end up with just the right number of classes and names.</p>
+</section>
+<section class="level3" id="next-steps-3">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Check the newly extracted class to make sure it isn't a <a href="#large-class">Large Class</a>, and extract another class if it is.</li>
+<li>Check the original class for <a href="#feature-envy">Feature Envy</a> of the extracted class, and use <a href="#move-method">Move Method</a> if necessary.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="extract-value-object">
 <h1><a href="#TOC">Extract Value Object</a></h1>
-<p>STUB</p>
+<p>Value Objects are objects that represent a value (such as a dollar amount) rather than a unique, identifiable entity (such as a particular user).</p>
+<p>Value Objects often implement information derived from a primitive object, such as the dollars and cents from a float, or the user name and domain from an email string.</p>
+<section class="level3" id="uses-4">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Remove <a href="#duplicated-code">Duplicated Code</a> from making the same observations of primitive objects throughout the code base.</li>
+<li>Remove <a href="#large-class">Large Classes</a> by splitting out query methods associated with a particular variable.</li>
+<li>Make the code easier to understand by fully-encapsulating related logic into a single class, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</li>
+<li>Eliminate <a href="#divergent-change">Divergent Change</a> by extracting code related to an embedded semantic type.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-14">
+<h3><a href="#TOC">Example</a></h3>
+<p><code>InvitationsController</code> is bloated with methods and logic relating to parsing a string that contains a list of email addresses:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">def</span> recipient_list
+  <span class="ot">@recipient_list</span> ||= recipients.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">end</span>
+
+<span class="ot">def recipients</span>
+<span class="ot">  params[:invitation][:recipients]</span>
+<span class="ot">end</span></code></pre>
+<p>We can <a href="#extract-class">extract a new class</a> to offload this responsibility:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/recipient_list.rb</span>
+<span class="kw">class</span> <span class="dt">RecipientList</span>
+  <span class="kw">include</span> <span class="dt">Enumerable</span>
+
+  <span class="kw">def</span> initialize(recipient_string)
+    <span class="ot">@recipient_string</span> = recipient_string
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> each(&amp;block)
+    recipients.each(&amp;block)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> to_s
+    <span class="ot">@recipient_string</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> recipients
+    <span class="ot">@recipient_string</span>.to_s.gsub(/\s+<span class="ot">/, '').split(/</span>[\n,;]+<span class="ot">/)</span>
+<span class="ot">  end</span>
+<span class="ot">end</span></code></pre>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
+<span class="kw">def</span> recipient_list
+  <span class="ot">@recipient_list</span> ||= <span class="dt">RecipientList</span>.new(params[<span class="st">:invitation</span>][<span class="st">:recipients</span>])
+<span class="kw">end</span></code></pre>
+</section>
+<section class="level3" id="next-steps-4">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Search the application for <a href="#duplicated-code">Duplicated Code</a> related to the newly extracted class.</li>
+<li>Value Objects should be Immutable. Make sure the extracted class doesn't have any writer methods.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="extract-decorator">
 <h1><a href="#TOC">Extract Decorator</a></h1>
@@ -1416,7 +1856,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 <section class="level1" id="extract-partial">
 <h1><a href="#TOC">Extract Partial</a></h1>
 <p>Extracting a partial is a technique used for removing complex or duplicated view code from your application. This is the equivalent of using <a href="#long-method">Long Method</a> and <a href="#extract-method">Extract Method</a> in your views and templates.</p>
-<section class="level3" id="uses-3">
+<section class="level3" id="uses-5">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#duplicated-code">Duplicated Code</a> from views.</li>
@@ -1435,7 +1875,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-13">
+<section class="level3" id="example-15">
 <h3><a href="#TOC">Example</a></h3>
 <p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
 <p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
@@ -1483,7 +1923,7 @@ en:
 
 <span class="kw">&lt;%=</span> render <span class="st">'form'</span>, question: <span class="ot">@question</span>, url: question_path <span class="kw">%&gt;</span></code></pre>
 </section>
-<section class="level3" id="next-steps-3">
+<section class="level3" id="next-steps-5">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check for other occurances of the duplicated view code in your application and replace them with the newly extracted partial.</li>
@@ -1497,7 +1937,7 @@ en:
 <section class="level1" id="extract-validator">
 <h1><a href="#TOC">Extract Validator</a></h1>
 <p>A form of <a href="#extract-class">Extract Class</a> used to remove complex validation details from <code>ActiveRecord</code> models. This technique also prevents duplication of validation code across several files.</p>
-<section class="level3" id="uses-4">
+<section class="level3" id="uses-6">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Keep validation implementation details out of models.</li>
@@ -1505,7 +1945,7 @@ en:
 <li>Remove duplication among classes performing the same validation logic.</li>
 </ul>
 </section>
-<section class="level3" id="example-14">
+<section class="level3" id="example-16">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>Invitation</code> class has validation details in-line. It checks that the <code>repient_email</code> matches the formatting of the regular expression <code>EMAIL_REGEX</code>.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
@@ -1557,7 +1997,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 </section>
-<section class="level3" id="next-steps-4">
+<section class="level3" id="next-steps-6">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Verify the extracted validator does not have any <a href="#long-methods">Long Methods</a>.</li>
@@ -1568,7 +2008,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <section class="level1" id="introduce-explaining-variable">
 <h1><a href="#TOC">Introduce Explaining Variable</a></h1>
 <p>This refactoring allows you to break up a complex, hard-to-read statement by placing part of it in a local variable. The only difficult part is finding a good name for the variable.</p>
-<section class="level3" id="uses-5">
+<section class="level3" id="uses-7">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Improves legibility of code.</li>
@@ -1576,7 +2016,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Removes the need for extra <a href="#comments">Comments</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-15">
+<section class="level3" id="example-17">
 <h3><a href="#TOC">Example</a></h3>
 <p>This line of code was hard enough to understand that a comment was added:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
@@ -1616,7 +2056,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <span class="kw">end</span></code></pre>
 <p>You can use this technique of extracting methods to make sure that developers focus on what's important first, and only dive into the implementation details when necessary.</p>
 </section>
-<section class="level3" id="next-steps-5">
+<section class="level3" id="next-steps-7">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li><a href="#replace-temp-with-query">Replace Temp with Query</a> if you want to reuse the expression or revert the naturally order in which a developer reads the method.</li>
@@ -1632,7 +2072,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <section class="level1" id="introduce-form-object">
 <h1><a href="#TOC">Introduce Form Object</a></h1>
 <p>A specialized type of <a href="#extract-class">Extract Class</a> used to remove business logic from controllers when processing data outside of an ActiveRecord model.</p>
-<section class="level3" id="uses-6">
+<section class="level3" id="uses-8">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Keep business logic out of Controllers and Views.</li>
@@ -1641,7 +2081,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Set the stage for <a href="#extract-validator">Extract Validator</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-16">
+<section class="level3" id="example-18">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>create</code> action of our <code>InvitationsController</code> relies on user submitted data for <code>message</code> and <code>recipients</code> (a comma delimited list of email addresses).</p>
 <p>It performs a number of tasks:</p>
@@ -1791,7 +2231,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 </section>
-<section class="level3" id="next-steps-6">
+<section class="level3" id="next-steps-8">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check that the controller no longer has <a href="#long-method">Long Methods</a>.</li>
@@ -1808,7 +2248,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Pick a name for the object that represents the grouped parameters.</li>
 <li>Replace method's grouped parameters with the object.</li>
 </ul>
-<section class="level3" id="uses-7">
+<section class="level3" id="uses-9">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#long-parameter-list">Long Parameter Lists</a>.</li>
@@ -1850,7 +2290,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
 <span class="kw">&lt;%=</span> <span class="ot">@recipient</span>.full_name <span class="kw">%&gt;</span></code></pre>
 </section>
-<section class="level3" id="next-steps-7">
+<section class="level3" id="next-steps-9">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check to see if the same Data Clump exists elsewhere in the application, and reuse the Parameter Object to group them together.</li>
@@ -1860,7 +2300,130 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 <section class="level1" id="use-class-as-factory">
 <h1><a href="#TOC">Use class as Factory</a></h1>
-<p>STUB</p>
+<p>An Abstract Factory is an object that knows how to build something, such as one of several possible strategies for summarizing answers to questions on a survey. An object that holds a reference to an abstract factory doesn't need to know what class is going to be used; it trusts the factory to return an object that responds to the required interface.</p>
+<p>Because classes are objects in Ruby, every class can act as an Abstract Factory. Using a class as a factory allows us to remove most explicit factory objects.</p>
+<section class="level3" id="uses-10">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Removes <a href="#duplicated-code">Duplicated Code</a>, <a href="#shotgun-surgery">Shotgun Surgery</a>, and <a href="#parallel-inheritance-hierarchy">Parallel Inheritance Hierarchies</a> by cutting out crufty factory classes.</li>
+<li>Combines with <a href="#convention-over-configuration">Convention Over Configuration</a> to eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> and <a href="#case-statement">Case Statements</a>.</li>
+</ul>
+<p></p>
+</section>
+<section class="level3" id="example-19">
+<h3><a href="#TOC">Example</a></h3>
+<p>This controller uses one of several possible summarizer strategies to generate a summary of answers to the questions on a survey:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">class</span> <span class="dt">SummariesController</span> &lt; <span class="dt">ApplicationController</span>
+  <span class="kw">def</span> show
+    <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+    <span class="ot">@summaries</span> = <span class="ot">@survey</span>.summarize(summarizer)
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> summarizer
+    <span class="kw">case</span> params[<span class="st">:id</span>]
+    <span class="kw">when</span> <span class="st">'breakdown'</span>
+      <span class="dt">Breakdown</span>.new
+    <span class="kw">when</span> <span class="st">'most_recent'</span>
+      <span class="dt">MostRecent</span>.new
+    <span class="kw">when</span> <span class="st">'your_answers'</span>
+      <span class="dt">UserAnswer</span>.new(current_user)
+    <span class="kw">else</span>
+      raise <span class="st">&quot;Unknown summary type: </span><span class="ot">#{</span>params[<span class="st">:id</span>]<span class="ot">}</span><span class="st">&quot;</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>The <code>summarizer</code> method is a Factory Method. It returns a summarizer object based on <code>params[:id]</code>.</p>
+<p></p>
+<p>We can refactor that using the Abstract Factory pattern:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> summarizer
+  summarizer_factory.build
+<span class="kw">end</span>
+
+<span class="kw">def</span> summarizer_factory
+  <span class="kw">case</span> params[<span class="st">:id</span>]
+  <span class="kw">when</span> <span class="st">'breakdown'</span>
+    <span class="dt">BreakdownFactory</span>.new
+  <span class="kw">when</span> <span class="st">'most_recent'</span>
+    <span class="dt">MostRecentFactory</span>.new
+  <span class="kw">when</span> <span class="st">'your_answers'</span>
+    <span class="dt">UserAnswerFactory</span>.new(current_user)
+  <span class="kw">else</span>
+    raise <span class="st">&quot;Unknown summary type: </span><span class="ot">#{</span>params[<span class="st">:id</span>]<span class="ot">}</span><span class="st">&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now the <code>summarizer</code> method asks the <code>summarizer_factory</code> method for an Abstract Factory, and it asks the factory to build the actual summarizer instance.</p>
+<p>However, this means we need to provide an Abstract Factory for each summarizer strategy:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">BreakdownFactory</span>
+  <span class="kw">def</span> build
+    <span class="dt">Breakdown</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">MostRecentFactory</span>
+  <span class="kw">def</span> build
+    <span class="dt">MostRecent</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
+  <span class="kw">def</span> initialize(user)
+    <span class="ot">@user</span> = user
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> build
+    <span class="dt">UserAnswer</span>.new(<span class="ot">@user</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>These factory classes are repetitive and don't pull their weight. We can rip two of these classes out by using the actual summarizer class as the factory instance. First, let's rename the <code>build</code> method to <code>new</code> to follow the Ruby convention:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> summarizer
+  summarizer_factory.new
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">BreakdownFactory</span>
+  <span class="kw">def</span> new
+    <span class="dt">Breakdown</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">MostRecentFactory</span>
+  <span class="kw">def</span> new
+    <span class="dt">MostRecent</span>.new
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
+  <span class="kw">def</span> initialize(user)
+    <span class="ot">@user</span> = user
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> new
+    <span class="dt">UserAnswer</span>.new(<span class="ot">@user</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now an instance of <code>BreakdownFactory</code> acts exactly like the <code>Breakdown</code> class itself, and the same is true of <code>MostRecentFactory</code> and <code>MostRecent</code>. Therefore, let's use the classes themselves instead of instances of the factory classes:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> summarizer_factory
+  <span class="kw">case</span> params[<span class="st">:id</span>]
+  <span class="kw">when</span> <span class="st">'breakdown'</span>
+    <span class="dt">Breakdown</span>
+  <span class="kw">when</span> <span class="st">'most_recent'</span>
+    <span class="dt">MostRecent</span>
+  <span class="kw">when</span> <span class="st">'your_answers'</span>
+    <span class="dt">UserAnswerFactory</span>.new(current_user)
+  <span class="kw">else</span>
+    raise <span class="st">&quot;Unknown summary type: </span><span class="ot">#{</span>params[<span class="st">:id</span>]<span class="ot">}</span><span class="st">&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now we can delete two of our factory classes.</p>
+</section>
+<section class="level3" id="next-steps-10">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li><a href="#use-convention-over-configuration">Use Convention Over Configuration</a> to remove manual mappings and possibly remove more classes.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="move-method">
 <h1><a href="#TOC">Move method</a></h1>
@@ -1873,7 +2436,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Rename the method if the new name no longer makes sense in the new context (for example, rename <code>invite_user</code> to <code>invite</code> once the method is moved to the <code>User</code> class).</li>
 <li>Replace calls to the old method to calls to the new method. This may require introducing delegation or building an instance of the new class.</li>
 </ul>
-<section class="level3" id="uses-8">
+<section class="level3" id="uses-11">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Remove <a href="#feature-envy">Feature Envy</a> by moving a method to the class where the envied methods live.</li>
@@ -1918,7 +2481,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <h3><a href="#TOC">Dangerous: move and extract at the same time</a></h3>
 <p>It's tempting to do everything as one change: create a new method in <code>Answer</code>, move the code over from <code>Completion</code>, and change <code>Completion#score</code> to call the new method. Although this frequently works without a hitch, with practice, you can perform the two, smaller refactorings just as quickly as the single, larger refactoring. By breaking the refactoring into two steps, you reduce the duration of &quot;down time&quot; for your code; that is, you reduce the amount of time during which something is broken. Improving code in tiny steps makes it easier to debug when something goes wrong and prevents you from writing more code than you need to. Because the code still works after each step, you can simply stop whenever you're happy with the results.</p>
 </section>
-<section class="level3" id="next-steps-8">
+<section class="level3" id="next-steps-11">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Make sure the new method doesn't suffer from <a href="#feature-envy">Feature Envy</a> because of state it used from its original class. If it does, try splitting the method up and moving part of it back.</li>
@@ -1940,7 +2503,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <p>During this refactoring, we will replace the subclasses with individual strategy classes. Each strategy class will implement a common interface. The original base class is promoted from an abstract class to the composition root, which composes the strategy classes.</p>
 <p>This allows for smaller interfaces, stricter separation of concerns, and easier testing. It also makes it possible to swap out part of the structure, which would require converting to a new type in an inheritance-based model.</p>
 <p>When applying this refactoring to an <code>ActiveRecord::Base</code> subclass, <a href="#single-table-inheritance-sti">STI</a> is removed, often in favor of a polymorphic association.</p>
-<section class="level3" id="uses-9">
+<section class="level3" id="uses-12">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#large-class">Large Classes</a> by splitting up a bloated base class.</li>
@@ -1949,7 +2512,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-17">
+<section class="level3" id="example-20">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>switch_to</code> method on <code>Question</code> changes the question to a new type. Any necessary attributes for the new subclass are provided to the <code>attributes</code> method.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -2024,11 +2587,11 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 <section class="level4" id="pull-up-delegate-method-into-base-class">
 <h4><a href="#TOC">Pull Up Delegate Method Into Base Class</a></h4>
-<p>After the first step, each subclass implements a <code>submittable</code> method to build its parallel strategy class. The <code>score</code> score method in each subclass simply delegates to its submittable. We can now pull the <code>score</code> method up into the base <code>Question</code> class, completely removing this concern from the subclasses.</p>
+<p>After the first step, each subclass implements a <code>submittable</code> method to build its parallel strategy class. The <code>score</code> method in each subclass simply delegates to its submittable. We can now pull the <code>score</code> method up into the base <code>Question</code> class, completely removing this concern from the subclasses.</p>
 <p>First, we add a delegator to <code>Question</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 delegate <span class="st">:score</span>, to: <span class="st">:submittable</span></code></pre>
-<p>Then, we simply remove the <code>score</code> method from each subclass.</p>
+<p>Then, we remove the <code>score</code> method from each subclass.</p>
 <p>You can see this change in full in the <a href="https://github.com/thoughtbot/ruby-science/commit/9c2ddc65e7248bab1f010d8a2c74c8f994a8b26d">example app</a>.</p>
 </section>
 <section class="level4" id="move-remaining-common-api-into-strategies">
@@ -2105,6 +2668,7 @@ delegate <span class="st">:score</span>, to: <span class="st">:submittable</span
 <p>We can then delete <code>submittable</code> from each of the subclasses.</p>
 <p>At this point, the subclasses contain only Rails-specific code like associations and validations.</p>
 <p>You can see the full change in the <a href="https://github.com/thoughtbot/ruby-science/commit/75075985e6050e5c1008010855e75df14547890c">example app</a>.</p>
+<p>Also, note that you may want to <a href="#scoping-constantize">scope the <code>constantize</code> call</a> in order to make the strategies easy for developers to discover and close potential security vulnerabilities.</p>
 </section>
 <section class="level4" id="a-fork-in-the-road">
 <h4><a href="#TOC">A Fork In the Road</a></h4>
@@ -2401,7 +2965,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <p>This is a difficult transition to make, and the more behavior and data that you shove into an inheritance scheme, the harder it becomes. In situations where <a href="#single-table-inheritance-sti">STI</a> is not significantly easier than using a polymorphic relationship, it's better to start with composition. STI provides few advantages over composition, and it's easier to merge models than to split them.</p>
 </section>
 </section>
-<section class="level3" id="drawbacks-2">
+<section class="level3" id="drawbacks-3">
 <h3><a href="#TOC">Drawbacks</a></h3>
 <p>Our application also got worse in a number of ways:</p>
 <ul>
@@ -2414,7 +2978,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <p>After performing a large change, keep track of difficult changes you make. Would they have been easier in the old world?</p>
 <p>Answering this questions will increase your ability to judge whether or not to use composition or inheritance in future situations.</p>
 </section>
-<section class="level3" id="next-steps-9">
+<section class="level3" id="next-steps-12">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check the extracted strategy classes to make sure they don't have <a href="#feature-envy">Feature Envy</a> related to the original base class. You may want to use <a href="#move-method">Move Method</a> to move methods between strategies and the root class.</li>
@@ -2429,7 +2993,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <section class="level1" id="replace-callback-with-method">
 <h1><a href="#TOC">Replace Callback with Method</a></h1>
 <p>If your models are hard to use and change because their persistence logic is coupled with business logic, one way to loosen things up is by replacing <a href="#callback">callbacks</a>.</p>
-<section class="level3" id="uses-10">
+<section class="level3" id="uses-13">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Reduces coupling persistence logic with business logic.</li>
@@ -2447,7 +3011,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-18">
+<section class="level3" id="example-21">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">def</span> deliver_invitations
@@ -2501,7 +3065,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <span class="kw">end</span></code></pre>
 <p>If any of the invitations fail to save, the transaction will roll back. Nothing will be committed, and no messages will be delivered.</p>
 </section>
-<section class="level3" id="next-steps-10">
+<section class="level3" id="next-steps-13">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Find other instances where the model is saved to make sure that the extracted method doesn't need to be called.</li>
@@ -2511,15 +3075,16 @@ after_create <span class="st">:deliver</span></code></pre>
 <section class="level1" id="use-convention-over-configuration">
 <h1><a href="#TOC">Use convention over configuration</a></h1>
 <p>Ruby's metaprogramming allows us to avoid boilerplate code and duplication by relying on conventions for class names, file names, and directory structure. Although depending on class names can be constricting in some situations, careful use of conventions will make your applications less tedious and more bug-proof.</p>
-<section class="level3" id="uses-11">
+<section class="level3" id="uses-14">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#case-statement">Case Statements</a> by finding classes by name.</li>
 <li>Eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> by removing the need to register or configure new strategies and services.</li>
 <li>Remove <a href="#duplicated-code">Duplicated Code</a> by removing manual associations from identifiers to class names.</li>
 </ul>
+<p></p>
 </section>
-<section class="level3" id="example-19">
+<section class="level3" id="example-22">
 <h3><a href="#TOC">Example</a></h3>
 <p>This controller accepts an <code>id</code> parameter identifying which summarizer strategy to use and renders a summary of the survey based on the chosen strategy:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
@@ -2547,8 +3112,8 @@ after_create <span class="st">:deliver</span></code></pre>
 <p>The controller is manually mapping a given strategy name to an object that can perform the strategy with the given name. In most cases, a strategy name directly maps to a class of the same name.</p>
 <p>We can use the <code>constantize</code> method from Rails to retrieve a class by name:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby">params[<span class="st">:id</span>].classify.constantize</code></pre>
-<p>This will find the <code>MostRecent</code> class from the string <code>&quot;most_recent&quot;</code>, and so on. This means we can rely on a convention for our summarizer strategies: each named strategy will map to a class which the controller can instantiate to obtain a summarizer.</p>
-<p>However, we can't simplify start using <code>constantize</code> in our example, because there's one outlier case: the <code>UserAnswer</code> class is referenced using <code>&quot;your_answers&quot;</code> instead of <code>&quot;user_answer&quot;</code>, and <code>UserAnswer</code> takes different parameters than the other two strategies.</p>
+<p>This will find the <code>MostRecent</code> class from the string <code>&quot;most_recent&quot;</code>, and so on. This means we can rely on a convention for our summarizer strategies: each named strategy will map to a class implementing that strategy. The controller can <a href="#use-class-as-factory">use the class as an Abstract Factory</a> and obtain a summarizer.</p>
+<p>However, we can't immediately start using <code>constantize</code> in our example, because there's one outlier case: the <code>UserAnswer</code> class is referenced using <code>&quot;your_answers&quot;</code> instead of <code>&quot;user_answer&quot;</code>, and <code>UserAnswer</code> takes different parameters than the other two strategies.</p>
 <p>Before refactoring the code to rely on our new convention, let's refactor to obey it. All our names should map directly to class names, and each class should accept the same parameters:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
 <span class="kw">def</span> summarizer
@@ -2591,20 +3156,33 @@ after_create <span class="st">:deliver</span></code></pre>
   params[<span class="st">:id</span>].classify.constantize
 <span class="kw">end</span></code></pre>
 <p>Now we'll never need to change our controller when adding a new strategy; we just add a new class following the naming convention.</p>
-<p>There are two drawbacks we should fix before merging:</p>
+</section>
+<section class="level2" id="scoping-constantize">
+<h2><a href="#TOC">Scoping <code>constantize</code></a></h2>
+<p>Our controller currently takes a string directly from user input (<code>params</code>) and instantiates a class with that name.</p>
+<p>There are two issues with this approach that should be fixed:</p>
 <ul>
-<li>Before, a developer could simply look at the controller to find the list of available strategies. Now you'd need to perform a complicated search to find the relevant classes.</li>
-<li>The original code had a whitelist of strategies; that is, a user couldn't instantiate any class they wanted just by hacking parameters. The new code will instantiate anything you want.</li>
+<li>There's no list of available strategies, so a developer would need to perform a complicated search to find the relevant classes.</li>
+<li>Without a whitelist, a user can make the application instantiate any class they want by hacking parameters. This can result in security vulnerabilities.</li>
 </ul>
-<p>We can solve both easily by altering our convention slightly: scope all the summarizer classes within a module.</p>
+<p>We can solve both easily by altering our convention slightly: scope all the strategy classes within a module.</p>
+<p>We change our strategy factory method:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">def</span> summarizer
+  summarizer_class.new(user: current_user)
+<span class="kw">end</span>
+
+<span class="kw">def</span> summarizer_class
+  params[<span class="st">:id</span>].classify.constantize
+<span class="kw">end</span></code></pre>
+<p>To:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
 <span class="kw">def</span> summarizer_class
   <span class="st">&quot;Summarizer::</span><span class="ot">#{</span>params[<span class="st">:id</span>].classify<span class="ot">}</span><span class="st">&quot;</span>.constantize
 <span class="kw">end</span></code></pre>
-<p>With this convention in place, you can find all summaries by just looking in the <code>Summarizer</code> module. In a Rails application, this will be in a <code>summarizer</code> directory by convention.</p>
+<p>With this convention in place, you can find all strategies by just looking in the <code>Summarizer</code> module. In a Rails application, this will be in a <code>summarizer</code> directory by convention.</p>
 <p>Users also won't be able to instantiate anything they want by abusing our <code>constantize</code>, because only classes in the <code>Summarizer</code> module are available.</p>
-</section>
-<section class="level3" id="drawbacks-3">
+<section class="level3" id="drawbacks-4">
 <h3><a href="#TOC">Drawbacks</a></h3>
 <section class="level4" id="weak-conventions">
 <h4><a href="#TOC">Weak Conventions</a></h4>
@@ -2626,6 +3204,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <h4><a href="#TOC">Class-Oriented Programming</a></h4>
 <p>Another drawback to this solution is that it's entirely class-based, which means you can't assemble strategies at run-time. This means that reuse requires inheritance.</p>
 <p>Also, this class-based approach, while convenient when developing an application, is more likely to cause frustration when writing a library. Forcing developers to pass a class name instead of an object limits the amount of runtime information strategies can use. In our example, only a <code>user</code> was required. When you control both sides of the API, it's fine to assume that this is safe. When writing a library that will interface with other developers' applications, it's better not to rely on class names.</p>
+</section>
 </section>
 </section>
 </section>
