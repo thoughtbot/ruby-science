@@ -1734,11 +1734,629 @@ end
 
 # Extract Class
 
-STUB
+Dividing responsibilities into classes is the primary way to manage complexity
+in object-oriented software. Extract Class is the primary mechanism for
+introducing new classes. This refactoring takes one class and splits it into two
+by moving one or more methods and instance variables into a new class.
+
+The process for extracting a class looks like this:
+
+1. Create a new, empty class.
+2. Instantiate the new class from the original class.
+3. [Move a method](#move-method) from the original class to the new class.
+4. Repeat step 3 until you're happy with the original class.
+
+### Uses
+
+* Removes [Large Class](#large-class) by splitting up the class.
+* Eliminates [Divergent Change](#divergent-change) by moving one reason to
+  change into a new class.
+* Provides a cohesive set of functionality with a meaningful name, making it
+  easier to understand and talk about.
+* Fully encapsulates a concern within a single class, following the [Single
+  Responsibility Principle](#single-responsibility-principle) and making it
+  easier to change and reuse that functionality.
+
+\clearpage
+
+### Example
+
+The `InvitationsController` is a [Large Class](#large-class) hidden behind a
+[Long Method](#long-method):
+
+```ruby
+# app/controllers/invitations_controller.rb
+class InvitationsController < ApplicationController
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+
+  def new
+    @survey = Survey.find(params[:survey_id])
+  end
+
+  def create
+    @survey = Survey.find(params[:survey_id])
+
+    @recipients = params[:invitation][:recipients]
+    recipient_list = @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+
+    @invalid_recipients = recipient_list.map do |item|
+      unless item.match(EMAIL_REGEX)
+        item
+      end
+    end.compact
+
+    @message = params[:invitation][:message]
+
+    if @invalid_recipients.empty? && @message.present?
+      recipient_list.each do |email|
+        invitation = Invitation.create(
+          survey: @survey,
+          sender: current_user,
+          recipient_email: email,
+          status: 'pending'
+        )
+        Mailer.invitation_notification(invitation, @message)
+      end
+
+      redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
+    else
+      render 'new'
+    end
+  end
+end
+```
+
+Although it contains only two methods, there's a lot going on under the hood. It
+parses and validates emails, manages several pieces of state which the view needs
+to know about, handles control flow for the user, and creates and delivers
+invitations.
+
+[A liberal
+application](https://github.com/thoughtbot/ruby-science/commit/65f1b428) of
+[Extract Method](#extract-method) to break up this [Long Method](#long-method)
+will reveal the complexity:
+
+```ruby
+# app/controllers/invitations_controller.rb
+class InvitationsController < ApplicationController
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+
+  def new
+    @survey = Survey.find(params[:survey_id])
+  end
+
+  def create
+    @survey = Survey.find(params[:survey_id])
+    if valid_recipients? && valid_message?
+      recipient_list.each do |email|
+        invitation = Invitation.create(
+          survey: @survey,
+          sender: current_user,
+          recipient_email: email,
+          status: 'pending'
+        )
+        Mailer.invitation_notification(invitation, message)
+      end
+      redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
+    else
+      @recipients = recipients
+      @message = message
+      render 'new'
+    end
+  end
+
+  private
+
+  def valid_recipients?
+    invalid_recipients.empty?
+  end
+
+  def valid_message?
+    message.present?
+  end
+
+  def invalid_recipients
+    @invalid_recipients ||= recipient_list.map do |item|
+      unless item.match(EMAIL_REGEX)
+        item
+      end
+    end.compact
+  end
+
+  def recipient_list
+    @recipient_list ||= recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+  end
+
+  def recipients
+    params[:invitation][:recipients]
+  end
+
+  def message
+    params[:invitation][:message]
+  end
+end
+```
+
+Let's extract all of the non-controller logic into a new class. We'll start by
+defining and instantiating a new, empty class:
+
+```ruby
+# app/controllers/invitations_controller.rb
+@survey_inviter = SurveyInviter.new
+```
+
+```ruby
+# app/models/survey_inviter.rb
+class SurveyInviter
+end
+```
+
+At this point, we've [created a staging
+area](https://github.com/thoughtbot/ruby-science/commit/cce33485) for using
+[Move Method](#move-method) to transfer complexity from one class to the other.
+
+Next, we'll move one method from the controller to our new class. It's best to
+move methods which depend on few private methods or instance variables from the
+original class, so we'll start with a method which only uses one private method:
+
+```ruby
+# app/models/survey_inviter.rb
+def recipient_list
+  @recipient_list ||= @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+end
+```
+
+We need the recipients for this method, so we'll accept it in the `initialize`
+method:
+
+```ruby
+# app/models/survey_inviter.rb
+def initialize(recipients)
+  @recipients = recipients
+end
+```
+
+And pass it from our controller:
+
+```ruby
+# app/controllers/invitations_controller.rb
+@survey_inviter = SurveyInviter.new(recipients)
+```
+
+The original controller method can delegate to the extracted method:
+
+```ruby
+# app/controllers/invitations_controller.rb
+def recipient_list
+  @survey_inviter.recipient_list
+end
+```
+
+We've [moved a little complexity out of our
+controller](https://github.com/thoughtbot/ruby-science/commit/ac014750), and we
+now have a repeatable process for doing so: we can continue to move methods out
+until we feel good about what's left in the controller.
+
+Next, let's move out `invalid_recipients` from the controller, since it depends
+on `recipient_list`, which we already moved:
+
+```ruby
+# app/models/survey_inviter.rb
+def invalid_recipients
+  @invalid_recipients ||= recipient_list.map do |item|
+    unless item.match(EMAIL_REGEX)
+      item
+    end
+  end.compact
+end
+```
+
+Again, the original controller method can delegate:
+
+```ruby
+# app/controllers/invitations_controller.rb
+def invalid_recipients
+  @survey_inviter.invalid_recipients
+end
+```
+
+This method references a constant from the controller. This was the only place
+where the constant was used, so we can move it to our new class:
+
+```ruby
+# app/models/survey_inviter.rb
+EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+```
+
+We can remove an instance variable in the controller by invoking this method
+directly in the view:
+
+```rhtml
+# app/views/invitations/new.html.erb
+<% if @survey_inviter.invalid_recipients %>
+  <div class="error">
+    Invalid email addresses: 
+    <%= @survey_inviter.invalid_recipients.join(', ') %>
+  </div>
+<% end %>
+```
+
+Now that parsing email lists is [moved out of our
+controller](https://github.com/thoughtbot/ruby-science/commit/0fefb969), let's
+extract and delegate the only method in the controller which depends on
+`invalid_recipients`:
+
+```ruby
+# app/models/survey_inviter.rb
+def valid_recipients?
+  invalid_recipients.empty?
+end
+```
+
+Now we can remove `invalid_recipients` from the controller entirely.
+
+The `valid_recipients?` method is only used in the compound validation
+condition:
+
+```ruby
+# app/controllers/invitations_controller.rb
+if valid_recipients? && valid_message?
+```
+
+If we extract `valid_message?` as well, we can fully encapsulate validation
+within `SurveyInviter`.
+
+```ruby
+# app/models/survey_inviter.rb
+def valid_message?
+  @message.present?
+end
+```
+
+We need `message` for this method, so we'll add that to `initialize`:
+
+```ruby
+# app/models/survey_inviter.rb
+def initialize(message, recipients)
+  @message = message
+  @recipients = recipients
+end
+```
+
+And pass it in:
+
+```ruby
+# app/controllers/invitations_controller.rb
+@survey_inviter = SurveyInviter.new(message, recipients)
+```
+
+We can now extract a method to encapsulate this compound condition:
+
+```ruby
+# app/models/survey_inviter.rb
+def valid?
+  valid_message? && valid_recipients?
+end
+```
+
+And use that new method in our controller:
+
+```ruby
+# app/controllers/invitations_controller.rb
+if @survey_inviter.valid?
+```
+
+Now these methods can be private, trimming down the public interface for
+`SurveyInviter`:
+
+```ruby
+# app/models/survey_inviter.rb
+private
+
+def valid_message?
+  @message.present?
+end
+
+def valid_recipients?
+  invalid_recipients.empty?
+end
+```
+
+We've [pulled out most of the private
+methods](https://github.com/thoughtbot/ruby-science/commit/b434954d), so the
+remaining complexity is largely from saving and delivering the invitations.
+
+Let's extract and move a `deliver` method for that:
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver
+  recipient_list.each do |email|
+    invitation = Invitation.create(
+      survey: @survey,
+      sender: @sender,
+      recipient_email: email,
+      status: 'pending'
+    )
+    Mailer.invitation_notification(invitation, @message)
+  end
+end
+```
+
+We need the sender (the currently signed in user) as well as the survey from the
+controller to do this. This pushes our initialize method up to four parameters,
+so let's switch to a hash:
+
+```ruby
+# app/models/survey_inviter.rb
+def initialize(attributes = {})
+  @survey = attributes[:survey]
+  @message = attributes[:message] || ''
+  @recipients = attributes[:recipients] || ''
+  @sender = attributes[:sender]
+end
+```
+
+And extract a method in our controller to build it:
+
+```ruby
+# app/controllers/invitations_controller.rb
+def survey_inviter_attributes
+  params[:invitation].merge(survey: @survey, sender: current_user)
+end
+```
+
+Now we can invoke this method in our controller:
+
+```ruby
+# app/controllers/invitations_controller.rb
+if @survey_inviter.valid?
+  @survey_inviter.deliver
+  redirect_to survey_path(@survey), notice: 'Invitation successfully sent'
+else
+  @recipients = recipients
+  @message = message
+  render 'new'
+end
+```
+
+The `recipient_list` method is now only used internally in `SurveyInviter`, so
+let's make it private.
+
+We've [moved most of the behavior out of the
+controller](https://github.com/thoughtbot/ruby-science/commit/000babe1), but
+we're still assigning a number of instance variables for the view, which have
+corresponding private methods in the controller. These values are also available
+on `SurveyInviter`, which is already assigned to the view, so let's expose those
+using `attr_reader`:
+
+```ruby
+# app/models/survey_inviter.rb
+attr_reader :message, :recipients, :survey
+```
+
+And use them directly from the view:
+
+```rhtml
+# app/views/invitations/new.html.erb
+<%= simple_form_for(
+  :invitation,
+  url: survey_invitations_path(@survey_inviter.survey)
+) do |f| %>
+  <%= f.input(
+    :message,
+    as: :text,
+    input_html: { value: @survey_inviter.message }
+  ) %>
+  <% if @invlid_message %>
+    <div class="error">Please provide a message</div>
+  <% end %>
+  <%= f.input(
+    :recipients,
+    as: :text,
+    input_html: { value: @survey_inviter.recipients }
+  ) %>
+```
+
+Only the `SurveyInviter` is used in the controller now, so we can [remove the
+remaining instance variables and private
+methods](https://github.com/thoughtbot/ruby-science/commit/a0505921).
+
+Our controller is now much simpler:
+
+```ruby
+# app/controllers/invitations_controller.rb
+class InvitationsController < ApplicationController
+  def new
+    @survey_inviter = SurveyInviter.new(survey: survey)
+  end
+
+  def create
+    @survey_inviter = SurveyInviter.new(survey_inviter_attributes)
+    if @survey_inviter.valid?
+      @survey_inviter.deliver
+      redirect_to survey_path(survey), notice: 'Invitation successfully sent'
+    else
+      render 'new'
+    end
+  end
+
+  private
+
+  def survey_inviter_attributes
+    params[:invitation].merge(survey: survey, sender: current_user)
+  end
+
+  def survey
+    Survey.find(params[:survey_id])
+  end
+end
+```
+
+It only assigns one instance variable, it doesn't have too many methods, and all
+of its methods are fairly small.
+
+The newly extracted `SurveyInviter` class absorbed much of the complexity, but
+still isn't as bad as the original controller:
+
+```ruby
+# app/models/survey_inviter.rb
+class SurveyInviter
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+
+  def initialize(attributes = {})
+    @survey = attributes[:survey]
+    @message = attributes[:message] || ''
+    @recipients = attributes[:recipients] || ''
+    @sender = attributes[:sender]
+  end
+
+  attr_reader :message, :recipients, :survey
+
+  def valid?
+    valid_message? && valid_recipients?
+  end
+
+  def deliver
+    recipient_list.each do |email|
+      invitation = Invitation.create(
+        survey: @survey,
+        sender: @sender,
+        recipient_email: email,
+        status: 'pending'
+      )
+      Mailer.invitation_notification(invitation, @message)
+    end
+  end
+
+  def invalid_recipients
+    @invalid_recipients ||= recipient_list.map do |item|
+      unless item.match(EMAIL_REGEX)
+        item
+      end
+    end.compact
+  end
+
+  private
+
+  def valid_message?
+    @message.present?
+  end
+
+  def valid_recipients?
+    invalid_recipients.empty?
+  end
+
+  def recipient_list
+    @recipient_list ||= @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+  end
+end
+```
+
+We can take this further by extracting more classes from `SurveyInviter`. See
+our [full solution on
+GitHub](https://github.com/thoughtbot/ruby-science/commit/fd6cd8d5).
+
+### Drawbacks
+
+Extracting classes decreases the amount of complexity in each class, but
+increases the overall complexity of the application. Extracting too many classes
+will create a maze of indirection which developers will be unable to navigate.
+
+Every class also requires a name. Introducing new names can help to
+explain functionality at a higher level and facilitates communication between
+developers. However, introducing too many names results in vocabulary overload,
+which makes the system difficult to learn for new developers.
+
+Extract classes in response to pain and resistance, and you'll end up with just
+the right number of classes and names.
+
+### Next Steps
+
+* Check the newly extracted class to make sure it isn't a [Large
+  Class](#large-class), and extract another class if it is.
+* Check the original class for [Feature Envy](#feature-envy) of the extracted
+  class, and use [Move Method](#move-method) if necessary.
 
 # Extract Value Object
 
-STUB
+Value Objects are objects that represent a value (such as a dollar amount)
+rather than a unique, identifiable entity (such as a particular user).
+
+Value Objects often implement information derived from a primitive object, such
+as the dollars and cents from a float, or the user name and domain from an email
+string.
+
+### Uses
+
+* Remove [Duplicated Code](#duplicated-code) from making the same observations
+  of primitive objects throughout the code base.
+* Remove [Large Classes](#large-class) by splitting out query methods associated
+  with a particular variable.
+* Make the code easier to understand by fully-encapsulating related logic into a
+  single class, following the [Single Responsibility
+  Principle](#single-responsibility-principle).
+* Eliminate [Divergent Change](#divergent-change) by extracting code related to
+  an embedded semantic type.
+
+\clearpage
+
+### Example
+
+`InvitationsController` is bloated with methods and logic relating to parsing a
+string that contains a list of email addresses:
+
+```ruby
+# app/controllers/invitations_controller.rb
+def recipient_list
+  @recipient_list ||= recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+end
+
+def recipients
+  params[:invitation][:recipients]
+end
+```
+
+We can [extract a new class](#extract-class) to offload this responsibility:
+
+```ruby
+# app/models/recipient_list.rb
+class RecipientList
+  include Enumerable
+
+  def initialize(recipient_string)
+    @recipient_string = recipient_string
+  end
+
+  def each(&block)
+    recipients.each(&block)
+  end
+
+  def to_s
+    @recipient_string
+  end
+
+  private
+
+  def recipients
+    @recipient_string.to_s.gsub(/\s+/, '').split(/[\n,;]+/)
+  end
+end
+```
+
+``` ruby
+# app/controllers/invitations_controller.rb
+def recipient_list
+  @recipient_list ||= RecipientList.new(params[:invitation][:recipients])
+end
+```
+
+### Next Steps
+
+* Search the application for [Duplicated Code](#duplicated-code) related to the
+  newly extracted class.
+* Value Objects should be Immutable. Make sure the extracted class doesn't have
+  any writer methods.
 
 # Extract Decorator
 
@@ -2320,7 +2938,171 @@ object to encapsulate behavior between the `first_name` and `last_name`.
 
 # Use class as Factory
 
-STUB
+An Abstract Factory is an object that knows how to build something, such as one
+of several possible strategies for summarizing answers to questions on a survey.
+An object that holds a reference to an abstract factory doesn't need to know
+what class is going to be used; it trusts the factory to return an object that
+responds to the required interface.
+
+Because classes are objects in Ruby, every class can act as an Abstract Factory.
+Using a class as a factory allows us to remove most explicit factory objects.
+
+### Uses
+
+* Removes [Duplicated Code](#duplicated-code), [Shotgun
+  Surgery](#shotgun-surgery), and [Parallel Inheritance
+  Hierarchies](#parallel-inheritance-hierarchy) by cutting out crufty factory
+  classes.
+* Combines with [Convention Over Configuration](#convention-over-configuration)
+  to eliminate [Shotgun Surgery](#shotgun-surgery) and [Case
+  Statements](#case-statement).
+
+\clearpage
+
+### Example
+
+This controller uses one of several possible summarizer strategies to generate a
+summary of answers to the questions on a survey:
+
+```ruby
+# app/controllers/summaries_controller.rb
+class SummariesController < ApplicationController
+  def show
+    @survey = Survey.find(params[:survey_id])
+    @summaries = @survey.summarize(summarizer)
+  end
+
+  private
+
+  def summarizer
+    case params[:id]
+    when 'breakdown'
+      Breakdown.new
+    when 'most_recent'
+      MostRecent.new
+    when 'your_answers'
+      UserAnswer.new(current_user)
+    else
+      raise "Unknown summary type: #{params[:id]}"
+    end
+  end
+end
+```
+
+The `summarizer` method is a Factory Method. It returns a summarizer object
+based on `params[:id]`.
+
+\clearpage
+
+We can refactor that using the Abstract Factory pattern:
+
+``` ruby
+def summarizer
+  summarizer_factory.build
+end
+
+def summarizer_factory
+  case params[:id]
+  when 'breakdown'
+    BreakdownFactory.new
+  when 'most_recent'
+    MostRecentFactory.new
+  when 'your_answers'
+    UserAnswerFactory.new(current_user)
+  else
+    raise "Unknown summary type: #{params[:id]}"
+  end
+end
+```
+
+Now the `summarizer` method asks the `summarizer_factory` method for an Abstract
+Factory, and it asks the factory to build the actual summarizer instance.
+
+However, this means we need to provide an Abstract Factory for each summarizer
+strategy:
+
+``` ruby
+class BreakdownFactory
+  def build
+    Breakdown.new
+  end
+end
+
+class MostRecentFactory
+  def build
+    MostRecent.new
+  end
+end
+
+class UserAnswerFactory
+  def initialize(user)
+    @user = user
+  end
+
+  def build
+    UserAnswer.new(@user)
+  end
+end
+```
+
+These factory classes are repetitive and don't pull their weight. We can rip two
+of these classes out by using the actual summarizer class as the factory
+instance. First, let's rename the `build` method to `new` to follow the Ruby
+convention:
+
+``` ruby
+def summarizer
+  summarizer_factory.new
+end
+
+class BreakdownFactory
+  def new
+    Breakdown.new
+  end
+end
+
+class MostRecentFactory
+  def new
+    MostRecent.new
+  end
+end
+
+class UserAnswerFactory
+  def initialize(user)
+    @user = user
+  end
+
+  def new
+    UserAnswer.new(@user)
+  end
+end
+```
+
+Now an instance of `BreakdownFactory` acts exactly like the `Breakdown` class
+itself, and the same is true of `MostRecentFactory` and `MostRecent`. Therefore,
+let's use the classes themselves instead of instances of the factory classes:
+
+``` ruby
+def summarizer_factory
+  case params[:id]
+  when 'breakdown'
+    Breakdown
+  when 'most_recent'
+    MostRecent
+  when 'your_answers'
+    UserAnswerFactory.new(current_user)
+  else
+    raise "Unknown summary type: #{params[:id]}"
+  end
+end
+```
+
+Now we can delete two of our factory classes.
+
+### Next Steps
+
+* [Use Convention Over Configuration](#use-convention-over-configuration) to
+  remove manual mappings and possibly remove more classes.
 
 # Move method
 
@@ -2606,7 +3388,7 @@ make sure that the parallel inheritance hierarchy is removed before merging.
 #### Pull Up Delegate Method Into Base Class
 
 After the first step, each subclass implements a `submittable` method to build
-its parallel strategy class. The `score` score method in each subclass simply
+its parallel strategy class. The `score` method in each subclass simply
 delegates to its submittable. We can now pull the `score` method up into the
 base `Question` class, completely removing this concern from the subclasses.
 
@@ -2617,7 +3399,7 @@ First, we add a delegator to `Question`:
 delegate :score, to: :submittable
 ```
 
-Then, we simply remove the `score` method from each subclass.
+Then, we remove the `score` method from each subclass.
 
 You can see this change in full in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/9c2ddc65e7248bab1f010d8a2c74c8f994a8b26d).
@@ -2755,6 +3537,10 @@ At this point, the subclasses contain only Rails-specific code like associations
 and validations.
 
 You can see the full change in the [example app](https://github.com/thoughtbot/ruby-science/commit/75075985e6050e5c1008010855e75df14547890c).
+
+Also, note that you may want to [scope the `constantize`
+call](#scoping-constantize) in order to make the strategies easy for developers
+to discover and close potential security vulnerabilities.
 
 #### A Fork In the Road
 
@@ -3427,6 +4213,8 @@ bug-proof.
 * Remove [Duplicated Code](#duplicated-code) by removing manual associations
   from identifiers to class names.
 
+\clearpage
+
 ### Example
 
 This controller accepts an `id` parameter identifying which summarizer strategy
@@ -3469,10 +4257,11 @@ params[:id].classify.constantize
 
 This will find the `MostRecent` class from the string `"most_recent"`, and so
 on. This means we can rely on a convention for our summarizer strategies: each
-named strategy will map to a class which the controller can instantiate to
-obtain a summarizer.
+named strategy will map to a class implementing that strategy. The controller
+can [use the class as an Abstract Factory](#use-class-as-factory) and obtain a
+summarizer.
 
-However, we can't simplify start using `constantize` in our example, because
+However, we can't immediately start using `constantize` in our example, because
 there's one outlier case: the `UserAnswer` class is referenced using
 `"your_answers"` instead of `"user_answer"`, and `UserAnswer` takes different
 parameters than the other two strategies.
@@ -3537,17 +4326,35 @@ end
 Now we'll never need to change our controller when adding a new strategy; we
 just add a new class following the naming convention.
 
-There are two drawbacks we should fix before merging:
+## Scoping `constantize`
 
-* Before, a developer could simply look at the controller to find the list of
-  available strategies. Now you'd need to perform a complicated search to find
-  the relevant classes.
-* The original code had a whitelist of strategies; that is, a user couldn't
-  instantiate any class they wanted just by hacking parameters. The new code
-  will instantiate anything you want.
+Our controller currently takes a string directly from user input (`params`) and
+instantiates a class with that name.
+
+There are two issues with this approach that should be fixed:
+
+* There's no list of available strategies, so a developer would need to perform
+  a complicated search to find the relevant classes.
+* Without a whitelist, a user can make the application instantiate any class
+  they want by hacking parameters. This can result in security vulnerabilities.
 
 We can solve both easily by altering our convention slightly: scope all the
-summarizer classes within a module.
+strategy classes within a module.
+
+We change our strategy factory method:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def summarizer
+  summarizer_class.new(user: current_user)
+end
+
+def summarizer_class
+  params[:id].classify.constantize
+end
+```
+
+To:
 
 ```ruby
 # app/controllers/summaries_controller.rb
@@ -3556,8 +4363,8 @@ def summarizer_class
 end
 ```
 
-With this convention in place, you can find all summaries by just looking in the
-`Summarizer` module. In a Rails application, this will be in a `summarizer`
+With this convention in place, you can find all strategies by just looking in
+the `Summarizer` module. In a Rails application, this will be in a `summarizer`
 directory by convention.
 
 Users also won't be able to instantiate anything they want by abusing our
