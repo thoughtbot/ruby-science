@@ -60,6 +60,8 @@
 
 <<[solutions/extract_method.md]
 
+<<[solutions/rename_method.md]
+
 <<[solutions/extract_class.md]
 
 <<[solutions/extract_value_object.md]
