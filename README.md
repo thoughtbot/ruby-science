@@ -65,11 +65,9 @@ Latex is needed for PDF creation:
 
 ## Building
 
-Run `rake build:all` to build all output targets.
+Run `paperback build` to build all output targets.
 
-Run `rake build:epub` (or `:html`, `:pdf`, `:mobi`) to build individual versions.
-
-## For Authors
+## Contributing
 
 New contributions should be added as pull requests. Guidelines:
 
@@ -78,10 +76,12 @@ New contributions should be added as pull requests. Guidelines:
 * Each new chapter should be a pull request
 * Mixing any of the above into one pull request makes reviewing more difficult
 
+## Reviewing
+
 When reviewing new chapters, use `bin/review` to check out, build, and view the
 book locally. Example: `bin/review 6` will review the book for pull request 6.
 
 ## Releasing
 
-Run `rake release` to build all output targets, commit to git, and push up to
-GitHub.
+Run `paperback release` to build all output targets in the `release` directory.
+Then commit and push up to GitHub.
