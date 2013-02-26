@@ -9,7 +9,8 @@ clues for refactoring.
 
 * Difficulty understanding a method or class.
 * Methods or classes with similar names but dissimilar functionality.
-* Redundant names, such as names which include the type of object they refer to.
+* Redundant names, such as names which include the type of object to which they
+  refer.
 
 ### Example
 
