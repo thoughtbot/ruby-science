@@ -51,6 +51,10 @@ Latex is needed for PDF distribution:
 
 We recommend downloading the [smaller, BasicTeX in conjunction with MacTeX](http://www.tug.org/mactex/morepackages.html).
 
+You may need to add its bin directory to your PATH:
+
+    export PATH=$PATH:/usr/texbin
+
 #### Installing dependencies on Ubuntu
 
 Install KindleGen into ~/bin; you can put it anywhere in your PATH you like:
