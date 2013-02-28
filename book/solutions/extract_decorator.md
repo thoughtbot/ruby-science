@@ -2,24 +2,24 @@
 
 Decorators can be used to lay new concerns on top of existing objects without
 modifying existing classes. They combine best with small classes with few
-methods, and make the most sense when adding behavior to existing methods,
-rather than adding new methods.
+methods, and make the most sense when modifying the behavior of existing
+methods, rather than adding new methods.
 
 The steps for extracting a decorator vary depending on the initial state, but
-there are some frequent steps:
+they often include the following:
 
-* Extract a new decorator class, starting with the alternative behavior.
-* Compose the decorator from the original class.
-* Move state specific to the alternate behavior into the decorator.
-* Invert control, applying the decorator to the original class from its
+1. Extract a new decorator class, starting with the alternative behavior.
+2. Compose the decorator in the original class.
+3. Move state specific to the alternate behavior into the decorator.
+4. Invert control, applying the decorator to the original class from its
   container, rather than composing the decorator from the original class.
 
 ### Uses
 
 * Eliminate [Large Classes](#large-class) by extracting concerns.
 * Eliminate [Divergent Change](#divergent-change) and follow the [Open Closed
-  Principle](#open-closed-principle) by making it easier to layer on new
-  behaviors without modifying existing classes.
+  Principle](#open-closed-principle) by making it easier to modify behavior
+  without modifying existing classes.
 * Prevent conditional logic from leaking by making decisions earlier.
 
 ### Example
@@ -61,7 +61,8 @@ using a Decorator:
 * There's an alternate, or decorated, case: returning a summary with a hidden
   answer.
 * The conditional logic for using the base or decorated case is unrelated to the
-  base case.
+  base case: `answered_by` is only used for determining which path to take, and
+  isn't used by to generate summaries.
 
 As a Rails developer, this may seem familiar to you: many pieces of Rack
 middleware follow a similar approach.
@@ -70,17 +71,12 @@ Now that we've recognized this pattern, let's refactor to use a Decorator.
 
 #### Move decorated case to decorator
 
-Let's start by creating an empty class for the decorator:
+Let's start by creating an empty class for the decorator and [moving one
+method](#move-method) into it:
 
-` app/models/unanswered_question_hider.rb@af2e8318:1
+` app/models/unanswered_question_hider.rb@af2e8318
 
-And [moving one method](#move-method) into it:
-
-` app/models/unanswered_question_hider.rb@af2e8318:4,6
-
-That method references a constant from `Survey`, so we'll move that, too:
-
-` app/models/unanswered_question_hider.rb@af2e8318:2
+The method references a constant from `Survey`, so moved that, too.
 
 Now we update `Survey` to compose our new class:
 
@@ -96,7 +92,8 @@ over:
 
 ` app/models/unanswered_question_hider.rb@9d0274f4:8,10
 
-\clearpage
+Note that the `answered_by` parameter was renamed to `user`. That's because, now
+that the context is more specific, it's clear what role the user is playing.
 
 ` app/models/survey.rb@9d0274f4:18,25
 
@@ -136,7 +133,7 @@ summarizer interface:
 
 ` app/models/unanswered_question_hider.rb@61ca6784:9
 
-` app/models/survey.rb@61ca6784:13
+` app/models/survey.rb@61ca6784:12,13
 
 [Our decorator now follows the component interface in
 name](https://github.com/thoughtbot/ruby-science/commit/61ca6784), but not
