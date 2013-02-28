@@ -3,11 +3,21 @@
 Renaming a method allows developers to improve the language of the domain as
 their understanding naturally evolves during development.
 
-The process is straightforward:
+The process is straightforward if there aren't too many references:
 
 * Choose a new name for the method. This is the hard part!
 * Change the method definition to the new name.
 * Find and replace all references to the old name.
+
+If there are a large number of references to the method you want to rename, you
+can rename the callers one at a time while keeping everything in working order.
+The process is mostly the same:
+
+* Choose a new name for the method. This is the hard part!
+* Rename the method definition to use the new name.
+* Add an alias to keep the old name working.
+* Find and replace all references to the old name.
+* Remove the alias.
 
 ### Uses
 
@@ -40,9 +50,10 @@ different things:
 
 * `Survey#summarize` accepts a summarizer and returns an array of `Summary`
   instances.
-* `Question#summarize` accepts a summarizer returns a single `Summary` instance.
+* `Question#summarize` accepts a summarizer and returns a single `Summary`
+  instance.
 * `summarize` on summarizer strategies accepts a `Question` and returns a
-  String.
+  `String`.
 
 Let's rename these methods so that each name is used uniquely and consistently
 in terms of what it accepts, what it returns, and what it does.
@@ -69,8 +80,8 @@ We now have consistent and clearer naming:
 
 * `summarize` means taking a question and returning a string value representing
   its answers.
-* `summary_for` means taking a summarizer and using it to build a `Summary`.
-* `summaries_for` means taking a set of questions and building a `Summary` for
+* `summary_using` means taking a summarizer and using it to build a `Summary`.
+* `summaries_using` means taking a set of questions and building a `Summary` for
   each one.
 
 ### Next Steps
