@@ -8,7 +8,7 @@ class UnansweredQuestionHider
 
   def summarize(question)
     if hide_unanswered_question?(question)
-      NO_ANSWER
+      Summary.new(question.title, NO_ANSWER)
     else
       @summarizer.summarize(question)
     end
