@@ -1,8 +1,12 @@
 class Summarizer::Breakdown
+  include Summarizer::Base
+
   def initialize(options)
   end
 
-  def summarize(question)
-    Summary.new(question.title, question.breakdown)
+  private
+
+  def summary_value(question)
+    question.breakdown
   end
 end
