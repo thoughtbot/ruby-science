@@ -10,6 +10,7 @@ describe Summarizer::UserAnswer, '#summarize' do
     result = summarizer.summarize(question)
 
     user.should have_received(:answer_text_for).with(question)
-    result.should eq 'result'
+    result.title.should eq question.title
+    result.value.should eq 'result'
   end
 end

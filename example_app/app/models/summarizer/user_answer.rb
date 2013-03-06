@@ -4,6 +4,6 @@ class Summarizer::UserAnswer
   end
 
   def summarize(question)
-    @user.answer_text_for question
+    Summary.new(question.title, @user.answer_text_for(question))
   end
 end
