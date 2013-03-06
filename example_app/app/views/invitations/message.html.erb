@@ -1,0 +1,9 @@
+<p><%= @invitation.sender.email %> wants you to fill out a survey.</p>
+
+<p><%= @invitation.message %></p>
+
+<p>
+  You can <%= link_to 'fill it out now', survey_url(@invitation.survey) %>
+  using your existing account or <%= link_to 'sign up for a new account',
+    new_invitation_user_url(@invitation) %>.
+</p>

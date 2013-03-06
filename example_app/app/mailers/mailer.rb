@@ -10,12 +10,11 @@ class Mailer < ActionMailer::Base
     )
   end
 
-  def invitation_notification(invitation)
-    @invitation = invitation
-
+  def invitation_notification(invitation, body)
     mail(
       to: invitation.recipient_email,
-      subject: 'You have been invited to take an online survey'
+      subject: 'You have been invited to take an online survey',
+      body: body
     )
   end
 end
