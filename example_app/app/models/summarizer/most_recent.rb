@@ -1,8 +1,12 @@
 class Summarizer::MostRecent
+  include Summarizer::Base
+
   def initialize(options)
   end
 
-  def summarize(question)
-    Summary.new(question.title, question.most_recent_answer_text)
+  private
+
+  def summary_value(question)
+    question.most_recent_answer_text
   end
 end
