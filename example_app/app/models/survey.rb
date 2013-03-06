@@ -9,7 +9,7 @@ class Survey < ActiveRecord::Base
 
   def summaries_using(summarizer)
     questions.map do |question|
-      question.summary_using(summarizer)
+      summarizer.summarize(question)
     end
   end
 end
