@@ -29,6 +29,15 @@ feature 'User sends invitation' do
     page.should have_form_error
   end
 
+  scenario 'to existing user' do
+    send_survey_invitation existing_email, valid_message
+
+    as_user existing_user do
+      visit root_path
+      page.should have_invitation
+    end
+  end
+
   def send_survey_invitation(recipients, message)
     survey = create(:survey, author: current_user)
     visit survey_path(survey)
@@ -44,6 +53,18 @@ feature 'User sends invitation' do
 
   def invalid_email
     'invalid_email'
+  end
+
+  def existing_email
+    existing_user.email
+  end
+
+  def existing_user
+    @existing_user ||= create(:user)
+  end
+
+  def have_invitation
+    have_css('.message', text: valid_message)
   end
 
   def valid_message

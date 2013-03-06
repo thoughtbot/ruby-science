@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207214017) do
+ActiveRecord::Schema.define(:version => 20130306194800) do
 
   create_table "answers", :force => true do |t|
     t.integer  "completion_id", :null => false
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(:version => 20130207214017) do
 
   add_index "invitations", ["survey_id"], :name => "index_invitations_on_survey_id"
   add_index "invitations", ["token"], :name => "index_invitations_on_token", :unique => true
+
+  create_table "messages", :force => true do |t|
+    t.integer  "sender_id",    :null => false
+    t.integer  "recipient_id", :null => false
+    t.text     "body",         :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "multiple_choice_submittables", :force => true do |t|
     t.datetime "created_at", :null => false

@@ -1,9 +1,13 @@
 module Features
   def sign_in
-    @current_user = create(:user, password: 'test')
+    sign_in_as create(:user)
+  end
+
+  def sign_in_as(user)
+    @current_user = user
     visit '/sign_in'
-    fill_in 'Email', with: @current_user.email
-    fill_in 'Password', with: 'test'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_on 'Sign in'
   end
 
@@ -11,9 +15,13 @@ module Features
     @current_user
   end
 
-  def as_another_user
-    using_session 'other user' do
-      sign_in
+  def as_another_user(&block)
+    as_user create(:user), &block
+  end
+
+  def as_user(user)
+    using_session user.email do
+      sign_in_as user
       yield
     end
   end

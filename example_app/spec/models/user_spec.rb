@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+describe User do
+  it { should have_many(:received_messages) }
+end
+
 describe User, '#answer_text_for' do
   it 'returns the answer text for the question by this user' do
     survey = create(:survey)
