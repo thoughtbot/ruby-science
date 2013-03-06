@@ -31,13 +31,12 @@ describe Mailer, '#invitation_notification' do
     message.should have_subject('You have been invited to take an online survey')
   end
 
-  it 'displays the invitation url in the body' do
-    message.should have_body_text(invitation_text)
-    message.should have_body_text(invitation_path)
+  it 'uses the given body' do
+    message.should have_body_text(body_text)
   end
 
   def message
-   Mailer.invitation_notification(invitation)
+    Mailer.invitation_notification(invitation, body_text)
   end
 
   def invitation
@@ -59,5 +58,9 @@ describe Mailer, '#invitation_notification' do
 
   def invitation_text
     'Fill out this survey'
+  end
+
+  def body_text
+    'example body text'
   end
 end

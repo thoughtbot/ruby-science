@@ -13,14 +13,31 @@ describe Invitation, 'Validations' do
 end
 
 describe Invitation, '#deliver' do
-  it 'sends email notifications' do
-    notification = stub('notification', deliver: true)
-    Mailer.stubs(invitation_notification: notification)
+  it 'sends email notifications to new users' do
+    inviter = stub('inviter', deliver: true)
+    EmailInviter.stubs(new: inviter)
     invitation = build_stubbed(:invitation)
 
     invitation.deliver
 
-    notification.should have_received(:deliver)
+    EmailInviter.should have_received(:new).with(invitation)
+    inviter.should have_received(:deliver)
+  end
+
+  it 'creates private messages for existing users' do
+    existing_user = build_stubbed(:user)
+    User.stubs(:find_by_email).with(existing_user.email).returns(existing_user)
+    inviter = stub('inviter', deliver: true)
+    MessageInviter.stubs(new: inviter)
+    invitation = build_stubbed(
+      :invitation,
+      recipient_email: existing_user.email
+    )
+
+    invitation.deliver
+
+    MessageInviter.should have_received(:new).with(invitation, existing_user)
+    inviter.should have_received(:deliver)
   end
 end
 

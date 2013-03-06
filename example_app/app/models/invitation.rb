@@ -15,12 +15,20 @@ class Invitation < ActiveRecord::Base
   end
 
   def deliver
-    Mailer.invitation_notification(self).deliver
+    if recipient_user
+      MessageInviter.new(self, recipient_user).deliver
+    else
+      EmailInviter.new(self).deliver
+    end
   end
 
   private
 
   def set_token
     self.token = SecureRandom.urlsafe_base64
+  end
+
+  def recipient_user
+    User.find_by_email(recipient_email)
   end
 end
