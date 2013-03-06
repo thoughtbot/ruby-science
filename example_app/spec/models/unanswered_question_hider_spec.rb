@@ -9,8 +9,7 @@ describe UnansweredQuestionHider, '#summarize' do
 
     result = hider.summarize(question)
 
-    result.title.should eq question.title
-    result.value.should eq UnansweredQuestionHider::NO_ANSWER
+    result.should eq UnansweredQuestionHider::NO_ANSWER
   end
 
   it 'delegates to the summarizer given a user with an answer' do
