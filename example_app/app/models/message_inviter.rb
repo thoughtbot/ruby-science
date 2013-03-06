@@ -1,4 +1,4 @@
-class MessageInviter < AbstractController::Base
+class MessageInviter
   include Inviter
 
   def initialize(invitation, recipient)
