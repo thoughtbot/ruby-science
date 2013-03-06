@@ -37,6 +37,11 @@ class Question < ActiveRecord::Base
     self.submittable = submittable_class.new(attributes.merge(question: self))
   end
 
+  def summary_using(summarizer)
+    value = summarizer.summarize(self)
+    Summary.new(title, value)
+  end
+
   def switch_to(type, attributes)
     old_submittable = submittable
     build_submittable type, attributes
