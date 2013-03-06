@@ -8,7 +8,6 @@ describe Summarizer::Breakdown, '#summarize' do
 
     result = breakdown.summarize(question)
 
-    result.title.should eq question.title
-    result.value.should eq 'breakdown'
+    result.should eq 'breakdown'
   end
 end

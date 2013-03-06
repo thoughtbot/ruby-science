@@ -22,7 +22,7 @@ describe Survey, '#summaries_using' do
   def fake_summarizer
     Class.new do
       def summarize(question)
-        Summary.new(question.title, 'result')
+        'result'
       end
     end
   end
