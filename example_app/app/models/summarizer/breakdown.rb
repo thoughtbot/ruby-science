@@ -3,6 +3,6 @@ class Summarizer::Breakdown
   end
 
   def summarize(question)
-    question.breakdown
+    Summary.new(question.title, question.breakdown)
   end
 end

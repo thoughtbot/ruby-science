@@ -3,6 +3,6 @@ class Summarizer::MostRecent
   end
 
   def summarize(question)
-    question.most_recent_answer_text
+    Summary.new(question.title, question.most_recent_answer_text)
   end
 end

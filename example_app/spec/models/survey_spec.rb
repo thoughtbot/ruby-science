@@ -11,22 +11,19 @@ describe Survey, '#summaries_using' do
   it 'applies the given summarizer to each question' do
     questions = [build_stubbed(:question), build_stubbed(:question)]
     survey = build_stubbed(:survey, questions: questions)
-    summarizer = stub_summarizer
+    summarizer = fake_summarizer.new
 
     result = survey.summaries_using(summarizer)
 
-    should_summarize_questions questions, summarizer
     result.map(&:title).should == questions.map(&:title)
     result.map(&:value).should == %w(result result)
   end
 
-  def stub_summarizer
-    stub('summarizer', summarize: 'result')
-  end
-
-  def should_summarize_questions(questions, summarizer)
-    questions.each do |question|
-      summarizer.should have_received(:summarize).with(question)
+  def fake_summarizer
+    Class.new do
+      def summarize(question)
+        Summary.new(question.title, 'result')
+      end
     end
   end
 end

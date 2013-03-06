@@ -8,6 +8,7 @@ describe Summarizer::MostRecent, '#summarize' do
 
     result = summarizer.summarize(question)
 
-    result.should eq 'result'
+    result.title.should eq question.title
+    result.value.should eq 'result'
   end
 end
