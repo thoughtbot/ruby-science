@@ -1,9 +1,10 @@
-class EmailInviter < Inviter
+class EmailInviter
   def initialize(invitation)
     @invitation = invitation
+    @body = InvitationMessage.new(@invitation).body
   end
 
   def deliver
-    Mailer.invitation_notification(@invitation, render_message_body).deliver
+    Mailer.invitation_notification(@invitation, @body).deliver
   end
 end
