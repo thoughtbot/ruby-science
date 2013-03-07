@@ -30,7 +30,7 @@ feature 'User sends invitation' do
   end
 
   scenario 'to existing user' do
-    survey = send_survey_invitation(existing_email, valid_message)
+    send_survey_invitation existing_email, valid_message
 
     as_user existing_user do
       visit root_path
@@ -45,7 +45,6 @@ feature 'User sends invitation' do
     fill_in 'Message', with: message
     fill_in 'Recipients', with: recipients
     click_button 'Invite'
-    survey
   end
 
   def valid_email
