@@ -44,7 +44,7 @@ First, we'll [extract a new class](#extract-class) for the mixin:
 ` app/models/invitation_message.rb@8df463c4
 
 This class contains all the behavior the formerly resided in the mixin. In order
-to keep everything working, we'll compose and delegated to the extracted class
+to keep everything working, we'll compose and delegate to the extracted class
 from the mixin:
 
 ` app/models/inviter.rb@8df463c4
