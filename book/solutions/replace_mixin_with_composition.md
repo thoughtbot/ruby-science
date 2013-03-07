@@ -67,8 +67,6 @@ entirely.
 
 * [Inject Dependencies](#inject-dependencies) to invert control and allow the
   composing classes to use different implementations for the composed class.
-* [Inline the composed class](#inline-class) if there's only one reference to it
-  and it largely shares state with the composing class.
 * Check the composing class for [Feature Envy](#feature-envy) of the extracted
   class. Tight coupling is common between mixin methods and host methods, so you
   may need to use [move method](#move-method) a few times to get the balance
