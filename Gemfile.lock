@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:thoughtbot/paperback.git
-  revision: 63c85987cbc4abe835ac28e0ba5fb99277770c6f
+  revision: df626dd31aea80c30d35df238ba3d75ef5f1c46d
   specs:
     paperback (0.0.1)
       activesupport (~> 3.2.11)
@@ -13,17 +13,17 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.2.11)
+    activesupport (3.2.12)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
-    i18n (0.6.1)
+    i18n (0.6.4)
     kindlegen (2.7.0)
       systemu
-    multi_json (1.5.0)
+    multi_json (1.6.1)
     nokogiri (1.5.6)
     pandoc-ruby (0.6.0)
     rmagick (2.13.2)
