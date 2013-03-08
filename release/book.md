@@ -765,7 +765,67 @@ for duplicated conditional logic.
 
 # Uncommunicative Name
 
-STUB
+Software is run by computers, but written and read by humans. Names provide
+important information to developers who are trying to understand a piece of
+code. Patterns and challenges when naming a method or class can also provide
+clues for refactoring.
+
+### Symptoms
+
+* Difficulty understanding a method or class.
+* Methods or classes with similar names but dissimilar functionality.
+* Redundant names, such as names which include the type of object to which they
+  refer.
+
+### Example
+
+In our example application, the `SummariesController` generates summaries from a
+`Survey`:
+
+```ruby
+# app/controllers/summaries_controller.rb
+@summaries = @survey.summaries_using(summarizer)
+```
+
+The `summarize` method on `Survey` asks each `Question` to `summarize` itself
+using a `summarizer`:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+  questions.map do |question|
+    question.summarize(summarizer)
+  end
+end
+```
+
+The `summarize` method on `Question` gets a value by calling `summarize` on a
+summarizer, and then builds a `Summary` using that value.
+
+```ruby
+# app/models/question.rb
+def summarize(summarizer)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+There are several summarizer classes, each of which respond to `summarize`.
+
+If you're lost, don't worry: you're not the only one. The confusing maze of
+similar names make this example extremely hard to follow.
+
+See [Rename Method](#rename-method) to see how we improve the situation.
+
+### Solutions
+
+* [Rename Method](#rename-method) if a well-factored method isn't well-named.
+* [Extract Class](#extract-class) if a class is doing too much to have a
+  meaningful name.
+* [Extract Method](#extract-method) if a method is doing too much to have a
+  meaningful name.
+* [Inline Class](#inline-class) if a class is too abstract to have a meaningful
+  name.
 
 # Single Table Inheritance (STI)
 
@@ -909,7 +969,101 @@ name, don't leave a comment.
 
 # Mixin
 
-STUB
+Inheritance is a common method of reuse in object-oriented software. Ruby
+supports single inheritance using subclasses and multiple inheritance using
+mixins. Mixins can be used to package common helpers or provide a common public
+interface.
+
+However, mixins have some drawbacks:
+
+* They use the same namespace as classes they're mixed into, which can cause
+  naming conflicts.
+* Although they have access to instance variables from classes they're mixed
+  into, mixins can't easily accept initializer arguments, so they can't have
+  their own state.
+* They inflate the number of methods available in a class.
+* They're not easy to add and remove at runtime.
+* They're difficult to test in isolation, since they can't be instantiated.
+
+### Symptoms
+
+* Methods in mixins that accept the same parameters over and over.
+* Methods in mixins that don't reference the state of the class they're mixed
+  into.
+* Business logic that can't be used without using the mixin.
+* Classes which have few public methods except those from a mixin.
+
+### Example
+
+In our example application, users can invite their friends by email to take
+surveys. If an invited email matches an existing user, a private message will be
+created. Otherwise, a message is sent to that email address with a link.
+
+The logic to generate the invitation message is the same regardless of the
+delivery mechanism, so this behavior is encapsulated in a mixin:
+
+```ruby
+# app/models/inviter.rb
+module Inviter
+  extend ActiveSupport::Concern
+
+  included do
+    include AbstractController::Rendering
+    include Rails.application.routes.url_helpers
+
+    self.view_paths = 'app/views'
+    self.default_url_options = ActionMailer::Base.default_url_options
+  end
+
+  private
+
+  def render_message_body
+    render template: 'invitations/message'
+  end
+end
+```
+
+Each delivery strategy mixes in `Inviter` and calls `render_message_body`:
+
+```ruby
+# app/models/message_inviter.rb
+class MessageInviter < AbstractController::Base
+  include Inviter
+
+  def initialize(invitation, recipient)
+    @invitation = invitation
+    @recipient = recipient
+  end
+
+  def deliver
+    Message.create!(
+      recipient: @recipient,
+      sender: @invitation.sender,
+      body: render_message_body
+    )
+  end
+end
+```
+
+Although the mixin does a good job of preventing [duplicated
+code](#duplicated-code), it's difficult to test or understand in isolation, it
+obfuscates the inviter classes, and it tightly couples the inviter classes to a
+particular message body implementation.
+
+### Solutions
+
+* [Extract Class](#extract-class) to liberate business logic trapped in mixins.
+* [Replace Mixin with Composition](#replace-mixin-with-composition) to improve
+  testability, flexibility, and readability.
+
+### Prevention
+
+Mixins are a form of inheritance. By following [Composition Over
+Inheritance](#composition-over-inheritance), you'll be less likely to introduce
+mixins.
+
+Reserve mixins for reusable framework code like common associations and
+callbacks, and you'll end up with a more flexible and comprehensible system.
 
 # Callback
 
@@ -1732,6 +1886,127 @@ end
   Extracting methods reveals complexity, making it clearer when a class is doing
   too much.
 
+# Rename Method
+
+Renaming a method allows developers to improve the language of the domain as
+their understanding naturally evolves during development.
+
+The process is straightforward if there aren't too many references:
+
+* Choose a new name for the method. This is the hard part!
+* Change the method definition to the new name.
+* Find and replace all references to the old name.
+
+If there are a large number of references to the method you want to rename, you
+can rename the callers one at a time while keeping everything in working order.
+The process is mostly the same:
+
+* Choose a new name for the method. This is the hard part!
+* Give the method its new name.
+* Add an alias to keep the old name working.
+* Find and replace all references to the old name.
+* Remove the alias.
+
+### Uses
+
+* Eliminate [Uncommunicative Names](#uncommunicative-name).
+* Change method names to conform to common interfaces.
+
+### Example
+
+In our example application, we generate summaries from answers to surveys. We
+allow more than one type of summary, so strategies are employed to handle the
+variations. There are a number of methods and dependencies that make this work.
+
+`SummariesController#show` depends on `Survey#summarize`:
+
+```ruby
+# app/controllers/summaries_controller.rb
+@summaries = @survey.summarize(summarizer)
+```
+
+`Survey#summarize` depends on `Question#summarize`:
+
+```ruby
+# app/models/survey.rb
+def summarize(summarizer)
+  questions.map do |question|
+    question.summarize(summarizer)
+  end
+end
+```
+
+`Question#summarize` depends on `summarize` from its `summarizer` argument (a
+strategy):
+
+```ruby
+# app/models/question.rb
+def summarize(summarizer)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+There are several summarizer classes, each of which respond to `summarize`.
+
+This is confusing, largely because the word `summarize` is used to mean several
+different things:
+
+* `Survey#summarize` accepts a summarizer and returns an array of `Summary`
+  instances.
+* `Question#summarize` accepts a summarizer and returns a single `Summary`
+  instance.
+* `summarize` on summarizer strategies accepts a `Question` and returns a
+  `String`.
+
+Let's rename these methods so that each name is used uniquely and consistently
+in terms of what it accepts, what it returns, and what it does.
+
+First, we'll rename `Survey#summarize` to reflect the fact that it returns a
+collection.
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+```
+
+Then, we'll update the only reference to the old method:
+
+```ruby
+# app/controllers/summaries_controller.rb
+@summaries = @survey.summaries_using(summarizer)
+```
+
+Next, we'll rename `Question#summarize` to be consistent with the naming
+introduced in `Survey`:
+
+```ruby
+# app/models/question.rb
+def summary_using(summarizer)
+```
+
+Finally, we'll update the only reference in `Survey#summaries_using`:
+
+```ruby
+# app/models/survey.rb
+question.summary_using(summarizer)
+```
+
+We now have consistent and clearer naming:
+
+* `summarize` means taking a question and returning a string value representing
+  its answers.
+* `summary_using` means taking a summarizer and using it to build a `Summary`.
+* `summaries_using` means taking a set of questions and building a `Summary` for
+  each one.
+
+### Next Steps
+
+* Check for explanatory comments that are no longer necessary now that the code
+  is clearer.
+* If the new name for a method is long, see if you can [extract
+  methods](#extract-method) from it make it smaller.
+
 # Extract Class
 
 Dividing responsibilities into classes is the primary way to manage complexity
@@ -2360,7 +2635,405 @@ end
 
 # Extract Decorator
 
-STUB
+Decorators can be used to lay new concerns on top of existing objects without
+modifying existing classes. They combine best with small classes with few
+methods, and make the most sense when modifying the behavior of existing
+methods, rather than adding new methods.
+
+The steps for extracting a decorator vary depending on the initial state, but
+they often include the following:
+
+1. Extract a new decorator class, starting with the alternative behavior.
+2. Compose the decorator in the original class.
+3. Move state specific to the alternate behavior into the decorator.
+4. Invert control, applying the decorator to the original class from its
+  container, rather than composing the decorator from the original class.
+
+### Uses
+
+* Eliminate [Large Classes](#large-class) by extracting concerns.
+* Eliminate [Divergent Change](#divergent-change) and follow the [Open Closed
+  Principle](#open-closed-principle) by making it easier to modify behavior
+  without modifying existing classes.
+* Prevent conditional logic from leaking by making decisions earlier.
+
+### Example
+
+In our example application, users can view a summary of the answers to each
+question on a survey. In order to prevent the summary from influencing a user's
+own answers, users don't see summaries for questions they haven't answered yet
+by default. Users can click a link to override this decision and view the
+summary for every question. This concern is mixed across several levels, and
+introducing the change affected several classes. Let's see if we can refactor
+our application to make similar changes easier in the future.
+
+Currently, the controller determines whether or not unanswered questions should
+display summaries:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def constraints
+  if include_unanswered?
+    {}
+  else
+    { answered_by: current_user }
+  end
+end
+
+def include_unanswered?
+  params[:unanswered]
+end
+```
+
+It passes this decision into `Survey#summaries_using` as a hash containing
+boolean flag:
+
+```ruby
+# app/controllers/summaries_controller.rb
+@summaries = @survey.summaries_using(summarizer, constraints)
+```
+
+`Survey#summaries_using` uses this information to decide whether each question
+should return a real summary or a hidden summary:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    if !options[:answered_by] || question.answered_by?(options[:answered_by])
+      question.summary_using(summarizer)
+    else
+      Summary.new(question.title, NO_ANSWER)
+    end
+  end
+end
+```
+
+This method is pretty dense. We can start by using [Extract
+Method](#extract-method) to clarify and reveal complexity:
+
+\clearpage
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    summary_or_hidden_answer(summarizer, question, options[:answered_by])
+  end
+end
+
+private
+
+def summary_or_hidden_answer(summarizer, question, answered_by)
+  if hide_unanswered_question?(question, answered_by)
+    hide_answer_to_question(question)
+  else
+    question.summary_using(summarizer)
+  end
+end
+
+def hide_unanswered_question?(question, answered_by)
+  answered_by && !question.answered_by?(answered_by)
+end
+
+def hide_answer_to_question(question)
+  Summary.new(question.title, NO_ANSWER)
+end
+```
+
+The `summary_or_hidden_answer` method reveals a pattern that's well-captured by
+using a Decorator:
+
+* There's a base case: returning the real summary for the question's answers.
+* There's an alternate, or decorated, case: returning a summary with a hidden
+  answer.
+* The conditional logic for using the base or decorated case is unrelated to the
+  base case: `answered_by` is only used for determining which path to take, and
+  isn't used by to generate summaries.
+
+As a Rails developer, this may seem familiar to you: many pieces of Rack
+middleware follow a similar approach.
+
+Now that we've recognized this pattern, let's refactor to use a Decorator.
+
+#### Move decorated case to decorator
+
+Let's start by creating an empty class for the decorator and [moving one
+method](#move-method) into it:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+class UnansweredQuestionHider
+  NO_ANSWER = "You haven't answered this question".freeze
+
+  def hide_answer_to_question(question)
+    Summary.new(question.title, NO_ANSWER)
+  end
+end
+```
+
+The method references a constant from `Survey`, so moved that, too.
+
+Now we update `Survey` to compose our new class:
+
+```ruby
+# app/models/survey.rb
+def summary_or_hidden_answer(summarizer, question, answered_by)
+  if hide_unanswered_question?(question, answered_by)
+    UnansweredQuestionHider.new.hide_answer_to_question(question)
+  else
+    question.summary_using(summarizer)
+  end
+end
+```
+
+At this point, the [decorated path is contained within the decorator](https://github.com/thoughtbot/ruby-science/commit/af2e8318).
+
+#### Move conditional logic into decorator
+
+Next, we can move the conditional logic into the decorator. We've already
+extracted this to its own method on `Survey`, so we can simply move this method
+over:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def hide_unanswered_question?(question, user)
+  user && !question.answered_by?(user)
+end
+```
+
+Note that the `answered_by` parameter was renamed to `user`. That's because, now
+that the context is more specific, it's clear what role the user is playing.
+
+```ruby
+# app/models/survey.rb
+def summary_or_hidden_answer(summarizer, question, answered_by)
+  hider = UnansweredQuestionHider.new
+  if hider.hide_unanswered_question?(question, answered_by)
+    hider.hide_answer_to_question(question)
+  else
+    question.summary_using(summarizer)
+  end
+end
+```
+
+#### Move body into decorator
+
+[There's just one summary-related method left in `Survey`](https://github.com/thoughtbot/ruby-science/commit/9d0274f4):
+`summary_or_hidden_answer`. Let's move this into the decorator:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def summary_or_hidden_answer(summarizer, question, user)
+  if hide_unanswered_question?(question, user)
+    hide_answer_to_question(question)
+  else
+    question.summary_using(summarizer)
+  end
+end
+```
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    UnansweredQuestionHider.new.summary_or_hidden_answer(
+      summarizer,
+      question,
+      options[:answered_by]
+    )
+  end
+end
+```
+
+[At this point](https://github.com/thoughtbot/ruby-science/commit/4fd00a88),
+every other method in the decorator can be made private.
+
+#### Promote parameters to instance variables
+
+Now that we have a class to handle this logic, we can move some of the
+parameters into instance state. In `Survey#summaries_using`, we use the same
+summarizer and user instance; only the question varies as we iterate through
+questions to summarize. Let's move everything but question into instance
+variables on the decorator:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def initialize(summarizer, user)
+  @summarizer = summarizer
+  @user = user
+end
+
+def summary_or_hidden_answer(question)
+  if hide_unanswered_question?(question)
+    hide_answer_to_question(question)
+  else
+    question.summary_using(@summarizer)
+  end
+end
+```
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    UnansweredQuestionHider.new(summarizer, options[:answered_by]).
+      summary_or_hidden_answer(question)
+  end
+end
+```
+
+[Our decorator now just needs a `question` to generate a
+`Summary`](https://github.com/thoughtbot/ruby-science/commit/72801b57).
+
+#### Change decorator to follow component interface
+
+In the end, the component we want to wrap with our decorator is the summarizer,
+so we want the decorator to obey the same interface as its component, the
+summarizer. Let's rename our only public method so that it follows the
+summarizer interface:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def summarize(question)
+```
+
+```ruby
+# app/models/survey.rb
+UnansweredQuestionHider.new(summarizer, options[:answered_by]).
+  summarize(question)
+```
+
+[Our decorator now follows the component interface in
+name](https://github.com/thoughtbot/ruby-science/commit/61ca6784), but not
+behavior. In our application, summarizers return a string which represents the
+answers to a question, but our decorator is returning a `Summary` instead. Let's
+fix our decorator to follow the component interface by returning just a string:
+
+\clearpage
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def summarize(question)
+  if hide_unanswered_question?(question)
+    hide_answer_to_question(question)
+  else
+    @summarizer.summarize(question)
+  end
+end
+```
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def hide_answer_to_question(question)
+  NO_ANSWER
+end
+```
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    hider = UnansweredQuestionHider.new(summarizer, options[:answered_by])
+    question.summary_using(hider)
+  end
+end
+```
+
+Our decorator now [follows the component
+interface](https://github.com/thoughtbot/ruby-science/commit/876ec976).
+
+That last method on the decorator (`hide_answer_to_question`) isn't pulling its
+weight anymore: it just returns the value from a constant. Let's [inline
+it](https://github.com/thoughtbot/ruby-science/commit/77b22c5a) to slim down our
+class a bit:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def summarize(question)
+  if hide_unanswered_question?(question)
+    NO_ANSWER
+  else
+    @summarizer.summarize(question)
+  end
+end
+```
+
+Now we have a decorator that can wrap any summarizer, nicely-factored and ready
+to use.
+
+#### Invert control
+
+Now comes one of the most important steps: we can [invert
+control](#dependency-inversion-principle) by removing any reference to the
+decorator from `Survey` and passing in an already-decorated summarizer.
+
+The `summaries_using` method is simplified:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+  questions.map do |question|
+    question.summary_using(summarizer)
+  end
+end
+```
+
+Instead of passing the boolean flag down from the controller, we can [make the
+decision to decorate
+there](https://github.com/thoughtbot/ruby-science/commit/256a9c92) and pass a
+decorated or undecorated summarizer:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def show
+  @survey = Survey.find(params[:survey_id])
+  @summaries = @survey.summaries_using(decorated_summarizer)
+end
+
+private
+
+def decorated_summarizer
+  if include_unanswered?
+    summarizer
+  else
+    UnansweredQuestionHider.new(summarizer, current_user)
+  end
+end
+```
+
+This isolates the decision to one class and keeps the result of the decision
+close to the class that makes it.
+
+Another important effect of this refactoring is that the `Survey` class is now
+reverted back to [the way it was before we started hiding unanswered question
+summaries](https://github.com/thoughtbot/ruby-science/blob/d97f7856/example_app/app/models/survey.rb).
+This means that we can now add similar changes without modifying `Survey` at
+all.
+
+### Drawbacks
+
+* Decorators must keep up-to-date with their component interface. Our decorator
+  follows the summarizer interface. Every decorator we add for this interface is
+  one more class that will need to change any time we change the interface.
+* We removed a concern from `Survey` by hiding it behind a decorator, but this
+  may make it harder for a developer to understand how a `Survey` might return
+  the hidden response text, as that text doesn't appear anywhere in that class.
+* The component we decorated had the smallest possible interface: one public
+  method. Classes with more public methods are more difficult to decorate.
+* Decorators can modify methods in the component interface easily, but adding
+  new methods won't work with multiple decorators without metaprogramming like
+  `method_missing`. These constructs are harder to follow and should be used
+  with care.
+
+### Next Steps
+
+* It's unlikely that your automated test suite has enough coverage to check
+  every component implementation with every decorator. Run through the
+  application in a browser after introducing new decorators. Test and fix any
+  issues you run into.
+* Make sure that inverting control didn't push anything over the line into a
+  [Large Class](#large-class).
 
 # Extract Partial
 
@@ -4087,7 +4760,182 @@ use composition or inheritance in future situations.
 
 # Replace mixin with composition
 
-STUB
+Mixins are one of two mechanisms for inheritance in Ruby. This refactoring
+provides safe steps for cleanly removing mixins that have become troublesome.
+
+Removing a mixin in favor of composition involves the following steps:
+
+* Extract a class for the mixin.
+* Compose and delegate to the extracted class from each mixed in method.
+* Replace references to mixed in methods with references to the composed class.
+* Remove the mixin.
+
+### Uses
+
+* Liberate business logic trapped in mixins.
+* Eliminate name clashes from multiple mixins.
+* Make methods in the mixins easier test.
+
+\clearpage
+
+### Example
+
+In our example applications, invitations can be delivered either by email or
+private message (to existing users). Each invitation method is implemented in
+its own class:
+
+```ruby
+# app/models/message_inviter.rb
+class MessageInviter < AbstractController::Base
+  include Inviter
+
+  def initialize(invitation, recipient)
+    @invitation = invitation
+    @recipient = recipient
+  end
+
+  def deliver
+    Message.create!(
+      recipient: @recipient,
+      sender: @invitation.sender,
+      body: render_message_body
+    )
+  end
+end
+```
+
+```ruby
+# app/models/email_inviter.rb
+class EmailInviter < AbstractController::Base
+  include Inviter
+
+  def initialize(invitation)
+    @invitation = invitation
+  end
+
+  def deliver
+    Mailer.invitation_notification(@invitation, render_message_body).deliver
+  end
+end
+```
+
+The logic to generate the invitation message is the same regardless of the
+delivery mechanism, so this behavior has been extracted.
+
+\clearpage
+
+It's currently extracted using a mixin:
+
+```ruby
+# app/models/inviter.rb
+module Inviter
+  extend ActiveSupport::Concern
+
+  included do
+    include AbstractController::Rendering
+    include Rails.application.routes.url_helpers
+
+    self.view_paths = 'app/views'
+    self.default_url_options = ActionMailer::Base.default_url_options
+  end
+
+  private
+
+  def render_message_body
+    render template: 'invitations/message'
+  end
+end
+```
+
+Let's replace this mixin with composition.
+
+First, we'll [extract a new class](#extract-class) for the mixin:
+
+```ruby
+# app/models/invitation_message.rb
+class InvitationMessage < AbstractController::Base
+  include AbstractController::Rendering
+  include Rails.application.routes.url_helpers
+
+  self.view_paths = 'app/views'
+  self.default_url_options = ActionMailer::Base.default_url_options
+
+  def initialize(invitation)
+    @invitation = invitation
+  end
+
+  def body
+    render template: 'invitations/message'
+  end
+end
+```
+
+This class contains all the behavior the formerly resided in the mixin. In order
+to keep everything working, we'll compose and delegate to the extracted class
+from the mixin:
+
+```ruby
+# app/models/inviter.rb
+module Inviter
+  private
+
+  def render_message_body
+    InvitationMessage.new(@invitation).body
+  end
+end
+```
+
+Next, we can replace references to the mixed in methods (`render_message_body`
+in this case) with direct references to the composed class:
+
+```ruby
+# app/models/message_inviter.rb
+class MessageInviter
+  def initialize(invitation, recipient)
+    @invitation = invitation
+    @recipient = recipient
+    @body = InvitationMessage.new(@invitation).body
+  end
+
+  def deliver
+    Message.create!(
+      recipient: @recipient,
+      sender: @invitation.sender,
+      body: @body
+    )
+  end
+end
+```
+
+```ruby
+# app/models/email_inviter.rb
+class EmailInviter
+  def initialize(invitation)
+    @invitation = invitation
+    @body = InvitationMessage.new(@invitation).body
+  end
+
+  def deliver
+    Mailer.invitation_notification(@invitation, @body).deliver
+  end
+end
+```
+
+In our case, there was only one method to move. If your mixin has multiple
+methods, it's best to move them one at a time.
+
+Once every reference to a mixed in method is replaced, you can remove the mixed
+in method. Once every mixed in method is removed, you can remove the mixin
+entirely.
+
+### Next Steps
+
+* [Inject Dependencies](#inject-dependencies) to invert control and allow the
+  composing classes to use different implementations for the composed class.
+* Check the composing class for [Feature Envy](#feature-envy) of the extracted
+  class. Tight coupling is common between mixin methods and host methods, so you
+  may need to use [move method](#move-method) a few times to get the balance
+  right.
 
 # Replace Callback with Method
 
