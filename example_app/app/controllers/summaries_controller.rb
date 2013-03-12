@@ -1,17 +1,17 @@
 class SummariesController < ApplicationController
   def show
     @survey = Survey.find(params[:survey_id])
-    @summaries = @survey.summaries_using(summarizer, constraints)
+    @summaries = @survey.summaries_using(summarizer, options)
   end
 
   private
 
   def summarizer
-    summarizer_class.new(user: current_user)
+    params[:id]
   end
 
-  def summarizer_class
-    "Summarizer::#{params[:id].classify}".constantize
+  def options
+    constraints.merge(user: current_user)
   end
 
   def constraints

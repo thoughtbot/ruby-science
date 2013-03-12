@@ -37,7 +37,9 @@ class Question < ActiveRecord::Base
     self.submittable = submittable_class.new(attributes.merge(question: self))
   end
 
-  def summary_using(summarizer)
+  def summary_using(summarizer_name, options)
+    summarizer_class = "Summarizer::#{summarizer_name.classify}".constantize
+    summarizer = summarizer_class.new(options)
     value = summarizer.summarize(self)
     Summary.new(title, value)
   end
