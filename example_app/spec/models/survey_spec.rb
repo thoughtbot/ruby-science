@@ -9,14 +9,14 @@ end
 
 describe Survey, '#summaries_using' do
   it 'applies the given summarizer to each question' do
-    questions = [build_stubbed(:question), build_stubbed(:question)]
+    questions = [stub_question, stub_question]
     survey = build_stubbed(:survey, questions: questions)
-    summarizer = stub_summarizer
+    summarizer = 'open'
+    options = { key: :value }
 
-    result = survey.summaries_using(summarizer)
+    result = survey.summaries_using(summarizer, options)
 
-    should_summarize_questions questions, summarizer
-    result.map(&:title).should == questions.map(&:title)
+    should_summarize_questions questions, summarizer, options
     result.map(&:value).should == %w(result result)
   end
 
@@ -27,18 +27,20 @@ describe Survey, '#summaries_using' do
     questions = [answered_question, unanswered_question]
     questions.stubs(:answered_by).with(user).returns(questions)
     survey = build_stubbed(:survey, questions: questions)
-    summarizer = stub_summarizer
+    options = { answered_by: user }
+    summarizer = 'open'
 
-    result = survey.summaries_using(summarizer, answered_by: user)
+    result = survey.summaries_using(summarizer, options)
 
-    should_summarize_questions [answered_question], summarizer
-    result.map(&:title).should eq questions.map(&:title)
+    should_summarize_questions [answered_question], summarizer, options
+    result.last.title.should == unanswered_question.title
     result.map(&:value).
       should eq ['result', "You haven't answered this question"]
   end
 
-  def stub_question(arguments)
+  def stub_question(arguments = {})
     build_stubbed(:question).tap do |question|
+      question.stubs(:summary_using).returns(Summary.new('title', 'result'))
       question.
         stubs(:answered_by?).
         with(arguments[:user]).
@@ -46,13 +48,9 @@ describe Survey, '#summaries_using' do
     end
   end
 
-  def stub_summarizer
-    stub('summarizer', summarize: 'result')
-  end
-
-  def should_summarize_questions(questions, summarizer)
+  def should_summarize_questions(questions, summarizer, options)
     questions.each do |question|
-      summarizer.should have_received(:summarize).with(question)
+      question.should have_received(:summary_using).with(summarizer, options)
     end
   end
 end

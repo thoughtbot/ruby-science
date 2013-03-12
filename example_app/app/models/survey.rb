@@ -11,17 +11,17 @@ class Survey < ActiveRecord::Base
 
   def summaries_using(summarizer, options = {})
     questions.map do |question|
-      summary_or_hidden_answer(summarizer, question, options[:answered_by])
+      summary_or_hidden_answer(summarizer, question, options)
     end
   end
 
   private
 
-  def summary_or_hidden_answer(summarizer, question, answered_by)
-    if hide_unanswered_question?(question, answered_by)
+  def summary_or_hidden_answer(summarizer, question, options)
+    if hide_unanswered_question?(question, options[:answered_by])
       hide_answer_to_question(question)
     else
-      question.summary_using(summarizer)
+      question.summary_using(summarizer, options)
     end
   end
 
