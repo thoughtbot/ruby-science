@@ -39,7 +39,7 @@ describe Completion, '#breakdown' do
 
     result = completion.breakdown
 
-    survey.should have_received(:summaries_using).with('breakdown')
+    survey.should have_received(:summaries_using).with(summarizer)
     result.should == summaries
   end
 end

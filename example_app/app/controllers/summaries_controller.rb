@@ -7,7 +7,9 @@ class SummariesController < ApplicationController
   private
 
   def summarizer
-    params[:id]
+    summarizer_name = params[:id]
+    summarizer_factory = "Summarizer::#{summarizer_name.classify}".constantize
+    summarizer_factory.new(options)
   end
 
   def options
