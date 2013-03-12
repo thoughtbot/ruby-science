@@ -12,11 +12,10 @@ describe Survey, '#summaries_using' do
     questions = [stub_question, stub_question]
     survey = build_stubbed(:survey, questions: questions)
     summarizer = 'open'
-    options = { key: :value }
 
-    result = survey.summaries_using(summarizer, options)
+    result = survey.summaries_using(summarizer)
 
-    should_summarize_questions questions, summarizer, options
+    should_summarize_questions questions, summarizer
     result.map(&:value).should == %w(result result)
   end
 
@@ -27,12 +26,11 @@ describe Survey, '#summaries_using' do
     questions = [answered_question, unanswered_question]
     questions.stubs(:answered_by).with(user).returns(questions)
     survey = build_stubbed(:survey, questions: questions)
-    options = { answered_by: user }
     summarizer = 'open'
 
-    result = survey.summaries_using(summarizer, options)
+    result = survey.summaries_using(summarizer, answered_by: user)
 
-    should_summarize_questions [answered_question], summarizer, options
+    should_summarize_questions [answered_question], summarizer
     result.last.title.should == unanswered_question.title
     result.map(&:value).
       should eq ['result', "You haven't answered this question"]
@@ -48,9 +46,9 @@ describe Survey, '#summaries_using' do
     end
   end
 
-  def should_summarize_questions(questions, summarizer, options)
+  def should_summarize_questions(questions, summarizer)
     questions.each do |question|
-      question.should have_received(:summary_using).with(summarizer, options)
+      question.should have_received(:summary_using).with(summarizer)
     end
   end
 end
