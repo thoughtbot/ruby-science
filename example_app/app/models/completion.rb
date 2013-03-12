@@ -14,7 +14,8 @@ class Completion < ActiveRecord::Base
   end
 
   def breakdown
-    survey.summaries_using('breakdown')
+    summarizer = Summarizer::Breakdown.new({})
+    survey.summaries_using(summarizer)
   end
 
   def score

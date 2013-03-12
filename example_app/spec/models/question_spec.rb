@@ -78,11 +78,9 @@ describe Question, '#summary_using' do
     question = build_stubbed(:question)
     summarizer = stub('summarizer', summarize: 'result')
     options = 'options'
-    Summarizer::Breakdown.stubs(new: summarizer)
 
-    summary = question.summary_using('breakdown', options)
+    summary = question.summary_using(summarizer, options)
 
-    Summarizer::Breakdown.should have_received(:new).with(options)
     summary.title.should eq question.title
     summary.value.should eq 'result'
   end
