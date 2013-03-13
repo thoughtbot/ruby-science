@@ -21,7 +21,7 @@ class Survey < ActiveRecord::Base
     if hide_unanswered_question?(question, options[:answered_by])
       hide_answer_to_question(question)
     else
-      question.summary_using(summarizer, options)
+      question.summary_using(summarizer)
     end
   end
 
