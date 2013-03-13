@@ -7,7 +7,7 @@ task :stats => :build do
     `gs \
       -q \
       -dNODISPLAY \
-      -c "(build/book.pdf) (r) file runpdfbegin pdfpagecount = quit"`.
+      -c "(build/ruby-science.pdf) (r) file runpdfbegin pdfpagecount = quit"`.
       to_i
   total_chapter_count = `grep -e '^# ' book/*/*.md | wc -l`.to_i
   stub_page_count = `grep -l STUB book/*/*.md | wc -l`.to_i
@@ -33,7 +33,7 @@ end
 
 desc "Build and open a PDF version"
 task :open => :build do
-  sh 'open build/book.pdf'
+  sh 'open build/ruby-science.pdf'
 end
 
 namespace :open do
@@ -139,7 +139,7 @@ class TableOfContents
   end
 
   def html
-    IO.read('book.html')
+    IO.read('ruby-science.html')
   end
 
   def document
