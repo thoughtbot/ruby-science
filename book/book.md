@@ -70,8 +70,6 @@
 
 <<[solutions/extract_partial.md]
 
-<<[solutions/extract_service_object.md]
-
 <<[solutions/extract_validator.md]
 
 <<[solutions/introduce_explaining_variable.md]
