@@ -1,3 +1,0 @@
-# Extract Service Object
-
-STUB
