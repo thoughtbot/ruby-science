@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'strong_parameters'
 gem 'sqlite3'
+gem 'thin'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2'
@@ -15,6 +16,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'foreman'
   gem 'rspec-rails'
 end
 
