@@ -38,8 +38,8 @@ class Question < ActiveRecord::Base
   end
 
   def summary_using(summarizer_name, options)
-    summarizer_class = "Summarizer::#{summarizer_name.classify}".constantize
-    summarizer = summarizer_class.new(options)
+    summarizer_factory = "Summarizer::#{summarizer_name.classify}".constantize
+    summarizer = summarizer_factory.new(options)
     value = summarizer.summarize(self)
     Summary.new(title, value)
   end
