@@ -52,3 +52,5 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
+* [Inline Classes](#inline-classes) that only serve to add extra steps when
+  performing changes.
