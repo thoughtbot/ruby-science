@@ -15,7 +15,8 @@ class Invitation < ActiveRecord::Base
   end
 
   def deliver
-    EmailInviter.new(self).deliver
+    body = InvitationMessage.new(self).body
+    Mailer.invitation_notification(self, body).deliver
   end
 
   private
