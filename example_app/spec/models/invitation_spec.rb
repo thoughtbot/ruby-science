@@ -23,22 +23,6 @@ describe Invitation, '#deliver' do
     EmailInviter.should have_received(:new).with(invitation)
     inviter.should have_received(:deliver)
   end
-
-  it 'creates private messages for existing users' do
-    existing_user = build_stubbed(:user)
-    User.stubs(:find_by_email).with(existing_user.email).returns(existing_user)
-    inviter = stub('inviter', deliver: true)
-    MessageInviter.stubs(new: inviter)
-    invitation = build_stubbed(
-      :invitation,
-      recipient_email: existing_user.email
-    )
-
-    invitation.deliver
-
-    MessageInviter.should have_received(:new).with(invitation, existing_user)
-    inviter.should have_received(:deliver)
-  end
 end
 
 describe Invitation, '#to_param' do
