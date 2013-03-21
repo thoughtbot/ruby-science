@@ -13,15 +13,20 @@ describe Invitation, 'Validations' do
 end
 
 describe Invitation, '#deliver' do
+  include Rails.application.routes.url_helpers
+  self.default_url_options = ActionMailer::Base.default_url_options
+
   it 'sends email notifications to new users' do
-    inviter = stub('inviter', deliver: true)
-    EmailInviter.stubs(new: inviter)
-    invitation = build_stubbed(:invitation)
+    survey = create(:survey)
+    invitation = create(:invitation, message: 'hello', survey: survey)
 
     invitation.deliver
 
-    EmailInviter.should have_received(:new).with(invitation)
-    inviter.should have_received(:deliver)
+    message = ActionMailer::Base.deliveries.last
+    message.should deliver_to(invitation.recipient_email)
+    message.should have_body_text(invitation.sender.email)
+    message.should have_body_text(invitation.message)
+    message.should have_body_text(survey_url(survey))
   end
 end
 
