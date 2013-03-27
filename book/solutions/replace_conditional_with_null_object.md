@@ -45,8 +45,6 @@ Null Object:
 
 ` app/models/user.rb@8698fd4:4,6
 
-\clearpage
-
 We're now just assuming that `Answer` class methods will return something
 answer-like; specifically, we expect an object that returns useful `text`. We
 can refactor `Answer` to handle the `nil` check:
@@ -58,8 +56,6 @@ found, so these methods will never return `nil`. The implementation for
 `NullAnswer` is simple:
 
 ` app/models/null_answer.rb@8698fd4
-
-\clearpage
 
 We can take things just a little further and remove a bit of duplication with a
 quick [Extract Method](#extract-method):
@@ -97,6 +93,8 @@ outweighs the drawbacks above.
   original class.
 * Make sure no [Duplicated Code](#duplicated-code) exists between the Null
   Object class and the original.
+
+\clearpage
 
 ## truthiness, try, and other tricks
 

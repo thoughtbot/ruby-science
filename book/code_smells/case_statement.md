@@ -37,6 +37,8 @@ the type of question.
 
 ` app/models/question.rb@a53319f:17,26
 
+\clearpage
+
 Note that many applications replicate the same `case` statement, which is a more
 serious offence. This view duplicates the `case` logic from `Question#summary`,
 this time in the form of multiple `if` statements:

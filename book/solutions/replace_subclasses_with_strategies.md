@@ -25,8 +25,6 @@ association.
 * Make it easier to change part of the structure by separating the parts that
   change from the parts that don't.
 
-\clearpage
-
 ### Example
 
 The `switch_to` method on `Question` changes the question to a new type. Any
@@ -130,6 +128,8 @@ state from the subclasses, so the question is now provided to the submittable:
 
 ` app/models/multiple_choice_question.rb@db3658cd:14,16
 
+\clearpage
+
 ` app/models/multiple_choice_submittable.rb@db3658cd:22,28
 
 You can view this change in the [example
@@ -178,8 +178,6 @@ After fixing the code that uses the delegator, remove the delegator from the
 subclass. Repeat this process for each delegator until they've all been removed.
 
 You can see how we do this in the [example app](https://github.com/thoughtbot/ruby-science/commit/c7a61dadfed53b9d93b578064d982f22d62f7b8d).
-
-\clearpage
 
 #### Instantiate Strategy Directly From Base Class
 
@@ -268,6 +266,8 @@ assign it as an instance variable. In an `ActiveRecord::Base` subclass, we don't
 control `initialize`, so let's change `question` from an instance variable to an
 association and pass a hash:
 
+\clearpage
+
 ` app/models/open_submittable.rb@e4809cd4
 
 ` app/models/question.rb@e4809cd4:19,22
@@ -351,6 +351,8 @@ can cascade the validation:
 Now we just need our controllers to pass the appropriate submittable params:
 
 ` app/controllers/questions_controller.rb@41b49f49:33,37
+
+\clearpage
 
 ` app/controllers/questions_controller.rb@41b49f49:43,55
 

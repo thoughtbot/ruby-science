@@ -72,7 +72,11 @@ class MostRecentFactory
     MostRecent.new
   end
 end
+```
 
+\clearpage
+
+``` ruby
 class UserAnswerFactory
   def initialize(user)
     @user = user
@@ -105,7 +109,11 @@ class MostRecentFactory
     MostRecent.new
   end
 end
+```
 
+\clearpage
+
+``` ruby
 class UserAnswerFactory
   def initialize(user)
     @user = user

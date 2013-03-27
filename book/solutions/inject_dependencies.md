@@ -56,14 +56,14 @@ summarizer-specific options can be provided when building the summarizer.
 Let's switch this up by having the controller build the actual summarizer
 instance. First, we'll move that logic from `Question` to `SummariesController`:
 
-\clearpage
-
 ` app/controllers/summaries_controller.rb@5a9a4f1a:2,13
 
 Then, we'll change `Question#summary_using` to take an instance instead of a
 name:
 
 ` app/models/question.rb@5a9a4f1a:40,43
+
+\clearpage
 
 That `options` argument is no longer necessary, because it was only used to
 build the summarizer, which is now handled by the controller. Let's remove it:
@@ -108,8 +108,6 @@ to remove the duplicate decision:
 
 ` app/models/unanswered_question_hider.rb@256a9c92
 
-\clearpage
-
 We'll decide whether or not to decorate the base summarizer in our controller:
 
 ` app/controllers/summaries_controller.rb@256a9c92:9,15
@@ -136,8 +134,6 @@ In this case, we believe that using dependency injection resulted in an overall
 win for readability and flexibility. However, it's important to remember that
 the further you move a dependency's resolution from its use, the harder it is to
 figure out what's actually being used in lower level components.
-
-\clearpage
 
 In our example, there isn't an easy way to know which class will be instantiated
 for the `summarizer` parameter to `Question#summary_using`:

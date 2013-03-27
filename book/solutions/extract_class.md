@@ -23,8 +23,6 @@ The process for extracting a class looks like this:
   Responsibility Principle](#single-responsibility-principle) and making it
   easier to change and reuse that functionality.
 
-\clearpage
-
 ### Example
 
 The `InvitationsController` is a [Large Class](#large-class) hidden behind a
@@ -142,6 +140,8 @@ We've [pulled out most of the private
 methods](https://github.com/thoughtbot/ruby-science/commit/b434954d), so the
 remaining complexity is largely from saving and delivering the invitations.
 
+\clearpage
+
 Let's extract and move a `deliver` method for that:
 
 ` app/models/survey_inviter.rb@000babe1:15,25
@@ -172,6 +172,8 @@ using `attr_reader`:
 
 ` app/models/survey_inviter.rb@a0505921:11
 
+\clearpage
+
 And use them directly from the view:
 
 ` app/views/invitations/new.html.erb@a0505921:1,17
@@ -180,12 +182,16 @@ Only the `SurveyInviter` is used in the controller now, so we can [remove the
 remaining instance variables and private
 methods](https://github.com/thoughtbot/ruby-science/commit/a0505921).
 
+\clearpage
+
 Our controller is now much simpler:
 
 ` app/controllers/invitations_controller.rb@a0505921
 
 It only assigns one instance variable, it doesn't have too many methods, and all
 of its methods are fairly small.
+
+\clearpage
 
 The newly extracted `SurveyInviter` class absorbed much of the complexity, but
 still isn't as bad as the original controller:
