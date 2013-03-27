@@ -26,8 +26,6 @@ end
 We extract the validation details into a new class `EmailValidator`, and place the
 new class into the `app/validators` directory.
 
-\clearpage
-
 ` app/validators/email_validator.rb@7834dfd
 
 Once the validator has been extracted. Rails has a convention for using the new
@@ -50,10 +48,10 @@ the `EnumerableValidator` to loop over the contents of an array.
 
 ` app/models/survey_inviter.rb@21f7a57:10,13
 
+\clearpage
+
 The `EmailValidator` is passed in as an argument, and each element in the array
 is validated against it.
-
-\clearpage
 
 ` app/validators/enumerable_validator.rb@21f7a57
 

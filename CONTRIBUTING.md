@@ -44,6 +44,11 @@ Install dependencies with Bundler:
 
     bundle install
 
+You'll also need need to download install the following fonts:
+
+* [Proxima Nova](https://www.dropbox.com/sh/ntxu99zcm28agp8/Cqiwu9ORA5)
+* [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
+
 Now install the pandoc dependencies:
 
 #### Installing dependencies on OSX

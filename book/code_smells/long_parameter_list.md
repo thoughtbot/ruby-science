@@ -9,6 +9,8 @@ Ruby supports positional method arguments which can lead to Long Parameter Lists
 * The method is complex due to number of collaborating parameters.
 * The method requires large amounts of setup during isolated testing.
 
+\clearpage
+
 ### Example
 
 Look at this mailer for an example of Long Parameter List.

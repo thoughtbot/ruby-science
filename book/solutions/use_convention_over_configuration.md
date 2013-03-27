@@ -50,6 +50,8 @@ accept the same parameters:
 
 ` app/controllers/summaries_controller.rb@5170bf536:9,20
 
+\clearpage
+
 Now that we know we can instantiate any of the summarizer classes the same way,
 let's extract a method for determining the summarizer class:
 

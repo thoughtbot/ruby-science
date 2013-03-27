@@ -24,8 +24,6 @@ It performs a number of tasks:
 * Sends an email to each of the recipients.
 * Sets view data for validation failures.
 
-\clearpage
-
 ` app/controllers/invitations_controller.rb@72c2a0d
 
 By introducing a form object we can move the concerns of data validation, invitation
@@ -35,6 +33,8 @@ Including [ActiveModel::Model](https://github.com/rails/rails/blob/master/active
 allows us to leverage the familiar
 [Active Record Validation](http://guides.rubyonrails.org/active_record_validations_callbacks.html)
 syntax.
+
+\clearpage
 
 As we introduce the form object we'll also extract an enumerable class `RecipientList`
 and validators `EnumerableValidator` and `EmailValidator`. They will be covered 

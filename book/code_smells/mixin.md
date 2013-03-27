@@ -35,6 +35,8 @@ delivery mechanism, so this behavior is encapsulated in a mixin:
 
 ` app/models/inviter.rb@37f9d40
 
+\clearpage
+
 Each delivery strategy mixes in `Inviter` and calls `render_message_body`:
 
 ` app/models/message_inviter.rb@37f9d40
