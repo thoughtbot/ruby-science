@@ -17,6 +17,8 @@ transaction is committed.
 * Methods such as `save_without_sending_email` which skip callbacks.
 * Callbacks which need to be invoked conditionally.
 
+\clearpage
+
 ### Example
 
 ` app/models/survey_inviter.rb@fbd18280:27,37

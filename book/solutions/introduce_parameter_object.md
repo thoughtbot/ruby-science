@@ -13,12 +13,18 @@ To introduce a parameter object:
 * Group parameters that naturally fit together.
 * Encapsulate behavior between related parameters.
 
+\clearpage
+
+### Example
+
 Let's take a look at the example from [Long Parameter List](#long-parameter-list) and 
 improve it by grouping the related parameters into an object:
 
 ` app/mailers/mailer.rb@44f85d8
 
 ` app/views/mailer/completion_notification.html.erb@44f85d8
+
+\clearpage
 
 By introducing the new parameter object `recipient` we can naturally group the 
 attributes `first_name`, `last_name`, and `email` together.

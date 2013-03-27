@@ -19,8 +19,6 @@ string.
 * Eliminate [Divergent Change](#divergent-change) by extracting code related to
   an embedded semantic type.
 
-\clearpage
-
 ### Example
 
 `InvitationsController` is bloated with methods and logic relating to parsing a

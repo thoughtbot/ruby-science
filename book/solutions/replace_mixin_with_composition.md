@@ -16,8 +16,6 @@ Removing a mixin in favor of composition involves the following steps:
 * Eliminate name clashes from multiple mixins.
 * Make methods in the mixins easier test.
 
-\clearpage
-
 ### Example
 
 In our example applications, invitations can be delivered either by email or
@@ -31,13 +29,13 @@ its own class:
 The logic to generate the invitation message is the same regardless of the
 delivery mechanism, so this behavior has been extracted.
 
-\clearpage
-
 It's currently extracted using a mixin:
 
 ` app/models/inviter.rb@37f9d40
 
 Let's replace this mixin with composition.
+
+\clearpage
 
 First, we'll [extract a new class](#extract-class) for the mixin:
 
@@ -48,6 +46,8 @@ to keep everything working, we'll compose and delegate to the extracted class
 from the mixin:
 
 ` app/models/inviter.rb@8df463c4
+
+\clearpage
 
 Next, we can replace references to the mixed in methods (`render_message_body`
 in this case) with direct references to the composed class:

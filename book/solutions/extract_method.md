@@ -17,6 +17,8 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 
 \clearpage
 
+### Example
+
 Let's take a look at an example [Long Method](#long-method) and improve it by
 extracting smaller methods:
 
@@ -49,8 +51,6 @@ This method performs a number of tasks:
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
 
-\clearpage
-
 Any of these tasks can be extracted to a method. Let's start by extracting the
 task of building the question.
 
@@ -82,6 +82,8 @@ The `create` method is already much more readable. The new `build_question`
 method is noisy, though, with the wrong details at the beginning. The task of
 pulling out question parameters is clouding up the task of building the
 question. Let's extract another method.
+
+\clearpage
 
 ## Replace temp with query
 
