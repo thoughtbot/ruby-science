@@ -283,8 +283,6 @@ Change](#divergent-change).
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
-\clearpage
-
 ### Example
 
 This class has a high flog score, has a large number of methods, more private
@@ -360,8 +358,6 @@ if the class contains private methods related to conditional branches.
   private query methods.
 * [Extract Decorator](#extract-decorator) if the class contains delegation
   methods.
-* [Extract Service Object](#extract-service-object) if the class contains
-  numerous objects related to a single action.
 * [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) if
   the large class is a base class in an inheritance hierarchy.
 
@@ -371,8 +367,6 @@ Following the [Single Responsibility
 Principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
-
-\clearpage
 
 You can use flog to analyze classes as you write and modify them:
 
@@ -448,6 +442,7 @@ extract a new method and move it to the `Answer` class.
 * [Extract Method](#extract-method) if only part of the method suffers from
   feature envy, and then move the method.
 * [Move Method](#move-method) if the entire method suffers from feature envy.
+* [Inline Classes](#inline-class) if the envied class isn't pulling its weight.
 
 # Case Statement
 
@@ -499,6 +494,8 @@ def summary
   end
 end
 ```
+
+\clearpage
 
 Note that many applications replicate the same `case` statement, which is a more
 serious offence. This view duplicates the `case` logic from `Question#summary`,
@@ -559,8 +556,6 @@ Make sure you look for related smells in the affected code:
 * [Long Parameter List](#long-parameter-list)
 * [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
-\clearpage
-
 ### Example
 
 Users names are formatted and displayed as 'First Last' throughout the application. 
@@ -596,6 +591,8 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
+* [Inline Classes](#inline-classes) that only serve to add extra steps when
+  performing changes.
 
 # Divergent Change
 
@@ -606,6 +603,8 @@ A class suffers from Divergent Change when it changes for multiple reasons.
 * You can't easily describe what the class does in one sentence.
 * The class is changed more frequently than other classes in the application.
 * Different changes to the class aren't related to each other.
+
+\clearpage
 
 ### Example
 
@@ -671,6 +670,8 @@ Ruby supports positional method arguments which can lead to Long Parameter Lists
 * The method has three or more arguments.
 * The method is complex due to number of collaborating parameters.
 * The method requires large amounts of setup during isolated testing.
+
+\clearpage
 
 ### Example
 
@@ -939,8 +940,6 @@ This comment is trying to explain what the following line of code does, because
 the code itself is too hard to understand. A better solution would be to improve
 the legibility of the code.
 
-\clearpage
-
 Some comments add no value at all and can safely be removed:
 
 ``` ruby
@@ -1023,6 +1022,8 @@ module Inviter
 end
 ```
 
+\clearpage
+
 Each delivery strategy mixes in `Inviter` and calls `render_message_body`:
 
 ```ruby
@@ -1083,6 +1084,8 @@ transaction is committed.
 * Attributes which allow certain callbacks to be skipped.
 * Methods such as `save_without_sending_email` which skip callbacks.
 * Callbacks which need to be invoked conditionally.
+
+\clearpage
 
 ### Example
 
@@ -1153,8 +1156,6 @@ need to change when the application changes.
   their own decisions.
 * Makes it easier to remove [Duplicated Code](#duplicated-code) by taking
   behavior out of conditional clauses and private methods.
-
-\clearpage
 
 ### Example
 
@@ -1265,6 +1266,8 @@ def summary
 end
 ```
 
+\clearpage
+
 ```ruby
 # db/migrate/20121128221331_add_question_suffix_to_question_type.rb
 class AddQuestionSuffixToQuestionType < ActiveRecord::Migration
@@ -1296,8 +1299,6 @@ debug STI failures by themselves:
 # app/models/question.rb
 set_inheritance_column  'question_type'
 ```
-
-\clearpage
 
 Running the tests after this will reveal that Rails wants the subclasses to be
 defined, so let's add some placeholder classes:
@@ -1354,8 +1355,6 @@ class RenameQuestionTypeToType < ActiveRecord::Migration
 end
 ```
 
-\clearpage
-
 Now we need to build the appropriate subclass instead of `Question`. We can use
 a little Ruby meta-programming to make that fairly painless:
 
@@ -1401,8 +1400,6 @@ its own method. In this case, we already extracted methods called
 `summarize_multiple_choice_answers`, `summarize_open_answers`, and
 `summarize_scale_answers`, so we can proceed immediately.
 
-\clearpage
-
 The next step is to use [Move Method](#move-method) to move the extracted method
 to the appropriate class. First, let's move the method
 `summarize_multiple_choice_answers` to `MultipleChoiceQuestion` and rename it to
@@ -1439,8 +1436,6 @@ The `summary` method is now much better. Adding new question types is easier.
 The new subclass will implement `summary`, and the `Question` class doesn't need
 to change. The summary code for each type now lives with its type, so no one
 class is cluttered up with the details.
-
-\clearpage
 
 ## Polymorphic Partials
 
@@ -1639,8 +1634,6 @@ def answer_text_for(question)
 end
 ```
 
-\clearpage
-
 We're now just assuming that `Answer` class methods will return something
 answer-like; specifically, we expect an object that returns useful `text`. We
 can refactor `Answer` to handle the `nil` check:
@@ -1678,8 +1671,6 @@ class NullAnswer
   end
 end
 ```
-
-\clearpage
 
 We can take things just a little further and remove a bit of duplication with a
 quick [Extract Method](#extract-method):
@@ -1742,6 +1733,8 @@ outweighs the drawbacks above.
 * Make sure no [Duplicated Code](#duplicated-code) exists between the Null
   Object class and the original.
 
+\clearpage
+
 ## truthiness, try, and other tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
@@ -1788,6 +1781,8 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 
 \clearpage
 
+### Example
+
 Let's take a look at an example [Long Method](#long-method) and improve it by
 extracting smaller methods:
 
@@ -1820,8 +1815,6 @@ This method performs a number of tasks:
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
 
-\clearpage
-
 Any of these tasks can be extracted to a method. Let's start by extracting the
 task of building the question.
 
@@ -1853,6 +1846,8 @@ The `create` method is already much more readable. The new `build_question`
 method is noisy, though, with the wrong details at the beginning. The task of
 pulling out question parameters is clouding up the task of building the
 question. Let's extract another method.
+
+\clearpage
 
 ## Replace temp with query
 
@@ -2031,8 +2026,6 @@ The process for extracting a class looks like this:
 * Fully encapsulates a concern within a single class, following the [Single
   Responsibility Principle](#single-responsibility-principle) and making it
   easier to change and reuse that functionality.
-
-\clearpage
 
 ### Example
 
@@ -2341,6 +2334,8 @@ We've [pulled out most of the private
 methods](https://github.com/thoughtbot/ruby-science/commit/b434954d), so the
 remaining complexity is largely from saving and delivering the invitations.
 
+\clearpage
+
 Let's extract and move a `deliver` method for that:
 
 ```ruby
@@ -2410,6 +2405,8 @@ using `attr_reader`:
 attr_reader :message, :recipients, :survey
 ```
 
+\clearpage
+
 And use them directly from the view:
 
 ```rhtml
@@ -2436,6 +2433,8 @@ And use them directly from the view:
 Only the `SurveyInviter` is used in the controller now, so we can [remove the
 remaining instance variables and private
 methods](https://github.com/thoughtbot/ruby-science/commit/a0505921).
+
+\clearpage
 
 Our controller is now much simpler:
 
@@ -2470,6 +2469,8 @@ end
 
 It only assigns one instance variable, it doesn't have too many methods, and all
 of its methods are fairly small.
+
+\clearpage
 
 The newly extracted `SurveyInviter` class absorbed much of the complexity, but
 still isn't as bad as the original controller:
@@ -2573,8 +2574,6 @@ string.
   Principle](#single-responsibility-principle).
 * Eliminate [Divergent Change](#divergent-change) by extracting code related to
   an embedded semantic type.
-
-\clearpage
 
 ### Example
 
@@ -2693,6 +2692,8 @@ boolean flag:
 @summaries = @survey.summaries_using(summarizer, constraints)
 ```
 
+\clearpage
+
 `Survey#summaries_using` uses this information to decide whether each question
 should return a real summary or a hidden summary:
 
@@ -2711,8 +2712,6 @@ end
 
 This method is pretty dense. We can start by using [Extract
 Method](#extract-method) to clarify and reveal complexity:
-
-\clearpage
 
 ```ruby
 # app/models/survey.rb
@@ -2849,6 +2848,8 @@ end
 [At this point](https://github.com/thoughtbot/ruby-science/commit/4fd00a88),
 every other method in the decorator can be made private.
 
+\clearpage
+
 #### Promote parameters to instance variables
 
 Now that we have a class to handle this logic, we can move some of the
@@ -2909,8 +2910,6 @@ name](https://github.com/thoughtbot/ruby-science/commit/61ca6784), but not
 behavior. In our application, summarizers return a string which represents the
 answers to a question, but our decorator is returning a `Summary` instead. Let's
 fix our decorator to follow the component interface by returning just a string:
-
-\clearpage
 
 ```ruby
 # app/models/unanswered_question_hider.rb
@@ -3055,8 +3054,6 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Move common code into newly created file.
 * Render the partial from the source file.
 
-\clearpage
-
 ### Example
 
 Let's revisit the view code for _adding_ and _editing_ questions.
@@ -3135,10 +3132,6 @@ Then render the partial from each of the views, passing in the values for
 * Check for other occurances of the duplicated view code in your application and 
 replace them with the newly extracted partial.
 
-# Extract Service Object
-
-STUB
-
 # Extract Validator
 
 A form of [Extract Class](#extract-class) used to remove complex validation details
@@ -3166,8 +3159,6 @@ end
 
 We extract the validation details into a new class `EmailValidator`, and place the
 new class into the `app/validators` directory.
-
-\clearpage
 
 ```ruby
 # app/validators/email_validator.rb
@@ -3207,10 +3198,10 @@ validates_with EnumerableValidator,
   validator: EmailValidator
 ```
 
+\clearpage
+
 The `EmailValidator` is passed in as an argument, and each element in the array
 is validated against it.
-
-\clearpage
 
 ```ruby
 # app/validators/enumerable_validator.rb
@@ -3370,8 +3361,6 @@ It performs a number of tasks:
 * Sends an email to each of the recipients.
 * Sets view data for validation failures.
 
-\clearpage
-
 ```ruby
 # app/controllers/invitations_controller.rb
 class InvitationsController < ApplicationController
@@ -3440,6 +3429,8 @@ Including [ActiveModel::Model](https://github.com/rails/rails/blob/master/active
 allows us to leverage the familiar
 [Active Record Validation](http://guides.rubyonrails.org/active_record_validations_callbacks.html)
 syntax.
+
+\clearpage
 
 As we introduce the form object we'll also extract an enumerable class `RecipientList`
 and validators `EnumerableValidator` and `EmailValidator`. They will be covered 
@@ -3551,6 +3542,10 @@ To introduce a parameter object:
 * Group parameters that naturally fit together.
 * Encapsulate behavior between related parameters.
 
+\clearpage
+
+### Example
+
 Let's take a look at the example from [Long Parameter List](#long-parameter-list) and 
 improve it by grouping the related parameters into an object:
 
@@ -3575,6 +3570,8 @@ end
 # app/views/mailer/completion_notification.html.erb
 <%= @first_name %> <%= @last_name %>
 ```
+
+\clearpage
 
 By introducing the new parameter object `recipient` we can naturally group the 
 attributes `first_name`, `last_name`, and `email` together.
@@ -3706,7 +3703,11 @@ class MostRecentFactory
     MostRecent.new
   end
 end
+```
 
+\clearpage
+
+``` ruby
 class UserAnswerFactory
   def initialize(user)
     @user = user
@@ -3739,7 +3740,11 @@ class MostRecentFactory
     MostRecent.new
   end
 end
+```
 
+\clearpage
+
+``` ruby
 class UserAnswerFactory
   def initialize(user)
     @user = user
@@ -3894,11 +3899,427 @@ you're happy with the results.
 
 # Inline class
 
-STUB
+As an application evolves, new classes are introduced as new features are added
+and existing code is refactored. [Extracting classes](#extract-class) will help
+to keep existing classes maintainable and make it easier to add new features.
+However, features can also be removed or simplified, and you'll inevitably find
+that some classes just aren't pulling their weight. Removing dead-weight classes
+is just as important as splitting up [large classes](#large-class), and inlining
+a class is the easiest way to remove it.
+
+Inlining a class is straightforward:
+
+* For each consumer class that uses the inlined class, inline or move each method
+  from the inlined class into the consumer class.
+* Remove the inlined class.
+
+Note that this refactoring is difficult (and unwise!) if you have more than one
+or two consumer classes.
+
+### Uses
+
+* Make classes easier to understand by eliminating the number of methods,
+  classes, and files developers need to look through.
+* Eliminate [Shotgun Surgery](#shotgun-surgery) from changes that cascade
+  through useless classes.
+* Eliminate [Feature Envy](#feature-envy) when the envied class can be inlined
+  into the envious class.
+* Eliminate [High Fanout](#high-fan-out) by inlining dependencies.
+
+
+### Example
+
+In our example application, users can create surveys and invite other users to
+answer them. Users are invited by listing email addresses to invite.
+
+Any email addresses that match up with existing users are sent using a private
+message that the user will see the next time he or she signs in. Invitations to
+unrecognized addresses are sent using email messages.
+
+The `Invitation` model delegates to a different strategy class based on whether
+or not its recipient email is recognized as an existing user:
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  if recipient_user
+    MessageInviter.new(self, recipient_user).deliver
+  else
+    EmailInviter.new(self).deliver
+  end
+end
+```
+
+We've decided that the private messaging feature isn't getting enough use, so
+we're going to remove it. This means that all invitations will now be delivered
+via email, so we can simplify `Invitation#deliver` to always use the same
+strategy:
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  EmailInviter.new(self).deliver
+end
+```
+
+The `EmailInviter` class was useful as a strategy, but now that the strategy no
+longer varies, it doesn't bring much to the table:
+
+```ruby
+# app/models/email_inviter.rb
+class EmailInviter
+  def initialize(invitation)
+    @invitation = invitation
+    @body = InvitationMessage.new(@invitation).body
+  end
+
+  def deliver
+    Mailer.invitation_notification(@invitation, @body).deliver
+  end
+end
+```
+
+It doesn't handle any concerns that aren't already well-encapsulated by
+`InvitationMessage` and `Mailer`, and it's only used once (in `Invitation`).  We
+can inline this class into `Invitation` and drop a little overall complexity and
+indirection from our application.
+
+First, [let's inline the `EmailInviter#deliver`
+method](https://github.com/thoughtbot/ruby-science/commit/dcc40d60) (and its
+dependent variables from `EmailInviter#initialize`):
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  body = InvitationMessage.new(self).body
+  Mailer.invitation_notification(self, body).deliver
+end
+```
+
+Next, we can [delete `EmailInviter`
+entirely](https://github.com/thoughtbot/ruby-science/commit/bc863108).
+
+After inlining the class, it requires fewer jumps through methods, classes, and
+files to understand how invitations are delivered. Additionally, the application
+is less complex overall. Flog gives us a total complexity score of 424.7 after
+this refactoring, down slightly from 427.6. This isn't a huge gain, but this was
+an easy refactoring, and continually deleting or inlining unnecessary classes
+and methods will have larger long term effects.
+
+### Drawbacks
+
+* Attempting to inline a class with multiple consumers will likely introduce
+  [duplicated code](#duplicated-code).
+* Inlining a class may create [large classes](#large-class) and cause [divergent
+  change](#divergent-change).
+* Inlining a class will usually increase per-class or per-method complexity,
+  even if it reduces total complexity.
+
+### Next Steps
+
+* Use [Extract Method](#extract-method) if any inlined methods introduced [long
+  methods](#long-method).
+* Use [Extract Class](#extract-class) if the merged class is a [large
+  class](#large-class) or beings suffering from [divergent
+  change](#divergent-change).
 
 # Inject dependencies
 
-STUB
+Injecting dependencies allows you to keep dependency resolutions close to the
+logic that affects them. It can prevent sub-dependencies from leaking throughout
+the code base, and it makes it easier to change the behavior of related
+components [without modifying those components'
+classes](#open-closed-principle).
+
+Although many people think of dependency injection frameworks and XML when they
+hear "dependency injection," injecting a dependency is usually as simple as
+passing it as a parameter.
+
+Changing code to use dependency injection only takes a few steps:
+
+1. Move the dependency decision to a higher level component.
+2. Pass the dependency as a parameter to the lower level component.
+3. Remove any sub-dependencies from the lower level component.
+
+Injecting dependencies is the simplest way to [invert
+control](#dependency-inversion-principle).
+
+### Uses
+
+* Eliminates [Shotgun Surgery](#shotgun-surgery) from leaking sub-dependencies.
+* Eliminates [Divergent Change](#divergent-change) by allowing runtime
+  composition patterns, such as [decorators](#extract-decorator) and strategies.
+
+### Example
+
+In our example applications, users can view a summary of the answers to each
+question on a survey. Users can select from one of several different summary
+types to view. For example, they can see the most recent answer to each
+question, or they can see a percentage breakdown of the answers to a multiple
+choice question.
+
+The controller passes in the name of the summarizer that the user selected:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def show
+  @survey = Survey.find(params[:survey_id])
+  @summaries = @survey.summaries_using(summarizer, options)
+end
+
+private
+
+def summarizer
+  params[:id]
+end
+```
+
+`Survey#summaries_using` asks each of its questions for a summary using that
+summarizer and the given options:
+
+```ruby
+# app/models/survey.rb
+question.summary_using(summarizer, options)
+```
+
+`Question#summary_using` instantiates the requested summarizer with the
+requested options, and then asks the summarizer to summarize the question:
+
+```ruby
+# app/models/question.rb
+def summary_using(summarizer_name, options)
+  summarizer_factory = "Summarizer::#{summarizer_name.classify}".constantize
+  summarizer = summarizer_factory.new(options)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+This is hard to follow and causes [shotgun surgery](#shotgun-surgery) because
+the logic of building the summarizer is in `Question`, far away from the choice
+of which summarizer to use, which is in `SummariesController`. Additionally, the
+`options` parameter needs to be passed down several levels so that
+summarizer-specific options can be provided when building the summarizer.
+
+Let's switch this up by having the controller build the actual summarizer
+instance. First, we'll move that logic from `Question` to `SummariesController`:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def show
+  @survey = Survey.find(params[:survey_id])
+  @summaries = @survey.summaries_using(summarizer, options)
+end
+
+private
+
+def summarizer
+  summarizer_name = params[:id]
+  summarizer_factory = "Summarizer::#{summarizer_name.classify}".constantize
+  summarizer_factory.new(options)
+end
+```
+
+Then, we'll change `Question#summary_using` to take an instance instead of a
+name:
+
+```ruby
+# app/models/question.rb
+def summary_using(summarizer, options)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+\clearpage
+
+That `options` argument is no longer necessary, because it was only used to
+build the summarizer, which is now handled by the controller. Let's remove it:
+
+```ruby
+# app/models/question.rb
+def summary_using(summarizer)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+We also don't need to pass it from `Survey`:
+
+```ruby
+# app/models/survey.rb
+question.summary_using(summarizer)
+```
+
+This interaction has already improved, because the `options` argument is no
+longer uselessly passed around through two models. It's only used in the
+controller where the summarizer instance is built. Building the summarizer in
+the controller is appropriate, because the controller knows the name of the
+summarizer we want to build, as well as which options are used when building it.
+
+Now that we're using dependency injection, we can take this even further.
+
+In order to prevent the summary from influencing a user's own answers, users
+don't see summaries for questions they haven't answered yet by default. Users
+can click a link to override this decision and view the summary for every
+question.
+
+The information that determines whether or not to hide unanswered questions
+lives in the controller:
+
+```ruby
+# app/controllers/summaries_controller.rb
+end
+
+def constraints
+  if include_unanswered?
+    {}
+  else
+    { answered_by: current_user }
+  end
+end
+```
+
+However, this information is passed into `Survey#summaries_using`:
+
+```ruby
+# app/controllers/summaries_controller.rb
+@summaries = @survey.summaries_using(summarizer, options)
+```
+
+`Survey#summaries_using` decides whether to hide the answer to each question
+based on that setting:
+
+```ruby
+# app/models/survey.rb
+  def summaries_using(summarizer, options = {})
+    questions.map do |question|
+      summary_or_hidden_answer(summarizer, question, options)
+    end
+  end
+
+  private
+
+  def summary_or_hidden_answer(summarizer, question, options)
+    if hide_unanswered_question?(question, options[:answered_by])
+      hide_answer_to_question(question)
+    else
+      question.summary_using(summarizer)
+    end
+  end
+
+  def hide_unanswered_question?(question, answered_by)
+    answered_by && !question.answered_by?(answered_by)
+  end
+
+  def hide_answer_to_question(question)
+    Summary.new(question.title, NO_ANSWER)
+  end
+end
+```
+
+Again, the decision is far away from the dependent behavior.
+
+We can combine our dependency injection with a [decorator](#extract-decorator)
+to remove the duplicate decision:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+class UnansweredQuestionHider
+  NO_ANSWER = "You haven't answered this question".freeze
+
+  def initialize(summarizer, user)
+    @summarizer = summarizer
+    @user = user
+  end
+
+  def summarize(question)
+    if hide_unanswered_question?(question)
+      NO_ANSWER
+    else
+      @summarizer.summarize(question)
+    end
+  end
+
+  private
+
+  def hide_unanswered_question?(question)
+    !question.answered_by?(@user)
+  end
+end
+```
+
+We'll decide whether or not to decorate the base summarizer in our controller:
+
+```ruby
+# app/controllers/summaries_controller.rb
+def decorated_summarizer
+  if include_unanswered?
+    summarizer
+  else
+    UnansweredQuestionHider.new(summarizer, current_user)
+  end
+end
+```
+
+Now, the decision of whether or not to hide answers is completely removed from
+`Survey`:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+  questions.map do |question|
+    question.summary_using(summarizer)
+  end
+end
+```
+
+For more explanation of using decorators, as well as step-by-step instructions
+for how to introduce them, see the chapter on [Extract
+Decorator](#extract-decorator).
+
+### Drawbacks
+
+Injecting dependencies in our example made each class - `SummariesController`,
+`Survey`, `Question`, and `UnansweredQuestionHider` - easier to understand as a
+unit. However, it's now difficult to understand why kind of summaries will be
+produced just by looking at `Survey` or `Question`. You need to follow the stack
+up to `SummariesController` to understand the dependencies, and then look at
+each class to understand how they're used.
+
+In this case, we believe that using dependency injection resulted in an overall
+win for readability and flexibility. However, it's important to remember that
+the further you move a dependency's resolution from its use, the harder it is to
+figure out what's actually being used in lower level components.
+
+In our example, there isn't an easy way to know which class will be instantiated
+for the `summarizer` parameter to `Question#summary_using`:
+
+```ruby
+# app/models/question.rb
+def summary_using(summarizer)
+  value = summarizer.summarize(self)
+  Summary.new(title, value)
+end
+```
+
+In our case, that will be one of `Summarizer::Breakdown`,
+`Summarizer::MostRecent`, or `Summarizer::UserAnswer`, or a
+`UnansweredQuestionHider` that decorates one of the above. Developers will need
+to trace back up through `Survey` to `SummariesController` to gather all the
+possible implementations.
+
+### Next Steps
+
+* When pulling dependency resolution up into a higher level class, check that
+  class to make sure it doesn't become a [Large Class](#large-class) because of
+  all the logic surrounding dependency resolution.
+* If a class is suffering from [Divergent Change](#divergent-change) because of
+  new or modified dependencies, try moving dependency resolution further up the
+  stack to a container class whose sole responsibility is managing dependencies.
+* If methods contain [Long Parameter Lists](#long-parameter-list), consider
+  wrapping up several dependencies in a [Parameter
+  Object](#introduce-parameter-object) or Fascade.
 
 # Replace Subclasses with Strategies
 
@@ -3926,8 +4347,6 @@ association.
 * Convert [STI](#single-table-inheritance-sti) to a composition-based scheme.
 * Make it easier to change part of the structure by separating the parts that
   change from the parts that don't.
-
-\clearpage
 
 ### Example
 
@@ -4092,6 +4511,8 @@ def submittable
 end
 ```
 
+\clearpage
+
 ```ruby
 # app/models/multiple_choice_submittable.rb
 def answers
@@ -4176,8 +4597,6 @@ After fixing the code that uses the delegator, remove the delegator from the
 subclass. Repeat this process for each delegator until they've all been removed.
 
 You can see how we do this in the [example app](https://github.com/thoughtbot/ruby-science/commit/c7a61dadfed53b9d93b578064d982f22d62f7b8d).
-
-\clearpage
 
 #### Instantiate Strategy Directly From Base Class
 
@@ -4288,6 +4707,8 @@ Our strategies currently accept the question as a parameter to `initialize` and
 assign it as an instance variable. In an `ActiveRecord::Base` subclass, we don't
 control `initialize`, so let's change `question` from an instance variable to an
 association and pass a hash:
+
+\clearpage
 
 ```ruby
 # app/models/open_submittable.rb
@@ -4460,6 +4881,8 @@ def build_question
   @question.survey = @survey
 end
 ```
+
+\clearpage
 
 ```ruby
 # app/controllers/questions_controller.rb
@@ -4776,8 +5199,6 @@ Removing a mixin in favor of composition involves the following steps:
 * Eliminate name clashes from multiple mixins.
 * Make methods in the mixins easier test.
 
-\clearpage
-
 ### Example
 
 In our example applications, invitations can be delivered either by email or
@@ -4822,8 +5243,6 @@ end
 The logic to generate the invitation message is the same regardless of the
 delivery mechanism, so this behavior has been extracted.
 
-\clearpage
-
 It's currently extracted using a mixin:
 
 ```ruby
@@ -4848,6 +5267,8 @@ end
 ```
 
 Let's replace this mixin with composition.
+
+\clearpage
 
 First, we'll [extract a new class](#extract-class) for the mixin:
 
@@ -4884,6 +5305,8 @@ module Inviter
   end
 end
 ```
+
+\clearpage
 
 Next, we can replace references to the mixed in methods (`render_message_body`
 in this case) with direct references to the composed class:
@@ -5134,6 +5557,8 @@ def summarizer
 end
 ```
 
+\clearpage
+
 Now that we know we can instantiate any of the summarizer classes the same way,
 let's extract a method for determining the summarizer class:
 
@@ -5270,7 +5695,98 @@ STUB
 
 # DRY
 
-STUB
+The DRY principle - short for "don't repeat yourself" - comes from [The
+Pragmatic Programmer](http://pragprog.com/book/tpp/the-pragmatic-programmer).
+
+The principle states:
+
+> Every piece of knowledge must have a single, unambiguous, authoritative
+> representation within a system.
+
+Following this principle is one of the best ways to prevent bugs and move
+faster. Every duplicated piece of knowledge is a bug waiting to happen. Many
+development techniques are really just ways to prevent and eliminate
+duplication, and many smells are just ways to detect existing duplication.
+
+When knowledge is duplicated, changing it means making the same change in
+several places. Leaving duplication introduces a risk that the various duplicate
+implementations will slowly diverge, making them harder to merge and making it
+more likely that a bug remains in one or more incarnations after being fixed.
+
+Duplication leads to frustration and paranoia. Rampant duplication is a common
+reason that developers reach for a Grand Rewrite.
+
+## Duplicated Knowledge vs Duplicated Text
+
+It's important to understand that this principle states that knowledge should
+not be repeated; it does not state that text should never be repeated.
+
+For example, this sample does not violate the DRY principle, even though the
+word "save" is repeated several times:
+
+``` ruby
+def sign_up
+  @user.save
+  @account.save
+  @subscription.save
+end
+```
+
+However, this code contains duplicated knowledge that could be extracted:
+
+``` ruby
+def sign_up_free
+  @user.save
+  @account.save
+  @trial.save
+end
+
+def sign_up_paid
+  @user.save
+  @account.save
+  @subscription.save
+end
+```
+
+### Application
+
+The following smells may point towards [duplicated code](#duplicated-code) and
+can be avoided by following the DRY principle:
+
+* [Shotgun Surgery](#shotgun-surgery) caused by changing the same knowledge in
+  several places.
+* [Long Paramter Lists](#long-parameter-list) caused by not encapsulating
+  related properties.
+* [Feature Envy](#feature-envy) caused by leaking internal knowledge of a class
+  that can be encapsulated and reused.
+* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
+  duplicate knowledge of types.
+
+You can use these solutions to remove duplication and make knowledge easier to
+reuse:
+
+* [Extract Classes](#extract-class) to encapsulate knowledge, allowing it to
+  be reused.
+* [Extract Methods](#extract-method) to reuse behavior within a class.
+* [Extract Partials](#extract-partial) to remove duplication in views.
+* [Extract Validators](#extract-validator) to encapsulate validations.
+* [Replace Conditionals with Null
+  Objects](#replace-conditional-with-null-object) to encapsulate behavior
+  related to nothingness.
+* [Replace Conditionals With
+  Polymorphism](#replace-conditional-with-polymorphism) to make it easy to reuse
+  behavioral branches.
+* [Replace Mixins With Composition](#replace-mixin-with-composition) to make it
+  easy to combine components in new ways.
+* [Use Convention Over Configuration](#use-convention-over-configuration) to
+  infer knowledge, making it impossible to duplicate.
+
+Applying these techniques before duplication occurs will make it less likely
+that duplication will occur. If you want to prevent duplication, make knowledge
+easier to reuse by keeping classes small and focused.
+
+Related principles include the [Law of Demeter](#law-of-demeter) and the [Single
+Responsibility Principle](#single-responsibility-principle).
 
 # Single responsibility principle
 
