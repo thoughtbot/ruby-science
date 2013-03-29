@@ -143,29 +143,30 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#extract-method">Extract method</a><ul>
 <li><a href="#uses-2">Uses</a></li>
+<li><a href="#example-15">Example</a></li>
 <li><a href="#replace-temp-with-query">Replace temp with query</a><ul>
 <li><a href="#next-steps-2">Next Steps</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#rename-method">Rename Method</a><ul>
 <li><a href="#uses-3">Uses</a></li>
-<li><a href="#example-15">Example</a></li>
+<li><a href="#example-16">Example</a></li>
 <li><a href="#next-steps-3">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-class">Extract Class</a><ul>
 <li><a href="#uses-4">Uses</a></li>
-<li><a href="#example-16">Example</a></li>
+<li><a href="#example-17">Example</a></li>
 <li><a href="#drawbacks-2">Drawbacks</a></li>
 <li><a href="#next-steps-4">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-value-object">Extract Value Object</a><ul>
 <li><a href="#uses-5">Uses</a></li>
-<li><a href="#example-17">Example</a></li>
+<li><a href="#example-18">Example</a></li>
 <li><a href="#next-steps-5">Next Steps</a></li>
 </ul></li>
 <li><a href="#extract-decorator">Extract Decorator</a><ul>
 <li><a href="#uses-6">Uses</a></li>
-<li><a href="#example-18">Example</a><ul>
+<li><a href="#example-19">Example</a><ul>
 <li><a href="#move-decorated-case-to-decorator">Move decorated case to decorator</a></li>
 <li><a href="#move-conditional-logic-into-decorator">Move conditional logic into decorator</a></li>
 <li><a href="#move-body-into-decorator">Move body into decorator</a></li>
@@ -179,33 +180,33 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-partial">Extract Partial</a><ul>
 <li><a href="#uses-7">Uses</a></li>
 <li><a href="#steps">Steps</a></li>
-<li><a href="#example-19">Example</a></li>
+<li><a href="#example-20">Example</a></li>
 <li><a href="#next-steps-7">Next Steps</a></li>
 </ul></li>
-<li><a href="#extract-service-object">Extract Service Object</a></li>
 <li><a href="#extract-validator">Extract Validator</a><ul>
 <li><a href="#uses-8">Uses</a></li>
-<li><a href="#example-20">Example</a></li>
+<li><a href="#example-21">Example</a></li>
 <li><a href="#next-steps-8">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a><ul>
 <li><a href="#uses-9">Uses</a></li>
-<li><a href="#example-21">Example</a></li>
+<li><a href="#example-22">Example</a></li>
 <li><a href="#next-steps-9">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-observer">Introduce Observer</a></li>
 <li><a href="#introduce-form-object">Introduce Form Object</a><ul>
 <li><a href="#uses-10">Uses</a></li>
-<li><a href="#example-22">Example</a></li>
+<li><a href="#example-23">Example</a></li>
 <li><a href="#next-steps-10">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a><ul>
 <li><a href="#uses-11">Uses</a></li>
+<li><a href="#example-24">Example</a></li>
 <li><a href="#next-steps-11">Next Steps</a></li>
 </ul></li>
 <li><a href="#use-class-as-factory">Use class as Factory</a><ul>
 <li><a href="#uses-12">Uses</a></li>
-<li><a href="#example-23">Example</a></li>
+<li><a href="#example-25">Example</a></li>
 <li><a href="#next-steps-12">Next Steps</a></li>
 </ul></li>
 <li><a href="#move-method">Move method</a><ul>
@@ -213,11 +214,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
 <li><a href="#next-steps-13">Next Steps</a></li>
 </ul></li>
-<li><a href="#inline-class">Inline class</a></li>
-<li><a href="#inject-dependencies">Inject dependencies</a></li>
-<li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a><ul>
+<li><a href="#inline-class">Inline class</a><ul>
 <li><a href="#uses-14">Uses</a></li>
-<li><a href="#example-24">Example</a><ul>
+<li><a href="#example-26">Example</a></li>
+<li><a href="#drawbacks-4">Drawbacks</a></li>
+<li><a href="#next-steps-14">Next Steps</a></li>
+</ul></li>
+<li><a href="#inject-dependencies">Inject dependencies</a><ul>
+<li><a href="#uses-15">Uses</a></li>
+<li><a href="#example-27">Example</a></li>
+<li><a href="#drawbacks-5">Drawbacks</a></li>
+<li><a href="#next-steps-15">Next Steps</a></li>
+</ul></li>
+<li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a><ul>
+<li><a href="#uses-16">Uses</a></li>
+<li><a href="#example-28">Example</a><ul>
 <li><a href="#use-extract-class-to-extract-non-railsy-methods-from-subclasses">Use Extract Class to Extract Non-Railsy Methods From Subclasses</a></li>
 <li><a href="#pull-up-delegate-method-into-base-class">Pull Up Delegate Method Into Base Class</a></li>
 <li><a href="#move-remaining-common-api-into-strategies">Move Remaining Common API Into Strategies</a></li>
@@ -236,32 +247,36 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#simplify-type-switching">Simplify Type Switching</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 </ul></li>
-<li><a href="#drawbacks-4">Drawbacks</a></li>
-<li><a href="#next-steps-14">Next Steps</a></li>
-</ul></li>
-<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a><ul>
-<li><a href="#uses-15">Uses</a></li>
-<li><a href="#example-25">Example</a></li>
-<li><a href="#next-steps-15">Next Steps</a></li>
-</ul></li>
-<li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
-<li><a href="#uses-16">Uses</a></li>
-<li><a href="#steps-1">Steps</a></li>
-<li><a href="#example-26">Example</a></li>
+<li><a href="#drawbacks-6">Drawbacks</a></li>
 <li><a href="#next-steps-16">Next Steps</a></li>
 </ul></li>
-<li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
+<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a><ul>
 <li><a href="#uses-17">Uses</a></li>
-<li><a href="#example-27">Example</a></li>
+<li><a href="#example-29">Example</a></li>
+<li><a href="#next-steps-17">Next Steps</a></li>
+</ul></li>
+<li><a href="#replace-callback-with-method">Replace Callback with Method</a><ul>
+<li><a href="#uses-18">Uses</a></li>
+<li><a href="#steps-1">Steps</a></li>
+<li><a href="#example-30">Example</a></li>
+<li><a href="#next-steps-18">Next Steps</a></li>
+</ul></li>
+<li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
+<li><a href="#uses-19">Uses</a></li>
+<li><a href="#example-31">Example</a></li>
 <li><a href="#scoping-constantize">Scoping <code>constantize</code></a><ul>
-<li><a href="#drawbacks-5">Drawbacks</a><ul>
+<li><a href="#drawbacks-7">Drawbacks</a><ul>
 <li><a href="#weak-conventions">Weak Conventions</a></li>
 <li><a href="#class-oriented-programming">Class-Oriented Programming</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
 <li><a href="#introduce-visitor">Introduce Visitor</a></li>
-<li><a href="#dry">DRY</a></li>
+<li><a href="#dry">DRY</a><ul>
+<li><a href="#duplicated-knowledge-vs-duplicated-text">Duplicated Knowledge vs Duplicated Text</a><ul>
+<li><a href="#application">Application</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#single-responsibility-principle">Single responsibility principle</a></li>
 <li><a href="#tell-dont-ask">Tell, Don't Ask</a></li>
 <li><a href="#law-of-demeter">Law of Demeter</a></li>
@@ -391,7 +406,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>The class has more than 7 methods.</li>
 <li>The class has a total flog score of 50.</li>
 </ul>
-<p></p>
 </section>
 <section class="level3" id="example-1">
 <h3><a href="#TOC">Example</a></h3>
@@ -461,14 +475,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> if the class contains private methods related to conditional branches.</li>
 <li><a href="#extract-value-object">Extract Value Object</a> if the class contains private query methods.</li>
 <li><a href="#extract-decorator">Extract Decorator</a> if the class contains delegation methods.</li>
-<li><a href="#extract-service-object">Extract Service Object</a> if the class contains numerous objects related to a single action.</li>
 <li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> if the large class is a base class in an inheritance hierarchy.</li>
 </ul>
 </section>
 <section class="level3" id="prevention">
 <h3><a href="#TOC">Prevention</a></h3>
 <p>Following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> will prevent large classes from cropping up. It's difficult for any class to become too large without taking on more than one responsibility.</p>
-<p></p>
 <p>You can use flog to analyze classes as you write and modify them:</p>
 <pre><code>% flog -a app/models/question.rb 
     48.3: flog total
@@ -521,6 +533,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li><a href="#extract-method">Extract Method</a> if only part of the method suffers from feature envy, and then move the method.</li>
 <li><a href="#move-method">Move Method</a> if the entire method suffers from feature envy.</li>
+<li><a href="#inline-class">Inline Classes</a> if the envied class isn't pulling its weight.</li>
 </ul>
 </section>
 </section>
@@ -555,6 +568,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
     summarize_scale_answers
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <p>Note that many applications replicate the same <code>case</code> statement, which is a more serious offence. This view duplicates the <code>case</code> logic from <code>Question#summary</code>, this time in the form of multiple <code>if</code> statements:</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/_question.html.erb
 <span class="kw">&lt;%</span> <span class="kw">if</span> question.question_type <span class="ch">==</span> <span class="st">'MultipleChoice'</span> <span class="kw">-%&gt;</span>
@@ -610,7 +624,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#long-parameter-list">Long Parameter List</a></li>
 <li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
 </ul>
-<p></p>
 </section>
 <section class="level3" id="example-4">
 <h3><a href="#TOC">Example</a></h3>
@@ -635,6 +648,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#extract-decorator">Extract Decorator</a> to replace duplicated display code in views/templates.</li>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a> to hang useful formatting methods alongside a data clump of related attributes.</li>
 <li><a href="#use-convention-over-configuration">Use Convention over Configuration</a> to eliminate small steps that can be inferred based on a convention such as a name.</li>
+<li><a href="#inline-classes">Inline Classes</a> that only serve to add extra steps when performing changes.</li>
 </ul>
 </section>
 </section>
@@ -648,6 +662,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>The class is changed more frequently than other classes in the application.</li>
 <li>Different changes to the class aren't related to each other.</li>
 </ul>
+<p></p>
 </section>
 <section class="level3" id="example-5">
 <h3><a href="#TOC">Example</a></h3>
@@ -706,6 +721,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>The method is complex due to number of collaborating parameters.</li>
 <li>The method requires large amounts of setup during isolated testing.</li>
 </ul>
+<p></p>
 </section>
 <section class="level3" id="example-6">
 <h3><a href="#TOC">Example</a></h3>
@@ -920,7 +936,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
   answers.order(<span class="st">:created_at</span>).pluck(<span class="st">:text</span>).join(<span class="st">', '</span>)
 <span class="kw">end</span></code></pre>
 <p>This comment is trying to explain what the following line of code does, because the code itself is too hard to understand. A better solution would be to improve the legibility of the code.</p>
-<p></p>
 <p>Some comments add no value at all and can safely be removed:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Invitation</span>
   <span class="co"># Deliver the invitation</span>
@@ -983,6 +998,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
     render template: <span class="st">'invitations/message'</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <p>Each delivery strategy mixes in <code>Inviter</code> and calls <code>render_message_body</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/message_inviter.rb</span>
 <span class="kw">class</span> <span class="dt">MessageInviter</span> &lt; <span class="dt">AbstractController</span>::<span class="dt">Base</span>
@@ -1028,6 +1044,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Methods such as <code>save_without_sending_email</code> which skip callbacks.</li>
 <li>Callbacks which need to be invoked conditionally.</li>
 </ul>
+<p></p>
 </section>
 <section class="level3" id="example-12">
 <h3><a href="#TOC">Example</a></h3>
@@ -1073,7 +1090,6 @@ after_create <span class="st">:deliver</span></code></pre>
 <li>Removes <a href="#feature-envy">Feature Envy</a> by allowing dependent classes to make their own decisions.</li>
 <li>Makes it easier to remove <a href="#duplicated-code">Duplicated Code</a> by taking behavior out of conditional clauses and private methods.</li>
 </ul>
-<p></p>
 </section>
 <section class="level3" id="example-13">
 <h3><a href="#TOC">Example</a></h3>
@@ -1160,6 +1176,7 @@ after_create <span class="st">:deliver</span></code></pre>
     summarize_scale_answers
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20121128221331_add_question_suffix_to_question_type.rb</span>
 <span class="kw">class</span> <span class="dt">AddQuestionSuffixToQuestionType</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
   <span class="kw">def</span> up
@@ -1178,7 +1195,6 @@ after_create <span class="st">:deliver</span></code></pre>
 <p>The <code>Question</code> class stores its type code as <code>question_type</code>. The Rails convention is to use a column named <code>type</code>, but Rails will automatically start using STI if that column is present. That means that renaming <code>question_type</code> to <code>type</code> at this point would result in debugging two things at once: possible breaks from renaming, and possible breaks from using STI. Therefore, let's start by just marking <code>question_type</code> as the inheritance column, allowing us to debug STI failures by themselves:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 set_inheritance_column  <span class="st">'question_type'</span></code></pre>
-<p></p>
 <p>Running the tests after this will reveal that Rails wants the subclasses to be defined, so let's add some placeholder classes:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
 <span class="kw">class</span> <span class="dt">OpenQuestion</span> &lt; <span class="dt">Question</span>
@@ -1205,7 +1221,6 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
     rename_column <span class="st">:questions</span>, <span class="st">:type</span>, <span class="st">:question_type</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
-<p></p>
 <p>Now we need to build the appropriate subclass instead of <code>Question</code>. We can use a little Ruby meta-programming to make that fairly painless:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
 <span class="kw">def</span> build_question
@@ -1234,7 +1249,6 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <span class="kw">end</span></code></pre>
 <p>For each path of the condition, there is a sequence of steps.</p>
 <p>The first step is to use <a href="#extract-method">Extract Method</a> to move each path to its own method. In this case, we already extracted methods called <code>summarize_multiple_choice_answers</code>, <code>summarize_open_answers</code>, and <code>summarize_scale_answers</code>, so we can proceed immediately.</p>
-<p></p>
 <p>The next step is to use <a href="#move-method">Move Method</a> to move the extracted method to the appropriate class. First, let's move the method <code>summarize_multiple_choice_answers</code> to <code>MultipleChoiceQuestion</code> and rename it to <code>summary</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">MultipleChoiceQuestion</span> &lt; <span class="dt">Question</span>
   <span class="kw">def</span> summary
@@ -1252,7 +1266,6 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p>In this case, we've already created all our subclasses, but you can use <a href="#extract-class">Extract Class</a> to create them if you're extracting each conditional path into a new class.</p>
 <p>You can see the full change for this step in commit a08f801.</p>
 <p>The <code>summary</code> method is now much better. Adding new question types is easier. The new subclass will implement <code>summary</code>, and the <code>Question</code> class doesn't need to change. The summary code for each type now lives with its type, so no one class is cluttered up with the details.</p>
-<p></p>
 </section>
 </section>
 <section class="level2" id="polymorphic-partials">
@@ -1369,7 +1382,6 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <span class="kw">def</span> answer_text_for(question)
   question.answers.for_user(<span class="dv">self</span>).text
 <span class="kw">end</span></code></pre>
-<p></p>
 <p>We're now just assuming that <code>Answer</code> class methods will return something answer-like; specifically, we expect an object that returns useful <code>text</code>. We can refactor <code>Answer</code> to handle the <code>nil</code> check:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
 <span class="kw">class</span> <span class="dt">Answer</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
@@ -1396,7 +1408,6 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
     <span class="st">'No response'</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
-<p></p>
 <p>We can take things just a little further and remove a bit of duplication with a quick <a href="#extract-method">Extract Method</a>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
 <span class="kw">class</span> <span class="dt">Answer</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
@@ -1440,6 +1451,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <li>Make sure your Null Object class implements the required methods from the original class.</li>
 <li>Make sure no <a href="#duplicated-code">Duplicated Code</a> exists between the Null Object class and the original.</li>
 </ul>
+<p></p>
 </section>
 <section class="level2" id="truthiness-try-and-other-tricks">
 <h2><a href="#TOC">truthiness, try, and other tricks</a></h2>
@@ -1481,6 +1493,9 @@ user.try(<span class="st">:name</span>)</code></pre>
 <li>Reveals complexity.</li>
 </ul>
 <p></p>
+</section>
+<section class="level3" id="example-15">
+<h3><a href="#TOC">Example</a></h3>
 <p>Let's take a look at an example <a href="#long-method">Long Method</a> and improve it by extracting smaller methods:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> create
   <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
@@ -1507,7 +1522,6 @@ user.try(<span class="st">:name</span>)</code></pre>
 <li>It redirects back to the survey for a valid question.</li>
 <li>It re-renders the form for an invalid question.</li>
 </ul>
-<p></p>
 <p>Any of these tasks can be extracted to a method. Let's start by extracting the task of building the question.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> create
   <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
@@ -1531,6 +1545,7 @@ user.try(<span class="st">:name</span>)</code></pre>
   <span class="ot">@question</span>.submittable_type = <span class="ot">@submittable_type</span>
 <span class="kw">end</span></code></pre>
 <p>The <code>create</code> method is already much more readable. The new <code>build_question</code> method is noisy, though, with the wrong details at the beginning. The task of pulling out question parameters is clouding up the task of building the question. Let's extract another method.</p>
+<p></p>
 </section>
 <section class="level2" id="replace-temp-with-query">
 <h2><a href="#TOC">Replace temp with query</a></h2>
@@ -1580,7 +1595,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 <li>Change method names to conform to common interfaces.</li>
 </ul>
 </section>
-<section class="level3" id="example-15">
+<section class="level3" id="example-16">
 <h3><a href="#TOC">Example</a></h3>
 <p>In our example application, we generate summaries from answers to surveys. We allow more than one type of summary, so strategies are employed to handle the variations. There are a number of methods and dependencies that make this work.</p>
 <p><code>SummariesController#show</code> depends on <code>Survey#summarize</code>:</p>
@@ -1652,9 +1667,8 @@ question.summary_using(summarizer)</code></pre>
 <li>Provides a cohesive set of functionality with a meaningful name, making it easier to understand and talk about.</li>
 <li>Fully encapsulates a concern within a single class, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and making it easier to change and reuse that functionality.</li>
 </ul>
-<p></p>
 </section>
-<section class="level3" id="example-16">
+<section class="level3" id="example-17">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>InvitationsController</code> is a <a href="#large-class">Large Class</a> hidden behind a <a href="#long-method">Long Method</a>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
@@ -1850,6 +1864,7 @@ question.summary_using(summarizer)</code></pre>
   invalid_recipients.empty?
 <span class="kw">end</span></code></pre>
 <p>We've <a href="https://github.com/thoughtbot/ruby-science/commit/b434954d">pulled out most of the private methods</a>, so the remaining complexity is largely from saving and delivering the invitations.</p>
+<p></p>
 <p>Let's extract and move a <code>deliver</code> method for that:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">def</span> deliver
@@ -1890,6 +1905,7 @@ question.summary_using(summarizer)</code></pre>
 <p>We've <a href="https://github.com/thoughtbot/ruby-science/commit/000babe1">moved most of the behavior out of the controller</a>, but we're still assigning a number of instance variables for the view, which have corresponding private methods in the controller. These values are also available on <code>SurveyInviter</code>, which is already assigned to the view, so let's expose those using <code>attr_reader</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="ot">attr_reader</span> <span class="st">:message</span>, <span class="st">:recipients</span>, <span class="st">:survey</span></code></pre>
+<p></p>
 <p>And use them directly from the view:</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/invitations/new.html.erb
 <span class="kw">&lt;%=</span> simple_form_for(
@@ -1910,6 +1926,7 @@ question.summary_using(summarizer)</code></pre>
     input_html: <span class="ch">{</span> value: <span class="ot">@survey_inviter</span>.recipients <span class="ch">}</span>
   ) <span class="kw">%&gt;</span></code></pre>
 <p>Only the <code>SurveyInviter</code> is used in the controller now, so we can <a href="https://github.com/thoughtbot/ruby-science/commit/a0505921">remove the remaining instance variables and private methods</a>.</p>
+<p></p>
 <p>Our controller is now much simpler:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
 <span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
@@ -1938,6 +1955,7 @@ question.summary_using(summarizer)</code></pre>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>It only assigns one instance variable, it doesn't have too many methods, and all of its methods are fairly small.</p>
+<p></p>
 <p>The newly extracted <code>SurveyInviter</code> class absorbed much of the complexity, but still isn't as bad as the original controller:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">class</span> <span class="dt">SurveyInviter</span>
@@ -2018,9 +2036,8 @@ question.summary_using(summarizer)</code></pre>
 <li>Make the code easier to understand by fully-encapsulating related logic into a single class, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</li>
 <li>Eliminate <a href="#divergent-change">Divergent Change</a> by extracting code related to an embedded semantic type.</li>
 </ul>
-<p></p>
 </section>
-<section class="level3" id="example-17">
+<section class="level3" id="example-18">
 <h3><a href="#TOC">Example</a></h3>
 <p><code>InvitationsController</code> is bloated with methods and logic relating to parsing a string that contains a list of email addresses:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
@@ -2085,7 +2102,7 @@ question.summary_using(summarizer)</code></pre>
 <li>Prevent conditional logic from leaking by making decisions earlier.</li>
 </ul>
 </section>
-<section class="level3" id="example-18">
+<section class="level3" id="example-19">
 <h3><a href="#TOC">Example</a></h3>
 <p>In our example application, users can view a summary of the answers to each question on a survey. In order to prevent the summary from influencing a user's own answers, users don't see summaries for questions they haven't answered yet by default. Users can click a link to override this decision and view the summary for every question. This concern is mixed across several levels, and introducing the change affected several classes. Let's see if we can refactor our application to make similar changes easier in the future.</p>
 <p>Currently, the controller determines whether or not unanswered questions should display summaries:</p>
@@ -2104,6 +2121,7 @@ question.summary_using(summarizer)</code></pre>
 <p>It passes this decision into <code>Survey#summaries_using</code> as a hash containing boolean flag:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
 <span class="ot">@summaries</span> = <span class="ot">@survey</span>.summaries_using(summarizer, constraints)</code></pre>
+<p></p>
 <p><code>Survey#summaries_using</code> uses this information to decide whether each question should return a real summary or a hidden summary:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
 <span class="kw">def</span> summaries_using(summarizer, options = {})
@@ -2116,7 +2134,6 @@ question.summary_using(summarizer)</code></pre>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>This method is pretty dense. We can start by using <a href="#extract-method">Extract Method</a> to clarify and reveal complexity:</p>
-<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
 <span class="kw">def</span> summaries_using(summarizer, options = {})
   questions.map <span class="kw">do</span> |question|
@@ -2212,6 +2229,7 @@ question.summary_using(summarizer)</code></pre>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p><a href="https://github.com/thoughtbot/ruby-science/commit/4fd00a88">At this point</a>, every other method in the decorator can be made private.</p>
+<p></p>
 </section>
 <section class="level4" id="promote-parameters-to-instance-variables">
 <h4><a href="#TOC">Promote parameters to instance variables</a></h4>
@@ -2247,7 +2265,6 @@ question.summary_using(summarizer)</code></pre>
 <span class="dt">UnansweredQuestionHider</span>.new(summarizer, options[<span class="st">:answered_by</span>]).
   summarize(question)</code></pre>
 <p><a href="https://github.com/thoughtbot/ruby-science/commit/61ca6784">Our decorator now follows the component interface in name</a>, but not behavior. In our application, summarizers return a string which represents the answers to a question, but our decorator is returning a <code>Summary</code> instead. Let's fix our decorator to follow the component interface by returning just a string:</p>
-<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/unanswered_question_hider.rb</span>
 <span class="kw">def</span> summarize(question)
   <span class="kw">if</span> hide_unanswered_question?(question)
@@ -2346,9 +2363,8 @@ question.summary_using(summarizer)</code></pre>
 <li>Move common code into newly created file.</li>
 <li>Render the partial from the source file.</li>
 </ul>
-<p></p>
 </section>
-<section class="level3" id="example-19">
+<section class="level3" id="example-20">
 <h3><a href="#TOC">Example</a></h3>
 <p>Let's revisit the view code for <em>adding</em> and <em>editing</em> questions.</p>
 <p>Note: There are a few small differences in the files (the url endpoint, and the label on the submit button).</p>
@@ -2403,10 +2419,6 @@ en:
 </ul>
 </section>
 </section>
-<section class="level1" id="extract-service-object">
-<h1><a href="#TOC">Extract Service Object</a></h1>
-<p>STUB</p>
-</section>
 <section class="level1" id="extract-validator">
 <h1><a href="#TOC">Extract Validator</a></h1>
 <p>A form of <a href="#extract-class">Extract Class</a> used to remove complex validation details from <code>ActiveRecord</code> models. This technique also prevents duplication of validation code across several files.</p>
@@ -2418,7 +2430,7 @@ en:
 <li>Remove duplication among classes performing the same validation logic.</li>
 </ul>
 </section>
-<section class="level3" id="example-20">
+<section class="level3" id="example-21">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>Invitation</code> class has validation details in-line. It checks that the <code>repient_email</code> matches the formatting of the regular expression <code>EMAIL_REGEX</code>.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
@@ -2427,7 +2439,6 @@ en:
   validates <span class="st">:recipient_email</span>, presence: <span class="dv">true</span>, format: <span class="dt">EMAIL_REGEX</span>
 <span class="kw">end</span></code></pre>
 <p>We extract the validation details into a new class <code>EmailValidator</code>, and place the new class into the <code>app/validators</code> directory.</p>
-<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/validators/email_validator.rb</span>
 <span class="kw">class</span> <span class="dt">EmailValidator</span> &lt; <span class="dt">ActiveModel</span>::<span class="dt">EachValidator</span>
   <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i</span>
@@ -2449,8 +2460,8 @@ validates_with <span class="dt">EnumerableValidator</span>,
   attributes: [<span class="st">:recipients</span>],
   <span class="kw">unless</span>: <span class="st">'recipients.nil?'</span>,
   validator: <span class="dt">EmailValidator</span></code></pre>
-<p>The <code>EmailValidator</code> is passed in as an argument, and each element in the array is validated against it.</p>
 <p></p>
+<p>The <code>EmailValidator</code> is passed in as an argument, and each element in the array is validated against it.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/validators/enumerable_validator.rb</span>
 <span class="kw">class</span> <span class="dt">EnumerableValidator</span> &lt; <span class="dt">ActiveModel</span>::<span class="dt">EachValidator</span>
   <span class="kw">def</span> validate_each(record, attribute, enumerable)
@@ -2489,7 +2500,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Removes the need for extra <a href="#comments">Comments</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-21">
+<section class="level3" id="example-22">
 <h3><a href="#TOC">Example</a></h3>
 <p>This line of code was hard enough to understand that a comment was added:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_question.rb</span>
@@ -2554,7 +2565,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Set the stage for <a href="#extract-validator">Extract Validator</a>.</li>
 </ul>
 </section>
-<section class="level3" id="example-22">
+<section class="level3" id="example-23">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>create</code> action of our <code>InvitationsController</code> relies on user submitted data for <code>message</code> and <code>recipients</code> (a comma delimited list of email addresses).</p>
 <p>It performs a number of tasks:</p>
@@ -2566,7 +2577,6 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Sends an email to each of the recipients.</li>
 <li>Sets view data for validation failures.</li>
 </ul>
-<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/invitations_controller.rb</span>
 <span class="kw">class</span> <span class="dt">InvitationsController</span> &lt; <span class="dt">ApplicationController</span>
   <span class="dt">EMAIL_REGEX</span> = <span class="ot">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/</span>
@@ -2627,6 +2637,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <span class="ot">end</span></code></pre>
 <p>By introducing a form object we can move the concerns of data validation, invitation creation, and notifications to the new model <code>SurveyInviter</code>.</p>
 <p>Including <a href="https://github.com/rails/rails/blob/master/activemodel/lib/active_model/model.rb">ActiveModel::Model</a> allows us to leverage the familiar <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validation</a> syntax.</p>
+<p></p>
 <p>As we introduce the form object we'll also extract an enumerable class <code>RecipientList</code> and validators <code>EnumerableValidator</code> and <code>EmailValidator</code>. They will be covered in the chapters <a href="#extract-class">Extract Class</a> and <a href="#extract-validator">Extract Validator</a>.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">class</span> <span class="dt">SurveyInviter</span>
@@ -2728,6 +2739,10 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Group parameters that naturally fit together.</li>
 <li>Encapsulate behavior between related parameters.</li>
 </ul>
+<p></p>
+</section>
+<section class="level3" id="example-24">
+<h3><a href="#TOC">Example</a></h3>
 <p>Let's take a look at the example from <a href="#long-parameter-list">Long Parameter List</a> and improve it by grouping the related parameters into an object:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
 <span class="kw">class</span> <span class="dt">Mailer</span> &lt; <span class="dt">ActionMailer</span>::<span class="dt">Base</span>
@@ -2745,6 +2760,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <span class="kw">end</span></code></pre>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/mailer/completion_notification.html.erb
 <span class="kw">&lt;%=</span> <span class="ot">@first_name</span> <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> <span class="ot">@last_name</span> <span class="kw">%&gt;</span></code></pre>
+<p></p>
 <p>By introducing the new parameter object <code>recipient</code> we can naturally group the attributes <code>first_name</code>, <code>last_name</code>, and <code>email</code> together.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/mailers/mailer.rb</span>
 <span class="kw">class</span> <span class="dt">Mailer</span> &lt; <span class="dt">ActionMailer</span>::<span class="dt">Base</span>
@@ -2783,7 +2799,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-23">
+<section class="level3" id="example-25">
 <h3><a href="#TOC">Example</a></h3>
 <p>This controller uses one of several possible summarizer strategies to generate a summary of answers to the questions on a survey:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
@@ -2839,9 +2855,9 @@ validates_with <span class="dt">EnumerableValidator</span>,
   <span class="kw">def</span> build
     <span class="dt">MostRecent</span>.new
   <span class="kw">end</span>
-<span class="kw">end</span>
-
-<span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
+<span class="kw">end</span></code></pre>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
   <span class="kw">def</span> initialize(user)
     <span class="ot">@user</span> = user
   <span class="kw">end</span>
@@ -2865,9 +2881,9 @@ validates_with <span class="dt">EnumerableValidator</span>,
   <span class="kw">def</span> new
     <span class="dt">MostRecent</span>.new
   <span class="kw">end</span>
-<span class="kw">end</span>
-
-<span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
+<span class="kw">end</span></code></pre>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">UserAnswerFactory</span>
   <span class="kw">def</span> initialize(user)
     <span class="ot">@user</span> = user
   <span class="kw">end</span>
@@ -2964,11 +2980,259 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 <section class="level1" id="inline-class">
 <h1><a href="#TOC">Inline class</a></h1>
-<p>STUB</p>
+<p>As an application evolves, new classes are introduced as new features are added and existing code is refactored. <a href="#extract-class">Extracting classes</a> will help to keep existing classes maintainable and make it easier to add new features. However, features can also be removed or simplified, and you'll inevitably find that some classes just aren't pulling their weight. Removing dead-weight classes is just as important as splitting up <a href="#large-class">large classes</a>, and inlining a class is the easiest way to remove it.</p>
+<p>Inlining a class is straightforward:</p>
+<ul>
+<li>For each consumer class that uses the inlined class, inline or move each method from the inlined class into the consumer class.</li>
+<li>Remove the inlined class.</li>
+</ul>
+<p>Note that this refactoring is difficult (and unwise!) if you have more than one or two consumer classes.</p>
+<section class="level3" id="uses-14">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Make classes easier to understand by eliminating the number of methods, classes, and files developers need to look through.</li>
+<li>Eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> from changes that cascade through useless classes.</li>
+<li>Eliminate <a href="#feature-envy">Feature Envy</a> when the envied class can be inlined into the envious class.</li>
+<li>Eliminate <a href="#high-fan-out">High Fanout</a> by inlining dependencies.</li>
+</ul>
+</section>
+<section class="level3" id="example-26">
+<h3><a href="#TOC">Example</a></h3>
+<p>In our example application, users can create surveys and invite other users to answer them. Users are invited by listing email addresses to invite.</p>
+<p>Any email addresses that match up with existing users are sent using a private message that the user will see the next time he or she signs in. Invitations to unrecognized addresses are sent using email messages.</p>
+<p>The <code>Invitation</code> model delegates to a different strategy class based on whether or not its recipient email is recognized as an existing user:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">def</span> deliver
+  <span class="kw">if</span> recipient_user
+    <span class="dt">MessageInviter</span>.new(<span class="dv">self</span>, recipient_user).deliver
+  <span class="kw">else</span>
+    <span class="dt">EmailInviter</span>.new(<span class="dv">self</span>).deliver
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>We've decided that the private messaging feature isn't getting enough use, so we're going to remove it. This means that all invitations will now be delivered via email, so we can simplify <code>Invitation#deliver</code> to always use the same strategy:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">def</span> deliver
+  <span class="dt">EmailInviter</span>.new(<span class="dv">self</span>).deliver
+<span class="kw">end</span></code></pre>
+<p>The <code>EmailInviter</code> class was useful as a strategy, but now that the strategy no longer varies, it doesn't bring much to the table:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/email_inviter.rb</span>
+<span class="kw">class</span> <span class="dt">EmailInviter</span>
+  <span class="kw">def</span> initialize(invitation)
+    <span class="ot">@invitation</span> = invitation
+    <span class="ot">@body</span> = <span class="dt">InvitationMessage</span>.new(<span class="ot">@invitation</span>).body
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> deliver
+    <span class="dt">Mailer</span>.invitation_notification(<span class="ot">@invitation</span>, <span class="ot">@body</span>).deliver
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>It doesn't handle any concerns that aren't already well-encapsulated by <code>InvitationMessage</code> and <code>Mailer</code>, and it's only used once (in <code>Invitation</code>). We can inline this class into <code>Invitation</code> and drop a little overall complexity and indirection from our application.</p>
+<p>First, <a href="https://github.com/thoughtbot/ruby-science/commit/dcc40d60">let's inline the <code>EmailInviter#deliver</code> method</a> (and its dependent variables from <code>EmailInviter#initialize</code>):</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation.rb</span>
+<span class="kw">def</span> deliver
+  body = <span class="dt">InvitationMessage</span>.new(<span class="dv">self</span>).body
+  <span class="dt">Mailer</span>.invitation_notification(<span class="dv">self</span>, body).deliver
+<span class="kw">end</span></code></pre>
+<p>Next, we can <a href="https://github.com/thoughtbot/ruby-science/commit/bc863108">delete <code>EmailInviter</code> entirely</a>.</p>
+<p>After inlining the class, it requires fewer jumps through methods, classes, and files to understand how invitations are delivered. Additionally, the application is less complex overall. Flog gives us a total complexity score of 424.7 after this refactoring, down slightly from 427.6. This isn't a huge gain, but this was an easy refactoring, and continually deleting or inlining unnecessary classes and methods will have larger long term effects.</p>
+</section>
+<section class="level3" id="drawbacks-4">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<ul>
+<li>Attempting to inline a class with multiple consumers will likely introduce <a href="#duplicated-code">duplicated code</a>.</li>
+<li>Inlining a class may create <a href="#large-class">large classes</a> and cause <a href="#divergent-change">divergent change</a>.</li>
+<li>Inlining a class will usually increase per-class or per-method complexity, even if it reduces total complexity.</li>
+</ul>
+</section>
+<section class="level3" id="next-steps-14">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>Use <a href="#extract-method">Extract Method</a> if any inlined methods introduced <a href="#long-method">long methods</a>.</li>
+<li>Use <a href="#extract-class">Extract Class</a> if the merged class is a <a href="#large-class">large class</a> or beings suffering from <a href="#divergent-change">divergent change</a>.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="inject-dependencies">
 <h1><a href="#TOC">Inject dependencies</a></h1>
-<p>STUB</p>
+<p>Injecting dependencies allows you to keep dependency resolutions close to the logic that affects them. It can prevent sub-dependencies from leaking throughout the code base, and it makes it easier to change the behavior of related components <a href="#open-closed-principle">without modifying those components' classes</a>.</p>
+<p>Although many people think of dependency injection frameworks and XML when they hear &quot;dependency injection,&quot; injecting a dependency is usually as simple as passing it as a parameter.</p>
+<p>Changing code to use dependency injection only takes a few steps:</p>
+<ol type="1">
+<li>Move the dependency decision to a higher level component.</li>
+<li>Pass the dependency as a parameter to the lower level component.</li>
+<li>Remove any sub-dependencies from the lower level component.</li>
+</ol>
+<p>Injecting dependencies is the simplest way to <a href="#dependency-inversion-principle">invert control</a>.</p>
+<section class="level3" id="uses-15">
+<h3><a href="#TOC">Uses</a></h3>
+<ul>
+<li>Eliminates <a href="#shotgun-surgery">Shotgun Surgery</a> from leaking sub-dependencies.</li>
+<li>Eliminates <a href="#divergent-change">Divergent Change</a> by allowing runtime composition patterns, such as <a href="#extract-decorator">decorators</a> and strategies.</li>
+</ul>
+</section>
+<section class="level3" id="example-27">
+<h3><a href="#TOC">Example</a></h3>
+<p>In our example applications, users can view a summary of the answers to each question on a survey. Users can select from one of several different summary types to view. For example, they can see the most recent answer to each question, or they can see a percentage breakdown of the answers to a multiple choice question.</p>
+<p>The controller passes in the name of the summarizer that the user selected:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">def</span> show
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="ot">@summaries</span> = <span class="ot">@survey</span>.summaries_using(summarizer, options)
+<span class="kw">end</span>
+
+<span class="kw">private</span>
+
+<span class="kw">def</span> summarizer
+  params[<span class="st">:id</span>]
+<span class="kw">end</span></code></pre>
+<p><code>Survey#summaries_using</code> asks each of its questions for a summary using that summarizer and the given options:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
+question.summary_using(summarizer, options)</code></pre>
+<p><code>Question#summary_using</code> instantiates the requested summarizer with the requested options, and then asks the summarizer to summarize the question:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary_using(summarizer_name, options)
+  summarizer_factory = <span class="st">&quot;Summarizer::</span><span class="ot">#{</span>summarizer_name.classify<span class="ot">}</span><span class="st">&quot;</span>.constantize
+  summarizer = summarizer_factory.new(options)
+  value = summarizer.summarize(<span class="dv">self</span>)
+  <span class="dt">Summary</span>.new(title, value)
+<span class="kw">end</span></code></pre>
+<p>This is hard to follow and causes <a href="#shotgun-surgery">shotgun surgery</a> because the logic of building the summarizer is in <code>Question</code>, far away from the choice of which summarizer to use, which is in <code>SummariesController</code>. Additionally, the <code>options</code> parameter needs to be passed down several levels so that summarizer-specific options can be provided when building the summarizer.</p>
+<p>Let's switch this up by having the controller build the actual summarizer instance. First, we'll move that logic from <code>Question</code> to <code>SummariesController</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">def</span> show
+  <span class="ot">@survey</span> = <span class="dt">Survey</span>.find(params[<span class="st">:survey_id</span>])
+  <span class="ot">@summaries</span> = <span class="ot">@survey</span>.summaries_using(summarizer, options)
+<span class="kw">end</span>
+
+<span class="kw">private</span>
+
+<span class="kw">def</span> summarizer
+  summarizer_name = params[<span class="st">:id</span>]
+  summarizer_factory = <span class="st">&quot;Summarizer::</span><span class="ot">#{</span>summarizer_name.classify<span class="ot">}</span><span class="st">&quot;</span>.constantize
+  summarizer_factory.new(options)
+<span class="kw">end</span></code></pre>
+<p>Then, we'll change <code>Question#summary_using</code> to take an instance instead of a name:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary_using(summarizer, options)
+  value = summarizer.summarize(<span class="dv">self</span>)
+  <span class="dt">Summary</span>.new(title, value)
+<span class="kw">end</span></code></pre>
+<p></p>
+<p>That <code>options</code> argument is no longer necessary, because it was only used to build the summarizer, which is now handled by the controller. Let's remove it:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary_using(summarizer)
+  value = summarizer.summarize(<span class="dv">self</span>)
+  <span class="dt">Summary</span>.new(title, value)
+<span class="kw">end</span></code></pre>
+<p>We also don't need to pass it from <code>Survey</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
+question.summary_using(summarizer)</code></pre>
+<p>This interaction has already improved, because the <code>options</code> argument is no longer uselessly passed around through two models. It's only used in the controller where the summarizer instance is built. Building the summarizer in the controller is appropriate, because the controller knows the name of the summarizer we want to build, as well as which options are used when building it.</p>
+<p>Now that we're using dependency injection, we can take this even further.</p>
+<p>In order to prevent the summary from influencing a user's own answers, users don't see summaries for questions they haven't answered yet by default. Users can click a link to override this decision and view the summary for every question.</p>
+<p>The information that determines whether or not to hide unanswered questions lives in the controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">end</span>
+
+<span class="kw">def</span> constraints
+  <span class="kw">if</span> include_unanswered?
+    {}
+  <span class="kw">else</span>
+    { answered_by: current_user }
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>However, this information is passed into <code>Survey#summaries_using</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="ot">@summaries</span> = <span class="ot">@survey</span>.summaries_using(summarizer, options)</code></pre>
+<p><code>Survey#summaries_using</code> decides whether to hide the answer to each question based on that setting:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
+  <span class="kw">def</span> summaries_using(summarizer, options = {})
+    questions.map <span class="kw">do</span> |question|
+      summary_or_hidden_answer(summarizer, question, options)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> summary_or_hidden_answer(summarizer, question, options)
+    <span class="kw">if</span> hide_unanswered_question?(question, options[<span class="st">:answered_by</span>])
+      hide_answer_to_question(question)
+    <span class="kw">else</span>
+      question.summary_using(summarizer)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> hide_unanswered_question?(question, answered_by)
+    answered_by &amp;&amp; !question.answered_by?(answered_by)
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> hide_answer_to_question(question)
+    <span class="dt">Summary</span>.new(question.title, <span class="dt">NO_ANSWER</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Again, the decision is far away from the dependent behavior.</p>
+<p>We can combine our dependency injection with a <a href="#extract-decorator">decorator</a> to remove the duplicate decision:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/unanswered_question_hider.rb</span>
+<span class="kw">class</span> <span class="dt">UnansweredQuestionHider</span>
+  <span class="dt">NO_ANSWER</span> = <span class="st">&quot;You haven't answered this question&quot;</span>.freeze
+
+  <span class="kw">def</span> initialize(summarizer, user)
+    <span class="ot">@summarizer</span> = summarizer
+    <span class="ot">@user</span> = user
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> summarize(question)
+    <span class="kw">if</span> hide_unanswered_question?(question)
+      <span class="dt">NO_ANSWER</span>
+    <span class="kw">else</span>
+      <span class="ot">@summarizer</span>.summarize(question)
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  <span class="kw">private</span>
+
+  <span class="kw">def</span> hide_unanswered_question?(question)
+    !question.answered_by?(<span class="ot">@user</span>)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>We'll decide whether or not to decorate the base summarizer in our controller:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
+<span class="kw">def</span> decorated_summarizer
+  <span class="kw">if</span> include_unanswered?
+    summarizer
+  <span class="kw">else</span>
+    <span class="dt">UnansweredQuestionHider</span>.new(summarizer, current_user)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now, the decision of whether or not to hide answers is completely removed from <code>Survey</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
+<span class="kw">def</span> summaries_using(summarizer)
+  questions.map <span class="kw">do</span> |question|
+    question.summary_using(summarizer)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>For more explanation of using decorators, as well as step-by-step instructions for how to introduce them, see the chapter on <a href="#extract-decorator">Extract Decorator</a>.</p>
+</section>
+<section class="level3" id="drawbacks-5">
+<h3><a href="#TOC">Drawbacks</a></h3>
+<p>Injecting dependencies in our example made each class - <code>SummariesController</code>, <code>Survey</code>, <code>Question</code>, and <code>UnansweredQuestionHider</code> - easier to understand as a unit. However, it's now difficult to understand why kind of summaries will be produced just by looking at <code>Survey</code> or <code>Question</code>. You need to follow the stack up to <code>SummariesController</code> to understand the dependencies, and then look at each class to understand how they're used.</p>
+<p>In this case, we believe that using dependency injection resulted in an overall win for readability and flexibility. However, it's important to remember that the further you move a dependency's resolution from its use, the harder it is to figure out what's actually being used in lower level components.</p>
+<p>In our example, there isn't an easy way to know which class will be instantiated for the <code>summarizer</code> parameter to <code>Question#summary_using</code>:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
+<span class="kw">def</span> summary_using(summarizer)
+  value = summarizer.summarize(<span class="dv">self</span>)
+  <span class="dt">Summary</span>.new(title, value)
+<span class="kw">end</span></code></pre>
+<p>In our case, that will be one of <code>Summarizer::Breakdown</code>, <code>Summarizer::MostRecent</code>, or <code>Summarizer::UserAnswer</code>, or a <code>UnansweredQuestionHider</code> that decorates one of the above. Developers will need to trace back up through <code>Survey</code> to <code>SummariesController</code> to gather all the possible implementations.</p>
+</section>
+<section class="level3" id="next-steps-15">
+<h3><a href="#TOC">Next Steps</a></h3>
+<ul>
+<li>When pulling dependency resolution up into a higher level class, check that class to make sure it doesn't become a <a href="#large-class">Large Class</a> because of all the logic surrounding dependency resolution.</li>
+<li>If a class is suffering from <a href="#divergent-change">Divergent Change</a> because of new or modified dependencies, try moving dependency resolution further up the stack to a container class whose sole responsibility is managing dependencies.</li>
+<li>If methods contain <a href="#long-parameter-list">Long Parameter Lists</a>, consider wrapping up several dependencies in a <a href="#introduce-parameter-object">Parameter Object</a> or Fascade.</li>
+</ul>
+</section>
 </section>
 <section class="level1" id="replace-subclasses-with-strategies">
 <h1><a href="#TOC">Replace Subclasses with Strategies</a></h1>
@@ -2976,16 +3240,15 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <p>During this refactoring, we will replace the subclasses with individual strategy classes. Each strategy class will implement a common interface. The original base class is promoted from an abstract class to the composition root, which composes the strategy classes.</p>
 <p>This allows for smaller interfaces, stricter separation of concerns, and easier testing. It also makes it possible to swap out part of the structure, which would require converting to a new type in an inheritance-based model.</p>
 <p>When applying this refactoring to an <code>ActiveRecord::Base</code> subclass, <a href="#single-table-inheritance-sti">STI</a> is removed, often in favor of a polymorphic association.</p>
-<section class="level3" id="uses-14">
+<section class="level3" id="uses-16">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#large-class">Large Classes</a> by splitting up a bloated base class.</li>
 <li>Convert <a href="#single-table-inheritance-sti">STI</a> to a composition-based scheme.</li>
 <li>Make it easier to change part of the structure by separating the parts that change from the parts that don't.</li>
 </ul>
-<p></p>
 </section>
-<section class="level3" id="example-24">
+<section class="level3" id="example-28">
 <h3><a href="#TOC">Example</a></h3>
 <p>The <code>switch_to</code> method on <code>Question</code> changes the question to a new type. Any necessary attributes for the new subclass are provided to the <code>attributes</code> method.</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
@@ -3075,6 +3338,7 @@ delegate <span class="st">:score</span>, to: <span class="st">:submittable</span
 <span class="kw">def</span> submittable
   <span class="dt">MultipleChoiceSubmittable</span>.new(<span class="dv">self</span>)
 <span class="kw">end</span></code></pre>
+<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/multiple_choice_submittable.rb</span>
 <span class="kw">def</span> answers
   <span class="ot">@question</span>.answers
@@ -3123,7 +3387,6 @@ delegate <span class="st">:score</span>, to: <span class="st">:submittable</span
 <p>We can come back to these locations later and see if we need to pass in the question at all.</p>
 <p>After fixing the code that uses the delegator, remove the delegator from the subclass. Repeat this process for each delegator until they've all been removed.</p>
 <p>You can see how we do this in the <a href="https://github.com/thoughtbot/ruby-science/commit/c7a61dadfed53b9d93b578064d982f22d62f7b8d">example app</a>.</p>
-<p></p>
 </section>
 <section class="level4" id="instantiate-strategy-directly-from-base-class">
 <h4><a href="#TOC">Instantiate Strategy Directly From Base Class</a></h4>
@@ -3175,6 +3438,7 @@ delegate <span class="st">:score</span>, to: <span class="st">:submittable</span
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>Our strategies currently accept the question as a parameter to <code>initialize</code> and assign it as an instance variable. In an <code>ActiveRecord::Base</code> subclass, we don't control <code>initialize</code>, so let's change <code>question</code> from an instance variable to an association and pass a hash:</p>
+<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/open_submittable.rb</span>
 <span class="kw">class</span> <span class="dt">OpenSubmittable</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Base</span>
   has_one <span class="st">:question</span>, as: <span class="st">:submittable</span>
@@ -3272,6 +3536,7 @@ validates <span class="st">:submittable</span>, associated: <span class="dv">tru
   <span class="ot">@question</span>.build_submittable(submittable_params)
   <span class="ot">@question</span>.survey = <span class="ot">@survey</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/questions_controller.rb</span>
 <span class="kw">def</span> question_params
   params.
@@ -3438,7 +3703,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <p>This is a difficult transition to make, and the more behavior and data that you shove into an inheritance scheme, the harder it becomes. In situations where <a href="#single-table-inheritance-sti">STI</a> is not significantly easier than using a polymorphic relationship, it's better to start with composition. STI provides few advantages over composition, and it's easier to merge models than to split them.</p>
 </section>
 </section>
-<section class="level3" id="drawbacks-4">
+<section class="level3" id="drawbacks-6">
 <h3><a href="#TOC">Drawbacks</a></h3>
 <p>Our application also got worse in a number of ways:</p>
 <ul>
@@ -3451,7 +3716,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <p>After performing a large change, keep track of difficult changes you make. Would they have been easier in the old world?</p>
 <p>Answering this questions will increase your ability to judge whether or not to use composition or inheritance in future situations.</p>
 </section>
-<section class="level3" id="next-steps-14">
+<section class="level3" id="next-steps-16">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Check the extracted strategy classes to make sure they don't have <a href="#feature-envy">Feature Envy</a> related to the original base class. You may want to use <a href="#move-method">Move Method</a> to move methods between strategies and the root class.</li>
@@ -3469,16 +3734,15 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <li>Replace references to mixed in methods with references to the composed class.</li>
 <li>Remove the mixin.</li>
 </ul>
-<section class="level3" id="uses-15">
+<section class="level3" id="uses-17">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Liberate business logic trapped in mixins.</li>
 <li>Eliminate name clashes from multiple mixins.</li>
 <li>Make methods in the mixins easier test.</li>
 </ul>
-<p></p>
 </section>
-<section class="level3" id="example-25">
+<section class="level3" id="example-29">
 <h3><a href="#TOC">Example</a></h3>
 <p>In our example applications, invitations can be delivered either by email or private message (to existing users). Each invitation method is implemented in its own class:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/message_inviter.rb</span>
@@ -3511,7 +3775,6 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>The logic to generate the invitation message is the same regardless of the delivery mechanism, so this behavior has been extracted.</p>
-<p></p>
 <p>It's currently extracted using a mixin:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/inviter.rb</span>
 <span class="kw">module</span> <span class="dt">Inviter</span>
@@ -3532,6 +3795,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>Let's replace this mixin with composition.</p>
+<p></p>
 <p>First, we'll <a href="#extract-class">extract a new class</a> for the mixin:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/invitation_message.rb</span>
 <span class="kw">class</span> <span class="dt">InvitationMessage</span> &lt; <span class="dt">AbstractController</span>::<span class="dt">Base</span>
@@ -3558,6 +3822,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
     <span class="dt">InvitationMessage</span>.new(<span class="ot">@invitation</span>).body
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <p>Next, we can replace references to the mixed in methods (<code>render_message_body</code> in this case) with direct references to the composed class:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/message_inviter.rb</span>
 <span class="kw">class</span> <span class="dt">MessageInviter</span>
@@ -3589,7 +3854,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <p>In our case, there was only one method to move. If your mixin has multiple methods, it's best to move them one at a time.</p>
 <p>Once every reference to a mixed in method is replaced, you can remove the mixed in method. Once every mixed in method is removed, you can remove the mixin entirely.</p>
 </section>
-<section class="level3" id="next-steps-15">
+<section class="level3" id="next-steps-17">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li><a href="#inject-dependencies">Inject Dependencies</a> to invert control and allow the composing classes to use different implementations for the composed class.</li>
@@ -3600,7 +3865,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <section class="level1" id="replace-callback-with-method">
 <h1><a href="#TOC">Replace Callback with Method</a></h1>
 <p>If your models are hard to use and change because their persistence logic is coupled with business logic, one way to loosen things up is by replacing <a href="#callback">callbacks</a>.</p>
-<section class="level3" id="uses-16">
+<section class="level3" id="uses-18">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Reduces coupling persistence logic with business logic.</li>
@@ -3618,7 +3883,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-26">
+<section class="level3" id="example-30">
 <h3><a href="#TOC">Example</a></h3>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey_inviter.rb</span>
 <span class="kw">def</span> deliver_invitations
@@ -3672,7 +3937,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <span class="kw">end</span></code></pre>
 <p>If any of the invitations fail to save, the transaction will roll back. Nothing will be committed, and no messages will be delivered.</p>
 </section>
-<section class="level3" id="next-steps-16">
+<section class="level3" id="next-steps-18">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
 <li>Find other instances where the model is saved to make sure that the extracted method doesn't need to be called.</li>
@@ -3682,7 +3947,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <section class="level1" id="use-convention-over-configuration">
 <h1><a href="#TOC">Use convention over configuration</a></h1>
 <p>Ruby's metaprogramming allows us to avoid boilerplate code and duplication by relying on conventions for class names, file names, and directory structure. Although depending on class names can be constricting in some situations, careful use of conventions will make your applications less tedious and more bug-proof.</p>
-<section class="level3" id="uses-17">
+<section class="level3" id="uses-19">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#case-statement">Case Statements</a> by finding classes by name.</li>
@@ -3691,7 +3956,7 @@ after_create <span class="st">:deliver</span></code></pre>
 </ul>
 <p></p>
 </section>
-<section class="level3" id="example-27">
+<section class="level3" id="example-31">
 <h3><a href="#TOC">Example</a></h3>
 <p>This controller accepts an <code>id</code> parameter identifying which summarizer strategy to use and renders a summary of the survey based on the chosen strategy:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
@@ -3735,6 +4000,7 @@ after_create <span class="st">:deliver</span></code></pre>
     raise <span class="st">&quot;Unknown summary type: </span><span class="ot">#{</span>params[<span class="st">:id</span>]<span class="ot">}</span><span class="st">&quot;</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
+<p></p>
 <p>Now that we know we can instantiate any of the summarizer classes the same way, let's extract a method for determining the summarizer class:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
 <span class="kw">def</span> summarizer
@@ -3789,7 +4055,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <span class="kw">end</span></code></pre>
 <p>With this convention in place, you can find all strategies by just looking in the <code>Summarizer</code> module. In a Rails application, this will be in a <code>summarizer</code> directory by convention.</p>
 <p>Users also won't be able to instantiate anything they want by abusing our <code>constantize</code>, because only classes in the <code>Summarizer</code> module are available.</p>
-<section class="level3" id="drawbacks-5">
+<section class="level3" id="drawbacks-7">
 <h3><a href="#TOC">Drawbacks</a></h3>
 <section class="level4" id="weak-conventions">
 <h4><a href="#TOC">Weak Conventions</a></h4>
@@ -3822,7 +4088,59 @@ after_create <span class="st">:deliver</span></code></pre>
 </section>
 <section class="level1" id="dry">
 <h1><a href="#TOC">DRY</a></h1>
-<p>STUB</p>
+<p>The DRY principle - short for &quot;don't repeat yourself&quot; - comes from <a href="http://pragprog.com/book/tpp/the-pragmatic-programmer">The Pragmatic Programmer</a>.</p>
+<p>The principle states:</p>
+<blockquote>
+<p>Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.</p>
+</blockquote>
+<p>Following this principle is one of the best ways to prevent bugs and move faster. Every duplicated piece of knowledge is a bug waiting to happen. Many development techniques are really just ways to prevent and eliminate duplication, and many smells are just ways to detect existing duplication.</p>
+<p>When knowledge is duplicated, changing it means making the same change in several places. Leaving duplication introduces a risk that the various duplicate implementations will slowly diverge, making them harder to merge and making it more likely that a bug remains in one or more incarnations after being fixed.</p>
+<p>Duplication leads to frustration and paranoia. Rampant duplication is a common reason that developers reach for a Grand Rewrite.</p>
+<section class="level2" id="duplicated-knowledge-vs-duplicated-text">
+<h2><a href="#TOC">Duplicated Knowledge vs Duplicated Text</a></h2>
+<p>It's important to understand that this principle states that knowledge should not be repeated; it does not state that text should never be repeated.</p>
+<p>For example, this sample does not violate the DRY principle, even though the word &quot;save&quot; is repeated several times:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> sign_up
+  <span class="ot">@user</span>.save
+  <span class="ot">@account</span>.save
+  <span class="ot">@subscription</span>.save
+<span class="kw">end</span></code></pre>
+<p>However, this code contains duplicated knowledge that could be extracted:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> sign_up_free
+  <span class="ot">@user</span>.save
+  <span class="ot">@account</span>.save
+  <span class="ot">@trial</span>.save
+<span class="kw">end</span>
+
+<span class="kw">def</span> sign_up_paid
+  <span class="ot">@user</span>.save
+  <span class="ot">@account</span>.save
+  <span class="ot">@subscription</span>.save
+<span class="kw">end</span></code></pre>
+<section class="level3" id="application">
+<h3><a href="#TOC">Application</a></h3>
+<p>The following smells may point towards <a href="#duplicated-code">duplicated code</a> and can be avoided by following the DRY principle:</p>
+<ul>
+<li><a href="#shotgun-surgery">Shotgun Surgery</a> caused by changing the same knowledge in several places.</li>
+<li><a href="#long-parameter-list">Long Paramter Lists</a> caused by not encapsulating related properties.</li>
+<li><a href="#feature-envy">Feature Envy</a> caused by leaking internal knowledge of a class that can be encapsulated and reused.</li>
+<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a> duplicate knowledge of types.</li>
+</ul>
+<p>You can use these solutions to remove duplication and make knowledge easier to reuse:</p>
+<ul>
+<li><a href="#extract-class">Extract Classes</a> to encapsulate knowledge, allowing it to be reused.</li>
+<li><a href="#extract-method">Extract Methods</a> to reuse behavior within a class.</li>
+<li><a href="#extract-partial">Extract Partials</a> to remove duplication in views.</li>
+<li><a href="#extract-validator">Extract Validators</a> to encapsulate validations.</li>
+<li><a href="#replace-conditional-with-null-object">Replace Conditionals with Null Objects</a> to encapsulate behavior related to nothingness.</li>
+<li><a href="#replace-conditional-with-polymorphism">Replace Conditionals With Polymorphism</a> to make it easy to reuse behavioral branches.</li>
+<li><a href="#replace-mixin-with-composition">Replace Mixins With Composition</a> to make it easy to combine components in new ways.</li>
+<li><a href="#use-convention-over-configuration">Use Convention Over Configuration</a> to infer knowledge, making it impossible to duplicate.</li>
+</ul>
+<p>Applying these techniques before duplication occurs will make it less likely that duplication will occur. If you want to prevent duplication, make knowledge easier to reuse by keeping classes small and focused.</p>
+<p>Related principles include the <a href="#law-of-demeter">Law of Demeter</a> and the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</p>
+</section>
+</section>
 </section>
 <section class="level1" id="single-responsibility-principle">
 <h1><a href="#TOC">Single responsibility principle</a></h1>

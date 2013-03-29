@@ -165,6 +165,8 @@ def summary
 end
 ```
 
+\clearpage
+
 Note that many applications replicate the same `case` statement, which is a more
 serious offence. This view duplicates the `case` logic from `Question#summary`,
 this time in the form of multiple `if` statements:
@@ -220,8 +222,6 @@ Make sure you look for related smells in the affected code:
 * [Long Parameter List](#long-parameter-list)
 * [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
-\clearpage
-
 ### Example
 
 Users names are formatted and displayed as 'First Last' throughout the application. 
@@ -257,6 +257,8 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
+* [Inline Classes](#inline-classes) that only serve to add extra steps when
+  performing changes.
 
 \part{Solutions}
 
@@ -337,8 +339,6 @@ def answer_text_for(question)
 end
 ```
 
-\clearpage
-
 We're now just assuming that `Answer` class methods will return something
 answer-like; specifically, we expect an object that returns useful `text`. We
 can refactor `Answer` to handle the `nil` check:
@@ -376,8 +376,6 @@ class NullAnswer
   end
 end
 ```
-
-\clearpage
 
 We can take things just a little further and remove a bit of duplication with a
 quick [Extract Method](#extract-method):
@@ -440,6 +438,8 @@ outweighs the drawbacks above.
 * Make sure no [Duplicated Code](#duplicated-code) exists between the Null
   Object class and the original.
 
+\clearpage
+
 ## truthiness, try, and other tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
@@ -486,6 +486,8 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 
 \clearpage
 
+### Example
+
 Let's take a look at an example [Long Method](#long-method) and improve it by
 extracting smaller methods:
 
@@ -518,8 +520,6 @@ This method performs a number of tasks:
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
 
-\clearpage
-
 Any of these tasks can be extracted to a method. Let's start by extracting the
 task of building the question.
 
@@ -551,6 +551,8 @@ The `create` method is already much more readable. The new `build_question`
 method is noisy, though, with the wrong details at the beginning. The task of
 pulling out question parameters is clouding up the task of building the
 question. Let's extract another method.
+
+\clearpage
 
 ## Replace temp with query
 
@@ -603,8 +605,6 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Create a new file for partial prefixed with an underscore (_filename.html.erb).
 * Move common code into newly created file.
 * Render the partial from the source file.
-
-\clearpage
 
 ### Example
 
