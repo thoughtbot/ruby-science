@@ -8,3 +8,4 @@ example_app/bin/stubs
 example_app/db/*.sqlite3
 example_app/log/*.log
 example_app/tmp
+.DS_Store
