@@ -18,8 +18,6 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Move common code into newly created file.
 * Render the partial from the source file.
 
-\clearpage
-
 ### Example
 
 Let's revisit the view code for _adding_ and _editing_ questions.

@@ -8,6 +8,8 @@ A class suffers from Divergent Change when it changes for multiple reasons.
 * The class is changed more frequently than other classes in the application.
 * Different changes to the class aren't related to each other.
 
+\clearpage
+
 ### Example
 
 ` app/controllers/summaries_controller.rb@ec95b89f

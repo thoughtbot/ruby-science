@@ -42,6 +42,8 @@ boolean flag:
 
 ` app/controllers/summaries_controller.rb@15f5b96e:4
 
+\clearpage
+
 `Survey#summaries_using` uses this information to decide whether each question
 should return a real summary or a hidden summary:
 
@@ -49,8 +51,6 @@ should return a real summary or a hidden summary:
 
 This method is pretty dense. We can start by using [Extract
 Method](#extract-method) to clarify and reveal complexity:
-
-\clearpage
 
 ` app/models/survey.rb@15f5b96e:12,34
 
@@ -109,6 +109,8 @@ that the context is more specific, it's clear what role the user is playing.
 [At this point](https://github.com/thoughtbot/ruby-science/commit/4fd00a88),
 every other method in the decorator can be made private.
 
+\clearpage
+
 #### Promote parameters to instance variables
 
 Now that we have a class to handle this logic, we can move some of the
@@ -140,8 +142,6 @@ name](https://github.com/thoughtbot/ruby-science/commit/61ca6784), but not
 behavior. In our application, summarizers return a string which represents the
 answers to a question, but our decorator is returning a `Summary` instead. Let's
 fix our decorator to follow the component interface by returning just a string:
-
-\clearpage
 
 ` app/models/unanswered_question_hider.rb@876ec976:9,15
 

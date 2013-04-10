@@ -20,8 +20,6 @@ This comment is trying to explain what the following line of code does, because
 the code itself is too hard to understand. A better solution would be to improve
 the legibility of the code.
 
-\clearpage
-
 Some comments add no value at all and can safely be removed:
 
 ``` ruby
