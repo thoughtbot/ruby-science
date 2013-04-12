@@ -19,4 +19,5 @@ and other assets are properly loaded.
 #### Note: Readers of the book don't need to worry about the instructions below.
 
 You can find out the computer setup and instructions for generating this book from source here:
+
 <https://github.com/thoughtbot/ruby-science/blob/master/CONTRIBUTING.md>
