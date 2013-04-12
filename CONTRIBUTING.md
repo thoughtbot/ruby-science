@@ -65,6 +65,12 @@ Latex is needed for PDF distribution:
 
 We recommend downloading the [smaller, BasicTeX in conjunction with MacTeX](http://www.tug.org/mactex/morepackages.html).
 
+Install the LaTeX packages:
+
+    sudo tlmgr update --self
+    sudo tlmgr install upquote
+    sudo tlmgr install cm-super
+
 You may need to add its bin directory to your PATH:
 
     export PATH=$PATH:/usr/texbin
