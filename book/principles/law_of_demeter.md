@@ -5,7 +5,7 @@ the Demeter Project, which is itself named after Demeter, the Greek goddess of
 the harvest. There is widespread disagreement as to its pronunciation, but the
 correct pronunciation emphasises the second syllable; you can trust us on that.
 
-The law states that:
+This principle states that:
 
 > A method of an object should invoke only the methods of the following kinds of
 > objects:
