@@ -87,6 +87,7 @@ parameter, instantiated object, or direct subcomponent.
 
 Although the letter of the Law of Demeter is rigid, the message is broader. The
 goal is to avoid over-entangling a method with another object's dependencies.
+
 This means that fixing a violation shouldn't be your objective; removing the
 problem that caused the violation is a better idea. Here are a few tips to avoid
 misguided fixes to Law of Demeter violations:
