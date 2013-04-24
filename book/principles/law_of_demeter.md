@@ -58,6 +58,15 @@ class Account
 end
 ```
 
+In a Rails application, you can quickly delegate methods using ActiveSupport's
+`delegate` class method:
+
+``` ruby
+class User
+  delegate :discounted_plan_price, to: :account
+end
+```
+
 If you find yourself writing lots of delegators, consider changing the consumer
 class to take a different object. For example, if you need to delegate lots of
 `User` methods to `Account`, it's possible that the code referencing `User`
