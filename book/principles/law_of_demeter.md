@@ -1,6 +1,9 @@
 # Law of Demeter
 
-The Law of Demeter was developed at Northeastern University.
+The Law of Demeter was developed at Northeastern University. It's named after
+the Demeter Project, which is itself named after Demeter, the Greek goddess of
+the harvest. There is widespread disagreement as to its pronunciation, but the
+correct pronunciation emphasises the second syllable; you can trust us on that.
 
 The law states that:
 
