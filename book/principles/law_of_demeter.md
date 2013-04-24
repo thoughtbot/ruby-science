@@ -93,7 +93,7 @@ problem that caused the violation is a better idea. Here are a few tips to avoid
 misguided fixes to Law of Demeter violations:
 
 * Many delegate methods to the same object are an indicator that your object
-  graph may be awkward.
+  graph may not accurately reflect the real world relationships they represent.
 * Delegate methods with prefixes (`Post#author_name`) are fine, but it's worth a
   check to see if you can remove the prefix. If not, make sure you didn't
   actually want a reference to the prefix object (`Post#author`).
