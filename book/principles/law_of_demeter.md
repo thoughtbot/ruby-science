@@ -36,10 +36,10 @@ class User
 end
 ```
 
-The `plan_price` method above violates the Law of Demeter by invoking `price` on
-the return value of `plan`. The `price` method is not a method on `User`, its
-parameter `discount_code`, its instantiated object `coupon`, or its direct
-component `account`.
+The call to `account.plan.price` above violates the Law of Demeter by invoking
+`price` on the return value of `plan`. The `price` method is not a method on
+`User`, its parameter `discount_code`, its instantiated object `coupon`, or its
+direct component `account`.
 
 The quickest way to avoid violations of this nature is to delegate the method:
 
