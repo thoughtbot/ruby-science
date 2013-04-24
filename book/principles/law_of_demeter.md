@@ -100,6 +100,39 @@ misguided fixes to Law of Demeter violations:
   `User#account_plan_price`.
 * Avoid assigning to instance variables to work around violations.
 
+## Objects vs Types
+
+The version of the law quoted at the beginning of this chapter is the "object
+formulation" from the original paper. The first formulation was expressed in
+terms of types:
+
+> For all classes C, and for all methods M attached to C, all objects to which M
+> sends a message must be instances of classes associated with the following
+> classes:
+>
+> 1. The argument classes of M (including C).
+> 2. The instance variable classes of C.
+>
+> (Objects created by M, or by functions or methods which M calls, and objects
+> in global variables are considered as arguments of M.)
+
+This formulation allows some more freedom when chaining using a fluent syntax.
+Essentially, it allows chaining as long as each step of the chain returns the
+same type.
+
+Examples:
+
+``` ruby
+# Mocking APIs
+user.should_receive(:save).once.and_return(true)
+
+# Ruby's Enumerable
+users.select(&:active?).map(&:name)
+
+# String manipulation
+collection_name.singularize.classify.constantize
+```
+
 ## Duplication
 
 The Law of Demeter is related to the [DRY](#dry) principle, in that Law of
