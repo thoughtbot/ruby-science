@@ -72,8 +72,6 @@ class to take a different object. For example, if you need to delegate lots of
 `User` methods to `Account`, it's possible that the code referencing `User`
 should actually reference an instance of `Account` instead.
 
-\clearpage
-
 ## Multiple Assignments
 
 Law of Demeter violations are often hidden behind multiple assignments.
