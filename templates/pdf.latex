@@ -3,9 +3,10 @@
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifxetex
-  \usepackage{fontspec,xltxtra,xunicode}
+  \usepackage{fontspec,xltxtra,xunicode,tikz}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
+  \newfontfamily\quotefont[Ligatures=TeX]{$mainfont$}
 $if(mainfont)$
   \setmainfont{$mainfont$}
 $endif$
@@ -141,6 +142,11 @@ $endif$
 $for(header-includes)$
 $header-includes$
 $endfor$
+
+% Customize quote blocks
+\newcommand*{\openquote}{\tikz[remember picture,overlay,xshift=-15pt,yshift=-10pt]
+     \node (OQ) {\quotefont\fontsize{60}{60}\selectfont``};\kern0pt}
+\expandafter\def\expandafter\quote\expandafter{\quote\openquote}
 
 $if(title)$
 \title{$title$}
