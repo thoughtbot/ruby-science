@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(:version => 20130425182110) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "unsubscribes", ["email"], :name => "index_unsubscribes_on_email"
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password", :limit => 128
