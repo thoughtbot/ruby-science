@@ -3,7 +3,7 @@
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifxetex
-  \usepackage{fontspec,xltxtra,xunicode,tikz}
+  \usepackage{fontspec,xltxtra,xunicode,tikz,color}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
   \newfontfamily\quotefont[Ligatures=TeX]{$mainfont$}
@@ -147,6 +147,12 @@ $endfor$
 \newcommand*{\openquote}{\tikz[remember picture,overlay,xshift=-15pt,yshift=-10pt]
      \node (OQ) {\quotefont\fontsize{60}{60}\selectfont``};\kern0pt}
 \expandafter\def\expandafter\quote\expandafter{\quote\openquote}
+
+% Add background color to inline verbatim blocks
+\definecolor{Light}{gray}{.92}
+\let\oldtexttt\texttt
+\newcommand{\reducedstrut}{\vrule width 0pt height .9\ht\strutbox depth .9\dp\strutbox\relax}
+\renewcommand{\texttt}[1]{\begingroup\setlength{\fboxsep}{0pt}\oldtexttt{\colorbox{Light}{\reducedstrut#1}}\endgroup}
 
 $if(title)$
 \title{$title$}
