@@ -14,9 +14,9 @@ class Invitation < ActiveRecord::Base
     token
   end
 
-  def deliver
+  def deliver(mailer)
     body = InvitationMessage.new(self).body
-    Mailer.invitation_notification(self, body).deliver
+    mailer.invitation_notification(self, body).deliver
   end
 
   private
