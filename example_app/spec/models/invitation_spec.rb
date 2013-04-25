@@ -33,7 +33,7 @@ describe Invitation, '#deliver' do
     }.merge(overrides)
 
     create(:invitation, attributes).tap do |invitation|
-      invitation.deliver
+      invitation.deliver(Mailer)
     end
   end
 end

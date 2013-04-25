@@ -26,7 +26,7 @@ class SurveyInviter
 
   def deliver_invitations
     create_invitations.each do |invitation|
-      UnsubscribeableInvitation.new(invitation).deliver
+      invitation.deliver(UnsubscribeableMailer)
     end
   end
 
