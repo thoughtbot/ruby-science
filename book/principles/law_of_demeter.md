@@ -139,6 +139,9 @@ users.select(&:active?).map(&:name)
 
 # String manipulation
 collection_name.singularize.classify.constantize
+
+# ActiveRecord chains
+users.active.without_posts.signed_up_this_week
 ```
 
 ## Duplication
