@@ -19,6 +19,15 @@ module Features
     view_survey survey
   end
 
+  def send_survey_invitation(recipients, message)
+    survey = create(:survey, author: current_user)
+    visit survey_path(survey)
+    click_link 'Invite'
+    fill_in 'Message', with: message
+    fill_in 'Recipients', with: recipients
+    click_button 'Invite'
+  end
+
   def submit_question
     click_on 'Create Question'
   end

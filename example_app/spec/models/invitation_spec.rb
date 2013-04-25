@@ -17,16 +17,31 @@ describe Invitation, '#deliver' do
   self.default_url_options = ActionMailer::Base.default_url_options
 
   it 'sends email notifications to new users' do
-    survey = create(:survey)
-    invitation = create(:invitation, message: 'hello', survey: survey)
-
-    invitation.deliver
+    invitation = deliver_invitation
 
     message = ActionMailer::Base.deliveries.last
     message.should deliver_to(invitation.recipient_email)
     message.should have_body_text(invitation.sender.email)
     message.should have_body_text(invitation.message)
-    message.should have_body_text(survey_url(survey))
+    message.should have_body_text(survey_url(invitation.survey))
+  end
+
+  it 'sends nothing to users that have unsubscribed' do
+    unsubscribe = create(:unsubscribe)
+    deliver_invitation(recipient_email: unsubscribe.email)
+
+    find_email(unsubscribe.email).should be_nil
+  end
+
+  def deliver_invitation(overrides = {})
+    attributes = {
+      message: 'hello',
+      survey: create(:survey)
+    }.merge(overrides)
+
+    create(:invitation, attributes).tap do |invitation|
+      invitation.deliver
+    end
   end
 end
 

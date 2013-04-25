@@ -17,5 +17,7 @@ ExampleApp::Application.routes.draw do
     resources :summaries, only: [:show]
   end
 
+  resources :unsubscribes, only: [:new, :create]
+
   root to: 'surveys#index'
 end
