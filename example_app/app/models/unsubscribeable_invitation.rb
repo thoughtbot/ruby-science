@@ -1,4 +1,4 @@
-class UnsubscribeableInvitation < Invitation
+class UnsubscribeableInvitation < DelegateClass(Invitation)
   def deliver
     unless unsubscribed?
       super

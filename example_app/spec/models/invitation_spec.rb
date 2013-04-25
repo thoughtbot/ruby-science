@@ -27,7 +27,14 @@ describe Invitation, '#deliver' do
   end
 
   def deliver_invitation(overrides = {})
-    InvitationDeliverer.new(Invitation).deliver_invitation(overrides)
+    attributes = {
+      message: 'hello',
+      survey: create(:survey)
+    }.merge(overrides)
+
+    create(:invitation, attributes).tap do |invitation|
+      invitation.deliver
+    end
   end
 end
 

@@ -23,11 +23,7 @@ describe SurveyInviter, '#invite' do
   it "doesn't send emails if any invitations fail to save" do
     invitation = stub('invitation', deliver: true)
     error = StandardError.new('failure')
-    UnsubscribeableInvitation.
-      stubs(:create!).
-      returns(invitation).
-      then.
-      raises(error)
+    Invitation.stubs(:create!).returns(invitation).then.raises(error)
     params = valid_params(recipients: 'one@example.com,two@example.com')
     inviter = SurveyInviter.new(params)
 
