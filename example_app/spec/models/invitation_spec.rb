@@ -26,13 +26,6 @@ describe Invitation, '#deliver' do
     message.should have_body_text(survey_url(invitation.survey))
   end
 
-  it 'sends nothing to users that have unsubscribed' do
-    unsubscribe = create(:unsubscribe)
-    deliver_invitation(recipient_email: unsubscribe.email)
-
-    find_email(unsubscribe.email).should be_nil
-  end
-
   def deliver_invitation(overrides = {})
     attributes = {
       message: 'hello',
