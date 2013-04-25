@@ -1,25 +1,28 @@
 require 'spec_helper'
 
 describe UnsubscribeableInvitation, '#deliver' do
-  include Rails.application.routes.url_helpers
-  self.default_url_options = ActionMailer::Base.default_url_options
-
   it 'sends email notifications to new users' do
-    invitation = deliver_invitation
+    invitation = stub_invitation
 
-    find_email(invitation.recipient_email).
-      should have_body_text(invitation.message)
+    deliver_invitation invitation
+
+    invitation.should have_received(:deliver)
   end
 
   it 'sends nothing to users that have unsubscribed' do
-    unsubscribe = create(:unsubscribe)
-    deliver_invitation(recipient_email: unsubscribe.email)
+    invitation = stub_invitation
+    unsubscribe = create(:unsubscribe, email: invitation.recipient_email)
 
-    find_email(unsubscribe.email).should be_nil
+    deliver_invitation invitation
+
+    invitation.should have_received(:deliver).never
   end
 
-  def deliver_invitation(overrides = {})
-    InvitationDeliverer.new(UnsubscribeableInvitation).
-      deliver_invitation(overrides)
+  def stub_invitation
+    stub('invitation', deliver: true, recipient_email: generate(:email))
+  end
+
+  def deliver_invitation(invitation)
+    UnsubscribeableInvitation.new(invitation).deliver
   end
 end
