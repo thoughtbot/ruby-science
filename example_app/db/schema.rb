@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130306194800) do
+ActiveRecord::Schema.define(version: 20130425182110) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "completion_id", null: false
@@ -96,6 +96,14 @@ ActiveRecord::Schema.define(version: 20130306194800) do
     t.datetime "updated_at", null: false
     t.integer  "author_id",  null: false
   end
+
+  create_table "unsubscribes", force: :cascade do |t|
+    t.string   "email",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "unsubscribes", ["email"], name: "index_unsubscribes_on_email"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

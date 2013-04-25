@@ -56,4 +56,8 @@ FactoryGirl.define do
     sequence(:title) { |n| "Survey #{n}" }
     author factory: :user
   end
+
+  factory :unsubscribe do
+    email
+  end
 end

@@ -15,13 +15,19 @@ class Invitation < ActiveRecord::Base
   end
 
   def deliver
-    body = InvitationMessage.new(self).body
-    Mailer.invitation_notification(self, body).deliver
+    unless unsubscribed?
+      body = InvitationMessage.new(self).body
+      Mailer.invitation_notification(self, body).deliver
+    end
   end
 
   private
 
   def set_token
     self.token = SecureRandom.urlsafe_base64
+  end
+
+  def unsubscribed?
+    Unsubscribe.where(email: recipient_email).exists?
   end
 end
