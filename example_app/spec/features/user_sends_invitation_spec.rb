@@ -29,15 +29,6 @@ feature 'User sends invitation' do
     page.should have_form_error
   end
 
-  def send_survey_invitation(recipients, message)
-    survey = create(:survey, author: current_user)
-    visit survey_path(survey)
-    click_link 'Invite'
-    fill_in 'Message', with: message
-    fill_in 'Recipients', with: recipients
-    click_button 'Invite'
-  end
-
   def valid_email
     'tester@example.com'
   end
