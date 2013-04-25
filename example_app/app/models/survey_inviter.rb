@@ -31,7 +31,7 @@ class SurveyInviter
   def create_invitations
     Invitation.transaction do
       recipients.map do |recipient_email|
-        Invitation.create!(
+        UnsubscribeableInvitation.create!(
           survey: survey,
           sender: sender,
           recipient_email: recipient_email,
