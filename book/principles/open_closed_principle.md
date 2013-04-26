@@ -11,7 +11,7 @@ class.
 
 Making classes extensible in this way has a number of benefits:
 
-* Every time you modify a class, you risk breaking it, including all classes
+* Every time you modify a class, you risk breaking it, along with all classes
   that depend on that class. Reducing churn in a class reduces bugs in that
   class.
 * Changing the behavior or interface to a class means that you need to update
