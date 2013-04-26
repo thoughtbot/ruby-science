@@ -26,7 +26,9 @@ practice. Let's jump into an example:
 
 ` app/models/survey.rb@77b22c5:10,15
 
-` app/controllers/summaries_controller.rb@77b22c5:2,23
+` app/controllers/summaries_controller.rb@77b22c5:2,5
+
+` app/controllers/summaries_controller.rb@77b22c5:17,23
 
 The `summaries_using` method builds a summary of the answers to each of the
 survey's questions.
@@ -42,6 +44,16 @@ change whenever something changes about the summaries. For example, hiding the
 unanswered questions [required changes to this
 method](https://github.com/thoughtbot/ruby-science/commit/d60656aa).
 
+Also, note that the conditional logic is spread across several layers.
+`SummariesController` decides whether or not to hide unanswered questions. That
+knowledge is passed into `Survey#summaries_using`. `SummariesController` also
+passes the current user down into `Survey#summaries_using`, and from there it's
+passed into `UnansweredQuestionHider`:
+
+` app/models/unanswered_question_hider.rb@77b22c5
+
+\clearpage
+
 We can make changes like this easier in the future by inverting control:
 
 ` app/models/survey.rb@256a9c92:10,14
@@ -52,6 +64,14 @@ Now the `Survey#summaries_using` method is completely ignorant of answer hiding;
 it simply accepts a `summarizer`, and the client (`SummariesController`) injects
 a decorated dependency. This means that adding similar changes won't require
 changing the `Summary` class at all.
+
+This also allows us to simplify `UnansweredQuestionHider` by removing a
+condition:
+
+` app/models/unanswered_question_hider.rb@256a9c92:19,21
+
+We no longer build `UnansweredQuestionHider` when a user isn't signed in, so we
+don't need to check for a user.
 
 ## Where To Decide Dependencies
 
