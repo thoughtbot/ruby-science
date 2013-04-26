@@ -16,7 +16,7 @@ This is a very technical way of proposing that developers invert control.
 ## Inversion of Control
 
 Inversion of control is a technique for keeping software flexible. It combines
-best small classes with [single
+best with small classes with [single
 responsibilities](#single-responsibility-principle). Inverting control means
 assigning dependencies at run-time, rather than statically referencing
 dependencies at each level.
