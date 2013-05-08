@@ -177,7 +177,7 @@ class without any of the benefits of following the Open Closed Principle.
 Although following this principle will make code easier to change, it may make
 it more difficult to understand. This is because the gained flexibility requires
 introducing indirection and abstraction. Although each of the three strategies
-outlined in this chapter are more flexibile than the original change, directly
+outlined in this chapter are more flexible than the original change, directly
 modifying the class is the easiest to understand.
 
 This principle is most useful when applied to classes with high reuse and
