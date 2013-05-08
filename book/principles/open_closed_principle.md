@@ -146,11 +146,11 @@ without changing its source code is to use a monkey patch:
 ``` ruby
 # app/monkey_patches/invitation_with_unsubscribing.rb
 Invitation.class_eval do
-  alias_method :deliver_without_unsubscribing, :deliver
+  alias_method :deliver_unconditionally, :deliver
 
   def deliver
     unless unsubscribed?
-      deliver_without_unsubscribing
+      deliver_unconditionally
     end
   end
 
