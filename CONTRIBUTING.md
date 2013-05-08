@@ -102,8 +102,9 @@ New contributions should be added as pull requests. Guidelines:
 
 ## Reviewing
 
-When reviewing new chapters, use `bin/review` to check out, build, and view the
-book locally. Example: `bin/review 6` will review the book for pull request 6.
+When reviewing new chapters, use `paperback review` to check out, build, and
+view the book locally. Example: `paperback review 6` will review the book for
+pull request 6.
 
 ## Releasing
 
