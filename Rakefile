@@ -1,45 +1,13 @@
 require 'rake'
 require 'nokogiri'
 
-desc "Print page and chapter counts"
-task :stats => :build do
-  total_page_count =
-    `gs \
-      -q \
-      -dNODISPLAY \
-      -c "(build/ruby-science.pdf) (r) file runpdfbegin pdfpagecount = quit"`.
-      to_i
-  total_chapter_count = `grep -e '^# ' book/*/*.md | wc -l`.to_i
-  stub_page_count = `grep -l STUB book/*/*.md | wc -l`.to_i
-  puts "Total pages: #{total_page_count}"
-  puts "Complete pages: #{total_page_count - stub_page_count}"
-  puts "Chapters complete: #{total_chapter_count - stub_page_count}"
-  puts "Chapters remaining: #{stub_page_count}"
-end
-
-desc "Generate the book using paperback"
-task :build do
-  sh 'paperback build'
-end
-
 desc "Generate HTML table of contents for learn.thoughtbot.com"
 task :toc => :build do
+  sh 'paperback build'
   Dir.chdir 'build' do
     File.open 'toc.html', 'w' do |file|
       TableOfContents.new(file).write
     end
-  end
-end
-
-desc "Build and open a PDF version"
-task :open => :build do
-  sh 'open build/ruby-science.pdf'
-end
-
-namespace :open do
-  desc "Build and open the PDF sample"
-  task :sample => :build do
-    sh 'open build/sample.pdf'
   end
 end
 
