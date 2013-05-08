@@ -189,10 +189,9 @@ more obscure code.
 If you encounter the following smells in a class, you may want to begin
 following this principle:
 
-* Following this principle will avoid [Divergent Change](#divergent-change) by
-  reducing the number of changes that occur in each class.
-* Following this principle will reduce the number of [Large
-  Classes](#large-class) and [Long methods](#long-method) you encounter.
+* [Divergent Change](#divergent-change) caused by a lack of extensibility.
+* [Large Classes](#large-class) and [long methods](#long-method) which can be
+  eliminated by extracting and injecting dependent behavior.
 
 You may want to eliminate the following smells if you're having trouble
 following this principle:
