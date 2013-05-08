@@ -115,7 +115,7 @@ And we can use dependency injection to substitute it:
 
 ## Everything is Open
 
-As you've followed along with these strategies, you've probably noticed that,
+As you've followed along with these strategies, you've probably noticed that
 although we've found creative ways to avoid modifying `Invitation`, we've had to
 modify other classes. When you change or add behavior, you need to change or add
 it somewhere. You can design your code so that most new or changed behavior
