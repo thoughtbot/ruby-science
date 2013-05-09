@@ -1,6 +1,4 @@
-class EmailInviter < AbstractController::Base
-  include Inviter
-
+class EmailInviter < Inviter
   def initialize(invitation)
     @invitation = invitation
   end
