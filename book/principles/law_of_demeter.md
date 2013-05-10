@@ -3,7 +3,7 @@
 The Law of Demeter was developed at Northeastern University. It's named after
 the Demeter Project, which is itself named after Demeter, the Greek goddess of
 the harvest. There is widespread disagreement as to its pronunciation, but the
-correct pronunciation emphasises the second syllable; you can trust us on that.
+correct pronunciation emphasizes the second syllable; you can trust us on that.
 
 This principle states that:
 
@@ -22,7 +22,7 @@ coupled to another object's structure.
 
 ## Multiple Dots
 
-The most obvious violation of the Law of Demeter is "multiple dots;" that is, a
+The most obvious violation of the Law of Demeter is "multiple dots," meaning a
 chain of methods being invoked on each others' return values.
 
 Example:
