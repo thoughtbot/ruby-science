@@ -5,15 +5,18 @@ by Uncle Bob Martin, and states:
 
 > A class should have only one reason to change.
 
-Classes with fewer responsibilities are more likely to be reusable, are easier
-to understand, faster to test, and are generally either easy to change or don't
-require changes after being written.
+Classes with fewer responsibilities are more likely to be reusable, easier to
+understand, and faster to test. They are easy to change and require fewer
+changes after being written.
 
 Although this is a very simple principle at a glance, deciding whether or not
 any two pieces of behavior introduce two reasons to change is difficult, and
-obeying it rigidly can be frustrating.
+obeying SRP rigidly can be frustrating.
 
 ### Reasons to change
+
+One of the challenges in identifying reasons to change is that you need to
+decide what granularity to be concerned with.
 
 In our example application, users can invite their friends to take surveys. When
 an invitation is sent, we encapsulate that invitation in a basic ActiveRecord
@@ -23,15 +26,10 @@ subclass:
 
 ` app/models/invitation.rb@dcc40d60
 
-One of the challenges in identifying reasons to change is that you need to
-decide what granularity to be concerned with.
-
-For example, everything in this class has something to do with invitations.
-That means that you could make the blunt assessment that this class obeys SRP,
-because it will only change when invitation-related functionality changes.
-
-However, looking more carefully at how invitations are implemented, several
-other reasons to change can be identified:
+Everything in this class has something to do with invitations.  You could make
+the blunt assessment that this class obeys SRP, because it will only change when
+invitation-related functionality changes. However, looking more carefully at how
+invitations are implemented, several other reasons to change can be identified:
 
 * The format of invitation tokens changes.
 * A bug is identified in our validation of email addresses.
@@ -94,16 +92,16 @@ decision from the rest of your application.
 
 ## Cohesion
 
-One of the primary goals of this principle is to promote cohesive classes. The
-more closely related the methods and properties are to each other, the more
-cohesive a class is.
+One of the primary goals of SRP is to promote cohesive classes. The more closely
+related the methods and properties are to each other, the more cohesive a class
+is.
 
 Classes with high cohesion are easier to understand, because the pieces fit
 naturally together. They're also easier to change and reuse, because they won't
 be coupled to any unexpected dependencies.
 
 Following this principle will lead to high cohesion, but it's important to focus
-on the output of each change to make to follow the principle. If you notice an
+on the output of each change made to follow the principle. If you notice an
 extra responsibility in a class, think about the benefits of extracting that
 responsibility. If you think noticeably higher cohesion will be the result,
 charge ahead. If you think it will simply be a way to spend an afternoon, make a
@@ -112,18 +110,19 @@ note of it and move on.
 ## Responsibility Magnets
 
 Every application develops a few black holes that like to suck up as much
-responsibility as possible, slowing turning into [God Classes](#god-class).
+responsibility as possible, slowly turning into [God Classes](#god-class).
 
 `User` is a common responsibility magnet. Generally, each application has a
 focal point in its user interface that sucks up responsibility as well. Our
 example application's main feature allows users to answer questions on surveys,
 so `Survey` is a natural junk drawer for behavior.
 
-If you notice yourself violating the Single Responsibility Principle by adding a
-new behavior to an existing class, first check the history of that class. If
-there are previous commits that show developers attempting to pull functionality
-out of this class, chances are good that it's a responsibility over-eater. Don't
-feed the problem; add a new class instead.
+It's easy to get sucked into a responsibility magnet by falling prey to
+just-one-more syndrome. Whenever you're about to add a new behavior to an
+existing class, first check the history of that class. If there are previous
+commits that show developers attempting to pull functionality out of this class,
+chances are good that it's a responsibility over-eater. Don't feed the problem;
+add a new class instead.
 
 ## Tension with Tell, Don't Ask
 
@@ -209,7 +208,7 @@ principle:
   and inheritance in general make it harder to follow this principle, as the
   boundary between parent and child class responsibilities is always fuzzy.
 
-The solutions may be useful on the path towards SRP:
+These solutions may be useful on the path towards SRP:
 
 * [Extract Classes](#extract-class) to move responsibilities to their own class.
 * [Extract Decorators](#extract-decorator) to layer responsibilities onto
