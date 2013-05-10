@@ -548,13 +548,13 @@ user.try(<span class="st">:name</span>)</code></pre>
   <span class="kw">&lt;%=</span> form.submit <span class="kw">%&gt;</span>
 <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">-%&gt;</span></code></pre>
 <p>Move the submit button text into the locales file.</p>
-<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># config/locales/en.yml</span>
+<pre><code># config/locales/en.yml
 en:
   helpers:
     submit:
       question:
-        create: <span class="st">'Create Question'</span>
-        update: <span class="st">'Update Question'</span></code></pre>
+        create: 'Create Question'
+        update: 'Update Question'</code></pre>
 <p>Then render the partial from each of the views, passing in the values for <code>question</code> and <code>url</code>.</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/questions/new.html.erb
 <span class="kw">&lt;h1&gt;</span>Add Question<span class="kw">&lt;/h1&gt;</span>

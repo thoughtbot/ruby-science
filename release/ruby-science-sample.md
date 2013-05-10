@@ -652,7 +652,7 @@ use `question` and `url` as a local variables.
 
 Move the submit button text into the locales file.
 
-```ruby
+```
 # config/locales/en.yml
 en:
   helpers:
