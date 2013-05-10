@@ -1,9 +1,9 @@
 # Composition over inheritance
 
 In class-based object-oriented systems, composition and inheritance are the two
-primary methods of reusing and assembling components. This principle suggests
-that, when there isn't a strong case for using inheritance, developers implement
-reuse and assembly using composition instead.
+primary methods of reusing and assembling components. Composition Over
+Inheritance suggests that, when there isn't a strong case for using inheritance,
+developers implement reuse and assembly using composition instead.
 
 Let's look at a simple example implemented using both composition and
 inheritance. In our example application, users can invite their friends to take
@@ -54,7 +54,7 @@ public methods like `body` on the shared class.
 
 ## Dynamic vs Static
 
-Although the two implementations are fairly similar, one difference between two
+Although the two implementations are fairly similar, one difference between them
 is that, in the inheritance model, the components are assembled statically,
 whereas the composition model assembles the components dynamically.
 
@@ -128,7 +128,8 @@ as many anonymous combinations of objects as your little heart desires.
 Ruby does allow dynamic use of mixins using the `extend` method. This technique
 does work, but it has its own complications. Extending an object's type
 dynamically in this way dilutes the meaning of the word "type," making it
-harder to understand what an object is.
+harder to understand what an object is. Additionally, using runtime `extend` can
+lead to performance issues in some Ruby implementations.
 
 ## Single Table Inheritance
 
