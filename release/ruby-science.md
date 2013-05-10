@@ -3100,7 +3100,7 @@ use `question` and `url` as a local variables.
 
 Move the submit button text into the locales file.
 
-```ruby
+```
 # config/locales/en.yml
 en:
   helpers:
@@ -5790,7 +5790,269 @@ Responsibility Principle](#single-responsibility-principle).
 
 # Single responsibility principle
 
-STUB
+The Single Responsibility Principle, often abbreviated as "SRP," was introduced
+by Uncle Bob Martin, and states:
+
+> A class should have only one reason to change.
+
+Classes with fewer responsibilities are more likely to be reusable, easier to
+understand, and faster to test. They are easy to change and require fewer
+changes after being written.
+
+Although this is a very simple principle at a glance, deciding whether or not
+any two pieces of behavior introduce two reasons to change is difficult, and
+obeying SRP rigidly can be frustrating.
+
+### Reasons to change
+
+One of the challenges in identifying reasons to change is that you need to
+decide what granularity to be concerned with.
+
+In our example application, users can invite their friends to take surveys. When
+an invitation is sent, we encapsulate that invitation in a basic ActiveRecord
+subclass:
+
+\clearpage
+
+```ruby
+# app/models/invitation.rb
+class Invitation < ActiveRecord::Base
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  STATUSES = %w(pending accepted)
+
+  belongs_to :sender, class_name: 'User'
+  belongs_to :survey
+
+  before_create :set_token
+
+  validates :recipient_email, presence: true, format: EMAIL_REGEX
+  validates :status, inclusion: { in: STATUSES }
+
+  def to_param
+    token
+  end
+
+  def deliver
+    body = InvitationMessage.new(self).body
+    Mailer.invitation_notification(self, body).deliver
+  end
+
+  private
+
+  def set_token
+    self.token = SecureRandom.urlsafe_base64
+  end
+end
+```
+
+Everything in this class has something to do with invitations.  You could make
+the blunt assessment that this class obeys SRP, because it will only change when
+invitation-related functionality changes. However, looking more carefully at how
+invitations are implemented, several other reasons to change can be identified:
+
+* The format of invitation tokens changes.
+* A bug is identified in our validation of email addresses.
+* We need to deliver invitations using some mechanism other than email.
+* Invitations need to be persisted in another way, such as in a NoSQL database.
+* The API for ActiveRecord or ActiveSupport changes during an update.
+* The application switches to a new framework besides Rails.
+
+That gives us half a dozen reasons this class might change, leading to the
+probable conclusion that this class does not follow SRP. So, should this class
+be refactored?
+
+### Stability
+
+Not all reasons to change are created equal.
+
+As a developer, you know which changes are likely from experience or just common
+sense. For example, attributes and business rules for invitations are likely to
+change, so we know that this class will change as invitations evolve in the
+application.
+
+Regular expressions are powerful but tricky beasts, so it's likely that we'll
+have to adjust our regular expression. It might be nice to encapsulate that
+somewhere else, such as in a [custom validator](#extract-validator).
+
+It would be unwise to guess as to what delivery mechanisms may loom in the
+distant future, but it's not out of the realm of possibility that we'll need to
+send messages using an internal private messaging system or another service like
+Facebook or Twitter. Therefore, it may be worthwhile to use [dependency
+injection](#inject-dependencies) to remove the details of delivery from this
+model. This may also make testing easier and make the class easier to understand
+as a unit, because it will remove distracting details relating to email
+delivery.
+
+NoSQL databases have their uses, but we have no reason to believe we'll ever
+need to move these records into another type of database. ActiveRecord has
+proven to be a safe and steady default choice, so it's probably not worth the
+effort to protect ourselves against that change.
+
+Some of our business logic is expressed using APIs from libraries that could
+change, such as validations and relationships. We could write our own adapter to
+protect ourselves from those changes, but the maintenance burden is unlikely to
+be worth the benefit, and it will make the code harder to understand, as there
+will be unnecessary indirection between the model and the framework.
+
+Lastly, we could protect our application against framework changes by preventing
+any business logic from leaking into the framework classes, such as controllers
+and ActiveRecord models. Again, this would add a thick layer of indirection to
+protect against an unlikely change.
+
+However, if you're trying out a new database, object-relational mapper, or
+framework, it may be worth adding some increased protection. The first time you
+use a new database, you'll be less sure of that decision. If you prevent any
+business logic from mixing with the persistence logic, it will make it easier
+for you to undo that decision and fall back to a familiar solution like
+ActiveRecord in case the new database turns against you.
+
+The less sure you are about a decision, the more you should isolate that
+decision from the rest of your application.
+
+## Cohesion
+
+One of the primary goals of SRP is to promote cohesive classes. The more closely
+related the methods and properties are to each other, the more cohesive a class
+is.
+
+Classes with high cohesion are easier to understand, because the pieces fit
+naturally together. They're also easier to change and reuse, because they won't
+be coupled to any unexpected dependencies.
+
+Following this principle will lead to high cohesion, but it's important to focus
+on the output of each change made to follow the principle. If you notice an
+extra responsibility in a class, think about the benefits of extracting that
+responsibility. If you think noticeably higher cohesion will be the result,
+charge ahead. If you think it will simply be a way to spend an afternoon, make a
+note of it and move on.
+
+## Responsibility Magnets
+
+Every application develops a few black holes that like to suck up as much
+responsibility as possible, slowly turning into [God Classes](#god-class).
+
+`User` is a common responsibility magnet. Generally, each application has a
+focal point in its user interface that sucks up responsibility as well. Our
+example application's main feature allows users to answer questions on surveys,
+so `Survey` is a natural junk drawer for behavior.
+
+It's easy to get sucked into a responsibility magnet by falling prey to
+just-one-more syndrome. Whenever you're about to add a new behavior to an
+existing class, first check the history of that class. If there are previous
+commits that show developers attempting to pull functionality out of this class,
+chances are good that it's a responsibility over-eater. Don't feed the problem;
+add a new class instead.
+
+## Tension with Tell, Don't Ask
+
+Extracting reasons to change can make it harder to follow [Tell, Don't
+Ask](#tell-dont-ask).
+
+For example, consider a `Purchase` model that knows how to charge a user:
+
+``` ruby
+class Purchase
+  def charge
+    purchaser.charge_credit_card(total_amount)
+  end
+end
+```
+
+This method follows Tell, Don't Ask, because we can simply tell any `Purchase`
+to `charge`, without examining any state on the `Purchase`.
+
+However, it violates the Single Responsibility Principle, because `Purchase` has
+more than one reason to change. If the rules around charging credit cards change
+or the rules for calculating purchase totals change, this class with have to
+change.
+
+You can more closely adhere to SRP by extracting a new class for the `charge`
+method:
+
+``` ruby
+class PurchaseProcessor
+  def initialize(purchase, purchaser)
+    @purchase = purchase
+    @purchaser = purchaser
+  end
+
+  def charge
+    @purchaser.charge_credit_card @purchase.total_amount
+  end
+end
+```
+
+This class can encapsulate rules around charging credit cards and remain immune
+to other changes, thus following SRP. However, it now violates Tell, Don't Ask,
+because it must ask the `@purchase` for its `total_amount` in order to place the
+charge.
+
+These two principles are often at odds with each other, and you must make a
+pragmatic decision about which direction works best for your own classes.
+
+### Drawbacks
+
+There are a number of drawbacks to following this principle too rigidly:
+
+* As outlined above, following this principle may lead to violations of [Tell,
+  Don't Ask](#tell-dont-ask).
+* This principle causes an increase in the number of classes, potentially
+  leading to [shotgun surgery](#shotgun-surgery) and vocabulary overload.
+* Classes that follow this principle may introduce additional indirection,
+  making it harder to understand high level behavior by looking at individual
+  classes.
+
+### Application
+
+If you find yourself fighting any of these smells, you may want to refactor to
+follow the Single Responsibility Principle:
+
+* [Divergent Change](#divergent-change) doesn't exist in classes that follow
+  this principle.
+* Classes following this principle are easy to reuse, reducing the likelihood of
+  [Duplicated Code](#duplicated-code).
+* Additional responsibilities introduce additional dependencies, causing [High
+  Fanout](#high-fan-out). Following this principle reduces this smell.
+* [Large Classes](#large-class) almost certainly have more than one reason to
+  change. Following this principle eliminates most large classes.
+
+Code containing these smells may need refactoring before they can follow this
+principle:
+
+* [Case Statements](#case-statement) make this principle difficult to follow, as
+  every case statement introduces a new reason to change.
+* [Long Methods](#long-method) make it harder to extract concerns, as behavior
+  can only be moved once it's encapsulated in a small, cohesive method.
+* [Mixins](#mixin), [Single-Table Inheritance](#single-table-inheritance-sti),
+  and inheritance in general make it harder to follow this principle, as the
+  boundary between parent and child class responsibilities is always fuzzy.
+
+These solutions may be useful on the path towards SRP:
+
+* [Extract Classes](#extract-class) to move responsibilities to their own class.
+* [Extract Decorators](#extract-decorator) to layer responsibilities onto
+  existing classes without burdening the class definition with that knowledge.
+* [Extract Validators](#extract-validator) to prevent classes from changing when
+  validation rules change.
+* [Extract Value Objects](#extract-value-object) to prevent rules about a type
+  like currency or names from leaking into other business logic.
+* [Extract Methods](#extract-method) to make responsibilities easier to move.
+* [Move Methods](#move-method) to place methods in a more cohesive environment.
+* [Inject Dependencies](#inject-dependencies) to relieve classes of the burden
+  of changing with their dependencies.
+* [Introduce Observers](#introduce-observer) to make classes that aren't
+  responsibile for their side effects.
+* [Replace Mixins with Composition](#replace-mixin-with-composition) to make it
+  easier to isolate concerns.
+* [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) to
+  make variations usable without their base logic.
+
+Following [Composition Over Inheritance](#composition-over-inheritance) and the
+[Dependency Inversion Priniciple](#dependency-inversion-principle) may make this
+principle easier to follow, as those principles make it easier to extract
+responsibilities. Following this principle will make it easier to follow the
+[Open-Closed Priniciple](#open-closed-principle) but may introduce violations of
+[Tell, Don't Ask](#tell-dont-ask).
 
 # Tell, Don't Ask
 
@@ -5798,16 +6060,1034 @@ STUB
 
 # Law of Demeter
 
-STUB
+The Law of Demeter was developed at Northeastern University. It's named after
+the Demeter Project, which is itself named after Demeter, the Greek goddess of
+the harvest. There is widespread disagreement as to its pronunciation, but the
+correct pronunciation emphasizes the second syllable; you can trust us on that.
+
+This principle states that:
+
+> A method of an object should invoke only the methods of the following kinds of
+> objects:
+>
+> 1. itself
+> 2. its parameters
+> 3. any objects it creates/instantiates
+> 4. its direct component objects
+
+Like many principles, the Law of Demeter is an attempt to help developers manage
+dependencies. The law restricts how deeply a method can reach into another
+object's dependency graph, preventing any one method from becoming tightly
+coupled to another object's structure.
+
+## Multiple Dots
+
+The most obvious violation of the Law of Demeter is "multiple dots," meaning a
+chain of methods being invoked on each others' return values.
+
+Example:
+
+``` ruby
+class User
+  def discounted_plan_price(discount_code)
+    coupon = Coupon.new(discount_code)
+    coupon.discount(account.plan.price)
+  end
+end
+```
+
+The call to `account.plan.price` above violates the Law of Demeter by invoking
+`price` on the return value of `plan`. The `price` method is not a method on
+`User`, its parameter `discount_code`, its instantiated object `coupon`, or its
+direct component `account`.
+
+The quickest way to avoid violations of this nature is to delegate the method:
+
+``` ruby
+class User
+  def discounted_plan_price(discount_code)
+    account.discounted_plan_price(discount_code)
+  end
+end
+
+class Account
+  def discounted_plan_price(discount_code)
+    coupon = Coupon.new(discount_code)
+    coupon.discount(plan.price)
+  end
+end
+```
+
+In a Rails application, you can quickly delegate methods using ActiveSupport's
+`delegate` class method:
+
+``` ruby
+class User
+  delegate :discounted_plan_price, to: :account
+end
+```
+
+If you find yourself writing lots of delegators, consider changing the consumer
+class to take a different object. For example, if you need to delegate lots of
+`User` methods to `Account`, it's possible that the code referencing `User`
+should actually reference an instance of `Account` instead.
+
+## Multiple Assignments
+
+Law of Demeter violations are often hidden behind multiple assignments.
+
+``` ruby
+class User
+  def discounted_plan_price(discount_code)
+    coupon = Coupon.new(discount_code)
+    plan = account.plan
+    coupon.discount(plan.price)
+  end
+end
+```
+
+The above `discounted_plan_price` method no longer has multiple dots on one
+line, but it still violates the Law of Demeter, because `plan` isn't a
+parameter, instantiated object, or direct subcomponent.
+
+## The Spirit of the Law
+
+Although the letter of the Law of Demeter is rigid, the message is broader. The
+goal is to avoid over-entangling a method with another object's dependencies.
+
+This means that fixing a violation shouldn't be your objective; removing the
+problem that caused the violation is a better idea. Here are a few tips to avoid
+misguided fixes to Law of Demeter violations:
+
+* Many delegate methods to the same object are an indicator that your object
+  graph may not accurately reflect the real world relationships they represent.
+* Delegate methods with prefixes (`Post#author_name`) are fine, but it's worth a
+  check to see if you can remove the prefix. If not, make sure you didn't
+  actually want a reference to the prefix object (`Post#author`).
+* Avoid multiple prefixes for delegate methods, such as
+  `User#account_plan_price`.
+* Avoid assigning to instance variables to work around violations.
+
+## Objects vs Types
+
+The version of the law quoted at the beginning of this chapter is the "object
+formulation" from the original paper. The first formulation was expressed in
+terms of types:
+
+> For all classes C, and for all methods M attached to C, all objects to which M
+> sends a message must be instances of classes associated with the following
+> classes:
+>
+> 1. The argument classes of M (including C).
+> 2. The instance variable classes of C.
+>
+> (Objects created by M, or by functions or methods which M calls, and objects
+> in global variables are considered as arguments of M.)
+
+This formulation allows some more freedom when chaining using a fluent syntax.
+Essentially, it allows chaining as long as each step of the chain returns the
+same type.
+
+Examples:
+
+``` ruby
+# Mocking APIs
+user.should_receive(:save).once.and_return(true)
+
+# Ruby's Enumerable
+users.select(&:active?).map(&:name)
+
+# String manipulation
+collection_name.singularize.classify.constantize
+
+# ActiveRecord chains
+users.active.without_posts.signed_up_this_week
+```
+
+## Duplication
+
+The Law of Demeter is related to the [DRY](#dry) principle, in that Law of
+Demeter violations frequently duplicate knowledge of dependencies.
+
+Example:
+
+``` ruby
+class CreditCardsController < ApplicationController
+  def charge_for_plan
+    if current_user.account.credit_card.valid?
+      price = current_user.account.plan.price
+      current_user.account.credit_card.charge price
+    end
+  end
+end
+```
+
+In this example, the knowledge that a user has a credit card through its account
+is duplicated. That knowledge is declared somewhere in the `User` and `Account`
+classes when the relationship is defined, and then knowledge of it spreads to
+two more locations in `charge_for_plan`.
+
+Like most duplication, each instance isn't too harmful, but in aggregate,
+duplication will make refactoring slowly become impossible.
+
+### Application
+
+The following smells may cause or result from Law of Demeter violations:
+
+* [Feature Envy](#feature-envy) from methods that reach through a dependency
+  chain multiple times.
+* [Shotgun Surgery](#shotgun-surgery) resulting from changes in the dependency
+  chain.
+
+You can use these solutions to follow the Law of Demeter:
+
+* [Move Methods](#move-method) that reach through a dependency to the owner of
+  that dependency.
+* [Inject Dependencies](#inject-dependencies) so that methods have direct access
+  to the dependencies that they need.
+* [Inline Classes](#inline-class) that are adding hops to the dependency chain
+  without providing enough value.
 
 # Composition over inheritance
 
-STUB
+In class-based object-oriented systems, composition and inheritance are the two
+primary methods of reusing and assembling components. Composition Over
+Inheritance suggests that, when there isn't a strong case for using inheritance,
+developers implement reuse and assembly using composition instead.
 
-# Open closed principle
+Let's look at a simple example implemented using both composition and
+inheritance. In our example application, users can invite their friends to take
+surveys. Users can be invited using either an email or an internal private
+message. Each delivery strategy is implemented using a separate class.
 
-STUB
+### Inheritance
+
+In the inheritance model, we use an abstract base class called `Inviter` to
+implement common invitation-sending logic. We then use `EmailInviter` and
+`MessageInviter` subclasses to implement the delivery details.
+
+\clearpage
+
+```ruby
+# app/models/inviter.rb
+class Inviter < AbstractController::Base
+  include AbstractController::Rendering
+  include Rails.application.routes.url_helpers
+
+  self.view_paths = 'app/views'
+  self.default_url_options = ActionMailer::Base.default_url_options
+
+  private
+
+  def render_message_body
+    render template: 'invitations/message'
+  end
+end
+```
+
+```ruby
+# app/models/email_inviter.rb
+class EmailInviter < Inviter
+  def initialize(invitation)
+    @invitation = invitation
+  end
+
+  def deliver
+    Mailer.invitation_notification(@invitation, render_message_body).deliver
+  end
+end
+```
+
+\clearpage
+
+```ruby
+# app/models/message_inviter.rb
+class MessageInviter < Inviter
+  def initialize(invitation, recipient)
+    @invitation = invitation
+    @recipient = recipient
+  end
+
+  def deliver
+    Message.create!(
+      recipient: @recipient,
+      sender: @invitation.sender,
+      body: render_message_body
+    )
+  end
+end
+```
+
+Note that there is no clear boundary between the base class and the subclasses.
+The subclasses access reusable behavior by invoking private methods like
+`render_message_body` inherited from the base class.
+
+### Composition
+
+In the composition model, we use a concrete `InvitationMessage` class to
+implement common invitation-sending logic. We then use that class from
+`EmailInviter` and `MessageInviter` to reuse the common behavior, and the
+inviter classes implement delivery details.
+
+\clearpage
+
+```ruby
+# app/models/invitation_message.rb
+class InvitationMessage < AbstractController::Base
+  include AbstractController::Rendering
+  include Rails.application.routes.url_helpers
+
+  self.view_paths = 'app/views'
+  self.default_url_options = ActionMailer::Base.default_url_options
+
+  def initialize(invitation)
+    @invitation = invitation
+  end
+
+  def body
+    render template: 'invitations/message'
+  end
+end
+```
+
+```ruby
+# app/models/email_inviter.rb
+class EmailInviter
+  def initialize(invitation)
+    @invitation = invitation
+    @body = InvitationMessage.new(@invitation).body
+  end
+
+  def deliver
+    Mailer.invitation_notification(@invitation, @body).deliver
+  end
+end
+```
+
+\clearpage
+
+```ruby
+# app/models/message_inviter.rb
+class MessageInviter
+  def initialize(invitation, recipient)
+    @invitation = invitation
+    @recipient = recipient
+    @body = InvitationMessage.new(@invitation).body
+  end
+
+  def deliver
+    Message.create!(
+      recipient: @recipient,
+      sender: @invitation.sender,
+      body: @body
+    )
+  end
+end
+```
+
+Note that there is now a clear boundary between the common behavior in
+`InvitationMessage` and the variant behavior in `EmailInviter` and
+`MessageInviter`. The inviter classes access reusable behavior by invoking
+public methods like `body` on the shared class.
+
+## Dynamic vs Static
+
+Although the two implementations are fairly similar, one difference between them
+is that, in the inheritance model, the components are assembled statically,
+whereas the composition model assembles the components dynamically.
+
+Ruby is not a compiled language and everything is evaluated at runtime, so
+claiming that anything is assembled statically may sound like nonsense.
+However, there are several ways in which inheritance hierarchies are essentially
+written in stone, or static:
+
+* You can't swap out a superclass once it's assigned.
+* You can't easily add and remove behaviors after an object is instantiated.
+* You can't inject a superclass as a dependency.
+* You can't easily access an abstract class's methods directly.
+
+On the other hand, everything in a composition model is dynamic:
+
+* You can easily change out a composed instance after instantiation.
+* You can add and remove behaviors at any time using decorators, strategies,
+  observers, and other patterns.
+* You can easily inject composed dependencies.
+* Composed objects aren't abstract, so you can use their methods anywhere.
+
+## Dynamic Inheritance
+
+There are very few rules in Ruby, so many of the restrictions that apply to
+inheritance in other languages can be worked around in Ruby. For example:
+
+* You can reopen and modify classes after they're defined, even while an
+  application is running.
+* You can extend objects with modules after they're instantiated to add
+  behaviors.
+* You can call private methods by using `send`.
+* You can create new classes at runtime by calling `Class.new`.
+
+These features make it possible to overcome some of the rigidity of inheritance
+models. However, performing all of these operations is simpler with objects than
+it is with classes, and doing too much dynamic type definition will make the
+application harder to understand by diluting the type system. After all, if none
+of the classes are ever fully formed, what does a class represent?
+
+## The trouble With Hierarchies
+
+Using subclasses introduces a subtle problem into your domain model: it assumes
+that your models follow a hierarchy; that is, it assumes that your types fall
+into a tree-like structure.
+
+Continuing with the above example, we have a root type, `Inviter`, and two
+subtypes, `EmailInviter` and `MessageInviter`. What if we want invitations sent
+by admins to behave differently than invitations sent by normal users? We can
+create an `AdminInviter` class, but what will its superclass be?  How will we
+combine it with `EmailInviter` and `MessageInviter`? There's no easy way to
+combine email, message, and admin functionality using inheritance, so you'll end
+up with a proliferation of conditionals.
+
+Composition, on the other hand, provides several ways out of this mess, such as
+using a decorator to add admin functionality to the inviter. Once you build
+objects with a reasonable interface, you can combine them endlessly with minimal
+modification to the existing class structure.
+
+## Mixins
+
+Mixins are Ruby's answer to multiple inheritance.
+
+However, mixins need to be mixed into a class before they can be used. Unless
+you plan on building dynamic classes at runtime, you'll need to create a class
+for each possible combination of modules. This will result in a ton of little
+classes, such as `AdminEmailInviter`.
+
+Again, composition provides a clean answer to this problem, as you can create
+as many anonymous combinations of objects as your little heart desires.
+
+Ruby does allow dynamic use of mixins using the `extend` method. This technique
+does work, but it has its own complications. Extending an object's type
+dynamically in this way dilutes the meaning of the word "type," making it
+harder to understand what an object is. Additionally, using runtime `extend` can
+lead to performance issues in some Ruby implementations.
+
+## Single Table Inheritance
+
+Rails provides a way to persist an inheritance hierarchy, known as [Single Table
+Inheritance](#single-table-inheritance-sti), often abbreviated as STI. Using
+STI, a cluster of subclasses is persisted to the same table as the base class.
+The name of the subclass is also saved on the row, allowing Rails to instantiate
+the correct subclass when pulling records back out of the database.
+
+Rails also provides a clean way to persist composed structures using polymorphic
+associations. Using a polymorphic association, Rails will store both the primary
+key and the class name of the associated object.
+
+Because Rails provides a clean implementation for persisting both inheritance
+and composition, the fact that you're using ActiveRecord should have little
+influence on your decision to design using inheritance versus composition.
+
+### Drawbacks
+
+Although composed objects are largely easy to write and assemble, there are
+situations where they hurt more than inheritance trees.
+
+* Inheritance cleanly represents hierarchies. If you really do have a hierarchy
+  of object types, use inheritance.
+* Subclasses always know what their superclass is, so they're easy to
+  instantiate. If you use composition, you'll need to instantiate at least two
+  objects to get a usable instance: the composing object, and the composed
+  object.
+* Using composition is more abstract, which means you need a name for the
+  composed object. In our earlier example, all three classes were "inviters" in
+  the inheritance model, but the composition model introduced the "invitation
+  message" concept. Excessive composition can lead to vocabulary overload.
+
+### Application
+
+If you see these smells in your application, they may be a sign that you should
+switch some classes from inheritance to composition:
+
+* [Divergent Change](#divergent-change) caused by frequent leaks into abstract
+  base classes.
+* [Large Classes](#large-class) acting as abstract base classes.
+* [Mixins](#mixin) serving to allow reuse while preserving the appearance of a
+  hierarchy.
+
+Classes with these smells may be difficult to transition to a composition model:
+
+* [Duplicated Code](#duplicated-code) will need to be pulled up into the base
+  class before subclasses can be switched to strategies.
+* [Shotgun Surgery](#shotgun-surgery) may represent tight coupling between base
+  classes and subclasses, making it more difficult to switch to composition.
+
+These solutions will help move from inheritance to composition:
+
+* [Extract Classes](#extract-class) to liberate private functionality from
+  abstract base classes.
+* [Extract Method](#extract-method) to make methods smaller and easier to move.
+* [Move Method](#move-method) to slim down bloated base classes.
+* [Replace Mixins with Composition](#replace-mixin-with-composition) to make it
+  easier to dissolve hierarchies.
+* [Replace Subclasses with Strategies](#replace-subclasses-with-strategies)
+  to implement variations dynamically.
+
+After replacing inheritance models with composition, you'll be free to use these
+solutions to take your code further:
+
+* [Extract decorators](#extract-decorator) to make it easy to add behaviors
+  dynamically.
+* [Inject Dependencies](#inject-dependencies) to make it possible to compose
+  objects in new ways.
+
+Following this principle will make it much easier to follow the [Dependency
+Inversion Principle](#dependency-inversion-principle) and the [Open/Closed
+Principle](#openclosed-principle).
+
+# Open/closed principle
+
+This principle states that:
+
+\raggedright
+
+> Software entities (classes, modules, functions, etc.) should be open for
+> extension, but closed for modification.
+
+The purpose of this principle is to make it possible to change or extend the
+behavior of an existing class without actually modifying the source code to that
+class.
+
+Making classes extensible in this way has a number of benefits:
+
+* Every time you modify a class, you risk breaking it, along with all classes
+  that depend on that class. Reducing churn in a class reduces bugs in that
+  class.
+* Changing the behavior or interface to a class means that you need to update
+  any classes that depend on the old behavior or interface. Allowing per-use
+  extensions to a class eliminates this domino effect.
+
+## Strategies
+
+It may sound nice to never need to change existing classes again, but achieving
+this is difficult in practice. Once you've identified an area that keeps
+changing, there are a few strategies you can use to make is possible to extend
+without modifications. Let's go through an example with a few of those
+strategies.
+
+In our example application, we have a `Invitation` class which can deliver
+itself to an invited user:
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  body = InvitationMessage.new(self).body
+  Mailer.invitation_notification(self, body).deliver
+end
+```
+
+However, we need a way to allow users to unsubscribe from these notifications.
+We have an `Unsubscribe` model that holds the email addresses of users that
+don't want to be notified.
+
+The most direct way to add this check is to modify `Invitation` directly:
+
+```ruby
+# app/models/invitation.rb
+def deliver
+  unless unsubscribed?
+    body = InvitationMessage.new(self).body
+    Mailer.invitation_notification(self, body).deliver
+  end
+end
+```
+
+However, that would violate the Open/Closed Principle. Let's see how we can
+introduce this change without violating the principle.
+
+\clearpage
+
+### Inheritance
+
+One of the most common ways to extend an existing class without modifying it is
+to create a new subclass.
+
+We can use a new subclass to handle unsubscriptions:
+
+```ruby
+# app/models/unsubscribeable_invitation.rb
+class UnsubscribeableInvitation < Invitation
+  def deliver
+    unless unsubscribed?
+      super
+    end
+  end
+
+  private
+
+  def unsubscribed?
+    Unsubscribe.where(email: recipient_email).exists?
+  end
+end
+```
+
+\clearpage
+
+This can be a little awkward when trying to use the new behavior, though. For
+example, we need to create an instance of this class, even though we want to
+save it to the same table as `Invitation`:
+
+```ruby
+# app/models/survey_inviter.rb
+def create_invitations
+  Invitation.transaction do
+    recipients.map do |recipient_email|
+      UnsubscribeableInvitation.create!(
+        survey: survey,
+        sender: sender,
+        recipient_email: recipient_email,
+        status: 'pending',
+        message: @message
+      )
+    end
+  end
+end
+```
+
+This works alright for creation, but using the ActiveRecord pattern, we'll end
+up with an instance of `Invitation` instead if we ever reload from the database.
+That means that inheritance is easiest to use when the class you're extending
+doesn't require persistence.
+
+Inheritance also requires some [creativity in unit
+tests](https://github.com/thoughtbot/ruby-science/commit/bf1ba7d2) to avoid
+duplication.
+
+\clearpage
+
+### Decorators
+
+Another way to extend an existing class is to write a decorator.
+
+Using Ruby's `DelegateClass` method, we can quickly create decorators:
+
+```ruby
+# app/models/unsubscribeable_invitation.rb
+class UnsubscribeableInvitation < DelegateClass(Invitation)
+  def deliver
+    unless unsubscribed?
+      super
+    end
+  end
+
+  private
+
+  def unsubscribed?
+    Unsubscribe.where(email: recipient_email).exists?
+  end
+end
+```
+
+The implementation is extremely similar to the subclass, but it can now be
+applied at runtime to instances of `Invitation`:
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver_invitations
+  create_invitations.each do |invitation|
+    UnsubscribeableInvitation.new(invitation).deliver
+  end
+end
+```
+
+The unit tests can also be greatly simplified [using
+stubs](https://github.com/thoughtbot/ruby-science/blob/9084ee0c/example_app/spec/models/unsubscribeable_invitation_spec.rb).
+
+This makes it easier to combine with persistence. However, Ruby's
+`DelegateClass` doesn't combine well with ActionPack's polymorphic URLs.
+
+### Dependency Injection
+
+This method requires more forethought in the class you want to extend, but
+classes that follow [Inversion of Control](#inversion-of-control) can inject
+dependencies to extend classes without modifying them.
+
+We can modify our `Invitation` class slightly to allow client classes to inject
+a mailer:
+
+```ruby
+# app/models/invitation.rb
+def deliver(mailer)
+  body = InvitationMessage.new(self).body
+  mailer.invitation_notification(self, body).deliver
+end
+```
+
+\clearpage
+
+Now we can write a mailer implementation that checks to see if a user is
+unsubscribed before sending them messages:
+
+```ruby
+# app/mailers/unsubscribeable_mailer.rb
+class UnsubscribeableMailer
+  def self.invitation_notification(invitation, body)
+    if unsubscribed?(invitation)
+      NullMessage.new
+    else
+      Mailer.invitation_notification(invitation, body)
+    end
+  end
+
+  private
+
+  def self.unsubscribed?(invitation)
+    Unsubscribe.where(email: invitation.recipient_email).exists?
+  end
+
+  class NullMessage
+    def deliver
+    end
+  end
+end
+```
+
+And we can use dependency injection to substitute it:
+
+```ruby
+# app/models/survey_inviter.rb
+def deliver_invitations
+  create_invitations.each do |invitation|
+    invitation.deliver(UnsubscribeableMailer)
+  end
+end
+```
+
+## Everything is Open
+
+As you've followed along with these strategies, you've probably noticed that
+although we've found creative ways to avoid modifying `Invitation`, we've had to
+modify other classes. When you change or add behavior, you need to change or add
+it somewhere. You can design your code so that most new or changed behavior
+takes place by writing a new class, but something, somewhere in the existing
+code will need to reference that new class.
+
+It's difficult to determine what you should attempt to leave open when writing a
+class. It's hard to know where to leave extension hooks without anticipating
+every feature you might ever want to write.
+
+Rather than attempting to guess what will require extension in the future, pay
+attention as you modify existing code. After each modification, check to see if
+there's a way you can refactor to make similar extensions possible without
+modifying the underlying class.
+
+Code tends to change in the same ways over and over, so by making each change
+easy to apply as you need to make it, you're making the next change easier.
+
+\clearpage
+
+## Monkey Patching
+
+As a Ruby developer, you probably know that one quick way to extend a class
+without changing its source code is to use a monkey patch:
+
+``` ruby
+# app/monkey_patches/invitation_with_unsubscribing.rb
+Invitation.class_eval do
+  alias_method :deliver_unconditionally, :deliver
+
+  def deliver
+    unless unsubscribed?
+      deliver_unconditionally
+    end
+  end
+
+  private
+
+  def unsubscribed?
+    Unsubscribe.where(email: recipient_email).exists?
+  end
+end
+```
+
+Although monkey patching doesn't literally modify the class's source code, it
+does modify the existing class. That means that you risk breaking it, including
+all classes that depend on it. Since you're changing the original behavior,
+you'll also need to update any client classes that depend on the old behavior.
+
+In addition to all the drawbacks of directly modifying the original class,
+monkey patches also introduce confusion, as developers will need to look in
+multiple locations to understand the full definition of a class.
+
+In short, monkey patching has most of the drawbacks of modifying the original
+class without any of the benefits of following the Open Closed Principle.
+
+### Drawbacks
+
+Although following this principle will make code easier to change, it may make
+it more difficult to understand. This is because the gained flexibility requires
+introducing indirection and abstraction. Although each of the three strategies
+outlined in this chapter are more flexible than the original change, directly
+modifying the class is the easiest to understand.
+
+This principle is most useful when applied to classes with high reuse and
+potentially high churn. Applying it everywhere will result in extra work and
+more obscure code.
+
+### Application
+
+If you encounter the following smells in a class, you may want to begin
+following this principle:
+
+* [Divergent Change](#divergent-change) caused by a lack of extensibility.
+* [Large Classes](#large-class) and [long methods](#long-method) which can be
+  eliminated by extracting and injecting dependent behavior.
+
+You may want to eliminate the following smells if you're having trouble
+following this principle:
+
+* [Case statements](#case-statement) make it hard to obey this principle, as you
+  can't add to the case statement without modifying it.
+
+You can use the following solutions to make code more compliant with this
+principle:
+
+* [Extract Decorator](#extract-decorator) to extend existing classes without
+  modification.
+* [Inject Dependencies](#inject-dependencies) to allow future extensions without
+  modification.
+* [Introduce Observer](#introduce-observer) to allow more side effects without
+  modification.
 
 # Dependency inversion principle
 
-STUB
+The Dependency Inversion Principle, sometimes abbreviated as "DIP," was created
+by Uncle Bob Martin.
+
+The principle states:
+
+> A. High-level modules should not depend on low-level modules. Both should
+> depend on abstractions.
+>
+> B. Abstractions should not depend upon details. Details should depend upon
+> abstractions.
+
+This is a very technical way of proposing that developers invert control.
+
+## Inversion of Control
+
+Inversion of control is a technique for keeping software flexible. It combines
+best with small classes with [single
+responsibilities](#single-responsibility-principle). Inverting control means
+assigning dependencies at run-time, rather than statically referencing
+dependencies at each level.
+
+This can be hard to understand as an abstract concept, but it's fairly simple in
+practice. Let's jump into an example:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer, options = {})
+  questions.map do |question|
+    hider = UnansweredQuestionHider.new(summarizer, options[:answered_by])
+    question.summary_using(hider)
+  end
+end
+```
+
+```ruby
+# app/controllers/summaries_controller.rb
+def show
+  @survey = Survey.find(params[:survey_id])
+  @summaries = @survey.summaries_using(summarizer, constraints)
+end
+```
+
+```ruby
+# app/controllers/summaries_controller.rb
+def constraints
+  if include_unanswered?
+    {}
+  else
+    { answered_by: current_user }
+  end
+end
+```
+
+The `summaries_using` method builds a summary of the answers to each of the
+survey's questions.
+
+However, we also want to hide the answers to questions that the user hasn't
+answered themselves, so we [decorate](#extract-decorator) the `summarizer` with
+an `UnansweredQuestionHider`. Note that we're statically referencing the
+concrete, lower-level detail `UnansweredQuestionHider` from `Survey` rather than
+depending on an abstraction.
+
+In the current implementation, the `Survey#summaries_using` method will need to
+change whenever something changes about the summaries. For example, hiding the
+unanswered questions [required changes to this
+method](https://github.com/thoughtbot/ruby-science/commit/d60656aa).
+
+Also, note that the conditional logic is spread across several layers.
+`SummariesController` decides whether or not to hide unanswered questions. That
+knowledge is passed into `Survey#summaries_using`. `SummariesController` also
+passes the current user down into `Survey#summaries_using`, and from there it's
+passed into `UnansweredQuestionHider`:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+class UnansweredQuestionHider
+  NO_ANSWER = "You haven't answered this question".freeze
+
+  def initialize(summarizer, user)
+    @summarizer = summarizer
+    @user = user
+  end
+
+  def summarize(question)
+    if hide_unanswered_question?(question)
+      NO_ANSWER
+    else
+      @summarizer.summarize(question)
+    end
+  end
+
+  private
+
+  def hide_unanswered_question?(question)
+    @user && !question.answered_by?(@user)
+  end
+end
+```
+
+\clearpage
+
+We can make changes like this easier in the future by inverting control:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+  questions.map do |question|
+    question.summary_using(summarizer)
+  end
+end
+```
+
+```ruby
+# app/controllers/summaries_controller.rb
+def show
+  @survey = Survey.find(params[:survey_id])
+  @summaries = @survey.summaries_using(decorated_summarizer)
+end
+
+private
+
+def decorated_summarizer
+  if include_unanswered?
+    summarizer
+  else
+    UnansweredQuestionHider.new(summarizer, current_user)
+  end
+end
+```
+
+Now the `Survey#summaries_using` method is completely ignorant of answer hiding;
+it simply accepts a `summarizer`, and the client (`SummariesController`) injects
+a decorated dependency. This means that adding similar changes won't require
+changing the `Summary` class at all.
+
+This also allows us to simplify `UnansweredQuestionHider` by removing a
+condition:
+
+```ruby
+# app/models/unanswered_question_hider.rb
+def hide_unanswered_question?(question)
+  !question.answered_by?(@user)
+end
+```
+
+We no longer build `UnansweredQuestionHider` when a user isn't signed in, so we
+don't need to check for a user.
+
+## Where To Decide Dependencies
+
+While following the previous example, you probably noticed that we didn't
+eliminate the `UnansweredQuestionHider` dependency; we just moved it around.
+This means that, while adding new summarizers or decorators won't affect
+`Summary`, they will affect `SummariesController` in the current implementation.
+So, did we actually make anything better?
+
+In this case, the code was improved because the information that affects the
+dependency decision - `params[:unanswered]` - is now closer to where we make the
+decision. Before, we needed to pass a boolean down into `summaries_using`,
+causing that decision to leak across layers.
+
+Push your dependency decisions up until they reach the layer that contains the
+information needed to make those decisions, and you'll prevent changes from
+affecting several layers.
+
+### Drawbacks
+
+Following this principle results in more abstraction and indirection, as it's
+often difficult to tell which class is being used for a dependency.
+
+Looking at the example above, it's now impossible to know in `summaries_using`
+which class will be used for the `summarizer`:
+
+```ruby
+# app/models/survey.rb
+def summaries_using(summarizer)
+  questions.map do |question|
+    question.summary_using(summarizer)
+  end
+end
+```
+
+This makes it difficult to know exactly what's going to happen. You can mitigate
+this issue by using naming conventions and well-named classes. However, each
+abstraction introduces more vocabulary into the application, making it more
+difficult for new developers to learn the domain.
+
+### Application
+
+If you identify these smells in an application, you may want to adhere more
+closely to the Dependency Inversion Principle:
+
+* Following DIP can eliminate [Shotgun surgery](#shotgun-surgery) by
+  consolidating dependency decisions.
+* Code suffering from [divergent change](#divergent-change) may improve after
+  having some of its dependencies injected.
+* [Large classes](#large-class) and [long methods](#long-method) can be reduced
+  by injecting dependencies, as this will outsource dependency resolution.
+
+You may need to eliminate these smells in order to properly invert control:
+
+* Excessive use of [callbacks](#callback) will make it harder to follow this
+  principle, because it's harder to inject dependencies into a callback.
+* Using [mixins](#mixin) and [STI](#single-table-inheritance-sti) for reuse will
+  make following this principle more difficult, because inheritance is always
+  decided statically.  Because a class can't decide its parent class at runtime,
+  inheritance can't follow inversion of control.
+
+You can use these solutions to refactor towards DIP-compliance:
+
+* [Inject Dependencies](#inject-dependencies) to invert control.
+* Use [Extract Class](#extract-class) to make smaller classes that are easier to
+  compose and inject.
+* Use [Extract Decorator](#extract-decorator) to make it possible to package a
+  decision that involves multiple classes and inject it as a single dependency.
+* [Introduce Observer](#introduce-observer) to disconnect dependency resolution
+  from control flow.
+* [Replace Callbacks with Methods](#replace-callback-with-method) to make
+  dependency injection easier.
+* [Replace Conditional with
+  Polymorphism](#replace-conditional-with-polymorphism) to make dependency
+  injection easier.
+* [Replace Mixin with Composition](#replace-mixin-with-composition) and [Replace
+  Subclasses with Strategies](#replace-subclasses-with-strategies) to make it
+  possible to decide dependencies abstractly at runtime.
+* [Use Class as Factory](#use-class-as-factory) to make it possible to
+  abstractly instantiate dependencies without knowing which class is being used
+  and without writing abstract factory classes.
+
+Following [Single Responsibility Principle](#single-responsibility-principle)
+and [Composition Over Inheritance](#composition-over-inheritance) will make it
+easier to follow this principle. Following this principle will make it easier to
+obey the [Open-Closed Principle](#open-closed-principle).
