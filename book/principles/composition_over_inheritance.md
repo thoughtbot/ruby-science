@@ -101,12 +101,12 @@ that your models follow a hierarchy; that is, it assumes that your types fall
 into a tree-like structure.
 
 Continuing with the above example, we have a root type, `Inviter`, and two
-subtypes, `EmailInviter` and `MessageInviter`. What if we want to have
-invitations sent by admins behave differently than invitations sent by normal
-users? We can create an `AdminInviter` class, but what will its superclass be?
-How will we combine it with `EmailInviter` and `MessageInviter`? There's no easy
-way to combine email, message, and admin functionality using inheritance, so
-you'll end up with a proliferation of conditionals.
+subtypes, `EmailInviter` and `MessageInviter`. What if we want invitations sent
+by admins to behave differently than invitations sent by normal users? We can
+create an `AdminInviter` class, but what will its superclass be?  How will we
+combine it with `EmailInviter` and `MessageInviter`? There's no easy way to
+combine email, message, and admin functionality using inheritance, so you'll end
+up with a proliferation of conditionals.
 
 Composition, on the other hand, provides several ways out of this mess, such as
 using a decorator to add admin functionality to the inviter. Once you build
