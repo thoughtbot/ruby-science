@@ -25,7 +25,6 @@ or two consumer classes.
   through useless classes.
 * Eliminate [Feature Envy](#feature-envy) when the envied class can be inlined
   into the envious class.
-* Eliminate [High Fanout](#high-fan-out) by inlining dependencies.
 
 
 ### Example

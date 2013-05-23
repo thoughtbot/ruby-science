@@ -192,8 +192,6 @@ follow the Single Responsibility Principle:
   this principle.
 * Classes following this principle are easy to reuse, reducing the likelihood of
   [Duplicated Code](#duplicated-code).
-* Additional responsibilities introduce additional dependencies, causing [High
-  Fanout](#high-fan-out). Following this principle reduces this smell.
 * [Large Classes](#large-class) almost certainly have more than one reason to
   change. Following this principle eliminates most large classes.
 
@@ -221,8 +219,6 @@ These solutions may be useful on the path towards SRP:
 * [Move Methods](#move-method) to place methods in a more cohesive environment.
 * [Inject Dependencies](#inject-dependencies) to relieve classes of the burden
   of changing with their dependencies.
-* [Introduce Observers](#introduce-observer) to make classes that aren't
-  responsibile for their side effects.
 * [Replace Mixins with Composition](#replace-mixin-with-composition) to make it
   easier to isolate concerns.
 * [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) to

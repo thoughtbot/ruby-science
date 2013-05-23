@@ -1,3 +1,0 @@
-# Introduce Observer
-
-STUB
