@@ -28,6 +28,10 @@ which will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
 through F grade.
 
+If you'd prefer not to use a hosted service, you can use
+[MetricFu](https://github.com/metricfu/metric_fu) to run a large suite of tools
+to analyze your application.
+
 Getting obsessed with the counts and scores from these tools will distract from
 the actual issues in your code, but it's worthwhile to run them continually and
 watch out for potential warning signs.
