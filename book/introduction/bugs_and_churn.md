@@ -1,15 +1,13 @@
 ## Bugs and Churn
 
-If it takes a long time to fix a bug, remove smells in the methods or classes
-of the buggy code. You'll make it less likely that a bug will be reintroduced.
+If you're spending a lot of time swatting bugs, remove smells in the methods or
+classes of the buggy code. You'll make it less likely that a bug will be
+reintroduced.
 
 After you commit a bug fix to a feature branch, find out if the code you changed
-to fix the bug is in files that change often:
-
-    git log origin/master.. --name-only | grep '.rb' | sort | uniq -c | sort
-
-If the buggy code changes often, find smells and refactor them. Separate the
-parts that change often from the parts that don't.
+to fix the bug is in files which change often. If the buggy code changes often,
+find smells and eliminate them. Separate the parts that change often from the
+parts that don't.
 
 Conversely, avoid refactoring areas with low churn. Refactoring changes code,
 and with each change, you risk introducing new bugs. If a file hasn't changed
