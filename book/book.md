@@ -30,8 +30,6 @@
 
 <<[code_smells/case_statement.md]
 
-<<[code_smells/high_fanout.md]
-
 <<[code_smells/shotgun_surgery.md]
 
 <<[code_smells/divergent_change.md]
@@ -43,8 +41,6 @@
 <<[code_smells/uncommunicative_name.md]
 
 <<[code_smells/sti.md]
-
-<<[code_smells/parallel_inheritance_hierarchies.md]
 
 <<[code_smells/comments.md]
 
@@ -74,11 +70,11 @@
 
 <<[solutions/introduce_explaining_variable.md]
 
-<<[solutions/introduce_observer.md]
-
 <<[solutions/introduce_form_object.md]
 
 <<[solutions/introduce_parameter_object.md]
+
+<<[solutions/introduce_facade.md]
 
 <<[solutions/use_class_as_factory.md]
 
@@ -95,8 +91,6 @@
 <<[solutions/replace_callback_with_method.md]
 
 <<[solutions/use_convention_over_configuration.md]
-
-<<[solutions/introduce_visitor.md]
 
 \part{Principles}
 

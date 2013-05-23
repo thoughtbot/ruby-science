@@ -1,3 +1,0 @@
-# Introduce Visitor
-
-STUB

@@ -231,8 +231,7 @@ will mean finding every type and adding a new method. Understanding the behavior
 becomes more difficult, because the implementations are spread out among the
 types. Object-oriented languages lean towards polymorphic implementations, but
 if you find yourself adding behaviors much more often than adding types, you
-should look into using [observers](#introduce-observer) or
-[visitors](#introduce-visitor) instead.
+should look into using observers or visitors instead.
 
 Also, using STI has specific disadvantages. See the [chapter on
 STI](#single-table-inheritance-sti) for details.

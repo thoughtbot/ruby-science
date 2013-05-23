@@ -1,3 +1,0 @@
-# High Fan-out
-
-STUB

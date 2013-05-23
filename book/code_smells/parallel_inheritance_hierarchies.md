@@ -1,3 +1,0 @@
-# Parallel Inheritance Hierarchies
-
-STUB

@@ -96,11 +96,11 @@ for `MultipleChoiceQuestion` and `ScaleQuestion`. You can see the full change
 for this step in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/7747366a12b3f6f21d0008063c5655faba8e4890).
 
-At this point, we've introduced a [parallel inheritance
-hierarchy](#parallel-inheritance-hierarchies). During a longer refactor, things
-may get worse before they get better. This is one of several reasons that it's
-always best to refactor on a branch, separately from any feature work. We'll
-make sure that the parallel inheritance hierarchy is removed before merging.
+At this point, we've introduced a parallel inheritance hierarchy. During a
+longer refactor, things may get worse before they get better. This is one of
+several reasons that it's always best to refactor on a branch, separately from
+any feature work. We'll make sure that the parallel inheritance hierarchy is
+removed before merging.
 
 #### Pull Up Delegate Method Into Base Class
 
@@ -448,8 +448,7 @@ Now for a quick, glorious change: those `Question` subclasses are entirely empty
 and unused, so we can [delete
 them](https://github.com/thoughtbot/ruby-science/commit/c6f0e545ae9b3da017b3318f2882cb40954213ee).
 
-This also removes the [parallel inheritance
-hierarchy](#parallel-inheritance-hierarchies) that we introduced earlier.
+This also removes the parallel inheritance hierarchy that we introduced earlier.
 
 At this point, the code is as good as we found it.
 
