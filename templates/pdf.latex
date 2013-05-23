@@ -4,14 +4,14 @@
 \usepackage{fixltx2e} % provides \textsubscript
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode,tikz,color}
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
   \newcommand{\euro}{€}
   \newfontfamily\quotefont[Ligatures=TeX]{$mainfont$}
 $if(mainfont)$
-  \setmainfont{$mainfont$}
+  \setmainfont[Ligatures=TeX]{$mainfont$}
 $endif$
 $if(sansfont)$
-  \setsansfont{$sansfont$}
+  \setsansfont[Ligatures=TeX]{$sansfont$}
 $endif$
 $if(monofont)$
   \setmonofont[Scale=0.8]{$monofont$}
