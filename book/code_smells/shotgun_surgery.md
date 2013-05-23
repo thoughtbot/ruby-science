@@ -13,7 +13,6 @@ Make sure you look for related smells in the affected code:
 * [Case Statement](#case-statement)
 * [Feature Envy](#feature-envy)
 * [Long Parameter List](#long-parameter-list)
-* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
 ### Example
 

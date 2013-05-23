@@ -133,8 +133,6 @@ You can use these solutions to refactor towards DIP-compliance:
   compose and inject.
 * Use [Extract Decorator](#extract-decorator) to make it possible to package a
   decision that involves multiple classes and inject it as a single dependency.
-* [Introduce Observer](#introduce-observer) to disconnect dependency resolution
-  from control flow.
 * [Replace Callbacks with Methods](#replace-callback-with-method) to make
   dependency injection easier.
 * [Replace Conditional with

@@ -11,10 +11,8 @@ Using a class as a factory allows us to remove most explicit factory objects.
 
 ### Uses
 
-* Removes [Duplicated Code](#duplicated-code), [Shotgun
-  Surgery](#shotgun-surgery), and [Parallel Inheritance
-  Hierarchies](#parallel-inheritance-hierarchy) by cutting out crufty factory
-  classes.
+* Removes [Duplicated Code](#duplicated-code) and [Shotgun
+  Surgery](#shotgun-surgery) by cutting out crufty factory classes.
 * Combines with [Convention Over Configuration](#convention-over-configuration)
   to eliminate [Shotgun Surgery](#shotgun-surgery) and [Case
   Statements](#case-statement).

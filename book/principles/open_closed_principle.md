@@ -208,5 +208,3 @@ principle:
   modification.
 * [Inject Dependencies](#inject-dependencies) to allow future extensions without
   modification.
-* [Introduce Observer](#introduce-observer) to allow more side effects without
-  modification.

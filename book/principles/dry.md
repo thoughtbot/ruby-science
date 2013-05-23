@@ -64,8 +64,6 @@ can be avoided by following the DRY principle:
   related properties.
 * [Feature Envy](#feature-envy) caused by leaking internal knowledge of a class
   that can be encapsulated and reused.
-* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
-  duplicate knowledge of types.
 
 You can use these solutions to remove duplication and make knowledge easier to
 reuse:
