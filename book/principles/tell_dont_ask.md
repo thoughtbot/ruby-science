@@ -73,7 +73,7 @@ can now be made private, because it becomes an internal concern encapsulated
 within `User`.
 
 Public methods are a liability. Before they can be changed, moved, renamed, or
-removed, you need to find every consumer class and update accordingly.
+removed, you need to find every consumer class and update them accordingly.
 
 ## Tension with MVC
 
