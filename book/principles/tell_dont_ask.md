@@ -69,7 +69,7 @@ itself within private methods and instance variables.
 
 In many cases, following Tell, Don't Ask will result in the smallest possible
 public interface between classes. In the above example, `has_valid_credit_card?`
-can now be made private, because it comes an internal concern encapsulated
+can now be made private, because it becomes an internal concern encapsulated
 within `User`.
 
 Public methods are a liability. Before they can be changed, moved, renamed, or
