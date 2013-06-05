@@ -220,7 +220,6 @@ Make sure you look for related smells in the affected code:
 * [Case Statement](#case-statement)
 * [Feature Envy](#feature-envy)
 * [Long Parameter List](#long-parameter-list)
-* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
 ### Example
 
@@ -571,6 +570,22 @@ def question_params
     permit(:submittable_type, :title, :options_attributes, :minimum, :maximum)
 end
 ````
+
+### Other Examples
+
+For more examples of Extract Method, take a look at these chapters:
+
+
+* [Extract Class](#extract-class):
+  [b434954d](https://github.com/thoughtbot/ruby-science/commit/b434954d),
+  [000babe1](https://github.com/thoughtbot/ruby-science/commit/000babe1)
+* [Extract Decorator](#extract-decorator):
+  [15f5b96e](https://github.com/thoughtbot/ruby-science/commit/15f5b96e)
+* [Introduce Explaining Variable](#introduce-explaining-variable) (inline)
+* [Move Method](#move-method):
+  [d5b4871](https://github.com/thoughtbot/ruby-science/commit/d5b4871)
+* [Replace Conditional with Null Object](#replace-conditional-with-null-object):
+  [1e35c68](https://github.com/thoughtbot/ruby-science/commit/1e35c68)
 
 ### Next Steps
 
