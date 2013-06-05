@@ -28,122 +28,97 @@ will dive into the solutions, old and new.
 
 ## Code Reviews
 
-The first step towards cleaner code is to make sure you read the code as you
-write it. Have you ever typed up a long e-mail, hit "Send," and then realized
-later that you made several typos? The problem here is obvious: you didn't read
-what you'd written before sending it. Proofreading your e-mails will save you
-from all kinds of embarrassments. Proofreading your code will do the same.
+Our first step towards better code is to review it.
 
-An easy way to make it simple to proofread code is to always work on a feature
-branch.  Never commit directly to your master branch; doing so will make it
-tempting to either push code that hasn't been reviewed, or keep code on your
-local machine.  Neither is a good idea.
+Have you ever sent an email with typos? Did you review what you wrote before
+clicking "Send"? Reviewing your e-mails prevents mistakes and reviewing your
+code does the same.
 
-The first person who should look at every line of code you write is easy to
-find: it's you! Before merging your feature branch, look at the diff of what
-you've done. Read through each changed line, each new method, and each new
-class to make sure that you like what you see. One easy way to make sure that
-you look at everything before committing it is to use `git add --patch` instead
-of `git add`. This will force you to confirm each change you make.
+To make it easier to review code, always work in a feature branch. The branch
+reduces the temptation to push unreviewed code or to wait too long to push code.
 
-If you're working on a team, ask your teammates to review your code as well.
-After working on the same piece of code for a while, it's easy to develop
-tunnel vision. Getting a fresh and different perspective will help catch
-mistakes early. After you review your own code, don't merge your feature branch
-just yet. Push it up and invite your team members to view the diff as well.
-When reviewing somebody else's code, take the same approach you took above:
-page through the diff, and make sure you like everything you see.
+The first person who should review every line of your code is you. Before
+committing new code, read each changed line. Use git's `diff` and `--patch`
+features to examine code before you commit. Read more about these features using
+`git help add` and `git help commit`.
 
-Team code reviews provide another benefit: you get immediate feedback on how
-understandable a piece of code is. Chances are good that you'll understand your
-own code. After all, you just wrote it. However, you want your team members to
-understand your code as well. Also, even though the code is clear now, it may
-not be as obvious looking over it again in six months. Your team members will
-be a good indicator of what your own understanding will be in the future. If it
-doesn't make sense to them now, it won't make sense to you later.
+If you're working on a team, push your feature branch and invite your teammates
+to review the changes via `git diff origin/master..HEAD`.
 
-Code reviews provide an opportunity to catch mistakes and improve code before it
-ever gets merged, but there's still a big question out there: what should you be
-looking for?
+Team review reveals how understandable code is to someone other than the author.
+Your team members' understanding now is a good indicator of your understanding
+in the future.
 
-## Just Follow Your Nose
+However, what should you and your teammates look for during review?
 
-The primary motivator for refactoring is the code smell. A code smell is an
-indicator that something may be wrong in the code. Not every smell means
-that you should fix something; however, smells are useful because they're
-easy to spot, and the root cause for a particular problem can be harder to track
-down.
+## Follow Your Nose
 
-When performing code reviews, be on the lookout for smells. Whenever you see a
-smell, think about whether or not it would be better if you changed the code to
-remove the smell. If you're reviewing somebody else's code, suggest possible
-ways to refactor the code which would remove the smell.
+Code "smells" are indicators something may be wrong. They are useful because
+they are easy to see, sometimes easier than the root cause of a problem.
 
-Don't treat code smells as bugs. Attempting to "fix" every smell you run across
-will end up being a waste of time, as not every smell is the symptom of an
-actual problem. Worse, removing code smells for the sake of process will end up
-obfuscating code because of the unnecessary hoops you'll jump through. In the
-end, it will prove impossible to remove every smell, as removing one smell will
-often introduce another.
+When you review code, watch for smells. Consider whether refactoring the code to
+remove the smell would result in better code. If you're reviewing a teammate's
+feature branch, share your best refactoring ideas with them.
 
-Each smell is associated with one or more common refactorings. If you see a long
-method, the most common way to improve the method is to extract new, smaller
-methods. Knowing the common refactorings that remove a smell will allow you to
-quickly think about how the code might change. Knowing that long methods can be
-removed by extracting methods, you can decide whether or not the end result of
-having several methods will be better or worse.
+Smells are associated with one or more refactorings (ex: remove the Long Method
+smell using the Extract Method refactoring). Learn these associations in order
+to quickly consider them during review, and whether the result (ex: several
+small methods) improves the code.
+
+Don't treat code smells as bugs. It will be a waste of time to "fix" every
+smell. Not every smell is the symptom of a problem and despite your best
+intentions, you can accidentally introduce another smell or problem.
 
 ## Removing Resistance
 
-There's another obvious opportunity for refactoring: any time you're having a
-hard time introducing a change to existing code, consider refactoring the code
-first. What you change will depend on what type of resistance you met.
+Another opportunity for refactoring is when you're having difficulty making a
+a change to existing code. This is called "resistance." The refactoring you
+choose depends on the type of resistance.
 
-Did you have a hard time understanding the code? If the result you wanted seemed
-simple, but you couldn't figure out where to introduce it, the code isn't
-readable enough. Refactor the code until it's obvious where your change belongs,
-and it will make this change and every subsequent change easier. Refactor for
-readability first.
+Is it hard to determine where new code belongs? The code is not readable enough.
+Rename methods and variables until it's obvious where your change belongs. This
+and every subsequent change will be easier. Refactor for readability first.
 
-Was it hard to change the code without breaking existing code? Change the
-existing code to be more flexible. Add extension points or extract code to be
-easier to reuse, and then try to introduce your change. Repeat this process
-until the change you want is easy to introduce.
+Is it hard to change the code without breaking existing code? Add extension
+points or extract code to be easier to reuse, and then try to introduce your
+change. Repeat this process until the change you want is easy to introduce.
 
-This work flow pairs well with fast branching systems like Git. First, create a
-new branch and attempt to make your change without any refactoring. If the
-change is difficult, make a work in progress commit, switch back to master, and
-create a new branch for refactoring. Refactor until you fix the resistance you
-met on your feature branch, and then rebase the feature branch on top of the
-refactoring branch. If the change is easier now, you're good to go. If not,
-switch back to your refactoring branch and try again.
+Each change should be easy to introduce. If it's not, refactor.
 
-Each change should be easy to introduce. If it's not, it's time to refactor.
+When you are making your changes, you will be in a feature branch. Try to make
+your change without refactoring. If your meet resistance, make a "work in
+progress" commit, check out master, and create a new refactoring branch:
+
+    git commit -m 'wip: new feature'
+    git push
+    git checkout master
+    git checkout -b refactoring-for-new-feature
+
+Refactor until you fix the resistance you met on your feature branch. Then,
+rebase your feature branch on top of your refactoring branch:
+
+    git rebase -i new-feature
+    git checkout new-feature
+    git merge refactoring-for-new-feature --ff-only
+
+If the change is easier now, continue in your feature branch. If not, check out
+your refactoring branch and try again.
 
 ## Bugs and Churn
 
-If you're spending a lot of time swatting bugs, you should consider refactoring
-the buggy portions of code. After each bug is fixed, examine the methods and
-classes you had to change to fix the bug. If you remove any smells you discover
-in the affected areas, then you'll make it less likely that a bug will be
+If you're spending a lot of time swatting bugs, remove smells in the methods or
+classes of the buggy code. You'll make it less likely that a bug will be
 reintroduced.
 
-Bugs tend to crop up in the same places over and over. These places also tend to
-be the methods and classes with the highest rate of churn. When you find a bug,
-use Git to see if the buggy file changes often. If so, try refactoring the
-classes or methods which keep changing. If you separate the pieces that change
-often from the pieces that don't, then you'll spend less time fixing existing
-code. When you find files with high churn, look for smells in the areas that
-keep changing. The smell may reveal the reason for the high churn.
+After you commit a bug fix to a feature branch, find out if the code you changed
+to fix the bug is in files which change often. If the buggy code changes often,
+find smells and eliminate them. Separate the parts that change often from the
+parts that don't.
 
-Conversely, it may make sense to avoid refactoring areas with low churn.
-Although refactoring is an important part of keeping your code sane, refactoring
-changes code, and with each change, you risk introducing new bugs. Don't
-refactor just for the sake of "cleaner" code; refactor to address real problems.
-If a file hasn't changed in six months and you aren't finding bugs in it, leave
-it alone. It may not be the prettiest thing in your code base, but you'll have
-to spend more time looking at it when you break it while trying to fix something
-that wasn't broken.
+Conversely, avoid refactoring areas with low churn. Refactoring changes code,
+and with each change, you risk introducing new bugs. If a file hasn't changed
+in six months, leave it alone. It may not be pretty, but you'll spend more
+time looking at it when you break it trying to fix something that wasn't broken.
 
 ## Metrics
 
@@ -174,6 +149,10 @@ You can also use [Code Climate](https://codeclimate.com/), a hosted tool
 which will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
 through F grade.
+
+If you'd prefer not to use a hosted service, you can use
+[MetricFu](https://github.com/metricfu/metric_fu) to run a large suite of tools
+to analyze your application.
 
 Getting obsessed with the counts and scores from these tools will distract from
 the actual issues in your code, but it's worthwhile to run them continually and
@@ -535,10 +514,6 @@ this time in the form of multiple `if` statements:
 * [Use Convention over Configuration](#use-convention-over-configuration) when
   selecting a strategy based on a string name.
 
-# High Fan-out
-
-STUB
-
 # Shotgun Surgery
 
 Shotgun Surgery is usually a more obvious symptom that reveals another smell.
@@ -554,7 +529,6 @@ Make sure you look for related smells in the affected code:
 * [Case Statement](#case-statement)
 * [Feature Envy](#feature-envy)
 * [Long Parameter List](#long-parameter-list)
-* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
 
 ### Example
 
@@ -907,10 +881,6 @@ The implementation achieves all these requirements, but is awkward:
 
 By following [Composition Over Inheritance](#composition-over-inheritance),
 you'll use STI as a solution less often.
-
-# Parallel Inheritance Hierarchies
-
-STUB
 
 # Comments
 
@@ -1544,8 +1514,7 @@ will mean finding every type and adding a new method. Understanding the behavior
 becomes more difficult, because the implementations are spread out among the
 types. Object-oriented languages lean towards polymorphic implementations, but
 if you find yourself adding behaviors much more often than adding types, you
-should look into using [observers](#introduce-observer) or
-[visitors](#introduce-visitor) instead.
+should look into using observers or visitors instead.
 
 Also, using STI has specific disadvantages. See the [chapter on
 STI](#single-table-inheritance-sti) for details.
@@ -1866,6 +1835,22 @@ def question_params
     permit(:submittable_type, :title, :options_attributes, :minimum, :maximum)
 end
 ````
+
+### Other Examples
+
+For more examples of Extract Method, take a look at these chapters:
+
+
+* [Extract Class](#extract-class):
+  [b434954d](https://github.com/thoughtbot/ruby-science/commit/b434954d),
+  [000babe1](https://github.com/thoughtbot/ruby-science/commit/000babe1)
+* [Extract Decorator](#extract-decorator):
+  [15f5b96e](https://github.com/thoughtbot/ruby-science/commit/15f5b96e)
+* [Introduce Explaining Variable](#introduce-explaining-variable) (inline)
+* [Move Method](#move-method):
+  [d5b4871](https://github.com/thoughtbot/ruby-science/commit/d5b4871)
+* [Replace Conditional with Null Object](#replace-conditional-with-null-object):
+  [1e35c68](https://github.com/thoughtbot/ruby-science/commit/1e35c68)
 
 ### Next Steps
 
@@ -3331,10 +3316,6 @@ when necessary.
   still too dense, try extracting more variables or methods.
 * Check the extracted variable or method for [Feature Envy](#feature-envy).
 
-# Introduce Observer
-
-STUB
-
 # Introduce Form Object
 
 A specialized type of [Extract Class](#extract-class) used to remove business
@@ -3606,6 +3587,10 @@ object to encapsulate behavior between the `first_name` and `last_name`.
  reuse the Parameter Object to group them together.
 * Verify the methods using the Parameter Object don't have [Feature Envy](#feature-envy).
 
+# Introduce Facade
+
+STUB
+
 # Use class as Factory
 
 An Abstract Factory is an object that knows how to build something, such as one
@@ -3619,10 +3604,8 @@ Using a class as a factory allows us to remove most explicit factory objects.
 
 ### Uses
 
-* Removes [Duplicated Code](#duplicated-code), [Shotgun
-  Surgery](#shotgun-surgery), and [Parallel Inheritance
-  Hierarchies](#parallel-inheritance-hierarchy) by cutting out crufty factory
-  classes.
+* Removes [Duplicated Code](#duplicated-code) and [Shotgun
+  Surgery](#shotgun-surgery) by cutting out crufty factory classes.
 * Combines with [Convention Over Configuration](#convention-over-configuration)
   to eliminate [Shotgun Surgery](#shotgun-surgery) and [Case
   Statements](#case-statement).
@@ -3924,7 +3907,6 @@ or two consumer classes.
   through useless classes.
 * Eliminate [Feature Envy](#feature-envy) when the envied class can be inlined
   into the envious class.
-* Eliminate [High Fanout](#high-fan-out) by inlining dependencies.
 
 
 ### Example
@@ -4471,11 +4453,11 @@ for `MultipleChoiceQuestion` and `ScaleQuestion`. You can see the full change
 for this step in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/7747366a12b3f6f21d0008063c5655faba8e4890).
 
-At this point, we've introduced a [parallel inheritance
-hierarchy](#parallel-inheritance-hierarchies). During a longer refactor, things
-may get worse before they get better. This is one of several reasons that it's
-always best to refactor on a branch, separately from any feature work. We'll
-make sure that the parallel inheritance hierarchy is removed before merging.
+At this point, we've introduced a parallel inheritance hierarchy. During a
+longer refactor, things may get worse before they get better. This is one of
+several reasons that it's always best to refactor on a branch, separately from
+any feature work. We'll make sure that the parallel inheritance hierarchy is
+removed before merging.
 
 #### Pull Up Delegate Method Into Base Class
 
@@ -5079,8 +5061,7 @@ Now for a quick, glorious change: those `Question` subclasses are entirely empty
 and unused, so we can [delete
 them](https://github.com/thoughtbot/ruby-science/commit/c6f0e545ae9b3da017b3318f2882cb40954213ee).
 
-This also removes the [parallel inheritance
-hierarchy](#parallel-inheritance-hierarchies) that we introduced earlier.
+This also removes the parallel inheritance hierarchy that we introduced earlier.
 
 At this point, the code is as good as we found it.
 
@@ -5687,10 +5668,6 @@ required. When you control both sides of the API, it's fine to assume that this
 is safe. When writing a library that will interface with other developers'
 applications, it's better not to rely on class names.
 
-# Introduce Visitor
-
-STUB
-
 \part{Principles}
 
 # DRY
@@ -5759,8 +5736,6 @@ can be avoided by following the DRY principle:
   related properties.
 * [Feature Envy](#feature-envy) caused by leaking internal knowledge of a class
   that can be encapsulated and reused.
-* [Parallel Inheritance Hierarchies](#parallel-inheritance-hierarchies)
-  duplicate knowledge of types.
 
 You can use these solutions to remove duplication and make knowledge easier to
 reuse:
@@ -6011,8 +5986,6 @@ follow the Single Responsibility Principle:
   this principle.
 * Classes following this principle are easy to reuse, reducing the likelihood of
   [Duplicated Code](#duplicated-code).
-* Additional responsibilities introduce additional dependencies, causing [High
-  Fanout](#high-fan-out). Following this principle reduces this smell.
 * [Large Classes](#large-class) almost certainly have more than one reason to
   change. Following this principle eliminates most large classes.
 
@@ -6040,8 +6013,6 @@ These solutions may be useful on the path towards SRP:
 * [Move Methods](#move-method) to place methods in a more cohesive environment.
 * [Inject Dependencies](#inject-dependencies) to relieve classes of the burden
   of changing with their dependencies.
-* [Introduce Observers](#introduce-observer) to make classes that aren't
-  responsibile for their side effects.
 * [Replace Mixins with Composition](#replace-mixin-with-composition) to make it
   easier to isolate concerns.
 * [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) to
@@ -6056,7 +6027,156 @@ responsibilities. Following this principle will make it easier to follow the
 
 # Tell, Don't Ask
 
-STUB
+The Tell, Don't Ask principle advises developers to tell objects what you want
+done, rather than querying objects and making decisions for them.
+
+Consider the following example:
+
+``` ruby
+class Order
+  def charge(user)
+    if user.has_valid_credit_card?
+      user.charge(total)
+    else
+      false
+    end
+  end
+end
+```
+
+This example doesn't follow Tell, Don't Ask. It first asks the user if it has a
+valid credit card, and then makes a decision based on the user's state.
+
+In order to follow Tell, Don't Ask, we can move this decision into
+`User#charge`:
+
+\clearpage
+
+``` ruby
+class User
+  def charge(total)
+    if has_valid_credit_card?
+      payment_gateway.charge(credit_card, total)
+      true
+    else
+      false
+    end
+  end
+end
+```
+
+Now `Order#charge` can just delegate to `User#charge`, passing its own relevant
+state (`total`):
+
+``` ruby
+class Order
+  def charge(user)
+    user.charge(total)
+  end
+end
+```
+
+Following this principle has a number of benefits.
+
+### Encapsulation of Logic
+
+Following Tell, Don't Ask encapsulates the conditions under which an operation
+can be performed in one place. In the above example, `User` should know when it
+makes sense to `charge`.
+
+### Encapsulation of State
+
+Referencing another object's state directly couples two objects together based
+on what they are, rather than just what they do. By following Tell, Don't Ask,
+you encapsulate state within the object that uses it, exposing only the
+operations that can be performed based on that state, and hiding the state
+itself within private methods and instance variables.
+
+### Minimal Public Interface
+
+In many cases, following Tell, Don't Ask will result in the smallest possible
+public interface between classes. In the above example, `has_valid_credit_card?`
+can now be made private, because it becomes an internal concern encapsulated
+within `User`.
+
+Public methods are a liability. Before they can be changed, moved, renamed, or
+removed, you need to find every consumer class and update them accordingly.
+
+## Tension with MVC
+
+This principle can be difficult to follow while also following MVC.
+
+Consider a view that uses the above `Order` model:
+
+``` rhtml
+<%= form_for @order do |form| %>
+  <% unless current_user.has_valid_credit_card? %>
+    <%= render 'credit_card/fields', form: form %>
+  <% end %>
+  <!-- Order Fields -->
+<% end %>
+```
+
+The view doesn't display the credit card fields if the user already has a valid
+credit card saved. The view needs to ask the user a question and then change its
+behavior based on that question, violating Tell, Don't Ask.
+
+You could obey Tell, Don't Ask by making the user know how to render the credit
+card form:
+
+``` rhtml
+<%= form_for @order do |form| %>
+  <%= current_user.render_credit_card_form %>
+  <!-- Order Fields -->
+<% end %>
+```
+
+However, this violates MVC by including view logic in the `User` model. In this
+case, it's better to keep the model, view, and controller concerns separate and
+step across the Tell, Don't Ask line.
+
+When writing interactions between other models and support classes, though, make
+sure to give commands whenever possible, and avoid deviations in behavior based
+on another class's state.
+
+### Application
+
+These smells may be a sign that you should be following Tell, Don't Ask more:
+
+* [Feature Envy](#feature-envy) is frequently a sign that a method or part of a
+  method should be extracted and moved to another class, reducing the number of
+  questions that method must ask of another object.
+* [Shotgun Surgery](#shotgun-surgery) may result from state and logic leaks.
+  Consolidating conditionals using Tell, Don't Ask may reduce the number of
+  changes required for new functionality.
+
+If you find classes with these smells, they may require refactoring before you
+can follow Tell, Don't Ask:
+
+* [Case Statements](#case-statement) that inflect on methods from another object
+  generally get in the way.
+* [Mixins](#mixin) blur the lines between responsibilities, as mixed in methods
+  operate on the state of the objects they're mixed into.
+
+If you're trying to refactor classes to follow Tell, Don't Ask, these solutions
+may be useful:
+
+* [Extract Method](#extract-method) to encapsulate multiple conditions into one.
+* [Move Method](#move-method) to move methods closer to the state they operate
+  on.
+* [Inline Class](#inline-class) to remove unnecessary questions between two
+  classes with highly cohesive behavior.
+* [Relace Conditionals with
+  Polymorphism](#replace-conditional-with-polymorphism) to reduce the number of
+  questions being asked around a particular operation.
+* [Replace Conditionals with Null Object](#replace-conditional-with-null-object)
+  to remove checks for `nil`.
+
+Many [Law of Demeter](#law-of-demeter) violations point towards violations of
+Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the [Single
+Responsibility Principle](#single-responsibility-principle) and the [Open/Closed
+Principle](#open-closed-principle), as moving operations onto the best class may
+require modifying an existing class and adding a new responsibility.
 
 # Law of Demeter
 
@@ -6853,8 +6973,6 @@ principle:
   modification.
 * [Inject Dependencies](#inject-dependencies) to allow future extensions without
   modification.
-* [Introduce Observer](#introduce-observer) to allow more side effects without
-  modification.
 
 # Dependency inversion principle
 
@@ -7073,8 +7191,6 @@ You can use these solutions to refactor towards DIP-compliance:
   compose and inject.
 * Use [Extract Decorator](#extract-decorator) to make it possible to package a
   decision that involves multiple classes and inject it as a single dependency.
-* [Introduce Observer](#introduce-observer) to disconnect dependency resolution
-  from control flow.
 * [Replace Callbacks with Methods](#replace-callback-with-method) to make
   dependency injection easier.
 * [Replace Conditional with

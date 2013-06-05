@@ -41,7 +41,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li><a href="#introduction">Introduction</a><ul>
 <li><a href="#code-reviews">Code Reviews</a></li>
-<li><a href="#just-follow-your-nose">Just Follow Your Nose</a></li>
+<li><a href="#follow-your-nose">Follow Your Nose</a></li>
 <li><a href="#removing-resistance">Removing Resistance</a></li>
 <li><a href="#bugs-and-churn">Bugs and Churn</a></li>
 <li><a href="#metrics">Metrics</a></li>
@@ -71,7 +71,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#solutions-3">Solutions</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#high-fan-out">High Fan-out</a></li>
 <li><a href="#shotgun-surgery">Shotgun Surgery</a><ul>
 <li><a href="#symptoms-4">Symptoms</a></li>
 <li><a href="#example-4">Example</a></li>
@@ -104,7 +103,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#solutions-9">Solutions</a></li>
 <li><a href="#prevention-2">Prevention</a></li>
 </ul></li>
-<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
 <li><a href="#comments">Comments</a><ul>
 <li><a href="#symptoms-10">Symptoms</a></li>
 <li><a href="#example-10">Example</a></li>
@@ -145,6 +143,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#uses-2">Uses</a></li>
 <li><a href="#example-15">Example</a></li>
 <li><a href="#replace-temp-with-query">Replace temp with query</a><ul>
+<li><a href="#other-examples">Other Examples</a></li>
 <li><a href="#next-steps-2">Next Steps</a></li>
 </ul></li>
 </ul></li>
@@ -193,7 +192,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#example-22">Example</a></li>
 <li><a href="#next-steps-9">Next Steps</a></li>
 </ul></li>
-<li><a href="#introduce-observer">Introduce Observer</a></li>
 <li><a href="#introduce-form-object">Introduce Form Object</a><ul>
 <li><a href="#uses-10">Uses</a></li>
 <li><a href="#example-23">Example</a></li>
@@ -204,6 +202,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#example-24">Example</a></li>
 <li><a href="#next-steps-11">Next Steps</a></li>
 </ul></li>
+<li><a href="#introduce-facade">Introduce Facade</a></li>
 <li><a href="#use-class-as-factory">Use class as Factory</a><ul>
 <li><a href="#uses-12">Uses</a></li>
 <li><a href="#example-25">Example</a></li>
@@ -271,7 +270,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 </ul></li>
-<li><a href="#introduce-visitor">Introduce Visitor</a></li>
 <li><a href="#dry">DRY</a><ul>
 <li><a href="#duplicated-knowledge-vs-duplicated-text">Duplicated Knowledge vs Duplicated Text</a><ul>
 <li><a href="#application">Application</a></li>
@@ -287,14 +285,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#application-1">Application</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#tell-dont-ask">Tell, Don't Ask</a></li>
+<li><a href="#tell-dont-ask">Tell, Don't Ask</a><ul>
+<li><a href="#encapsulation-of-logic">Encapsulation of Logic</a></li>
+<li><a href="#encapsulation-of-state">Encapsulation of State</a></li>
+<li><a href="#minimal-public-interface">Minimal Public Interface</a></li>
+<li><a href="#tension-with-mvc">Tension with MVC</a><ul>
+<li><a href="#application-2">Application</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#law-of-demeter">Law of Demeter</a><ul>
 <li><a href="#multiple-dots">Multiple Dots</a></li>
 <li><a href="#multiple-assignments">Multiple Assignments</a></li>
 <li><a href="#the-spirit-of-the-law">The Spirit of the Law</a></li>
 <li><a href="#objects-vs-types">Objects vs Types</a></li>
 <li><a href="#duplication">Duplication</a><ul>
-<li><a href="#application-2">Application</a></li>
+<li><a href="#application-3">Application</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#composition-over-inheritance">Composition over inheritance</a><ul>
@@ -306,7 +311,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#mixins">Mixins</a></li>
 <li><a href="#single-table-inheritance">Single Table Inheritance</a><ul>
 <li><a href="#drawbacks-9">Drawbacks</a></li>
-<li><a href="#application-3">Application</a></li>
+<li><a href="#application-4">Application</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#openclosed-principle">Open/closed principle</a><ul>
@@ -318,14 +323,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#everything-is-open">Everything is Open</a></li>
 <li><a href="#monkey-patching">Monkey Patching</a><ul>
 <li><a href="#drawbacks-10">Drawbacks</a></li>
-<li><a href="#application-4">Application</a></li>
+<li><a href="#application-5">Application</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#dependency-inversion-principle">Dependency inversion principle</a><ul>
 <li><a href="#inversion-of-control">Inversion of Control</a></li>
 <li><a href="#where-to-decide-dependencies">Where To Decide Dependencies</a><ul>
 <li><a href="#drawbacks-11">Drawbacks</a></li>
-<li><a href="#application-5">Application</a></li>
+<li><a href="#application-6">Application</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -339,33 +344,43 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Ruby Science will outline a process for detecting emerging problems in code, and will dive into the solutions, old and new.</p>
 <section class="level2" id="code-reviews">
 <h2><a href="#TOC">Code Reviews</a></h2>
-<p>The first step towards cleaner code is to make sure you read the code as you write it. Have you ever typed up a long e-mail, hit &quot;Send,&quot; and then realized later that you made several typos? The problem here is obvious: you didn't read what you'd written before sending it. Proofreading your e-mails will save you from all kinds of embarrassments. Proofreading your code will do the same.</p>
-<p>An easy way to make it simple to proofread code is to always work on a feature branch. Never commit directly to your master branch; doing so will make it tempting to either push code that hasn't been reviewed, or keep code on your local machine. Neither is a good idea.</p>
-<p>The first person who should look at every line of code you write is easy to find: it's you! Before merging your feature branch, look at the diff of what you've done. Read through each changed line, each new method, and each new class to make sure that you like what you see. One easy way to make sure that you look at everything before committing it is to use <code>git add --patch</code> instead of <code>git add</code>. This will force you to confirm each change you make.</p>
-<p>If you're working on a team, ask your teammates to review your code as well. After working on the same piece of code for a while, it's easy to develop tunnel vision. Getting a fresh and different perspective will help catch mistakes early. After you review your own code, don't merge your feature branch just yet. Push it up and invite your team members to view the diff as well. When reviewing somebody else's code, take the same approach you took above: page through the diff, and make sure you like everything you see.</p>
-<p>Team code reviews provide another benefit: you get immediate feedback on how understandable a piece of code is. Chances are good that you'll understand your own code. After all, you just wrote it. However, you want your team members to understand your code as well. Also, even though the code is clear now, it may not be as obvious looking over it again in six months. Your team members will be a good indicator of what your own understanding will be in the future. If it doesn't make sense to them now, it won't make sense to you later.</p>
-<p>Code reviews provide an opportunity to catch mistakes and improve code before it ever gets merged, but there's still a big question out there: what should you be looking for?</p>
+<p>Our first step towards better code is to review it.</p>
+<p>Have you ever sent an email with typos? Did you review what you wrote before clicking &quot;Send&quot;? Reviewing your e-mails prevents mistakes and reviewing your code does the same.</p>
+<p>To make it easier to review code, always work in a feature branch. The branch reduces the temptation to push unreviewed code or to wait too long to push code.</p>
+<p>The first person who should review every line of your code is you. Before committing new code, read each changed line. Use git's <code>diff</code> and <code>--patch</code> features to examine code before you commit. Read more about these features using <code>git help add</code> and <code>git help commit</code>.</p>
+<p>If you're working on a team, push your feature branch and invite your teammates to review the changes via <code>git diff origin/master..HEAD</code>.</p>
+<p>Team review reveals how understandable code is to someone other than the author. Your team members' understanding now is a good indicator of your understanding in the future.</p>
+<p>However, what should you and your teammates look for during review?</p>
 </section>
-<section class="level2" id="just-follow-your-nose">
-<h2><a href="#TOC">Just Follow Your Nose</a></h2>
-<p>The primary motivator for refactoring is the code smell. A code smell is an indicator that something may be wrong in the code. Not every smell means that you should fix something; however, smells are useful because they're easy to spot, and the root cause for a particular problem can be harder to track down.</p>
-<p>When performing code reviews, be on the lookout for smells. Whenever you see a smell, think about whether or not it would be better if you changed the code to remove the smell. If you're reviewing somebody else's code, suggest possible ways to refactor the code which would remove the smell.</p>
-<p>Don't treat code smells as bugs. Attempting to &quot;fix&quot; every smell you run across will end up being a waste of time, as not every smell is the symptom of an actual problem. Worse, removing code smells for the sake of process will end up obfuscating code because of the unnecessary hoops you'll jump through. In the end, it will prove impossible to remove every smell, as removing one smell will often introduce another.</p>
-<p>Each smell is associated with one or more common refactorings. If you see a long method, the most common way to improve the method is to extract new, smaller methods. Knowing the common refactorings that remove a smell will allow you to quickly think about how the code might change. Knowing that long methods can be removed by extracting methods, you can decide whether or not the end result of having several methods will be better or worse.</p>
+<section class="level2" id="follow-your-nose">
+<h2><a href="#TOC">Follow Your Nose</a></h2>
+<p>Code &quot;smells&quot; are indicators something may be wrong. They are useful because they are easy to see, sometimes easier than the root cause of a problem.</p>
+<p>When you review code, watch for smells. Consider whether refactoring the code to remove the smell would result in better code. If you're reviewing a teammate's feature branch, share your best refactoring ideas with them.</p>
+<p>Smells are associated with one or more refactorings (ex: remove the Long Method smell using the Extract Method refactoring). Learn these associations in order to quickly consider them during review, and whether the result (ex: several small methods) improves the code.</p>
+<p>Don't treat code smells as bugs. It will be a waste of time to &quot;fix&quot; every smell. Not every smell is the symptom of a problem and despite your best intentions, you can accidentally introduce another smell or problem.</p>
 </section>
 <section class="level2" id="removing-resistance">
 <h2><a href="#TOC">Removing Resistance</a></h2>
-<p>There's another obvious opportunity for refactoring: any time you're having a hard time introducing a change to existing code, consider refactoring the code first. What you change will depend on what type of resistance you met.</p>
-<p>Did you have a hard time understanding the code? If the result you wanted seemed simple, but you couldn't figure out where to introduce it, the code isn't readable enough. Refactor the code until it's obvious where your change belongs, and it will make this change and every subsequent change easier. Refactor for readability first.</p>
-<p>Was it hard to change the code without breaking existing code? Change the existing code to be more flexible. Add extension points or extract code to be easier to reuse, and then try to introduce your change. Repeat this process until the change you want is easy to introduce.</p>
-<p>This work flow pairs well with fast branching systems like Git. First, create a new branch and attempt to make your change without any refactoring. If the change is difficult, make a work in progress commit, switch back to master, and create a new branch for refactoring. Refactor until you fix the resistance you met on your feature branch, and then rebase the feature branch on top of the refactoring branch. If the change is easier now, you're good to go. If not, switch back to your refactoring branch and try again.</p>
-<p>Each change should be easy to introduce. If it's not, it's time to refactor.</p>
+<p>Another opportunity for refactoring is when you're having difficulty making a a change to existing code. This is called &quot;resistance.&quot; The refactoring you choose depends on the type of resistance.</p>
+<p>Is it hard to determine where new code belongs? The code is not readable enough. Rename methods and variables until it's obvious where your change belongs. This and every subsequent change will be easier. Refactor for readability first.</p>
+<p>Is it hard to change the code without breaking existing code? Add extension points or extract code to be easier to reuse, and then try to introduce your change. Repeat this process until the change you want is easy to introduce.</p>
+<p>Each change should be easy to introduce. If it's not, refactor.</p>
+<p>When you are making your changes, you will be in a feature branch. Try to make your change without refactoring. If your meet resistance, make a &quot;work in progress&quot; commit, check out master, and create a new refactoring branch:</p>
+<pre><code>git commit -m 'wip: new feature'
+git push
+git checkout master
+git checkout -b refactoring-for-new-feature</code></pre>
+<p>Refactor until you fix the resistance you met on your feature branch. Then, rebase your feature branch on top of your refactoring branch:</p>
+<pre><code>git rebase -i new-feature
+git checkout new-feature
+git merge refactoring-for-new-feature --ff-only</code></pre>
+<p>If the change is easier now, continue in your feature branch. If not, check out your refactoring branch and try again.</p>
 </section>
 <section class="level2" id="bugs-and-churn">
 <h2><a href="#TOC">Bugs and Churn</a></h2>
-<p>If you're spending a lot of time swatting bugs, you should consider refactoring the buggy portions of code. After each bug is fixed, examine the methods and classes you had to change to fix the bug. If you remove any smells you discover in the affected areas, then you'll make it less likely that a bug will be reintroduced.</p>
-<p>Bugs tend to crop up in the same places over and over. These places also tend to be the methods and classes with the highest rate of churn. When you find a bug, use Git to see if the buggy file changes often. If so, try refactoring the classes or methods which keep changing. If you separate the pieces that change often from the pieces that don't, then you'll spend less time fixing existing code. When you find files with high churn, look for smells in the areas that keep changing. The smell may reveal the reason for the high churn.</p>
-<p>Conversely, it may make sense to avoid refactoring areas with low churn. Although refactoring is an important part of keeping your code sane, refactoring changes code, and with each change, you risk introducing new bugs. Don't refactor just for the sake of &quot;cleaner&quot; code; refactor to address real problems. If a file hasn't changed in six months and you aren't finding bugs in it, leave it alone. It may not be the prettiest thing in your code base, but you'll have to spend more time looking at it when you break it while trying to fix something that wasn't broken.</p>
+<p>If you're spending a lot of time swatting bugs, remove smells in the methods or classes of the buggy code. You'll make it less likely that a bug will be reintroduced.</p>
+<p>After you commit a bug fix to a feature branch, find out if the code you changed to fix the bug is in files which change often. If the buggy code changes often, find smells and eliminate them. Separate the parts that change often from the parts that don't.</p>
+<p>Conversely, avoid refactoring areas with low churn. Refactoring changes code, and with each change, you risk introducing new bugs. If a file hasn't changed in six months, leave it alone. It may not be pretty, but you'll spend more time looking at it when you break it trying to fix something that wasn't broken.</p>
 </section>
 <section class="level2" id="metrics">
 <h2><a href="#TOC">Metrics</a></h2>
@@ -375,6 +390,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>When looking for smells, <a href="https://github.com/troessner/reek/wiki">reek</a> can find certain smells reliably and quickly. Attempting to maintain a &quot;reek free&quot; code base is costly, but using reek once you discover a problematic class or method may help you find the solution.</p>
 <p>To find files with a high churn rate, try out the aptly-named <a href="https://github.com/danmayer/churn">churn</a> gem. This works best with Git, but will also work with Subversion.</p>
 <p>You can also use <a href="https://codeclimate.com/">Code Climate</a>, a hosted tool which will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade.</p>
+<p>If you'd prefer not to use a hosted service, you can use <a href="https://github.com/metricfu/metric_fu">MetricFu</a> to run a large suite of tools to analyze your application.</p>
 <p>Getting obsessed with the counts and scores from these tools will distract from the actual issues in your code, but it's worthwhile to run them continually and watch out for potential warning signs.</p>
 </section>
 <section class="level2" id="how-to-read-this-book">
@@ -648,10 +664,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 </section>
-<section class="level1" id="high-fan-out">
-<h1><a href="#TOC">High Fan-out</a></h1>
-<p>STUB</p>
-</section>
 <section class="level1" id="shotgun-surgery">
 <h1><a href="#TOC">Shotgun Surgery</a></h1>
 <p>Shotgun Surgery is usually a more obvious symptom that reveals another smell.</p>
@@ -667,7 +679,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#case-statement">Case Statement</a></li>
 <li><a href="#feature-envy">Feature Envy</a></li>
 <li><a href="#long-parameter-list">Long Parameter List</a></li>
-<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a></li>
 </ul>
 </section>
 <section class="level3" id="example-4">
@@ -955,10 +966,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3><a href="#TOC">Prevention</a></h3>
 <p>By following <a href="#composition-over-inheritance">Composition Over Inheritance</a>, you'll use STI as a solution less often.</p>
 </section>
-</section>
-<section class="level1" id="parallel-inheritance-hierarchies">
-<h1><a href="#TOC">Parallel Inheritance Hierarchies</a></h1>
-<p>STUB</p>
 </section>
 <section class="level1" id="comments">
 <h1><a href="#TOC">Comments</a></h1>
@@ -1373,7 +1380,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <h3><a href="#TOC">Drawbacks</a></h3>
 <p>It's worth noting that, although this refactoring improved our particular example, replacing conditionals with polymorphism is not without drawbacks.</p>
 <p>Using polymorphism like this makes it easier to add new types, because adding a new type means you just need to add a new class and implement the required methods. Adding a new type won't require changes to any existing classes, and it's easy to understand what the types are, because each type is encapsulated within a class.</p>
-<p>However, this change makes it harder to add new behaviors. Adding a new behavior will mean finding every type and adding a new method. Understanding the behavior becomes more difficult, because the implementations are spread out among the types. Object-oriented languages lean towards polymorphic implementations, but if you find yourself adding behaviors much more often than adding types, you should look into using <a href="#introduce-observer">observers</a> or <a href="#introduce-visitor">visitors</a> instead.</p>
+<p>However, this change makes it harder to add new behaviors. Adding a new behavior will mean finding every type and adding a new method. Understanding the behavior becomes more difficult, because the implementations are spread out among the types. Object-oriented languages lean towards polymorphic implementations, but if you find yourself adding behaviors much more often than adding types, you should look into using observers or visitors instead.</p>
 <p>Also, using STI has specific disadvantages. See the <a href="#single-table-inheritance-sti">chapter on STI</a> for details.</p>
 </section>
 <section class="level3" id="next-steps">
@@ -1605,6 +1612,17 @@ user.try(<span class="st">:name</span>)</code></pre>
     require(<span class="st">:question</span>).
     permit(<span class="st">:submittable_type</span>, <span class="st">:title</span>, <span class="st">:options_attributes</span>, <span class="st">:minimum</span>, <span class="st">:maximum</span>)
 <span class="kw">end</span></code></pre>
+<section class="level3" id="other-examples">
+<h3><a href="#TOC">Other Examples</a></h3>
+<p>For more examples of Extract Method, take a look at these chapters:</p>
+<ul>
+<li><a href="#extract-class">Extract Class</a>: <a href="https://github.com/thoughtbot/ruby-science/commit/b434954d">b434954d</a>, <a href="https://github.com/thoughtbot/ruby-science/commit/000babe1">000babe1</a></li>
+<li><a href="#extract-decorator">Extract Decorator</a>: <a href="https://github.com/thoughtbot/ruby-science/commit/15f5b96e">15f5b96e</a></li>
+<li><a href="#introduce-explaining-variable">Introduce Explaining Variable</a> (inline)</li>
+<li><a href="#move-method">Move Method</a>: <a href="https://github.com/thoughtbot/ruby-science/commit/d5b4871">d5b4871</a></li>
+<li><a href="#replace-conditional-with-null-object">Replace Conditional with Null Object</a>: <a href="https://github.com/thoughtbot/ruby-science/commit/1e35c68">1e35c68</a></li>
+</ul>
+</section>
 <section class="level3" id="next-steps-2">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
@@ -2594,10 +2612,6 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </ul>
 </section>
 </section>
-<section class="level1" id="introduce-observer">
-<h1><a href="#TOC">Introduce Observer</a></h1>
-<p>STUB</p>
-</section>
 <section class="level1" id="introduce-form-object">
 <h1><a href="#TOC">Introduce Form Object</a></h1>
 <p>A specialized type of <a href="#extract-class">Extract Class</a> used to remove business logic from controllers when processing data outside of an ActiveRecord model.</p>
@@ -2832,6 +2846,10 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </ul>
 </section>
 </section>
+<section class="level1" id="introduce-facade">
+<h1><a href="#TOC">Introduce Facade</a></h1>
+<p>STUB</p>
+</section>
 <section class="level1" id="use-class-as-factory">
 <h1><a href="#TOC">Use class as Factory</a></h1>
 <p>An Abstract Factory is an object that knows how to build something, such as one of several possible strategies for summarizing answers to questions on a survey. An object that holds a reference to an abstract factory doesn't need to know what class is going to be used; it trusts the factory to return an object that responds to the required interface.</p>
@@ -2839,7 +2857,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <section class="level3" id="uses-12">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
-<li>Removes <a href="#duplicated-code">Duplicated Code</a>, <a href="#shotgun-surgery">Shotgun Surgery</a>, and <a href="#parallel-inheritance-hierarchy">Parallel Inheritance Hierarchies</a> by cutting out crufty factory classes.</li>
+<li>Removes <a href="#duplicated-code">Duplicated Code</a> and <a href="#shotgun-surgery">Shotgun Surgery</a> by cutting out crufty factory classes.</li>
 <li>Combines with <a href="#convention-over-configuration">Convention Over Configuration</a> to eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> and <a href="#case-statement">Case Statements</a>.</li>
 </ul>
 <p></p>
@@ -3038,7 +3056,6 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <li>Make classes easier to understand by eliminating the number of methods, classes, and files developers need to look through.</li>
 <li>Eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> from changes that cascade through useless classes.</li>
 <li>Eliminate <a href="#feature-envy">Feature Envy</a> when the envied class can be inlined into the envious class.</li>
-<li>Eliminate <a href="#high-fan-out">High Fanout</a> by inlining dependencies.</li>
 </ul>
 </section>
 <section class="level3" id="example-26">
@@ -3364,7 +3381,7 @@ question.summary_using(summarizer)</code></pre>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
 <p>Each question subclass implements the <code>score</code> method, so we repeat this process for <code>MultipleChoiceQuestion</code> and <code>ScaleQuestion</code>. You can see the full change for this step in the <a href="https://github.com/thoughtbot/ruby-science/commit/7747366a12b3f6f21d0008063c5655faba8e4890">example app</a>.</p>
-<p>At this point, we've introduced a <a href="#parallel-inheritance-hierarchies">parallel inheritance hierarchy</a>. During a longer refactor, things may get worse before they get better. This is one of several reasons that it's always best to refactor on a branch, separately from any feature work. We'll make sure that the parallel inheritance hierarchy is removed before merging.</p>
+<p>At this point, we've introduced a parallel inheritance hierarchy. During a longer refactor, things may get worse before they get better. This is one of several reasons that it's always best to refactor on a branch, separately from any feature work. We'll make sure that the parallel inheritance hierarchy is removed before merging.</p>
 </section>
 <section class="level4" id="pull-up-delegate-method-into-base-class">
 <h4><a href="#TOC">Pull Up Delegate Method Into Base Class</a></h4>
@@ -3708,7 +3725,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <section class="level4" id="remove-subclasses">
 <h4><a href="#TOC">Remove Subclasses</a></h4>
 <p>Now for a quick, glorious change: those <code>Question</code> subclasses are entirely empty and unused, so we can <a href="https://github.com/thoughtbot/ruby-science/commit/c6f0e545ae9b3da017b3318f2882cb40954213ee">delete them</a>.</p>
-<p>This also removes the <a href="#parallel-inheritance-hierarchies">parallel inheritance hierarchy</a> that we introduced earlier.</p>
+<p>This also removes the parallel inheritance hierarchy that we introduced earlier.</p>
 <p>At this point, the code is as good as we found it.</p>
 </section>
 <section class="level4" id="simplify-type-switching">
@@ -4122,14 +4139,10 @@ after_create <span class="st">:deliver</span></code></pre>
 <h4><a href="#TOC">Class-Oriented Programming</a></h4>
 <p>Another drawback to this solution is that it's entirely class-based, which means you can't assemble strategies at run-time. This means that reuse requires inheritance.</p>
 <p>Also, this class-based approach, while convenient when developing an application, is more likely to cause frustration when writing a library. Forcing developers to pass a class name instead of an object limits the amount of runtime information strategies can use. In our example, only a <code>user</code> was required. When you control both sides of the API, it's fine to assume that this is safe. When writing a library that will interface with other developers' applications, it's better not to rely on class names.</p>
-</section>
-</section>
-</section>
-</section>
-<section class="level1" id="introduce-visitor">
-<h1><a href="#TOC">Introduce Visitor</a></h1>
-<p>STUB</p>
 <p></p>
+</section>
+</section>
+</section>
 </section>
 <section class="level1" id="dry">
 <h1><a href="#TOC">DRY</a></h1>
@@ -4169,7 +4182,6 @@ after_create <span class="st">:deliver</span></code></pre>
 <li><a href="#shotgun-surgery">Shotgun Surgery</a> caused by changing the same knowledge in several places.</li>
 <li><a href="#long-parameter-list">Long Paramter Lists</a> caused by not encapsulating related properties.</li>
 <li><a href="#feature-envy">Feature Envy</a> caused by leaking internal knowledge of a class that can be encapsulated and reused.</li>
-<li><a href="#parallel-inheritance-hierarchies">Parallel Inheritance Hierarchies</a> duplicate knowledge of types.</li>
 </ul>
 <p>You can use these solutions to remove duplication and make knowledge easier to reuse:</p>
 <ul>
@@ -4302,7 +4314,6 @@ after_create <span class="st">:deliver</span></code></pre>
 <ul>
 <li><a href="#divergent-change">Divergent Change</a> doesn't exist in classes that follow this principle.</li>
 <li>Classes following this principle are easy to reuse, reducing the likelihood of <a href="#duplicated-code">Duplicated Code</a>.</li>
-<li>Additional responsibilities introduce additional dependencies, causing <a href="#high-fan-out">High Fanout</a>. Following this principle reduces this smell.</li>
 <li><a href="#large-class">Large Classes</a> almost certainly have more than one reason to change. Following this principle eliminates most large classes.</li>
 </ul>
 <p>Code containing these smells may need refactoring before they can follow this principle:</p>
@@ -4320,7 +4331,6 @@ after_create <span class="st">:deliver</span></code></pre>
 <li><a href="#extract-method">Extract Methods</a> to make responsibilities easier to move.</li>
 <li><a href="#move-method">Move Methods</a> to place methods in a more cohesive environment.</li>
 <li><a href="#inject-dependencies">Inject Dependencies</a> to relieve classes of the burden of changing with their dependencies.</li>
-<li><a href="#introduce-observer">Introduce Observers</a> to make classes that aren't responsibile for their side effects.</li>
 <li><a href="#replace-mixin-with-composition">Replace Mixins with Composition</a> to make it easier to isolate concerns.</li>
 <li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> to make variations usable without their base logic.</li>
 </ul>
@@ -4330,7 +4340,91 @@ after_create <span class="st">:deliver</span></code></pre>
 </section>
 <section class="level1" id="tell-dont-ask">
 <h1><a href="#TOC">Tell, Don't Ask</a></h1>
-<p>STUB</p>
+<p>The Tell, Don't Ask principle advises developers to tell objects what you want done, rather than querying objects and making decisions for them.</p>
+<p>Consider the following example:</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Order</span>
+  <span class="kw">def</span> charge(user)
+    <span class="kw">if</span> user.has_valid_credit_card?
+      user.charge(total)
+    <span class="kw">else</span>
+      <span class="dv">false</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>This example doesn't follow Tell, Don't Ask. It first asks the user if it has a valid credit card, and then makes a decision based on the user's state.</p>
+<p>In order to follow Tell, Don't Ask, we can move this decision into <code>User#charge</code>:</p>
+<p></p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">User</span>
+  <span class="kw">def</span> charge(total)
+    <span class="kw">if</span> has_valid_credit_card?
+      payment_gateway.charge(credit_card, total)
+      <span class="dv">true</span>
+    <span class="kw">else</span>
+      <span class="dv">false</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Now <code>Order#charge</code> can just delegate to <code>User#charge</code>, passing its own relevant state (<code>total</code>):</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Order</span>
+  <span class="kw">def</span> charge(user)
+    user.charge(total)
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre>
+<p>Following this principle has a number of benefits.</p>
+<section class="level3" id="encapsulation-of-logic">
+<h3><a href="#TOC">Encapsulation of Logic</a></h3>
+<p>Following Tell, Don't Ask encapsulates the conditions under which an operation can be performed in one place. In the above example, <code>User</code> should know when it makes sense to <code>charge</code>.</p>
+</section>
+<section class="level3" id="encapsulation-of-state">
+<h3><a href="#TOC">Encapsulation of State</a></h3>
+<p>Referencing another object's state directly couples two objects together based on what they are, rather than just what they do. By following Tell, Don't Ask, you encapsulate state within the object that uses it, exposing only the operations that can be performed based on that state, and hiding the state itself within private methods and instance variables.</p>
+</section>
+<section class="level3" id="minimal-public-interface">
+<h3><a href="#TOC">Minimal Public Interface</a></h3>
+<p>In many cases, following Tell, Don't Ask will result in the smallest possible public interface between classes. In the above example, <code>has_valid_credit_card?</code> can now be made private, because it becomes an internal concern encapsulated within <code>User</code>.</p>
+<p>Public methods are a liability. Before they can be changed, moved, renamed, or removed, you need to find every consumer class and update them accordingly.</p>
+</section>
+<section class="level2" id="tension-with-mvc">
+<h2><a href="#TOC">Tension with MVC</a></h2>
+<p>This principle can be difficult to follow while also following MVC.</p>
+<p>Consider a view that uses the above <code>Order</code> model:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"><span class="kw">&lt;%=</span> form_for <span class="ot">@order</span> <span class="kw">do</span> <span class="ch">|</span>form<span class="ch">|</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%</span> <span class="kw">unless</span> current_user.has_valid_credit_card? <span class="kw">%&gt;</span>
+    <span class="kw">&lt;%=</span> render <span class="st">'credit_card/fields'</span>, form: form <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">%&gt;</span>
+  <span class="co">&lt;!-- Order Fields --&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">%&gt;</span></code></pre>
+<p>The view doesn't display the credit card fields if the user already has a valid credit card saved. The view needs to ask the user a question and then change its behavior based on that question, violating Tell, Don't Ask.</p>
+<p>You could obey Tell, Don't Ask by making the user know how to render the credit card form:</p>
+<pre class="sourceCode rhtml"><code class="sourceCode rhtml"><span class="kw">&lt;%=</span> form_for <span class="ot">@order</span> <span class="kw">do</span> <span class="ch">|</span>form<span class="ch">|</span> <span class="kw">%&gt;</span>
+  <span class="kw">&lt;%=</span> current_user.render_credit_card_form <span class="kw">%&gt;</span>
+  <span class="co">&lt;!-- Order Fields --&gt;</span>
+<span class="kw">&lt;%</span> <span class="kw">end</span> <span class="kw">%&gt;</span></code></pre>
+<p>However, this violates MVC by including view logic in the <code>User</code> model. In this case, it's better to keep the model, view, and controller concerns separate and step across the Tell, Don't Ask line.</p>
+<p>When writing interactions between other models and support classes, though, make sure to give commands whenever possible, and avoid deviations in behavior based on another class's state.</p>
+<section class="level3" id="application-2">
+<h3><a href="#TOC">Application</a></h3>
+<p>These smells may be a sign that you should be following Tell, Don't Ask more:</p>
+<ul>
+<li><a href="#feature-envy">Feature Envy</a> is frequently a sign that a method or part of a method should be extracted and moved to another class, reducing the number of questions that method must ask of another object.</li>
+<li><a href="#shotgun-surgery">Shotgun Surgery</a> may result from state and logic leaks. Consolidating conditionals using Tell, Don't Ask may reduce the number of changes required for new functionality.</li>
+</ul>
+<p>If you find classes with these smells, they may require refactoring before you can follow Tell, Don't Ask:</p>
+<ul>
+<li><a href="#case-statement">Case Statements</a> that inflect on methods from another object generally get in the way.</li>
+<li><a href="#mixin">Mixins</a> blur the lines between responsibilities, as mixed in methods operate on the state of the objects they're mixed into.</li>
+</ul>
+<p>If you're trying to refactor classes to follow Tell, Don't Ask, these solutions may be useful:</p>
+<ul>
+<li><a href="#extract-method">Extract Method</a> to encapsulate multiple conditions into one.</li>
+<li><a href="#move-method">Move Method</a> to move methods closer to the state they operate on.</li>
+<li><a href="#inline-class">Inline Class</a> to remove unnecessary questions between two classes with highly cohesive behavior.</li>
+<li><a href="#replace-conditional-with-polymorphism">Relace Conditionals with Polymorphism</a> to reduce the number of questions being asked around a particular operation.</li>
+<li><a href="#replace-conditional-with-null-object">Replace Conditionals with Null Object</a> to remove checks for <code>nil</code>.</li>
+</ul>
+<p>Many <a href="#law-of-demeter">Law of Demeter</a> violations point towards violations of Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and the <a href="#open-closed-principle">Open/Closed Principle</a>, as moving operations onto the best class may require modifying an existing class and adding a new responsibility.</p>
+</section>
+</section>
 </section>
 <section class="level1" id="law-of-demeter">
 <h1><a href="#TOC">Law of Demeter</a></h1>
@@ -4438,7 +4532,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <span class="kw">end</span></code></pre>
 <p>In this example, the knowledge that a user has a credit card through its account is duplicated. That knowledge is declared somewhere in the <code>User</code> and <code>Account</code> classes when the relationship is defined, and then knowledge of it spreads to two more locations in <code>charge_for_plan</code>.</p>
 <p>Like most duplication, each instance isn't too harmful, but in aggregate, duplication will make refactoring slowly become impossible.</p>
-<section class="level3" id="application-2">
+<section class="level3" id="application-3">
 <h3><a href="#TOC">Application</a></h3>
 <p>The following smells may cause or result from Law of Demeter violations:</p>
 <ul>
@@ -4610,7 +4704,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <li>Using composition is more abstract, which means you need a name for the composed object. In our earlier example, all three classes were &quot;inviters&quot; in the inheritance model, but the composition model introduced the &quot;invitation message&quot; concept. Excessive composition can lead to vocabulary overload.</li>
 </ul>
 </section>
-<section class="level3" id="application-3">
+<section class="level3" id="application-4">
 <h3><a href="#TOC">Application</a></h3>
 <p>If you see these smells in your application, they may be a sign that you should switch some classes from inheritance to composition:</p>
 <ul>
@@ -4815,7 +4909,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <p>Although following this principle will make code easier to change, it may make it more difficult to understand. This is because the gained flexibility requires introducing indirection and abstraction. Although each of the three strategies outlined in this chapter are more flexible than the original change, directly modifying the class is the easiest to understand.</p>
 <p>This principle is most useful when applied to classes with high reuse and potentially high churn. Applying it everywhere will result in extra work and more obscure code.</p>
 </section>
-<section class="level3" id="application-4">
+<section class="level3" id="application-5">
 <h3><a href="#TOC">Application</a></h3>
 <p>If you encounter the following smells in a class, you may want to begin following this principle:</p>
 <ul>
@@ -4830,7 +4924,6 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <ul>
 <li><a href="#extract-decorator">Extract Decorator</a> to extend existing classes without modification.</li>
 <li><a href="#inject-dependencies">Inject Dependencies</a> to allow future extensions without modification.</li>
-<li><a href="#introduce-observer">Introduce Observer</a> to allow more side effects without modification.</li>
 </ul>
 </section>
 </section>
@@ -4943,7 +5036,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <span class="kw">end</span></code></pre>
 <p>This makes it difficult to know exactly what's going to happen. You can mitigate this issue by using naming conventions and well-named classes. However, each abstraction introduces more vocabulary into the application, making it more difficult for new developers to learn the domain.</p>
 </section>
-<section class="level3" id="application-5">
+<section class="level3" id="application-6">
 <h3><a href="#TOC">Application</a></h3>
 <p>If you identify these smells in an application, you may want to adhere more closely to the Dependency Inversion Principle:</p>
 <ul>
@@ -4961,7 +5054,6 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <li><a href="#inject-dependencies">Inject Dependencies</a> to invert control.</li>
 <li>Use <a href="#extract-class">Extract Class</a> to make smaller classes that are easier to compose and inject.</li>
 <li>Use <a href="#extract-decorator">Extract Decorator</a> to make it possible to package a decision that involves multiple classes and inject it as a single dependency.</li>
-<li><a href="#introduce-observer">Introduce Observer</a> to disconnect dependency resolution from control flow.</li>
 <li><a href="#replace-callback-with-method">Replace Callbacks with Methods</a> to make dependency injection easier.</li>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> to make dependency injection easier.</li>
 <li><a href="#replace-mixin-with-composition">Replace Mixin with Composition</a> and <a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> to make it possible to decide dependencies abstractly at runtime.</li>
