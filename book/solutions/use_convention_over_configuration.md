@@ -1,4 +1,4 @@
-# Use convention over configuration
+# Use Convention Over Configuration
 
 Ruby's metaprogramming allows us to avoid boilerplate code and duplication by
 relying on conventions for class names, file names, and directory structure.

@@ -1,4 +1,4 @@
-# Composition over inheritance
+# Composition Over Inheritance
 
 In class-based object-oriented systems, composition and inheritance are the two
 primary methods of reusing and assembling components. Composition Over
@@ -94,7 +94,7 @@ it is with classes, and doing too much dynamic type definition will make the
 application harder to understand by diluting the type system. After all, if none
 of the classes are ever fully formed, what does a class represent?
 
-## The trouble With Hierarchies
+## The Trouble with Hierarchies
 
 Using subclasses introduces a subtle problem into your domain model: it assumes
 that your models follow a hierarchy; that is, it assumes that your types fall
