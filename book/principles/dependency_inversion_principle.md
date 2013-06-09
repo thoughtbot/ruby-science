@@ -1,4 +1,4 @@
-# Dependency inversion principle
+# Dependency Inversion Principle
 
 The Dependency Inversion Principle, sometimes abbreviated as "DIP," was created
 by Uncle Bob Martin.

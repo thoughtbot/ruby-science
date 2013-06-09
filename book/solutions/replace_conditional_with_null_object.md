@@ -1,4 +1,4 @@
-# Replace conditional with Null Object
+# Replace Conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
 complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
@@ -96,7 +96,7 @@ outweighs the drawbacks above.
 
 \clearpage
 
-## truthiness, try, and other tricks
+## Truthiness, `try`, and Other Tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
 `nil` without using an explicit `if`. Watch out for `nil` conditional checks

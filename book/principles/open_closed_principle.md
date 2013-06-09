@@ -1,4 +1,4 @@
-# Open/closed principle
+# Open/Closed Principle
 
 This principle states that:
 

@@ -1,4 +1,4 @@
-# Single responsibility principle
+# Single Responsibility Principle
 
 The Single Responsibility Principle, often abbreviated as "SRP," was introduced
 by Uncle Bob Martin, and states:
