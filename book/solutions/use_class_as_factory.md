@@ -1,4 +1,4 @@
-# Use class as Factory
+# Use Class as Factory
 
 An Abstract Factory is an object that knows how to build something, such as one
 of several possible strategies for summarizing answers to questions on a survey.

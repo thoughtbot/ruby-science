@@ -1,4 +1,4 @@
-# Move method
+# Move Method
 
 Moving methods is generally easy. Moving a method allows you to place a method
 closer to the state it uses by moving it to the class which owns the related
