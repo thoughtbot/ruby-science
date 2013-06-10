@@ -38,6 +38,12 @@ There are a number of issues with the `summary` method:
 * This method isn't the only place in the application that checks question
   types, meaning that new types will cause [Shotgun Surgery](#shotgun-surgery).
 
+There are several ways to refactor to use polymorphism. In this chapter, we'll
+be demonstrating a solution that uses subclasses to replace type codes, which is
+one of the simplest solutions to implement. However, make sure to see the
+section on [Drawbacks](#drawbacks) later in this chapter to see alternate
+implementations.
+
 ## Replace Type Code With Subclasses
 
 Let's replace this case statement with polymorphism by introducing a subclass
@@ -65,7 +71,9 @@ existing type codes:
 
 ` db/migrate/20121128221331_add_question_suffix_to_question_type.rb@b535171
 
-See commit b535171 for the full change.
+See [commit b535171] for the full change.
+
+[commit b535171]: https://github.com/thoughtbot/ruby-science/commit/b535171
 
 The `Question` class stores its type code as `question_type`. The Rails
 convention is to use a column named `type`, but Rails will automatically start
@@ -102,7 +110,9 @@ To:
 ```
 
 Otherwise, it will generate `/open_questions` as a URL instead of `/questions`.
-See commit c18ebeb for the full change.
+See [commit c18ebeb] for the full change.
+
+[commit c18ebeb]: https://github.com/thoughtbot/ruby-science/commit/c18ebeb
 
 At this point, the tests are passing with STI in place, so we can rename
 `question_type` to `type`, following the Rails convention:
@@ -162,7 +172,9 @@ In this case, we've already created all our subclasses, but you can use [Extract
 Class](#extract-class) to create them if you're extracting each conditional path
 into a new class.
 
-You can see the full change for this step in commit a08f801.
+You can see the full change for this step in [commit a08f801].
+
+[commit a08f801]: https://github.com/thoughtbot/ruby-science/commit/a08f801
 
 The `summary` method is now much better. Adding new question types is easier.
 The new subclass will implement `summary`, and the `Question` class doesn't need
@@ -197,7 +209,9 @@ We can use this to move the type-specific view code into a view for each type:
 
 ` app/views/open_questions/_open_question.html.erb@8243493
 
-You can see the full change in commit 8243493.
+You can see the full change in [commit 8243493].
+
+[commit 8243493]: https://github.com/thoughtbot/ruby-science/commit/8243493
 
 ### Multiple Polymorphic Views
 
@@ -232,6 +246,10 @@ becomes more difficult, because the implementations are spread out among the
 types. Object-oriented languages lean towards polymorphic implementations, but
 if you find yourself adding behaviors much more often than adding types, you
 should look into using observers or visitors instead.
+
+Using subclasses forces you to use inheritance instead of composition for reuse
+and separation of concerns. See [Composition Over
+Inheritance](#composition-over-inheritance) for more on this subject.
 
 Also, using STI has specific disadvantages. See the [chapter on
 STI](#single-table-inheritance-sti) for details.
