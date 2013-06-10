@@ -52,3 +52,20 @@ formatting methods alongside a data clump of related attributes.
   name.
 * [Inline Class](#inline-class) if the class only serves to add extra steps when
   performing changes.
+
+### Prevention
+
+If your changes become spread out because you need to pass information between
+boundaries for dependencies, try [inverting
+control](#dependency-inversion-principle).
+
+If you find yourself repeating the exact same change in several places, make
+sure that you [Don't Repeat Yourself](#dry).
+
+If you need to change several places because of a modification in your
+dependency chain, such as changing `user.plan.price` to
+`user.account.plan.price`, make sure that you're following the [Law of
+Demeter](#law-of-demeter).
+
+If conditional logic is affected in several places by a single, cohesive change,
+make sure that you're following [Tell, Don't Ask](#tell-dont-ask).

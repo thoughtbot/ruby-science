@@ -33,3 +33,11 @@ extract a new method and move it to the `Answer` class.
   feature envy, and then move the method.
 * [Move Method](#move-method) if the entire method suffers from feature envy.
 * [Inline Class](#inline-class) if the envied class isn't pulling its weight.
+
+### Prevention
+
+Following the [Law of Demeter](#law-of-demeter) will prevent a lot of Feature
+Envy by limiting the dependencies of each method.
+
+Following [Tell, Don't Ask](#tell-dont-ask) will prevent Feature Envy by
+avoiding unnecessary inspection of another object's state.

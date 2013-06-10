@@ -20,6 +20,10 @@ need to change when the application changes.
   their own decisions.
 * Makes it easier to remove [Duplicated Code](#duplicated-code) by taking
   behavior out of conditional clauses and private methods.
+* Makes conditional logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
+* Replaces conditional logic with simple commands, following [Tell, Don't
+  Ask](#tell-dont-ask).
 
 ### Example
 

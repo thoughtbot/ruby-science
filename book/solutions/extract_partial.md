@@ -11,6 +11,8 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Remove [Divergent Change](#divergent-change) by removing a reason for the view to change.
 * Group common code.
 * Reduce view size and complexity.
+* Make view logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
 
 ### Steps
 

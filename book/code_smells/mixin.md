@@ -23,6 +23,8 @@ However, mixins have some drawbacks:
   into.
 * Business logic that can't be used without using the mixin.
 * Classes which have few public methods except those from a mixin.
+* [Inverting Dependencies](#dependency-inversion-principle) is difficult because
+  mixins can't accept parameters.
 
 ### Example
 
