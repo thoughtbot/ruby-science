@@ -13,25 +13,13 @@ They're easy to spot.
 * Methods with a flog score of 10 or higher may be too long.
 
 You can watch out for long methods as you write them, but finding existing
-methods is easiest with tools like flog:
-
-    % flog app lib
-        72.9: flog total
-         5.6: flog/method average
-
-        15.7: QuestionsController#create       app/controllers/questions_controller.rb:9
-        11.7: QuestionsController#new          app/controllers/questions_controller.rb:2
-        11.0: Question#none
-         8.1: SurveysController#create         app/controllers/surveys_controller.rb:6
-
-Methods with higher scores are more complicated. Anything with a score higher
-than 10 is worth looking at, but flog will only help you find potential trouble
-spots; use your own judgement when refactoring.
+methods is easiest with tools like Code Climate, which automatically identifies
+"Complex method"s in its "Smells" tab.
 
 ### Example
 
-For an example of a Long Method, let's take a look at the highest scored method
-from flog, `QuestionsController#create`:
+For an example of a Long Method, let's take a look at a complex method,
+`QuestionsController#create`:
 
 ```` ruby
 def create
