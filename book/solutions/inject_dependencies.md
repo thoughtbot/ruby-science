@@ -90,7 +90,7 @@ question.
 The information that determines whether or not to hide unanswered questions
 lives in the controller:
 
-` app/controllers/summaries_controller.rb@b8bbd4dd:17,25
+` app/controllers/summaries_controller.rb@b8bbd4dd:19,25
 
 However, this information is passed into `Survey#summaries_using`:
 

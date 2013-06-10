@@ -185,5 +185,5 @@ You can use these solutions to follow the Law of Demeter:
   that dependency.
 * [Inject Dependencies](#inject-dependencies) so that methods have direct access
   to the dependencies that they need.
-* [Inline Classes](#inline-class) that are adding hops to the dependency chain
-  without providing enough value.
+* [Inline Class](#inline-class) if it adds hops to the dependency chain without
+  providing enough value.

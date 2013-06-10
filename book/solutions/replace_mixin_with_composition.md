@@ -69,5 +69,5 @@ entirely.
   composing classes to use different implementations for the composed class.
 * Check the composing class for [Feature Envy](#feature-envy) of the extracted
   class. Tight coupling is common between mixin methods and host methods, so you
-  may need to use [move method](#move-method) a few times to get the balance
+  may need to use [Move Method](#move-method) a few times to get the balance
   right.

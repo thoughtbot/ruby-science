@@ -16,9 +16,10 @@ Make sure you look for related smells in the affected code:
 
 ### Example
 
-Users names are formatted and displayed as 'First Last' throughout the application. 
-If we want to change the formating to include a middle initial (e.g. 'First M. Last') 
-we'd need to make the same small change in several places.
+Users' names are formatted and displayed as 'First Last' throughout the
+application. If we want to change the formating to include a middle initial
+(e.g. 'First M. Last') we'd need to make the same small change in several
+places.
 
 ```rhtml
 # app/views/users/show.html.erb
@@ -49,5 +50,5 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
-* [Inline Classes](#inline-classes) that only serve to add extra steps when
+* [Inline Class](#inline-class) if the class only serves to add extra steps when
   performing changes.
