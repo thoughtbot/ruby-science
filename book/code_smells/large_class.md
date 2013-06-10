@@ -11,7 +11,6 @@ Change](#divergent-change).
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
 * The class needs to change for more than one reason.
-* The class has more private methods than public methods.
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
@@ -56,6 +55,36 @@ You can use flog to analyze classes as you write and modify them:
          3.6: Question#summarize_scale_answers app/models/question.rb:52
          3.4: Question#steps                   app/models/question.rb:28
          2.2: Question#scale?                  app/models/question.rb:34
+
+## Private Methods
+
+In general, public methods are a greater liability than private methods. This is
+because it's harder to tell where public methods are used, so you need to take
+greater care when refactoring them. However, a large suite of private methods is
+also a strong indicator of a Large Class.
+
+Private methods can't be reused between classes, which makes it more likely that
+code will be duplicated. Extracting private methods to new classes makes it
+easier for developers to do the right thing.
+
+Additionally, private methods can't be tested directly. This makes it more
+difficult to write focused, simple unit tests, as the tests will need to go
+through one or more public methods. The further a test is from the code it
+tests, the harder it is to understand.
+
+Lastly, private methods are often the easiest to extract to new classes. Large
+Classes can be difficult to split up because of entangled dependencies between
+public and private methods.
+
+Attempts to extract public methods will frequently halt when shared dependencies
+are discovered on private methods. Extracting the private behavior of a class
+into a small, reusable class is often the easiest first step towards splitting
+up a Large Class.
+
+Keeping a class's public interface as small as possible is a best practice.
+However, keep an eye on your private interface as well. A maze of private
+dependencies is a good sign that your public interface is not cohesive and can
+be split into two or more classes.
 
 ## God Class
 
