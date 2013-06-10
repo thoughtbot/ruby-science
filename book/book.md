@@ -15,7 +15,7 @@
 
 <<[introduction/bugs_and_churn.md]
 
-<<[introduction/metrics.md]
+<<[introduction/tools_to_find_smells.md]
 
 <<[introduction/navigating.md]
 
