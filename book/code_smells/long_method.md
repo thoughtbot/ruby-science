@@ -10,7 +10,7 @@ They're easy to spot.
 * If you can't tell exactly what a method does at a glance, it's too long.
 * Methods with more than one level of nesting are usually too long.
 * Methods with more than one level of abstraction may be too long.
-* Methods with a flog score of 10 or higher may be too long.
+* Methods with a complexity score of 10 or higher may be too long.
 
 You can watch out for long methods as you write them, but finding existing
 methods is easiest with tools like Code Climate, which automatically identifies

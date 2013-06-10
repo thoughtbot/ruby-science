@@ -13,12 +13,12 @@ Change](#divergent-change).
 * The class needs to change for more than one reason.
 * The class has more private methods than public methods.
 * The class has more than 7 methods.
-* The class has a total flog score of 50.
+* The class has a total complexity score of 50 or more.
 
 ### Example
 
-This class has a high flog score, has a large number of methods, more private
-than public methods, and has multiple responsibility:
+This class has a high complexity score, has a large number of methods, more
+private than public methods, and has multiple responsibility:
 
 ` app/models/question.rb@2f6e005
 
@@ -27,7 +27,7 @@ than public methods, and has multiple responsibility:
 * [Move Method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
 * [Extract Class](#extract-class) if the class has multiple responsibilities.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism) 
+* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
 if the class contains private methods related to conditional branches.
 * [Extract Value Object](#extract-value-object) if the class contains
   private query methods.
@@ -42,20 +42,6 @@ Following the [Single Responsibility
 Principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
-
-You can use flog to analyze classes as you write and modify them:
-
-    % flog -a app/models/question.rb 
-        48.3: flog total
-         6.9: flog/method average
-
-        15.6: Question#summarize_multiple_choice_answers app/models/question.rb:38
-        12.0: Question#none
-         6.3: Question#summary                 app/models/question.rb:17
-         5.2: Question#summarize_open_answers  app/models/question.rb:48
-         3.6: Question#summarize_scale_answers app/models/question.rb:52
-         3.4: Question#steps                   app/models/question.rb:28
-         2.2: Question#scale?                  app/models/question.rb:34
 
 ## God Class
 
