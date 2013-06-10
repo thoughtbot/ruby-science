@@ -1,6 +1,7 @@
 # Duplicated Code
 
-One of the first principles we're taught as developers: Keep your code [DRY](#dry).
+One of the first principles we're taught as developers: [Don't Repeat
+Yourself](#dry).
 
 ### Symptoms
 

@@ -32,4 +32,4 @@ extract a new method and move it to the `Answer` class.
 * [Extract Method](#extract-method) if only part of the method suffers from
   feature envy, and then move the method.
 * [Move Method](#move-method) if the entire method suffers from feature envy.
-* [Inline Classes](#inline-class) if the envied class isn't pulling its weight.
+* [Inline Class](#inline-class) if the envied class isn't pulling its weight.
