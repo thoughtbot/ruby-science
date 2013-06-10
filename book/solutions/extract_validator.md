@@ -7,8 +7,11 @@ code across several files.
 ### Uses
 
 * Keep validation implementation details out of models.
-* Encapsulate validation details into a single file.
+* Encapsulate validation details into a single file, following the [Single
+  Responsibility Principle](#single-responsibility-principle).
 * Remove duplication among classes performing the same validation logic.
+* Make validation logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
 
 ### Example
 

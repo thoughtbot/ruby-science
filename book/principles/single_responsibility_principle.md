@@ -228,5 +228,5 @@ Following [Composition Over Inheritance](#composition-over-inheritance) and the
 [Dependency Inversion Priniciple](#dependency-inversion-principle) may make this
 principle easier to follow, as those principles make it easier to extract
 responsibilities. Following this principle will make it easier to follow the
-[Open-Closed Priniciple](#open-closed-principle) but may introduce violations of
+[Open-Closed Priniciple](#openclosed-principle) but may introduce violations of
 [Tell, Don't Ask](#tell-dont-ask).

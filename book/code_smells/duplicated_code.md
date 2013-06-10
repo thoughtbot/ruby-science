@@ -56,3 +56,9 @@ end
 for duplicated conditional logic.
 * [Replace Conditional with Null Object](#replace-conditional-with-null-object)
   to remove duplicated checks for `nil` values.
+
+### Prevention
+
+Following the [Single Responsibility
+Principle](#single-responsibility-principle) will result in small classes that
+are easier to reuse, reducing the temptation of duplication.

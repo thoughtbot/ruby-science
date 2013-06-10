@@ -4,7 +4,7 @@ Injecting dependencies allows you to keep dependency resolutions close to the
 logic that affects them. It can prevent sub-dependencies from leaking throughout
 the code base, and it makes it easier to change the behavior of related
 components [without modifying those components'
-classes](#open-closed-principle).
+classes](#openclosed-principle).
 
 Although many people think of dependency injection frameworks and XML when they
 hear "dependency injection," injecting a dependency is usually as simple as
@@ -24,6 +24,13 @@ control](#dependency-inversion-principle).
 * Eliminates [Shotgun Surgery](#shotgun-surgery) from leaking sub-dependencies.
 * Eliminates [Divergent Change](#divergent-change) by allowing runtime
   composition patterns, such as [decorators](#extract-decorator) and strategies.
+* Make it easier to avoid subclassing, following [Composition Over
+  Inheritance](#composition-over-inheritance).
+* Extend existing classes without modifying them, following the [Open/Closed
+  Principle](#openclosed-principle).
+* Avoid burdening classes with the knowledge of constructing their own
+  dependencies, following the [Single Responsibility
+  Principle](#single-responsibility-principle).
 
 ### Example
 
