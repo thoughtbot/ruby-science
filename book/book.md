@@ -19,6 +19,8 @@
 
 <<[introduction/navigating.md]
 
+<<[introduction/example_application.md]
+
 \mainmatter
 \part{Code Smells}
 
