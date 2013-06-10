@@ -43,6 +43,15 @@ Principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
 
+Using [Composition Over Inheritance](#composition-over-inheritance) makes it
+easier to create small classes.
+
+If a large portion of the class is devoted to instantiating subclasses, try
+following the [Dependency Inversion Principle](#dependency-inversion-principle).
+
+Following the [Open/Closed Principle](#openclosed-principle) will prevent Large
+Classes by preventing new concerns from being introduced.
+
 You can use flog to analyze classes as you write and modify them:
 
     % flog -a app/models/question.rb 

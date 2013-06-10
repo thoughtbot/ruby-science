@@ -148,4 +148,4 @@ You can use these solutions to refactor towards DIP-compliance:
 Following [Single Responsibility Principle](#single-responsibility-principle)
 and [Composition Over Inheritance](#composition-over-inheritance) will make it
 easier to follow this principle. Following this principle will make it easier to
-obey the [Open-Closed Principle](#open-closed-principle).
+obey the [Open-Closed Principle](#openclosed-principle).

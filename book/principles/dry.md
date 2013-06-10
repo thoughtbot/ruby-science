@@ -60,13 +60,15 @@ can be avoided by following the DRY principle:
 
 * [Shotgun Surgery](#shotgun-surgery) caused by changing the same knowledge in
   several places.
-* [Long Paramter Lists](#long-parameter-list) caused by not encapsulating
+* [Long Parameter Lists](#long-parameter-list) caused by not encapsulating
   related properties.
 * [Feature Envy](#feature-envy) caused by leaking internal knowledge of a class
   that can be encapsulated and reused.
 
-You can use these solutions to remove duplication and make knowledge easier to
-reuse:
+Making behavior easy to reuse is essential to avoiding duplication. Developers
+won't be tempted to copy and paste something that's easy to reuse through a
+small, easy to understand class or method. You can use these solutions to make
+knowledge easier to reuse:
 
 * [Extract Classes](#extract-class) to encapsulate knowledge, allowing it to
   be reused.

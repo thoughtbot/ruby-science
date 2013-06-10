@@ -13,6 +13,7 @@ bug-proof.
   or configure new strategies and services.
 * Remove [Duplicated Code](#duplicated-code) by removing manual associations
   from identifiers to class names.
+* Prevents future duplication, making it easier to [avoid duplication](#dry).
 
 \clearpage
 

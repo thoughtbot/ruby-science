@@ -12,6 +12,10 @@ yourself checking for `nil` all over your codebase, try replacing some of the
   returning `nil`.
 * Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
+* Makes logic related to presence and absence easier to reuse, making it easier
+  to [avoid duplication](#dry).
+* Replaces conditional logic with simple commands, following [Tell, Don't
+  Ask](#tell-dont-ask).
 
 ### Example
 
