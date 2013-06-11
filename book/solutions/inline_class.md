@@ -69,10 +69,10 @@ entirely](https://github.com/thoughtbot/ruby-science/commit/bc863108).
 
 After inlining the class, it requires fewer jumps through methods, classes, and
 files to understand how invitations are delivered. Additionally, the application
-is less complex overall. Flog gives us a total complexity score of 424.7 after
-this refactoring, down slightly from 427.6. This isn't a huge gain, but this was
-an easy refactoring, and continually deleting or inlining unnecessary classes
-and methods will have larger long term effects.
+is less complex overall. Code Climate gives us a total complexity score of 424.7
+after this refactoring, down slightly from 427.6. This isn't a huge gain, but
+this was an easy refactoring, and continually deleting or inlining unnecessary
+classes and methods will have larger long term effects.
 
 ### Drawbacks
 
