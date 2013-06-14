@@ -22,6 +22,9 @@ The process for extracting a class looks like this:
 * Fully encapsulates a concern within a single class, following the [Single
   Responsibility Principle](#single-responsibility-principle) and making it
   easier to change and reuse that functionality.
+* Allows concerns to be injected, following the [Dependency Inversion
+  Principle](#dependency-inversion-principle).
+* Make behavior easier to reuse, making it easier to [avoid duplication](#dry).
 
 ### Example
 

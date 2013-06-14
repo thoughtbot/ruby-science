@@ -37,6 +37,15 @@ You can prevent Divergent Change from occurring by following the [Single
 Responsibility Principle](#single-responsibility-principle). If a class has only
 one responsibility, it has only one reason to change.
 
+Following the [Open/Closed Principle](#openclosed-principle) limits future
+changes to classes, including Divergent Change.
+
+Following [Composition Over Inheritance](#composition-over-inheritance) will
+make it easier create small classes, preventing Divergent Change.
+
+If a large portion of the class is devoted to instantiating subclasses, try
+following the [Dependency Inversion Principle](#dependency-inversion-principle).
+
 You can use churn to discover which files are changing most frequently. This
 isn't a direct relationship, but frequently changed files often have more than
 one responsibility, and thus more than one reason to change.

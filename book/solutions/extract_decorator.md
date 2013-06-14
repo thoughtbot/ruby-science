@@ -14,13 +14,18 @@ they often include the following:
 4. Invert control, applying the decorator to the original class from its
   container, rather than composing the decorator from the original class.
 
+It will be difficult to make use of decorators unless your application is
+following [Composition Over Inheritance](#composition-over-inheritance).
+
 ### Uses
 
 * Eliminate [Large Classes](#large-class) by extracting concerns.
-* Eliminate [Divergent Change](#divergent-change) and follow the [Open Closed
-  Principle](#open-closed-principle) by making it easier to modify behavior
-  without modifying existing classes.
+* Eliminate [Divergent Change](#divergent-change) and follow the [Single
+  Responsibility Principle)[#single-responsibility-principle] by adding new
+  behavior without introducing new concerns to existing classes.
 * Prevent conditional logic from leaking by making decisions earlier.
+* Extend existing classes without modifying them, following the [Open/Closed
+  Principle](#openclosed-principle).
 
 ### Example
 

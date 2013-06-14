@@ -148,5 +148,5 @@ may be useful:
 Many [Law of Demeter](#law-of-demeter) violations point towards violations of
 Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the [Single
 Responsibility Principle](#single-responsibility-principle) and the [Open/Closed
-Principle](#open-closed-principle), as moving operations onto the best class may
+Principle](#openclosed-principle), as moving operations onto the best class may
 require modifying an existing class and adding a new responsibility.

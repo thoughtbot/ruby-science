@@ -13,7 +13,9 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 * Resolves obscurity by introducing intention-revealing names.
 * Allows removal of [Duplicated Code](#duplicated-code) by moving the common
   code into the extracted method.
-* Reveals complexity.
+* Reveals complexity, making it easier to follow the [Single Responsibility
+  Principle](#single-responsibility-principle).
+* Makes behavior easier to reuse, making it easier to [avoid duplication](#dry).
 
 \clearpage
 
