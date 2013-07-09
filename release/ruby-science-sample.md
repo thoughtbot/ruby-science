@@ -223,9 +223,10 @@ Make sure you look for related smells in the affected code:
 
 ### Example
 
-Users names are formatted and displayed as 'First Last' throughout the application. 
-If we want to change the formating to include a middle initial (e.g. 'First M. Last') 
-we'd need to make the same small change in several places.
+Users' names are formatted and displayed as 'First Last' throughout the
+application. If we want to change the formating to include a middle initial
+(e.g. 'First M. Last') we'd need to make the same small change in several
+places.
 
 ```rhtml
 # app/views/users/show.html.erb
@@ -256,12 +257,29 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
-* [Inline Classes](#inline-classes) that only serve to add extra steps when
+* [Inline Class](#inline-class) if the class only serves to add extra steps when
   performing changes.
+
+### Prevention
+
+If your changes become spread out because you need to pass information between
+boundaries for dependencies, try [inverting
+control](#dependency-inversion-principle).
+
+If you find yourself repeating the exact same change in several places, make
+sure that you [Don't Repeat Yourself](#dry).
+
+If you need to change several places because of a modification in your
+dependency chain, such as changing `user.plan.price` to
+`user.account.plan.price`, make sure that you're following the [Law of
+Demeter](#law-of-demeter).
+
+If conditional logic is affected in several places by a single, cohesive change,
+make sure that you're following [Tell, Don't Ask](#tell-dont-ask).
 
 \part{Solutions}
 
-# Replace conditional with Null Object
+# Replace Conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
 complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
@@ -275,6 +293,10 @@ yourself checking for `nil` all over your codebase, try replacing some of the
   returning `nil`.
 * Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
+* Makes logic related to presence and absence easier to reuse, making it easier
+  to [avoid duplication](#dry).
+* Replaces conditional logic with simple commands, following [Tell, Don't
+  Ask](#tell-dont-ask).
 
 ### Example
 
@@ -439,7 +461,7 @@ outweighs the drawbacks above.
 
 \clearpage
 
-## truthiness, try, and other tricks
+## Truthiness, `try`, and Other Tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
 `nil` without using an explicit `if`. Watch out for `nil` conditional checks
@@ -466,7 +488,7 @@ user.try(:name)
 ````
 
 
-# Extract method
+# Extract Method
 
 The simplest refactoring to perform is Extract Method. To extract a method:
 
@@ -481,7 +503,9 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 * Resolves obscurity by introducing intention-revealing names.
 * Allows removal of [Duplicated Code](#duplicated-code) by moving the common
   code into the extracted method.
-* Reveals complexity.
+* Reveals complexity, making it easier to follow the [Single Responsibility
+  Principle](#single-responsibility-principle).
+* Makes behavior easier to reuse, making it easier to [avoid duplication](#dry).
 
 \clearpage
 
@@ -553,7 +577,7 @@ question. Let's extract another method.
 
 \clearpage
 
-## Replace temp with query
+## Replace Temp with Query
 
 One simple way to extract methods is by replacing local variables. Let's pull
 `question_params` into its own method:
@@ -614,6 +638,8 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Remove [Divergent Change](#divergent-change) by removing a reason for the view to change.
 * Group common code.
 * Reduce view size and complexity.
+* Make view logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
 
 ### Steps
 

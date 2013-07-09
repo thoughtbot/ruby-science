@@ -120,39 +120,37 @@ and with each change, you risk introducing new bugs. If a file hasn't changed
 in six months, leave it alone. It may not be pretty, but you'll spend more
 time looking at it when you break it trying to fix something that wasn't broken.
 
-## Metrics
+## Tools to Find Smells
 
-Various tools are available which can aid you in your search for code smells.
-
-You can use [flog](http://rubygems.org/gems/flog) to detect complex parts of
-code. If you look at the classes and methods with the highest flog score, you'll
-probably find a few smells worth investigating.
+Some smells are easy to find while you're reading code and change sets, but
+other smells slip through the cracks without extra help.
 
 Duplication is one of the hardest problems to find by hand. If you're using
 diffs during code reviews, it will be invisible when you copy and paste
 existing methods. The original method will be unchanged and won't show up in the
 diff, so unless the reviewer knows and remembers that the original existed, they
-won't notice that the copied method isn't just a new addition. Use
-[flay](http://rubygems.org/gems/flay) to find duplication. Every duplicated
+won't notice that the copied method isn't just a new addition. Every duplicated
 piece of code is a bug waiting to happen.
 
-When looking for smells, [reek](https://github.com/troessner/reek/wiki) can find
-certain smells reliably and quickly. Attempting to maintain a "reek free"
-code base is costly, but using reek once you discover a problematic class or
-method may help you find the solution.
+Churn is similarly invisible, in that each change will look fine, and only the
+file's full history will reveal the smell.
 
-To find files with a high churn rate, try out the aptly-named
-[churn](https://github.com/danmayer/churn) gem. This works best with Git, but
-will also work with Subversion.
+Various tools are available which can aid you in your search for code smells.
 
-You can also use [Code Climate](https://codeclimate.com/), a hosted tool
-which will scan your code for issues every time you push to Git. Code Climate
+Our favorite is [Code Climate](https://codeclimate.com/), which is a hosted tool
+and will scan your code for issues every time you push to Git. Code Climate
 attempts to locate hot spots for refactoring and assigns each class a simple A
-through F grade.
+through F grade. It identifies complexity, duplication, churn, and code smells.
 
-If you'd prefer not to use a hosted service, you can use
-[MetricFu](https://github.com/metricfu/metric_fu) to run a large suite of tools
-to analyze your application.
+If you're unable to use a hosted service, there are gems you can use locally,
+such as [metric_fu], [churn], [flog], [flay], and [reek]. These gems can
+identify churn, complexity, duplication, and smells.
+
+[metric_fu]: https://github.com/metricfu/metric_fu
+[churn]: https://github.com/danmayer/churn
+[flog]: http://rubygems.org/gems/flog
+[flay]: http://rubygems.org/gems/flay
+[reek]: https://github.com/troessner/reek/wiki
 
 Getting obsessed with the counts and scores from these tools will distract from
 the actual issues in your code, but it's worthwhile to run them continually and
@@ -178,6 +176,28 @@ code to follow related principles.
 By following this process, you'll learn how to detect and fix actual problems in
 your code using smells and reusable solutions, and you'll learn about principles
 that you can follow to improve the code you write from the beginning.
+
+## Example Application
+
+This book comes with a bundled example application, which you can find [on
+GitHub]. Make sure that you sign into GitHub before attempting to view example
+application and commit links, or you'll receive a 404 error.
+
+[on GitHub]:  https://github.com/thoughtbot/ruby-science/tree/master/example_app
+
+Most of the code samples included in the book come directly from commits in the
+example application. Several chapters link to the full commits for related
+changes. At any point, you can check out the application locally and check out
+those commits to explore solutions in progress.
+
+For some solutions, the entire change is not included in the chapter for the
+sake of focus and brevity. However, you can see every change made for a solution
+in the example commits, including tests.
+
+Make sure to take a look at the application's [README], as it contains a summary
+of the application and instructions for setting it up.
+
+[README]: https://github.com/thoughtbot/ruby-science/blob/master/example_app/README.md
 
 \mainmatter
 \part{Code Smells}
@@ -258,7 +278,6 @@ Change](#divergent-change).
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
 * The class needs to change for more than one reason.
-* The class has more private methods than public methods.
 * The class has more than 7 methods.
 * The class has a total flog score of 50.
 
@@ -347,6 +366,15 @@ Principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
 
+Using [Composition Over Inheritance](#composition-over-inheritance) makes it
+easier to create small classes.
+
+If a large portion of the class is devoted to instantiating subclasses, try
+following the [Dependency Inversion Principle](#dependency-inversion-principle).
+
+Following the [Open/Closed Principle](#openclosed-principle) will prevent Large
+Classes by preventing new concerns from being introduced.
+
 You can use flog to analyze classes as you write and modify them:
 
     % flog -a app/models/question.rb 
@@ -360,6 +388,36 @@ You can use flog to analyze classes as you write and modify them:
          3.6: Question#summarize_scale_answers app/models/question.rb:52
          3.4: Question#steps                   app/models/question.rb:28
          2.2: Question#scale?                  app/models/question.rb:34
+
+## Private Methods
+
+In general, public methods are a greater liability than private methods. This is
+because it's harder to tell where public methods are used, so you need to take
+greater care when refactoring them. However, a large suite of private methods is
+also a strong indicator of a Large Class.
+
+Private methods can't be reused between classes, which makes it more likely that
+code will be duplicated. Extracting private methods to new classes makes it
+easier for developers to do the right thing.
+
+Additionally, private methods can't be tested directly. This makes it more
+difficult to write focused, simple unit tests, as the tests will need to go
+through one or more public methods. The further a test is from the code it
+tests, the harder it is to understand.
+
+Lastly, private methods are often the easiest to extract to new classes. Large
+Classes can be difficult to split up because of entangled dependencies between
+public and private methods.
+
+Attempts to extract public methods will frequently halt when shared dependencies
+are discovered on private methods. Extracting the private behavior of a class
+into a small, reusable class is often the easiest first step towards splitting
+up a Large Class.
+
+Keeping a class's public interface as small as possible is a best practice.
+However, keep an eye on your private interface as well. A maze of private
+dependencies is a good sign that your public interface is not cohesive and can
+be split into two or more classes.
 
 ## God Class
 
@@ -421,7 +479,15 @@ extract a new method and move it to the `Answer` class.
 * [Extract Method](#extract-method) if only part of the method suffers from
   feature envy, and then move the method.
 * [Move Method](#move-method) if the entire method suffers from feature envy.
-* [Inline Classes](#inline-class) if the envied class isn't pulling its weight.
+* [Inline Class](#inline-class) if the envied class isn't pulling its weight.
+
+### Prevention
+
+Following the [Law of Demeter](#law-of-demeter) will prevent a lot of Feature
+Envy by limiting the dependencies of each method.
+
+Following [Tell, Don't Ask](#tell-dont-ask) will prevent Feature Envy by
+avoiding unnecessary inspection of another object's state.
 
 # Case Statement
 
@@ -532,9 +598,10 @@ Make sure you look for related smells in the affected code:
 
 ### Example
 
-Users names are formatted and displayed as 'First Last' throughout the application. 
-If we want to change the formating to include a middle initial (e.g. 'First M. Last') 
-we'd need to make the same small change in several places.
+Users' names are formatted and displayed as 'First Last' throughout the
+application. If we want to change the formating to include a middle initial
+(e.g. 'First M. Last') we'd need to make the same small change in several
+places.
 
 ```rhtml
 # app/views/users/show.html.erb
@@ -565,8 +632,25 @@ formatting methods alongside a data clump of related attributes.
 * [Use Convention over Configuration](#use-convention-over-configuration) to
   eliminate small steps that can be inferred based on a convention such as a
   name.
-* [Inline Classes](#inline-classes) that only serve to add extra steps when
+* [Inline Class](#inline-class) if the class only serves to add extra steps when
   performing changes.
+
+### Prevention
+
+If your changes become spread out because you need to pass information between
+boundaries for dependencies, try [inverting
+control](#dependency-inversion-principle).
+
+If you find yourself repeating the exact same change in several places, make
+sure that you [Don't Repeat Yourself](#dry).
+
+If you need to change several places because of a modification in your
+dependency chain, such as changing `user.plan.price` to
+`user.account.plan.price`, make sure that you're following the [Law of
+Demeter](#law-of-demeter).
+
+If conditional logic is affected in several places by a single, cohesive change,
+make sure that you're following [Tell, Don't Ask](#tell-dont-ask).
 
 # Divergent Change
 
@@ -630,13 +714,23 @@ You can prevent Divergent Change from occurring by following the [Single
 Responsibility Principle](#single-responsibility-principle). If a class has only
 one responsibility, it has only one reason to change.
 
+Following the [Open/Closed Principle](#openclosed-principle) limits future
+changes to classes, including Divergent Change.
+
+Following [Composition Over Inheritance](#composition-over-inheritance) will
+make it easier to create small classes, preventing Divergent Change.
+
+If a large portion of the class is devoted to instantiating subclasses, try
+following the [Dependency Inversion Principle](#dependency-inversion-principle).
+
 You can use churn to discover which files are changing most frequently. This
 isn't a direct relationship, but frequently changed files often have more than
 one responsibility, and thus more than one reason to change.
 
 # Long Parameter List
 
-Ruby supports positional method arguments which can lead to Long Parameter Lists.
+Ruby supports positional method arguments which can lead to Long Parameter
+Lists.
 
 ### Symptoms
 
@@ -671,18 +765,22 @@ end
 ### Solutions
 
 * [Introduce Parameter Object](#introduce-parameter-object) and pass it in as an
-object of naturally grouped attributes.
+  object of naturally grouped attributes.
 
-A common technique used to mask a long parameter list is grouping parameters using a
-hash of named parameters; this will replace connascence position with connascence 
-of name (a good first step). However, it will not reduce the number of collaborators
-in the method.
+* [Extract Class](#extract-class) if the method is complex due to the number of
+  collaborators.
 
-* [Extract Class](#extract-class) if the method is complex due to the number of collaborators.
+### Anti-Solution
+
+A common technique used to mask a long parameter list is grouping parameters
+using a hash of named parameters; this will replace connascence of position with
+connascence of name (a good first step). However, it will not reduce the number
+of collaborators in the method.
 
 # Duplicated Code
 
-One of the first principles we're taught as developers: Keep your code [DRY](#dry).
+One of the first principles we're taught as developers: [Don't Repeat
+Yourself](#dry).
 
 ### Symptoms
 
@@ -737,6 +835,12 @@ end
 for duplicated conditional logic.
 * [Replace Conditional with Null Object](#replace-conditional-with-null-object)
   to remove duplicated checks for `nil` values.
+
+### Prevention
+
+Following the [Single Responsibility
+Principle](#single-responsibility-principle) will result in small classes that
+are easier to reuse, reducing the temptation of duplication.
 
 # Uncommunicative Name
 
@@ -961,6 +1065,8 @@ However, mixins have some drawbacks:
   into.
 * Business logic that can't be used without using the mixin.
 * Classes which have few public methods except those from a mixin.
+* [Inverting Dependencies](#dependency-inversion-principle) is difficult because
+  mixins can't accept parameters.
 
 ### Example
 
@@ -1126,6 +1232,10 @@ need to change when the application changes.
   their own decisions.
 * Makes it easier to remove [Duplicated Code](#duplicated-code) by taking
   behavior out of conditional clauses and private methods.
+* Makes conditional logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
+* Replaces conditional logic with simple commands, following [Tell, Don't
+  Ask](#tell-dont-ask).
 
 ### Example
 
@@ -1201,6 +1311,12 @@ There are a number of issues with the `summary` method:
 * This method isn't the only place in the application that checks question
   types, meaning that new types will cause [Shotgun Surgery](#shotgun-surgery).
 
+There are several ways to refactor to use polymorphism. In this chapter, we'll
+be demonstrating a solution that uses subclasses to replace type codes, which is
+one of the simplest solutions to implement. However, make sure to see the
+section on [Drawbacks](#drawbacks) later in this chapter to see alternate
+implementations.
+
 ## Replace Type Code With Subclasses
 
 Let's replace this case statement with polymorphism by introducing a subclass
@@ -1255,7 +1371,9 @@ class AddQuestionSuffixToQuestionType < ActiveRecord::Migration
 end
 ```
 
-See commit b535171 for the full change.
+See [commit b535171] for the full change.
+
+[commit b535171]: https://github.com/thoughtbot/ruby-science/commit/b535171
 
 The `Question` class stores its type code as `question_type`. The Rails
 convention is to use a column named `type`, but Rails will automatically start
@@ -1307,7 +1425,9 @@ To:
 ```
 
 Otherwise, it will generate `/open_questions` as a URL instead of `/questions`.
-See commit c18ebeb for the full change.
+See [commit c18ebeb] for the full change.
+
+[commit c18ebeb]: https://github.com/thoughtbot/ruby-science/commit/c18ebeb
 
 At this point, the tests are passing with STI in place, so we can rename
 `question_type` to `type`, following the Rails convention:
@@ -1400,7 +1520,9 @@ In this case, we've already created all our subclasses, but you can use [Extract
 Class](#extract-class) to create them if you're extracting each conditional path
 into a new class.
 
-You can see the full change for this step in commit a08f801.
+You can see the full change for this step in [commit a08f801].
+
+[commit a08f801]: https://github.com/thoughtbot/ruby-science/commit/a08f801
 
 The `summary` method is now much better. Adding new question types is easier.
 The new subclass will implement `summary`, and the `Question` class doesn't need
@@ -1465,7 +1587,9 @@ We can use this to move the type-specific view code into a view for each type:
 <%= submission_fields.text_field :text %>
 ```
 
-You can see the full change in commit 8243493.
+You can see the full change in [commit 8243493].
+
+[commit 8243493]: https://github.com/thoughtbot/ruby-science/commit/8243493
 
 ### Multiple Polymorphic Views
 
@@ -1516,6 +1640,10 @@ types. Object-oriented languages lean towards polymorphic implementations, but
 if you find yourself adding behaviors much more often than adding types, you
 should look into using observers or visitors instead.
 
+Using subclasses forces you to use inheritance instead of composition for reuse
+and separation of concerns. See [Composition Over
+Inheritance](#composition-over-inheritance) for more on this subject.
+
 Also, using STI has specific disadvantages. See the [chapter on
 STI](#single-table-inheritance-sti) for details.
 
@@ -1526,7 +1654,7 @@ STI](#single-table-inheritance-sti) for details.
 * Pay attention to changes that affect the new types, watching out for [Shotgun
   Surgery](#shotgun-surgery) that can result from splitting up classes.
 
-# Replace conditional with Null Object
+# Replace Conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
 complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
@@ -1540,6 +1668,10 @@ yourself checking for `nil` all over your codebase, try replacing some of the
   returning `nil`.
 * Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
+* Makes logic related to presence and absence easier to reuse, making it easier
+  to [avoid duplication](#dry).
+* Replaces conditional logic with simple commands, following [Tell, Don't
+  Ask](#tell-dont-ask).
 
 ### Example
 
@@ -1704,7 +1836,7 @@ outweighs the drawbacks above.
 
 \clearpage
 
-## truthiness, try, and other tricks
+## Truthiness, `try`, and Other Tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
 `nil` without using an explicit `if`. Watch out for `nil` conditional checks
@@ -1731,7 +1863,7 @@ user.try(:name)
 ````
 
 
-# Extract method
+# Extract Method
 
 The simplest refactoring to perform is Extract Method. To extract a method:
 
@@ -1746,7 +1878,9 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 * Resolves obscurity by introducing intention-revealing names.
 * Allows removal of [Duplicated Code](#duplicated-code) by moving the common
   code into the extracted method.
-* Reveals complexity.
+* Reveals complexity, making it easier to follow the [Single Responsibility
+  Principle](#single-responsibility-principle).
+* Makes behavior easier to reuse, making it easier to [avoid duplication](#dry).
 
 \clearpage
 
@@ -1818,7 +1952,7 @@ question. Let's extract another method.
 
 \clearpage
 
-## Replace temp with query
+## Replace Temp with Query
 
 One simple way to extract methods is by replacing local variables. Let's pull
 `question_params` into its own method:
@@ -2011,6 +2145,9 @@ The process for extracting a class looks like this:
 * Fully encapsulates a concern within a single class, following the [Single
   Responsibility Principle](#single-responsibility-principle) and making it
   easier to change and reuse that functionality.
+* Allows concerns to be injected, following the [Dependency Inversion
+  Principle](#dependency-inversion-principle).
+* Make behavior easier to reuse, making it easier to [avoid duplication](#dry).
 
 ### Example
 
@@ -2633,13 +2770,18 @@ they often include the following:
 4. Invert control, applying the decorator to the original class from its
   container, rather than composing the decorator from the original class.
 
+It will be difficult to make use of decorators unless your application is
+following [Composition Over Inheritance](#composition-over-inheritance).
+
 ### Uses
 
 * Eliminate [Large Classes](#large-class) by extracting concerns.
-* Eliminate [Divergent Change](#divergent-change) and follow the [Open Closed
-  Principle](#open-closed-principle) by making it easier to modify behavior
-  without modifying existing classes.
+* Eliminate [Divergent Change](#divergent-change) and follow the [Single
+  Responsibility Principle)[#single-responsibility-principle] by adding new
+  behavior without introducing new concerns to existing classes.
 * Prevent conditional logic from leaking by making decisions earlier.
+* Extend existing classes without modifying them, following the [Open/Closed
+  Principle](#openclosed-principle).
 
 ### Example
 
@@ -3032,6 +3174,8 @@ code from your application. This is the equivalent of using [Long Method](#long-
 * Remove [Divergent Change](#divergent-change) by removing a reason for the view to change.
 * Group common code.
 * Reduce view size and complexity.
+* Make view logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
 
 ### Steps
 
@@ -3126,8 +3270,11 @@ code across several files.
 ### Uses
 
 * Keep validation implementation details out of models.
-* Encapsulate validation details into a single file.
+* Encapsulate validation details into a single file, following the [Single
+  Responsibility Principle](#single-responsibility-principle).
 * Remove duplication among classes performing the same validation logic.
+* Make validation logic easier to reuse, making it easier to [avoid
+  duplication](#dry).
 
 ### Example
 
@@ -3591,7 +3738,7 @@ object to encapsulate behavior between the `first_name` and `last_name`.
 
 STUB
 
-# Use class as Factory
+# Use Class as Factory
 
 An Abstract Factory is an object that knows how to build something, such as one
 of several possible strategies for summarizing answers to questions on a survey.
@@ -3765,7 +3912,7 @@ Now we can delete two of our factory classes.
 * [Use Convention Over Configuration](#use-convention-over-configuration) to
   remove manual mappings and possibly remove more classes.
 
-# Move method
+# Move Method
 
 Moving methods is generally easy. Moving a method allows you to place a method
 closer to the state it uses by moving it to the class which owns the related
@@ -3880,7 +4027,7 @@ you're happy with the results.
 * Check the class of the new method to make sure it's not a [Large
   Class](#large-class).
 
-# Inline class
+# Inline Class
 
 As an application evolves, new classes are introduced as new features are added
 and existing code is refactored. [Extracting classes](#extract-class) will help
@@ -4005,13 +4152,13 @@ and methods will have larger long term effects.
   class](#large-class) or beings suffering from [divergent
   change](#divergent-change).
 
-# Inject dependencies
+# Inject Dependencies
 
 Injecting dependencies allows you to keep dependency resolutions close to the
 logic that affects them. It can prevent sub-dependencies from leaking throughout
 the code base, and it makes it easier to change the behavior of related
 components [without modifying those components'
-classes](#open-closed-principle).
+classes](#openclosed-principle).
 
 Although many people think of dependency injection frameworks and XML when they
 hear "dependency injection," injecting a dependency is usually as simple as
@@ -4031,6 +4178,13 @@ control](#dependency-inversion-principle).
 * Eliminates [Shotgun Surgery](#shotgun-surgery) from leaking sub-dependencies.
 * Eliminates [Divergent Change](#divergent-change) by allowing runtime
   composition patterns, such as [decorators](#extract-decorator) and strategies.
+* Make it easier to avoid subclassing, following [Composition Over
+  Inheritance](#composition-over-inheritance).
+* Extend existing classes without modifying them, following the [Open/Closed
+  Principle](#openclosed-principle).
+* Avoid burdening classes with the knowledge of constructing their own
+  dependencies, following the [Single Responsibility
+  Principle](#single-responsibility-principle).
 
 ### Example
 
@@ -4151,8 +4305,6 @@ lives in the controller:
 
 ```ruby
 # app/controllers/summaries_controller.rb
-end
-
 def constraints
   if include_unanswered?
     {}
@@ -5162,7 +5314,7 @@ use composition or inheritance in future situations.
   Method](#extract-method) or [Extract Class](#extract-class) to extract common
   behavior.
 
-# Replace mixin with composition
+# Replace Mixin with Composition
 
 Mixins are one of two mechanisms for inheritance in Ruby. This refactoring
 provides safe steps for cleanly removing mixins that have become troublesome.
@@ -5334,11 +5486,12 @@ entirely.
 
 ### Next Steps
 
-* [Inject Dependencies](#inject-dependencies) to invert control and allow the
-  composing classes to use different implementations for the composed class.
+* [Inject Dependencies](#inject-dependencies) to [invert
+  control](#dependency-inversion-principle) and allow the composing classes to
+  use different implementations for the composed class.
 * Check the composing class for [Feature Envy](#feature-envy) of the extracted
   class. Tight coupling is common between mixin methods and host methods, so you
-  may need to use [move method](#move-method) a few times to get the balance
+  may need to use [Move Method](#move-method) a few times to get the balance
   right.
 
 # Replace Callback with Method
@@ -5449,7 +5602,7 @@ will be committed, and no messages will be delivered.
 * Find other instances where the model is saved to make sure that the extracted
   method doesn't need to be called.
 
-# Use convention over configuration
+# Use Convention Over Configuration
 
 Ruby's metaprogramming allows us to avoid boilerplate code and duplication by
 relying on conventions for class names, file names, and directory structure.
@@ -5464,6 +5617,7 @@ bug-proof.
   or configure new strategies and services.
 * Remove [Duplicated Code](#duplicated-code) by removing manual associations
   from identifiers to class names.
+* Prevents future duplication, making it easier to [avoid duplication](#dry).
 
 \clearpage
 
@@ -5732,13 +5886,15 @@ can be avoided by following the DRY principle:
 
 * [Shotgun Surgery](#shotgun-surgery) caused by changing the same knowledge in
   several places.
-* [Long Paramter Lists](#long-parameter-list) caused by not encapsulating
+* [Long Parameter Lists](#long-parameter-list) caused by not encapsulating
   related properties.
 * [Feature Envy](#feature-envy) caused by leaking internal knowledge of a class
   that can be encapsulated and reused.
 
-You can use these solutions to remove duplication and make knowledge easier to
-reuse:
+Making behavior easy to reuse is essential to avoiding duplication. Developers
+won't be tempted to copy and paste something that's easy to reuse through a
+small, easy to understand class or method. You can use these solutions to make
+knowledge easier to reuse:
 
 * [Extract Classes](#extract-class) to encapsulate knowledge, allowing it to
   be reused.
@@ -5763,7 +5919,7 @@ easier to reuse by keeping classes small and focused.
 Related principles include the [Law of Demeter](#law-of-demeter) and the [Single
 Responsibility Principle](#single-responsibility-principle).
 
-# Single responsibility principle
+# Single Responsibility Principle
 
 The Single Responsibility Principle, often abbreviated as "SRP," was introduced
 by Uncle Bob Martin, and states:
@@ -6022,7 +6178,7 @@ Following [Composition Over Inheritance](#composition-over-inheritance) and the
 [Dependency Inversion Priniciple](#dependency-inversion-principle) may make this
 principle easier to follow, as those principles make it easier to extract
 responsibilities. Following this principle will make it easier to follow the
-[Open-Closed Priniciple](#open-closed-principle) but may introduce violations of
+[Open-Closed Priniciple](#openclosed-principle) but may introduce violations of
 [Tell, Don't Ask](#tell-dont-ask).
 
 # Tell, Don't Ask
@@ -6175,7 +6331,7 @@ may be useful:
 Many [Law of Demeter](#law-of-demeter) violations point towards violations of
 Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the [Single
 Responsibility Principle](#single-responsibility-principle) and the [Open/Closed
-Principle](#open-closed-principle), as moving operations onto the best class may
+Principle](#openclosed-principle), as moving operations onto the best class may
 require modifying an existing class and adding a new responsibility.
 
 # Law of Demeter
@@ -6365,10 +6521,10 @@ You can use these solutions to follow the Law of Demeter:
   that dependency.
 * [Inject Dependencies](#inject-dependencies) so that methods have direct access
   to the dependencies that they need.
-* [Inline Classes](#inline-class) that are adding hops to the dependency chain
-  without providing enough value.
+* [Inline Class](#inline-class) if it adds hops to the dependency chain without
+  providing enough value.
 
-# Composition over inheritance
+# Composition Over Inheritance
 
 In class-based object-oriented systems, composition and inheritance are the two
 primary methods of reusing and assembling components. Composition Over
@@ -6552,7 +6708,7 @@ it is with classes, and doing too much dynamic type definition will make the
 application harder to understand by diluting the type system. After all, if none
 of the classes are ever fully formed, what does a class represent?
 
-## The trouble With Hierarchies
+## The Trouble with Hierarchies
 
 Using subclasses introduces a subtle problem into your domain model: it assumes
 that your models follow a hierarchy; that is, it assumes that your types fall
@@ -6662,7 +6818,7 @@ Following this principle will make it much easier to follow the [Dependency
 Inversion Principle](#dependency-inversion-principle) and the [Open/Closed
 Principle](#openclosed-principle).
 
-# Open/closed principle
+# Open/Closed Principle
 
 This principle states that:
 
@@ -6974,7 +7130,7 @@ principle:
 * [Inject Dependencies](#inject-dependencies) to allow future extensions without
   modification.
 
-# Dependency inversion principle
+# Dependency Inversion Principle
 
 The Dependency Inversion Principle, sometimes abbreviated as "DIP," was created
 by Uncle Bob Martin.
@@ -7206,4 +7362,4 @@ You can use these solutions to refactor towards DIP-compliance:
 Following [Single Responsibility Principle](#single-responsibility-principle)
 and [Composition Over Inheritance](#composition-over-inheritance) will make it
 easier to follow this principle. Following this principle will make it easier to
-obey the [Open-Closed Principle](#open-closed-principle).
+obey the [Open-Closed Principle](#openclosed-principle).
