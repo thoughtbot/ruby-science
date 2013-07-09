@@ -44,8 +44,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#follow-your-nose">Follow Your Nose</a></li>
 <li><a href="#removing-resistance">Removing Resistance</a></li>
 <li><a href="#bugs-and-churn">Bugs and Churn</a></li>
-<li><a href="#metrics">Metrics</a></li>
+<li><a href="#tools-to-find-smells">Tools to Find Smells</a></li>
 <li><a href="#how-to-read-this-book">How To Read This Book</a></li>
+<li><a href="#example-application">Example Application</a></li>
 </ul></li>
 <li><a href="#long-method">Long Method</a><ul>
 <li><a href="#symptoms">Symptoms</a></li>
@@ -57,12 +58,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#example-1">Example</a></li>
 <li><a href="#solutions-1">Solutions</a></li>
 <li><a href="#prevention">Prevention</a></li>
+<li><a href="#private-methods">Private Methods</a></li>
 <li><a href="#god-class">God Class</a></li>
 </ul></li>
 <li><a href="#feature-envy">Feature Envy</a><ul>
 <li><a href="#symptoms-2">Symptoms</a></li>
 <li><a href="#example-2">Example</a></li>
 <li><a href="#solutions-2">Solutions</a></li>
+<li><a href="#prevention-1">Prevention</a></li>
 </ul></li>
 <li><a href="#case-statement">Case Statement</a><ul>
 <li><a href="#symptoms-3">Symptoms</a></li>
@@ -75,22 +78,25 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#symptoms-4">Symptoms</a></li>
 <li><a href="#example-4">Example</a></li>
 <li><a href="#solutions-4">Solutions</a></li>
+<li><a href="#prevention-2">Prevention</a></li>
 </ul></li>
 <li><a href="#divergent-change">Divergent Change</a><ul>
 <li><a href="#symptoms-5">Symptoms</a></li>
 <li><a href="#example-5">Example</a></li>
 <li><a href="#solutions-5">Solutions</a></li>
-<li><a href="#prevention-1">Prevention</a></li>
+<li><a href="#prevention-3">Prevention</a></li>
 </ul></li>
 <li><a href="#long-parameter-list">Long Parameter List</a><ul>
 <li><a href="#symptoms-6">Symptoms</a></li>
 <li><a href="#example-6">Example</a></li>
 <li><a href="#solutions-6">Solutions</a></li>
+<li><a href="#anti-solution">Anti-Solution</a></li>
 </ul></li>
 <li><a href="#duplicated-code">Duplicated Code</a><ul>
 <li><a href="#symptoms-7">Symptoms</a></li>
 <li><a href="#example-7">Example</a></li>
 <li><a href="#solutions-7">Solutions</a></li>
+<li><a href="#prevention-4">Prevention</a></li>
 </ul></li>
 <li><a href="#uncommunicative-name">Uncommunicative Name</a><ul>
 <li><a href="#symptoms-8">Symptoms</a></li>
@@ -101,7 +107,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#symptoms-9">Symptoms</a></li>
 <li><a href="#example-9">Example</a></li>
 <li><a href="#solutions-9">Solutions</a></li>
-<li><a href="#prevention-2">Prevention</a></li>
+<li><a href="#prevention-5">Prevention</a></li>
 </ul></li>
 <li><a href="#comments">Comments</a><ul>
 <li><a href="#symptoms-10">Symptoms</a></li>
@@ -112,7 +118,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#symptoms-11">Symptoms</a></li>
 <li><a href="#example-11">Example</a></li>
 <li><a href="#solutions-11">Solutions</a></li>
-<li><a href="#prevention-3">Prevention</a></li>
+<li><a href="#prevention-6">Prevention</a></li>
 </ul></li>
 <li><a href="#callback">Callback</a><ul>
 <li><a href="#symptoms-12">Symptoms</a></li>
@@ -132,17 +138,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#next-steps">Next Steps</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#replace-conditional-with-null-object">Replace conditional with Null Object</a><ul>
+<li><a href="#replace-conditional-with-null-object">Replace Conditional with Null Object</a><ul>
 <li><a href="#uses-1">Uses</a></li>
 <li><a href="#example-14">Example</a></li>
 <li><a href="#drawbacks-1">Drawbacks</a></li>
 <li><a href="#next-steps-1">Next Steps</a></li>
-<li><a href="#truthiness-try-and-other-tricks">truthiness, try, and other tricks</a></li>
+<li><a href="#truthiness-try-and-other-tricks">Truthiness, <code>try</code>, and Other Tricks</a></li>
 </ul></li>
-<li><a href="#extract-method">Extract method</a><ul>
+<li><a href="#extract-method">Extract Method</a><ul>
 <li><a href="#uses-2">Uses</a></li>
 <li><a href="#example-15">Example</a></li>
-<li><a href="#replace-temp-with-query">Replace temp with query</a><ul>
+<li><a href="#replace-temp-with-query">Replace Temp with Query</a><ul>
 <li><a href="#other-examples">Other Examples</a></li>
 <li><a href="#next-steps-2">Next Steps</a></li>
 </ul></li>
@@ -203,23 +209,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#next-steps-11">Next Steps</a></li>
 </ul></li>
 <li><a href="#introduce-facade">Introduce Facade</a></li>
-<li><a href="#use-class-as-factory">Use class as Factory</a><ul>
+<li><a href="#use-class-as-factory">Use Class as Factory</a><ul>
 <li><a href="#uses-12">Uses</a></li>
 <li><a href="#example-25">Example</a></li>
 <li><a href="#next-steps-12">Next Steps</a></li>
 </ul></li>
-<li><a href="#move-method">Move method</a><ul>
+<li><a href="#move-method">Move Method</a><ul>
 <li><a href="#uses-13">Uses</a></li>
 <li><a href="#dangerous-move-and-extract-at-the-same-time">Dangerous: move and extract at the same time</a></li>
 <li><a href="#next-steps-13">Next Steps</a></li>
 </ul></li>
-<li><a href="#inline-class">Inline class</a><ul>
+<li><a href="#inline-class">Inline Class</a><ul>
 <li><a href="#uses-14">Uses</a></li>
 <li><a href="#example-26">Example</a></li>
 <li><a href="#drawbacks-4">Drawbacks</a></li>
 <li><a href="#next-steps-14">Next Steps</a></li>
 </ul></li>
-<li><a href="#inject-dependencies">Inject dependencies</a><ul>
+<li><a href="#inject-dependencies">Inject Dependencies</a><ul>
 <li><a href="#uses-15">Uses</a></li>
 <li><a href="#example-27">Example</a></li>
 <li><a href="#drawbacks-5">Drawbacks</a></li>
@@ -249,7 +255,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#drawbacks-6">Drawbacks</a></li>
 <li><a href="#next-steps-16">Next Steps</a></li>
 </ul></li>
-<li><a href="#replace-mixin-with-composition">Replace mixin with composition</a><ul>
+<li><a href="#replace-mixin-with-composition">Replace Mixin with Composition</a><ul>
 <li><a href="#uses-17">Uses</a></li>
 <li><a href="#example-29">Example</a></li>
 <li><a href="#next-steps-17">Next Steps</a></li>
@@ -260,7 +266,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#example-30">Example</a></li>
 <li><a href="#next-steps-18">Next Steps</a></li>
 </ul></li>
-<li><a href="#use-convention-over-configuration">Use convention over configuration</a><ul>
+<li><a href="#use-convention-over-configuration">Use Convention Over Configuration</a><ul>
 <li><a href="#uses-19">Uses</a></li>
 <li><a href="#example-31">Example</a></li>
 <li><a href="#scoping-constantize">Scoping <code>constantize</code></a><ul>
@@ -275,7 +281,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#application">Application</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#single-responsibility-principle">Single responsibility principle</a><ul>
+<li><a href="#single-responsibility-principle">Single Responsibility Principle</a><ul>
 <li><a href="#reasons-to-change">Reasons to change</a></li>
 <li><a href="#stability">Stability</a></li>
 <li><a href="#cohesion">Cohesion</a></li>
@@ -302,19 +308,19 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#application-3">Application</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#composition-over-inheritance">Composition over inheritance</a><ul>
+<li><a href="#composition-over-inheritance">Composition Over Inheritance</a><ul>
 <li><a href="#inheritance">Inheritance</a></li>
 <li><a href="#composition">Composition</a></li>
 <li><a href="#dynamic-vs-static">Dynamic vs Static</a></li>
 <li><a href="#dynamic-inheritance">Dynamic Inheritance</a></li>
-<li><a href="#the-trouble-with-hierarchies">The trouble With Hierarchies</a></li>
+<li><a href="#the-trouble-with-hierarchies">The Trouble with Hierarchies</a></li>
 <li><a href="#mixins">Mixins</a></li>
 <li><a href="#single-table-inheritance">Single Table Inheritance</a><ul>
 <li><a href="#drawbacks-9">Drawbacks</a></li>
 <li><a href="#application-4">Application</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#openclosed-principle">Open/closed principle</a><ul>
+<li><a href="#openclosed-principle">Open/Closed Principle</a><ul>
 <li><a href="#strategies">Strategies</a><ul>
 <li><a href="#inheritance-1">Inheritance</a></li>
 <li><a href="#decorators">Decorators</a></li>
@@ -326,7 +332,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#application-5">Application</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#dependency-inversion-principle">Dependency inversion principle</a><ul>
+<li><a href="#dependency-inversion-principle">Dependency Inversion Principle</a><ul>
 <li><a href="#inversion-of-control">Inversion of Control</a></li>
 <li><a href="#where-to-decide-dependencies">Where To Decide Dependencies</a><ul>
 <li><a href="#drawbacks-11">Drawbacks</a></li>
@@ -382,15 +388,14 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <p>After you commit a bug fix to a feature branch, find out if the code you changed to fix the bug is in files which change often. If the buggy code changes often, find smells and eliminate them. Separate the parts that change often from the parts that don't.</p>
 <p>Conversely, avoid refactoring areas with low churn. Refactoring changes code, and with each change, you risk introducing new bugs. If a file hasn't changed in six months, leave it alone. It may not be pretty, but you'll spend more time looking at it when you break it trying to fix something that wasn't broken.</p>
 </section>
-<section class="level2" id="metrics">
-<h2><a href="#TOC">Metrics</a></h2>
+<section class="level2" id="tools-to-find-smells">
+<h2><a href="#TOC">Tools to Find Smells</a></h2>
+<p>Some smells are easy to find while you're reading code and change sets, but other smells slip through the cracks without extra help.</p>
+<p>Duplication is one of the hardest problems to find by hand. If you're using diffs during code reviews, it will be invisible when you copy and paste existing methods. The original method will be unchanged and won't show up in the diff, so unless the reviewer knows and remembers that the original existed, they won't notice that the copied method isn't just a new addition. Every duplicated piece of code is a bug waiting to happen.</p>
+<p>Churn is similarly invisible, in that each change will look fine, and only the file's full history will reveal the smell.</p>
 <p>Various tools are available which can aid you in your search for code smells.</p>
-<p>You can use <a href="http://rubygems.org/gems/flog">flog</a> to detect complex parts of code. If you look at the classes and methods with the highest flog score, you'll probably find a few smells worth investigating.</p>
-<p>Duplication is one of the hardest problems to find by hand. If you're using diffs during code reviews, it will be invisible when you copy and paste existing methods. The original method will be unchanged and won't show up in the diff, so unless the reviewer knows and remembers that the original existed, they won't notice that the copied method isn't just a new addition. Use <a href="http://rubygems.org/gems/flay">flay</a> to find duplication. Every duplicated piece of code is a bug waiting to happen.</p>
-<p>When looking for smells, <a href="https://github.com/troessner/reek/wiki">reek</a> can find certain smells reliably and quickly. Attempting to maintain a &quot;reek free&quot; code base is costly, but using reek once you discover a problematic class or method may help you find the solution.</p>
-<p>To find files with a high churn rate, try out the aptly-named <a href="https://github.com/danmayer/churn">churn</a> gem. This works best with Git, but will also work with Subversion.</p>
-<p>You can also use <a href="https://codeclimate.com/">Code Climate</a>, a hosted tool which will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade.</p>
-<p>If you'd prefer not to use a hosted service, you can use <a href="https://github.com/metricfu/metric_fu">MetricFu</a> to run a large suite of tools to analyze your application.</p>
+<p>Our favorite is <a href="https://codeclimate.com/">Code Climate</a>, which is a hosted tool and will scan your code for issues every time you push to Git. Code Climate attempts to locate hot spots for refactoring and assigns each class a simple A through F grade. It identifies complexity, duplication, churn, and code smells.</p>
+<p>If you're unable to use a hosted service, there are gems you can use locally, such as <a href="https://github.com/metricfu/metric_fu">metric_fu</a>, <a href="https://github.com/danmayer/churn">churn</a>, <a href="http://rubygems.org/gems/flog">flog</a>, <a href="http://rubygems.org/gems/flay">flay</a>, and <a href="https://github.com/troessner/reek/wiki">reek</a>. These gems can identify churn, complexity, duplication, and smells.</p>
 <p>Getting obsessed with the counts and scores from these tools will distract from the actual issues in your code, but it's worthwhile to run them continually and watch out for potential warning signs.</p>
 </section>
 <section class="level2" id="how-to-read-this-book">
@@ -400,6 +405,13 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <p>Once you've identified the problem revealed by a smell, read the relevant solution chapter to learn how to fix it. Each solution chapter will explain which problems it addresses and potential problems which can be introduced.</p>
 <p>Lastly, smell and solution chapters will reference related principles. The smell chapters will reference principles that you can follow to avoid the root problem in the future. The solution chapters will explain how each solution changes your code to follow related principles.</p>
 <p>By following this process, you'll learn how to detect and fix actual problems in your code using smells and reusable solutions, and you'll learn about principles that you can follow to improve the code you write from the beginning.</p>
+</section>
+<section class="level2" id="example-application">
+<h2><a href="#TOC">Example Application</a></h2>
+<p>This book comes with a bundled example application, which you can find <a href="https://github.com/thoughtbot/ruby-science/tree/master/example_app">on GitHub</a>. Make sure that you sign into GitHub before attempting to view example application and commit links, or you'll receive a 404 error.</p>
+<p>Most of the code samples included in the book come directly from commits in the example application. Several chapters link to the full commits for related changes. At any point, you can check out the application locally and check out those commits to explore solutions in progress.</p>
+<p>For some solutions, the entire change is not included in the chapter for the sake of focus and brevity. However, you can see every change made for a solution in the example commits, including tests.</p>
+<p>Make sure to take a look at the application's <a href="https://github.com/thoughtbot/ruby-science/blob/master/example_app/README.md">README</a>, as it contains a summary of the application and instructions for setting it up.</p>
 <p></p>
 </section>
 </section>
@@ -463,7 +475,6 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li>You can't easily describe what the class does in one sentence.</li>
 <li>You can't tell what the class does without scrolling.</li>
 <li>The class needs to change for more than one reason.</li>
-<li>The class has more private methods than public methods.</li>
 <li>The class has more than 7 methods.</li>
 <li>The class has a total flog score of 50.</li>
 </ul>
@@ -542,6 +553,9 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <section class="level3" id="prevention">
 <h3><a href="#TOC">Prevention</a></h3>
 <p>Following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> will prevent large classes from cropping up. It's difficult for any class to become too large without taking on more than one responsibility.</p>
+<p>Using <a href="#composition-over-inheritance">Composition Over Inheritance</a> makes it easier to create small classes.</p>
+<p>If a large portion of the class is devoted to instantiating subclasses, try following the <a href="#dependency-inversion-principle">Dependency Inversion Principle</a>.</p>
+<p>Following the <a href="#openclosed-principle">Open/Closed Principle</a> will prevent Large Classes by preventing new concerns from being introduced.</p>
 <p>You can use flog to analyze classes as you write and modify them:</p>
 <pre><code>% flog -a app/models/question.rb 
     48.3: flog total
@@ -554,6 +568,15 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
      3.6: Question#summarize_scale_answers app/models/question.rb:52
      3.4: Question#steps                   app/models/question.rb:28
      2.2: Question#scale?                  app/models/question.rb:34</code></pre>
+</section>
+<section class="level2" id="private-methods">
+<h2><a href="#TOC">Private Methods</a></h2>
+<p>In general, public methods are a greater liability than private methods. This is because it's harder to tell where public methods are used, so you need to take greater care when refactoring them. However, a large suite of private methods is also a strong indicator of a Large Class.</p>
+<p>Private methods can't be reused between classes, which makes it more likely that code will be duplicated. Extracting private methods to new classes makes it easier for developers to do the right thing.</p>
+<p>Additionally, private methods can't be tested directly. This makes it more difficult to write focused, simple unit tests, as the tests will need to go through one or more public methods. The further a test is from the code it tests, the harder it is to understand.</p>
+<p>Lastly, private methods are often the easiest to extract to new classes. Large Classes can be difficult to split up because of entangled dependencies between public and private methods.</p>
+<p>Attempts to extract public methods will frequently halt when shared dependencies are discovered on private methods. Extracting the private behavior of a class into a small, reusable class is often the easiest first step towards splitting up a Large Class.</p>
+<p>Keeping a class's public interface as small as possible is a best practice. However, keep an eye on your private interface as well. A maze of private dependencies is a good sign that your public interface is not cohesive and can be split into two or more classes.</p>
 </section>
 <section class="level2" id="god-class">
 <h2><a href="#TOC">God Class</a></h2>
@@ -594,8 +617,13 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <ul>
 <li><a href="#extract-method">Extract Method</a> if only part of the method suffers from feature envy, and then move the method.</li>
 <li><a href="#move-method">Move Method</a> if the entire method suffers from feature envy.</li>
-<li><a href="#inline-class">Inline Classes</a> if the envied class isn't pulling its weight.</li>
+<li><a href="#inline-class">Inline Class</a> if the envied class isn't pulling its weight.</li>
 </ul>
+</section>
+<section class="level3" id="prevention-1">
+<h3><a href="#TOC">Prevention</a></h3>
+<p>Following the <a href="#law-of-demeter">Law of Demeter</a> will prevent a lot of Feature Envy by limiting the dependencies of each method.</p>
+<p>Following <a href="#tell-dont-ask">Tell, Don't Ask</a> will prevent Feature Envy by avoiding unnecessary inspection of another object's state.</p>
 </section>
 </section>
 <section class="level1" id="case-statement">
@@ -683,7 +711,7 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 </section>
 <section class="level3" id="example-4">
 <h3><a href="#TOC">Example</a></h3>
-<p>Users names are formatted and displayed as 'First Last' throughout the application. If we want to change the formating to include a middle initial (e.g. 'First M. Last') we'd need to make the same small change in several places.</p>
+<p>Users' names are formatted and displayed as 'First Last' throughout the application. If we want to change the formating to include a middle initial (e.g. 'First M. Last') we'd need to make the same small change in several places.</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/users/show.html.erb
 <span class="kw">&lt;%=</span> current_user.first_name <span class="kw">%&gt;</span> <span class="kw">&lt;%=</span> current_user.last_name <span class="kw">%&gt;</span>
 
@@ -704,8 +732,15 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li><a href="#extract-decorator">Extract Decorator</a> to replace duplicated display code in views/templates.</li>
 <li><a href="#introduce-parameter-object">Introduce Parameter Object</a> to hang useful formatting methods alongside a data clump of related attributes.</li>
 <li><a href="#use-convention-over-configuration">Use Convention over Configuration</a> to eliminate small steps that can be inferred based on a convention such as a name.</li>
-<li><a href="#inline-classes">Inline Classes</a> that only serve to add extra steps when performing changes.</li>
+<li><a href="#inline-class">Inline Class</a> if the class only serves to add extra steps when performing changes.</li>
 </ul>
+</section>
+<section class="level3" id="prevention-2">
+<h3><a href="#TOC">Prevention</a></h3>
+<p>If your changes become spread out because you need to pass information between boundaries for dependencies, try <a href="#dependency-inversion-principle">inverting control</a>.</p>
+<p>If you find yourself repeating the exact same change in several places, make sure that you <a href="#dry">Don't Repeat Yourself</a>.</p>
+<p>If you need to change several places because of a modification in your dependency chain, such as changing <code>user.plan.price</code> to <code>user.account.plan.price</code>, make sure that you're following the <a href="#law-of-demeter">Law of Demeter</a>.</p>
+<p>If conditional logic is affected in several places by a single, cohesive change, make sure that you're following <a href="#tell-dont-ask">Tell, Don't Ask</a>.</p>
 </section>
 </section>
 <section class="level1" id="divergent-change">
@@ -760,9 +795,12 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li><a href="#use-convention-over-configuration">Use Convention over Configuration</a> to eliminate changes that can be inferred by a convention such as a name.</li>
 </ul>
 </section>
-<section class="level3" id="prevention-1">
+<section class="level3" id="prevention-3">
 <h3><a href="#TOC">Prevention</a></h3>
 <p>You can prevent Divergent Change from occurring by following the <a href="#single-responsibility-principle">Single Responsibility Principle</a>. If a class has only one responsibility, it has only one reason to change.</p>
+<p>Following the <a href="#openclosed-principle">Open/Closed Principle</a> limits future changes to classes, including Divergent Change.</p>
+<p>Following <a href="#composition-over-inheritance">Composition Over Inheritance</a> will make it easier to create small classes, preventing Divergent Change.</p>
+<p>If a large portion of the class is devoted to instantiating subclasses, try following the <a href="#dependency-inversion-principle">Dependency Inversion Principle</a>.</p>
 <p>You can use churn to discover which files are changing most frequently. This isn't a direct relationship, but frequently changed files often have more than one responsibility, and thus more than one reason to change.</p>
 </section>
 </section>
@@ -800,17 +838,18 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <section class="level3" id="solutions-6">
 <h3><a href="#TOC">Solutions</a></h3>
 <ul>
-<li><a href="#introduce-parameter-object">Introduce Parameter Object</a> and pass it in as an object of naturally grouped attributes.</li>
+<li><p><a href="#introduce-parameter-object">Introduce Parameter Object</a> and pass it in as an object of naturally grouped attributes.</p></li>
+<li><p><a href="#extract-class">Extract Class</a> if the method is complex due to the number of collaborators.</p></li>
 </ul>
-<p>A common technique used to mask a long parameter list is grouping parameters using a hash of named parameters; this will replace connascence position with connascence of name (a good first step). However, it will not reduce the number of collaborators in the method.</p>
-<ul>
-<li><a href="#extract-class">Extract Class</a> if the method is complex due to the number of collaborators.</li>
-</ul>
+</section>
+<section class="level3" id="anti-solution">
+<h3><a href="#TOC">Anti-Solution</a></h3>
+<p>A common technique used to mask a long parameter list is grouping parameters using a hash of named parameters; this will replace connascence of position with connascence of name (a good first step). However, it will not reduce the number of collaborators in the method.</p>
 </section>
 </section>
 <section class="level1" id="duplicated-code">
 <h1><a href="#TOC">Duplicated Code</a></h1>
-<p>One of the first principles we're taught as developers: Keep your code <a href="#dry">DRY</a>.</p>
+<p>One of the first principles we're taught as developers: <a href="#dry">Don't Repeat Yourself</a>.</p>
 <section class="level3" id="symptoms-7">
 <h3><a href="#TOC">Symptoms</a></h3>
 <ul>
@@ -861,6 +900,10 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li><a href="#replace-conditional-with-polymorphism">Replace Conditional with Polymorphism</a> for duplicated conditional logic.</li>
 <li><a href="#replace-conditional-with-null-object">Replace Conditional with Null Object</a> to remove duplicated checks for <code>nil</code> values.</li>
 </ul>
+</section>
+<section class="level3" id="prevention-4">
+<h3><a href="#TOC">Prevention</a></h3>
+<p>Following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> will result in small classes that are easier to reuse, reducing the temptation of duplication.</p>
 </section>
 </section>
 <section class="level1" id="uncommunicative-name">
@@ -962,7 +1005,7 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li>If you're using STI so that you can easily refer to several different classes in the same table, switch to using a polymorphic association instead.</li>
 </ul>
 </section>
-<section class="level3" id="prevention-2">
+<section class="level3" id="prevention-5">
 <h3><a href="#TOC">Prevention</a></h3>
 <p>By following <a href="#composition-over-inheritance">Composition Over Inheritance</a>, you'll use STI as a solution less often.</p>
 </section>
@@ -1026,6 +1069,7 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li>Methods in mixins that don't reference the state of the class they're mixed into.</li>
 <li>Business logic that can't be used without using the mixin.</li>
 <li>Classes which have few public methods except those from a mixin.</li>
+<li><a href="#dependency-inversion-principle">Inverting Dependencies</a> is difficult because mixins can't accept parameters.</li>
 </ul>
 </section>
 <section class="level3" id="example-11">
@@ -1078,7 +1122,7 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <li><a href="#replace-mixin-with-composition">Replace Mixin with Composition</a> to improve testability, flexibility, and readability.</li>
 </ul>
 </section>
-<section class="level3" id="prevention-3">
+<section class="level3" id="prevention-6">
 <h3><a href="#TOC">Prevention</a></h3>
 <p>Mixins are a form of inheritance. By following <a href="#composition-over-inheritance">Composition Over Inheritance</a>, you'll be less likely to introduce mixins.</p>
 <p>Reserve mixins for reusable framework code like common associations and callbacks, and you'll end up with a more flexible and comprehensible system.</p>
@@ -1141,6 +1185,8 @@ after_create <span class="st">:deliver</span></code></pre>
 <li>Removes <a href="#shotgun-surgery">Shotgun Surgery</a> from adding new types.</li>
 <li>Removes <a href="#feature-envy">Feature Envy</a> by allowing dependent classes to make their own decisions.</li>
 <li>Makes it easier to remove <a href="#duplicated-code">Duplicated Code</a> by taking behavior out of conditional clauses and private methods.</li>
+<li>Makes conditional logic easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
+<li>Replaces conditional logic with simple commands, following <a href="#tell-dont-ask">Tell, Don't Ask</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-13">
@@ -1208,6 +1254,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <li>The logic and data for summarizing every type of question and answer is jammed into the <code>Question</code> class, resulting in a <a href="#large-class">Large Class</a> with <a href="#obscure-code">Obscure Code</a>.</li>
 <li>This method isn't the only place in the application that checks question types, meaning that new types will cause <a href="#shotgun-surgery">Shotgun Surgery</a>.</li>
 </ul>
+<p>There are several ways to refactor to use polymorphism. In this chapter, we'll be demonstrating a solution that uses subclasses to replace type codes, which is one of the simplest solutions to implement. However, make sure to see the section on <a href="#drawbacks">Drawbacks</a> later in this chapter to see alternate implementations.</p>
 </section>
 <section class="level2" id="replace-type-code-with-subclasses">
 <h2><a href="#TOC">Replace Type Code With Subclasses</a></h2>
@@ -1243,7 +1290,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <span class="ot">    </span><span class="kw">SQL</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre>
-<p>See commit b535171 for the full change.</p>
+<p>See <a href="https://github.com/thoughtbot/ruby-science/commit/b535171">commit b535171</a> for the full change.</p>
 <p>The <code>Question</code> class stores its type code as <code>question_type</code>. The Rails convention is to use a column named <code>type</code>, but Rails will automatically start using STI if that column is present. That means that renaming <code>question_type</code> to <code>type</code> at this point would result in debugging two things at once: possible breaks from renaming, and possible breaks from using STI. Therefore, let's start by just marking <code>question_type</code> as the inheritance column, allowing us to debug STI failures by themselves:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/question.rb</span>
 set_inheritance_column  <span class="st">'question_type'</span></code></pre>
@@ -1261,7 +1308,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <pre class="erb"><code>&lt;%= form_for @question do |form| %&gt;</code></pre>
 <p>To:</p>
 <pre class="erb"><code>&lt;%= form_for @question, as: :question do |form| %&gt;</code></pre>
-<p>Otherwise, it will generate <code>/open_questions</code> as a URL instead of <code>/questions</code>. See commit c18ebeb for the full change.</p>
+<p>Otherwise, it will generate <code>/open_questions</code> as a URL instead of <code>/questions</code>. See <a href="https://github.com/thoughtbot/ruby-science/commit/c18ebeb">commit c18ebeb</a> for the full change.</p>
 <p>At this point, the tests are passing with STI in place, so we can rename <code>question_type</code> to <code>type</code>, following the Rails convention:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># db/migrate/20121128225425_rename_question_type_to_type.rb</span>
 <span class="kw">class</span> <span class="dt">RenameQuestionTypeToType</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>
@@ -1316,7 +1363,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p><code>MultipleChoiceQuestion#summary</code> now overrides <code>Question#summary</code>, so the correct implementation will now be chosen for multiple choice questions.</p>
 <p>Now that the code for multiple choice types is in place, we repeat the steps for each other path. Once every path is moved, we can remove <code>Question#summary</code> entirely.</p>
 <p>In this case, we've already created all our subclasses, but you can use <a href="#extract-class">Extract Class</a> to create them if you're extracting each conditional path into a new class.</p>
-<p>You can see the full change for this step in commit a08f801.</p>
+<p>You can see the full change for this step in <a href="https://github.com/thoughtbot/ruby-science/commit/a08f801">commit a08f801</a>.</p>
 <p>The <code>summary</code> method is now much better. Adding new question types is easier. The new subclass will implement <code>summary</code>, and the <code>Question</code> class doesn't need to change. The summary code for each type now lives with its type, so no one class is cluttered up with the details.</p>
 </section>
 </section>
@@ -1356,7 +1403,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p>We can use this to move the type-specific view code into a view for each type:</p>
 <pre class="sourceCode rhtml"><code class="sourceCode rhtml"># app/views/open_questions/_open_question.html.erb
 <span class="kw">&lt;%=</span> submission_fields.text_field <span class="st">:text</span> <span class="kw">%&gt;</span></code></pre>
-<p>You can see the full change in commit 8243493.</p>
+<p>You can see the full change in <a href="https://github.com/thoughtbot/ruby-science/commit/8243493">commit 8243493</a>.</p>
 <section class="level3" id="multiple-polymorphic-views">
 <h3><a href="#TOC">Multiple Polymorphic Views</a></h3>
 <p>Our application also has different fields on the question form depending on the question type. Currently, that also performs type-checking:</p>
@@ -1381,6 +1428,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p>It's worth noting that, although this refactoring improved our particular example, replacing conditionals with polymorphism is not without drawbacks.</p>
 <p>Using polymorphism like this makes it easier to add new types, because adding a new type means you just need to add a new class and implement the required methods. Adding a new type won't require changes to any existing classes, and it's easy to understand what the types are, because each type is encapsulated within a class.</p>
 <p>However, this change makes it harder to add new behaviors. Adding a new behavior will mean finding every type and adding a new method. Understanding the behavior becomes more difficult, because the implementations are spread out among the types. Object-oriented languages lean towards polymorphic implementations, but if you find yourself adding behaviors much more often than adding types, you should look into using observers or visitors instead.</p>
+<p>Using subclasses forces you to use inheritance instead of composition for reuse and separation of concerns. See <a href="#composition-over-inheritance">Composition Over Inheritance</a> for more on this subject.</p>
 <p>Also, using STI has specific disadvantages. See the <a href="#single-table-inheritance-sti">chapter on STI</a> for details.</p>
 </section>
 <section class="level3" id="next-steps">
@@ -1393,7 +1441,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 </section>
 </section>
 <section class="level1" id="replace-conditional-with-null-object">
-<h1><a href="#TOC">Replace conditional with Null Object</a></h1>
+<h1><a href="#TOC">Replace Conditional with Null Object</a></h1>
 <p>Every Ruby developer is familiar with <code>nil</code>, and Ruby on Rails comes with a full complement of tools to handle it: <code>nil?</code>, <code>present?</code>, <code>try</code>, and more. However, it's easy to let these tools hide duplication and leak concerns. If you find yourself checking for <code>nil</code> all over your codebase, try replacing some of the <code>nil</code> values with null objects.</p>
 <section class="level3" id="uses-1">
 <h3><a href="#TOC">Uses</a></h3>
@@ -1401,6 +1449,8 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <li>Removes <a href="#shotgun-surgery">Shotgun Surgery</a> when an existing method begins returning <code>nil</code>.</li>
 <li>Removes <a href="#duplicated-code">Duplicated Code</a> related to checking for <code>nil</code>.</li>
 <li>Removes clutter, improving readability of code that consumes <code>nil</code>.</li>
+<li>Makes logic related to presence and absence easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
+<li>Replaces conditional logic with simple commands, following <a href="#tell-dont-ask">Tell, Don't Ask</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-14">
@@ -1506,7 +1556,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <p></p>
 </section>
 <section class="level2" id="truthiness-try-and-other-tricks">
-<h2><a href="#TOC">truthiness, try, and other tricks</a></h2>
+<h2><a href="#TOC">Truthiness, <code>try</code>, and Other Tricks</a></h2>
 <p>All checks for <code>nil</code> are a condition, but Ruby provides many ways to check for <code>nil</code> without using an explicit <code>if</code>. Watch out for <code>nil</code> conditional checks disguised behind other syntax. The following are all roughly equivalent:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Explicit if with nil?</span>
 <span class="kw">if</span> user.nil?
@@ -1528,7 +1578,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 </section>
 </section>
 <section class="level1" id="extract-method">
-<h1><a href="#TOC">Extract method</a></h1>
+<h1><a href="#TOC">Extract Method</a></h1>
 <p>The simplest refactoring to perform is Extract Method. To extract a method:</p>
 <ul>
 <li>Pick a name for the new method.</li>
@@ -1542,7 +1592,8 @@ user.try(<span class="st">:name</span>)</code></pre>
 <li>Sets the stage for moving behavior via <a href="#move-method">Move Method</a>.</li>
 <li>Resolves obscurity by introducing intention-revealing names.</li>
 <li>Allows removal of <a href="#duplicated-code">Duplicated Code</a> by moving the common code into the extracted method.</li>
-<li>Reveals complexity.</li>
+<li>Reveals complexity, making it easier to follow the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</li>
+<li>Makes behavior easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
 </ul>
 <p></p>
 </section>
@@ -1600,7 +1651,7 @@ user.try(<span class="st">:name</span>)</code></pre>
 <p></p>
 </section>
 <section class="level2" id="replace-temp-with-query">
-<h2><a href="#TOC">Replace temp with query</a></h2>
+<h2><a href="#TOC">Replace Temp with Query</a></h2>
 <p>One simple way to extract methods is by replacing local variables. Let's pull <code>question_params</code> into its own method:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> build_question
   <span class="ot">@question</span> = <span class="ot">@survey</span>.questions.new(question_params)
@@ -1729,6 +1780,8 @@ question.summary_using(summarizer)</code></pre>
 <li>Eliminates <a href="#divergent-change">Divergent Change</a> by moving one reason to change into a new class.</li>
 <li>Provides a cohesive set of functionality with a meaningful name, making it easier to understand and talk about.</li>
 <li>Fully encapsulates a concern within a single class, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and making it easier to change and reuse that functionality.</li>
+<li>Allows concerns to be injected, following the <a href="#dependency-inversion-principle">Dependency Inversion Principle</a>.</li>
+<li>Make behavior easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-17">
@@ -2157,12 +2210,14 @@ question.summary_using(summarizer)</code></pre>
 <li>Move state specific to the alternate behavior into the decorator.</li>
 <li>Invert control, applying the decorator to the original class from its container, rather than composing the decorator from the original class.</li>
 </ol>
+<p>It will be difficult to make use of decorators unless your application is following <a href="#composition-over-inheritance">Composition Over Inheritance</a>.</p>
 <section class="level3" id="uses-6">
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Eliminate <a href="#large-class">Large Classes</a> by extracting concerns.</li>
-<li>Eliminate <a href="#divergent-change">Divergent Change</a> and follow the <a href="#open-closed-principle">Open Closed Principle</a> by making it easier to modify behavior without modifying existing classes.</li>
+<li>Eliminate <a href="#divergent-change">Divergent Change</a> and follow the [Single Responsibility Principle)[#single-responsibility-principle] by adding new behavior without introducing new concerns to existing classes.</li>
 <li>Prevent conditional logic from leaking by making decisions earlier.</li>
+<li>Extend existing classes without modifying them, following the <a href="#openclosed-principle">Open/Closed Principle</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-19">
@@ -2417,6 +2472,7 @@ question.summary_using(summarizer)</code></pre>
 <li>Remove <a href="#divergent-change">Divergent Change</a> by removing a reason for the view to change.</li>
 <li>Group common code.</li>
 <li>Reduce view size and complexity.</li>
+<li>Make view logic easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
 </ul>
 </section>
 <section class="level3" id="steps">
@@ -2489,8 +2545,9 @@ en:
 <h3><a href="#TOC">Uses</a></h3>
 <ul>
 <li>Keep validation implementation details out of models.</li>
-<li>Encapsulate validation details into a single file.</li>
+<li>Encapsulate validation details into a single file, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</li>
 <li>Remove duplication among classes performing the same validation logic.</li>
+<li>Make validation logic easier to reuse, making it easier to <a href="#dry">avoid duplication</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-21">
@@ -2851,7 +2908,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <p>STUB</p>
 </section>
 <section class="level1" id="use-class-as-factory">
-<h1><a href="#TOC">Use class as Factory</a></h1>
+<h1><a href="#TOC">Use Class as Factory</a></h1>
 <p>An Abstract Factory is an object that knows how to build something, such as one of several possible strategies for summarizing answers to questions on a survey. An object that holds a reference to an abstract factory doesn't need to know what class is going to be used; it trusts the factory to return an object that responds to the required interface.</p>
 <p>Because classes are objects in Ruby, every class can act as an Abstract Factory. Using a class as a factory allows us to remove most explicit factory objects.</p>
 <section class="level3" id="uses-12">
@@ -2978,7 +3035,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 </section>
 <section class="level1" id="move-method">
-<h1><a href="#TOC">Move method</a></h1>
+<h1><a href="#TOC">Move Method</a></h1>
 <p>Moving methods is generally easy. Moving a method allows you to place a method closer to the state it uses by moving it to the class which owns the related state.</p>
 <p>To move a method:</p>
 <ul>
@@ -3042,7 +3099,7 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 </section>
 <section class="level1" id="inline-class">
-<h1><a href="#TOC">Inline class</a></h1>
+<h1><a href="#TOC">Inline Class</a></h1>
 <p>As an application evolves, new classes are introduced as new features are added and existing code is refactored. <a href="#extract-class">Extracting classes</a> will help to keep existing classes maintainable and make it easier to add new features. However, features can also be removed or simplified, and you'll inevitably find that some classes just aren't pulling their weight. Removing dead-weight classes is just as important as splitting up <a href="#large-class">large classes</a>, and inlining a class is the easiest way to remove it.</p>
 <p>Inlining a class is straightforward:</p>
 <ul>
@@ -3115,8 +3172,8 @@ validates_with <span class="dt">EnumerableValidator</span>,
 </section>
 </section>
 <section class="level1" id="inject-dependencies">
-<h1><a href="#TOC">Inject dependencies</a></h1>
-<p>Injecting dependencies allows you to keep dependency resolutions close to the logic that affects them. It can prevent sub-dependencies from leaking throughout the code base, and it makes it easier to change the behavior of related components <a href="#open-closed-principle">without modifying those components' classes</a>.</p>
+<h1><a href="#TOC">Inject Dependencies</a></h1>
+<p>Injecting dependencies allows you to keep dependency resolutions close to the logic that affects them. It can prevent sub-dependencies from leaking throughout the code base, and it makes it easier to change the behavior of related components <a href="#openclosed-principle">without modifying those components' classes</a>.</p>
 <p>Although many people think of dependency injection frameworks and XML when they hear &quot;dependency injection,&quot; injecting a dependency is usually as simple as passing it as a parameter.</p>
 <p>Changing code to use dependency injection only takes a few steps:</p>
 <ol type="1">
@@ -3130,6 +3187,9 @@ validates_with <span class="dt">EnumerableValidator</span>,
 <ul>
 <li>Eliminates <a href="#shotgun-surgery">Shotgun Surgery</a> from leaking sub-dependencies.</li>
 <li>Eliminates <a href="#divergent-change">Divergent Change</a> by allowing runtime composition patterns, such as <a href="#extract-decorator">decorators</a> and strategies.</li>
+<li>Make it easier to avoid subclassing, following <a href="#composition-over-inheritance">Composition Over Inheritance</a>.</li>
+<li>Extend existing classes without modifying them, following the <a href="#openclosed-principle">Open/Closed Principle</a>.</li>
+<li>Avoid burdening classes with the knowledge of constructing their own dependencies, following the <a href="#single-responsibility-principle">Single Responsibility Principle</a>.</li>
 </ul>
 </section>
 <section class="level3" id="example-27">
@@ -3194,8 +3254,6 @@ question.summary_using(summarizer)</code></pre>
 <p>In order to prevent the summary from influencing a user's own answers, users don't see summaries for questions they haven't answered yet by default. Users can click a link to override this decision and view the summary for every question.</p>
 <p>The information that determines whether or not to hide unanswered questions lives in the controller:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
-<span class="kw">end</span>
-
 <span class="kw">def</span> constraints
   <span class="kw">if</span> include_unanswered?
     {}
@@ -3787,7 +3845,7 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 </section>
 </section>
 <section class="level1" id="replace-mixin-with-composition">
-<h1><a href="#TOC">Replace mixin with composition</a></h1>
+<h1><a href="#TOC">Replace Mixin with Composition</a></h1>
 <p>Mixins are one of two mechanisms for inheritance in Ruby. This refactoring provides safe steps for cleanly removing mixins that have become troublesome.</p>
 <p>Removing a mixin in favor of composition involves the following steps:</p>
 <ul>
@@ -3919,8 +3977,8 @@ params[<span class="st">:question</span>][<span class="st">:submittable_type</sp
 <section class="level3" id="next-steps-17">
 <h3><a href="#TOC">Next Steps</a></h3>
 <ul>
-<li><a href="#inject-dependencies">Inject Dependencies</a> to invert control and allow the composing classes to use different implementations for the composed class.</li>
-<li>Check the composing class for <a href="#feature-envy">Feature Envy</a> of the extracted class. Tight coupling is common between mixin methods and host methods, so you may need to use <a href="#move-method">move method</a> a few times to get the balance right.</li>
+<li><a href="#inject-dependencies">Inject Dependencies</a> to <a href="#dependency-inversion-principle">invert control</a> and allow the composing classes to use different implementations for the composed class.</li>
+<li>Check the composing class for <a href="#feature-envy">Feature Envy</a> of the extracted class. Tight coupling is common between mixin methods and host methods, so you may need to use <a href="#move-method">Move Method</a> a few times to get the balance right.</li>
 </ul>
 </section>
 </section>
@@ -4007,7 +4065,7 @@ after_create <span class="st">:deliver</span></code></pre>
 </section>
 </section>
 <section class="level1" id="use-convention-over-configuration">
-<h1><a href="#TOC">Use convention over configuration</a></h1>
+<h1><a href="#TOC">Use Convention Over Configuration</a></h1>
 <p>Ruby's metaprogramming allows us to avoid boilerplate code and duplication by relying on conventions for class names, file names, and directory structure. Although depending on class names can be constricting in some situations, careful use of conventions will make your applications less tedious and more bug-proof.</p>
 <section class="level3" id="uses-19">
 <h3><a href="#TOC">Uses</a></h3>
@@ -4015,6 +4073,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <li>Eliminate <a href="#case-statement">Case Statements</a> by finding classes by name.</li>
 <li>Eliminate <a href="#shotgun-surgery">Shotgun Surgery</a> by removing the need to register or configure new strategies and services.</li>
 <li>Remove <a href="#duplicated-code">Duplicated Code</a> by removing manual associations from identifiers to class names.</li>
+<li>Prevents future duplication, making it easier to <a href="#dry">avoid duplication</a>.</li>
 </ul>
 <p></p>
 </section>
@@ -4180,10 +4239,10 @@ after_create <span class="st">:deliver</span></code></pre>
 <p>The following smells may point towards <a href="#duplicated-code">duplicated code</a> and can be avoided by following the DRY principle:</p>
 <ul>
 <li><a href="#shotgun-surgery">Shotgun Surgery</a> caused by changing the same knowledge in several places.</li>
-<li><a href="#long-parameter-list">Long Paramter Lists</a> caused by not encapsulating related properties.</li>
+<li><a href="#long-parameter-list">Long Parameter Lists</a> caused by not encapsulating related properties.</li>
 <li><a href="#feature-envy">Feature Envy</a> caused by leaking internal knowledge of a class that can be encapsulated and reused.</li>
 </ul>
-<p>You can use these solutions to remove duplication and make knowledge easier to reuse:</p>
+<p>Making behavior easy to reuse is essential to avoiding duplication. Developers won't be tempted to copy and paste something that's easy to reuse through a small, easy to understand class or method. You can use these solutions to make knowledge easier to reuse:</p>
 <ul>
 <li><a href="#extract-class">Extract Classes</a> to encapsulate knowledge, allowing it to be reused.</li>
 <li><a href="#extract-method">Extract Methods</a> to reuse behavior within a class.</li>
@@ -4200,7 +4259,7 @@ after_create <span class="st">:deliver</span></code></pre>
 </section>
 </section>
 <section class="level1" id="single-responsibility-principle">
-<h1><a href="#TOC">Single responsibility principle</a></h1>
+<h1><a href="#TOC">Single Responsibility Principle</a></h1>
 <p>The Single Responsibility Principle, often abbreviated as &quot;SRP,&quot; was introduced by Uncle Bob Martin, and states:</p>
 <blockquote>
 <p>A class should have only one reason to change.</p>
@@ -4334,7 +4393,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <li><a href="#replace-mixin-with-composition">Replace Mixins with Composition</a> to make it easier to isolate concerns.</li>
 <li><a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> to make variations usable without their base logic.</li>
 </ul>
-<p>Following <a href="#composition-over-inheritance">Composition Over Inheritance</a> and the <a href="#dependency-inversion-principle">Dependency Inversion Priniciple</a> may make this principle easier to follow, as those principles make it easier to extract responsibilities. Following this principle will make it easier to follow the <a href="#open-closed-principle">Open-Closed Priniciple</a> but may introduce violations of <a href="#tell-dont-ask">Tell, Don't Ask</a>.</p>
+<p>Following <a href="#composition-over-inheritance">Composition Over Inheritance</a> and the <a href="#dependency-inversion-principle">Dependency Inversion Priniciple</a> may make this principle easier to follow, as those principles make it easier to extract responsibilities. Following this principle will make it easier to follow the <a href="#openclosed-principle">Open-Closed Priniciple</a> but may introduce violations of <a href="#tell-dont-ask">Tell, Don't Ask</a>.</p>
 </section>
 </section>
 </section>
@@ -4422,7 +4481,7 @@ after_create <span class="st">:deliver</span></code></pre>
 <li><a href="#replace-conditional-with-polymorphism">Relace Conditionals with Polymorphism</a> to reduce the number of questions being asked around a particular operation.</li>
 <li><a href="#replace-conditional-with-null-object">Replace Conditionals with Null Object</a> to remove checks for <code>nil</code>.</li>
 </ul>
-<p>Many <a href="#law-of-demeter">Law of Demeter</a> violations point towards violations of Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and the <a href="#open-closed-principle">Open/Closed Principle</a>, as moving operations onto the best class may require modifying an existing class and adding a new responsibility.</p>
+<p>Many <a href="#law-of-demeter">Law of Demeter</a> violations point towards violations of Tell, Don't Ask. Following Tell, Don't Ask may lead to violations of the <a href="#single-responsibility-principle">Single Responsibility Principle</a> and the <a href="#openclosed-principle">Open/Closed Principle</a>, as moving operations onto the best class may require modifying an existing class and adding a new responsibility.</p>
 </section>
 </section>
 </section>
@@ -4543,13 +4602,13 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <ul>
 <li><a href="#move-method">Move Methods</a> that reach through a dependency to the owner of that dependency.</li>
 <li><a href="#inject-dependencies">Inject Dependencies</a> so that methods have direct access to the dependencies that they need.</li>
-<li><a href="#inline-class">Inline Classes</a> that are adding hops to the dependency chain without providing enough value.</li>
+<li><a href="#inline-class">Inline Class</a> if it adds hops to the dependency chain without providing enough value.</li>
 </ul>
 </section>
 </section>
 </section>
 <section class="level1" id="composition-over-inheritance">
-<h1><a href="#TOC">Composition over inheritance</a></h1>
+<h1><a href="#TOC">Composition Over Inheritance</a></h1>
 <p>In class-based object-oriented systems, composition and inheritance are the two primary methods of reusing and assembling components. Composition Over Inheritance suggests that, when there isn't a strong case for using inheritance, developers implement reuse and assembly using composition instead.</p>
 <p>Let's look at a simple example implemented using both composition and inheritance. In our example application, users can invite their friends to take surveys. Users can be invited using either an email or an internal private message. Each delivery strategy is implemented using a separate class.</p>
 <section class="level3" id="inheritance">
@@ -4678,7 +4737,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <p>These features make it possible to overcome some of the rigidity of inheritance models. However, performing all of these operations is simpler with objects than it is with classes, and doing too much dynamic type definition will make the application harder to understand by diluting the type system. After all, if none of the classes are ever fully formed, what does a class represent?</p>
 </section>
 <section class="level2" id="the-trouble-with-hierarchies">
-<h2><a href="#TOC">The trouble With Hierarchies</a></h2>
+<h2><a href="#TOC">The Trouble with Hierarchies</a></h2>
 <p>Using subclasses introduces a subtle problem into your domain model: it assumes that your models follow a hierarchy; that is, it assumes that your types fall into a tree-like structure.</p>
 <p>Continuing with the above example, we have a root type, <code>Inviter</code>, and two subtypes, <code>EmailInviter</code> and <code>MessageInviter</code>. What if we want invitations sent by admins to behave differently than invitations sent by normal users? We can create an <code>AdminInviter</code> class, but what will its superclass be? How will we combine it with <code>EmailInviter</code> and <code>MessageInviter</code>? There's no easy way to combine email, message, and admin functionality using inheritance, so you'll end up with a proliferation of conditionals.</p>
 <p>Composition, on the other hand, provides several ways out of this mess, such as using a decorator to add admin functionality to the inviter. Once you build objects with a reasonable interface, you can combine them endlessly with minimal modification to the existing class structure.</p>
@@ -4735,7 +4794,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 </section>
 </section>
 <section class="level1" id="openclosed-principle">
-<h1><a href="#TOC">Open/closed principle</a></h1>
+<h1><a href="#TOC">Open/Closed Principle</a></h1>
 <p>This principle states that:</p>
 <p></p>
 <blockquote>
@@ -4929,7 +4988,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 </section>
 </section>
 <section class="level1" id="dependency-inversion-principle">
-<h1><a href="#TOC">Dependency inversion principle</a></h1>
+<h1><a href="#TOC">Dependency Inversion Principle</a></h1>
 <p>The Dependency Inversion Principle, sometimes abbreviated as &quot;DIP,&quot; was created by Uncle Bob Martin.</p>
 <p>The principle states:</p>
 <blockquote>
@@ -5059,7 +5118,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 <li><a href="#replace-mixin-with-composition">Replace Mixin with Composition</a> and <a href="#replace-subclasses-with-strategies">Replace Subclasses with Strategies</a> to make it possible to decide dependencies abstractly at runtime.</li>
 <li><a href="#use-class-as-factory">Use Class as Factory</a> to make it possible to abstractly instantiate dependencies without knowing which class is being used and without writing abstract factory classes.</li>
 </ul>
-<p>Following <a href="#single-responsibility-principle">Single Responsibility Principle</a> and <a href="#composition-over-inheritance">Composition Over Inheritance</a> will make it easier to follow this principle. Following this principle will make it easier to obey the <a href="#open-closed-principle">Open-Closed Principle</a>.</p>
+<p>Following <a href="#single-responsibility-principle">Single Responsibility Principle</a> and <a href="#composition-over-inheritance">Composition Over Inheritance</a> will make it easier to follow this principle. Following this principle will make it easier to obey the <a href="#openclosed-principle">Open-Closed Principle</a>.</p>
 </section>
 </section>
 </section>
