@@ -1,6 +1,6 @@
 ## Removing Resistance
 
-Another opportunity for refactoring is when you're having difficulty making a
+Another opportunity for refactoring is when you're having difficulty making
 a change to existing code. This is called "resistance." The refactoring you
 choose depends on the type of resistance.
 
