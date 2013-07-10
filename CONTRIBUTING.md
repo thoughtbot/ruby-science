@@ -27,7 +27,7 @@ In full, based on the Linux Developer's Certificate of Origin 1.1:
 
 #### Note: Readers of the book don't need to worry about the instructions below.
 
-This book is written using using the markdown and built using pandoc, which can
+This book is written using using markdown and built using pandoc, which can
 be found at:
 
 <http://johnmacfarlane.net/pandoc/>
