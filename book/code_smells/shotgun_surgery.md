@@ -9,16 +9,16 @@ Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 
 Make sure you look for related smells in the affected code:
 
-* [Duplicated Code](#duplicated-code)
-* [Case Statement](#case-statement)
-* [Feature Envy](#feature-envy)
-* [Long Parameter List](#long-parameter-list)
+* [Duplicated code](#duplicated-code)
+* [Case statement](#case-statement)
+* [Feature envy](#feature-envy)
+* [Long parameter list](#long-parameter-list)
 
 ### Example
 
-Users' names are formatted and displayed as 'First Last' throughout the
-application. If we want to change the formating to include a middle initial
-(e.g. 'First M. Last') we'd need to make the same small change in several
+Users' names are formatted and displayed as "First Last" throughout the
+application. If you want to change the formatting to include a middle initial
+(example: "First M. Last") you’ll need to make the same small change in several
 places.
 
 ```rhtml
@@ -38,19 +38,19 @@ places.
 
 ### Solutions
 
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
 to replace duplicated `case` statements and `if-elsif` blocks.
-* [Replace Conditional with Null Object](#replace-conditional-with-null-object)
+* [Replace conditional with null object](#replace-conditional-with-null-object)
   if changing a method to return `nil` would require checks for `nil` in several
   places.
-* [Extract Decorator](#extract-decorator) to replace duplicated display code in
+* [Extract decorator](#extract-decorator) to replace duplicated display code in
 views/templates.
-* [Introduce Parameter Object](#introduce-parameter-object) to hang useful
+* [Introduce parameter object](#introduce-parameter-object) to hang useful
 formatting methods alongside a data clump of related attributes.
-* [Use Convention over Configuration](#use-convention-over-configuration) to
-  eliminate small steps that can be inferred based on a convention such as a
+* [Use convention over configuration](#use-convention-over-configuration) to
+  eliminate small steps that can be inferred based on a convention, such as a
   name.
-* [Inline Class](#inline-class) if the class only serves to add extra steps when
+* [Inline class](#inline-class) if the class only serves to add extra steps when
   performing changes.
 
 ### Prevention
@@ -64,8 +64,8 @@ sure that you [Don't Repeat Yourself](#dry).
 
 If you need to change several places because of a modification in your
 dependency chain, such as changing `user.plan.price` to
-`user.account.plan.price`, make sure that you're following the [Law of
+`user.account.plan.price`, make sure that you're following the [law of
 Demeter](#law-of-demeter).
 
 If conditional logic is affected in several places by a single, cohesive change,
-make sure that you're following [Tell, Don't Ask](#tell-dont-ask).
+make sure that you're following [tell, don’t ask](#tell-dont-ask).
