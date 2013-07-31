@@ -1,4 +1,4 @@
-## How To Read This Book
+## How to Read This Book
 
 This book contains three catalogs: smells, solutions and principles.
 

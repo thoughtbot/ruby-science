@@ -1,7 +1,7 @@
 # Comments
 
 Comments can be used appropriately to introduce classes and provide
-documentation, but used incorrectly, they mask readability and process problems
+documentation. But used incorrectly, they mask readability and process problems
 by further obfuscating already unreadable code.
 
 ### Symptoms
@@ -9,14 +9,14 @@ by further obfuscating already unreadable code.
 * Comments within method bodies.
 * More than one comment per method.
 * Comments that restate the method name in English.
-* TODO comments.
+* Todo comments.
 * Commented out, dead code.
 
 ### Example
 
 ` app/models/open_question.rb@6f405a2:6,9
 
-This comment is trying to explain what the following line of code does, because
+This comment is trying to explain what the following line of code does because
 the code itself is too hard to understand. A better solution would be to improve
 the legibility of the code.
 
@@ -36,12 +36,12 @@ name, don't leave a comment.
 
 ### Solutions
 
-* [Introduce Explaining Variable](#introduce-explaining-variable) to make
+* [Introduce explaining variable](#introduce-explaining-variable) to make
   obfuscated lines easier to read in pieces.
-* [Extract Method](#extract-method) to break up methods that are difficult
+* [Extract method](#extract-method) to break up methods that are difficult
   to read.
-* Move TODO comments into a task management system.
-* Delete commented out code, and rely on version control in the event that you
+* Move todo comments into a task management system.
+* Delete commented out code and rely on version control in the event that you
   want to get it back.
 * Delete superfluous comments that don't add more value than the method or class
   name.
