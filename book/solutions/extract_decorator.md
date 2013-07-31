@@ -1,7 +1,7 @@
 # Extract Decorator
 
-Decorators can be used to lay new concerns on top of existing objects without
-modifying existing classes. They combine best with small classes with few
+Decorators can be used to place new concerns on top of existing objects without
+modifying existing classes. They combine best with small classes containing few
 methods, and make the most sense when modifying the behavior of existing
 methods, rather than adding new methods.
 
@@ -15,26 +15,25 @@ they often include the following:
   container, rather than composing the decorator from the original class.
 
 It will be difficult to make use of decorators unless your application is
-following [Composition Over Inheritance](#composition-over-inheritance).
+following [composition over inheritance](#composition-over-inheritance).
 
 ### Uses
 
-* Eliminate [Large Classes](#large-class) by extracting concerns.
-* Eliminate [Divergent Change](#divergent-change) and follow the [Single
-  Responsibility Principle)[#single-responsibility-principle] by adding new
+* Eliminate [large classes](#large-class) by extracting concerns.
+* Eliminate [divergent change](#divergent-change) and follow the [single
+  responsibility principle](#single-responsibility-principle) by adding new
   behavior without introducing new concerns to existing classes.
 * Prevent conditional logic from leaking by making decisions earlier.
-* Extend existing classes without modifying them, following the [Open/Closed
-  Principle](#openclosed-principle).
+* Extend existing classes without modifying them, following the [open/closed
+  principle](#openclosed-principle).
 
 ### Example
 
 In our example application, users can view a summary of the answers to each
-question on a survey. In order to prevent the summary from influencing a user's
-own answers, users don't see summaries for questions they haven't answered yet
-by default. Users can click a link to override this decision and view the
+question on a survey. By default, in order to prevent the summary from influencing a user's
+own answers, users don't see summaries for questions they haven't answered yet. Users can click a link to override this decision and view the
 summary for every question. This concern is mixed across several levels, and
-introducing the change affected several classes. Let's see if we can refactor
+introducing the change affects several classes. Let's see if we can refactor
 our application to make similar changes easier in the future.
 
 Currently, the controller determines whether or not unanswered questions should
@@ -43,7 +42,7 @@ display summaries:
 ` app/controllers/summaries_controller.rb@15f5b96e:17,27
 
 It passes this decision into `Survey#summaries_using` as a hash containing
-boolean flag:
+Boolean flag:
 
 ` app/controllers/summaries_controller.rb@15f5b96e:4
 
@@ -54,8 +53,8 @@ should return a real summary or a hidden summary:
 
 ` app/models/survey.rb@6ef24105:12,20
 
-This method is pretty dense. We can start by using [Extract
-Method](#extract-method) to clarify and reveal complexity:
+This method is pretty dense. We can start by using [extract
+method](#extract-method) to clarify and reveal complexity:
 
 ` app/models/survey.rb@15f5b96e:12,34
 
@@ -63,16 +62,16 @@ The `summary_or_hidden_answer` method reveals a pattern that's well-captured by
 using a Decorator:
 
 * There's a base case: returning the real summary for the question's answers.
-* There's an alternate, or decorated, case: returning a summary with a hidden
+* There's an alternative, or decorated, case: returning a summary with a hidden
   answer.
 * The conditional logic for using the base or decorated case is unrelated to the
   base case: `answered_by` is only used for determining which path to take, and
   isn't used by to generate summaries.
 
-As a Rails developer, this may seem familiar to you: many pieces of Rack
+As a Rails developer, this may seem familiar to you: Many pieces of Rack
 middleware follow a similar approach.
 
-Now that we've recognized this pattern, let's refactor to use a Decorator.
+Now that we've recognized this pattern, let's refactor to use a decorator.
 
 #### Move Decorated Case to Decorator
 
@@ -81,7 +80,7 @@ method](#move-method) into it:
 
 ` app/models/unanswered_question_hider.rb@af2e8318
 
-The method references a constant from `Survey`, so moved that, too.
+The method references a constant from `Survey`, so we moved that, too.
 
 Now we update `Survey` to compose our new class:
 
@@ -97,8 +96,7 @@ over:
 
 ` app/models/unanswered_question_hider.rb@9d0274f4:8,10
 
-Note that the `answered_by` parameter was renamed to `user`. That's because, now
-that the context is more specific, it's clear what role the user is playing.
+Note that the `answered_by` parameter was renamed to `user`. That's because the context is more specific now, so it's clear what role the user is playing.
 
 ` app/models/survey.rb@9d0274f4:18,25
 
@@ -121,7 +119,7 @@ every other method in the decorator can be made private.
 Now that we have a class to handle this logic, we can move some of the
 parameters into instance state. In `Survey#summaries_using`, we use the same
 summarizer and user instance; only the question varies as we iterate through
-questions to summarize. Let's move everything but question into instance
+questions to summarize. Let's move everything but the question into instance
 variables on the decorator:
 
 ` app/models/unanswered_question_hider.rb@72801b57:4,15
@@ -134,7 +132,7 @@ variables on the decorator:
 #### Change Decorator to Follow Component Interface
 
 In the end, the component we want to wrap with our decorator is the summarizer,
-so we want the decorator to obey the same interface as its component, the
+so we want the decorator to obey the same interface as its component—the
 summarizer. Let's rename our only public method so that it follows the
 summarizer interface:
 
@@ -143,8 +141,8 @@ summarizer interface:
 ` app/models/survey.rb@61ca6784:12,13
 
 [Our decorator now follows the component interface in
-name](https://github.com/thoughtbot/ruby-science/commit/61ca6784), but not
-behavior. In our application, summarizers return a string which represents the
+name](https://github.com/thoughtbot/ruby-science/commit/61ca6784)—but not
+behavior. In our application, summarizers return a string that represents the
 answers to a question, but our decorator is returning a `Summary` instead. Let's
 fix our decorator to follow the component interface by returning just a string:
 
@@ -158,7 +156,7 @@ Our decorator now [follows the component
 interface](https://github.com/thoughtbot/ruby-science/commit/876ec976).
 
 That last method on the decorator (`hide_answer_to_question`) isn't pulling its
-weight anymore: it just returns the value from a constant. Let's [inline
+weight anymore: It just returns the value from a constant. Let's [inline
 it](https://github.com/thoughtbot/ruby-science/commit/77b22c5a) to slim down our
 class a bit:
 
@@ -169,7 +167,7 @@ to use.
 
 #### Invert Control
 
-Now comes one of the most important steps: we can [invert
+Now comes one of the most important steps: We can [invert
 control](#dependency-inversion-principle) by removing any reference to the
 decorator from `Survey` and passing in an already-decorated summarizer.
 
@@ -177,7 +175,7 @@ The `summaries_using` method is simplified:
 
 ` app/models/survey.rb@256a9c92:10,14
 
-Instead of passing the boolean flag down from the controller, we can [make the
+Instead of passing the Boolean flag down from the controller, we can [make the
 decision to decorate
 there](https://github.com/thoughtbot/ruby-science/commit/256a9c92) and pass a
 decorated or undecorated summarizer:
@@ -195,16 +193,16 @@ all.
 
 ### Drawbacks
 
-* Decorators must keep up-to-date with their component interface. Our decorator
+* Decorators must keep up to date with their component interface. Our decorator
   follows the summarizer interface. Every decorator we add for this interface is
   one more class that will need to change any time we change the interface.
 * We removed a concern from `Survey` by hiding it behind a decorator, but this
   may make it harder for a developer to understand how a `Survey` might return
-  the hidden response text, as that text doesn't appear anywhere in that class.
+  the hidden response text, since that text doesn't appear anywhere in that class.
 * The component we decorated had the smallest possible interface: one public
   method. Classes with more public methods are more difficult to decorate.
 * Decorators can modify methods in the component interface easily, but adding
-  new methods won't work with multiple decorators without metaprogramming like
+  new methods won't work with multiple decorators without meta-programming like
   `method_missing`. These constructs are harder to follow and should be used
   with care.
 
@@ -215,4 +213,4 @@ all.
   application in a browser after introducing new decorators. Test and fix any
   issues you run into.
 * Make sure that inverting control didn't push anything over the line into a
-  [Large Class](#large-class).
+  [large class](#large-class).

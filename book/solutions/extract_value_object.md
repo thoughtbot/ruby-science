@@ -3,20 +3,20 @@
 Value Objects are objects that represent a value (such as a dollar amount)
 rather than a unique, identifiable entity (such as a particular user).
 
-Value Objects often implement information derived from a primitive object, such
+Value objects often implement information derived from a primitive object, such
 as the dollars and cents from a float, or the user name and domain from an email
 string.
 
 ### Uses
 
-* Remove [Duplicated Code](#duplicated-code) from making the same observations
+* Prevent [duplicated code](#duplicated-code) from making the same observations
   of primitive objects throughout the code base.
-* Remove [Large Classes](#large-class) by splitting out query methods associated
+* Remove [large classes](#large-class) by splitting out query methods associated
   with a particular variable.
-* Make the code easier to understand by fully-encapsulating related logic into a
-  single class, following the [Single Responsibility
-  Principle](#single-responsibility-principle).
-* Eliminate [Divergent Change](#divergent-change) by extracting code related to
+* Make the code easier to understand by fully encapsulating related logic into a
+  single class, following the [single responsibility
+  principle](#single-responsibility-principle).
+* Eliminate [divergent change](#divergent-change) by extracting code related to
   an embedded semantic type.
 
 ### Example
@@ -39,7 +39,7 @@ end
 
 ### Next Steps
 
-* Search the application for [Duplicated Code](#duplicated-code) related to the
+* Search the application for [duplicated code](#duplicated-code) related to the
   newly extracted class.
-* Value Objects should be Immutable. Make sure the extracted class doesn't have
+* Value objects should be immutable. Make sure the extracted class doesn't have
   any writer methods.
