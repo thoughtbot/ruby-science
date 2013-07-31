@@ -1,11 +1,10 @@
 # Inline Class
 
 As an application evolves, new classes are introduced as new features are added
-and existing code is refactored. [Extracting classes](#extract-class) will help
-to keep existing classes maintainable and make it easier to add new features.
+and existing code is refactored. [Extracting classes](#extract-class) will help keep existing classes maintainable and make it easier to add new features.
 However, features can also be removed or simplified, and you'll inevitably find
 that some classes just aren't pulling their weight. Removing dead-weight classes
-is just as important as splitting up [large classes](#large-class), and inlining
+is just as important as splitting up [large classes](#large-class); inlining
 a class is the easiest way to remove it.
 
 Inlining a class is straightforward:
@@ -19,11 +18,11 @@ or two consumer classes.
 
 ### Uses
 
-* Make classes easier to understand by eliminating the number of methods,
+* Makes classes easier to understand by eliminating the number of methods,
   classes, and files developers need to look through.
-* Eliminate [Shotgun Surgery](#shotgun-surgery) from changes that cascade
+* Eliminates [shotgun surgery](#shotgun-surgery) from changes that cascade
   through useless classes.
-* Eliminate [Feature Envy](#feature-envy) when the envied class can be inlined
+* Eliminates [feature envy](#feature-envy) when the envied class can be inlined
   into the envious class.
 
 
@@ -55,7 +54,7 @@ longer varies, it doesn't bring much to the table:
 
 It doesn't handle any concerns that aren't already well-encapsulated by
 `InvitationMessage` and `Mailer`, and it's only used once (in `Invitation`). We
-can inline this class into `Invitation` and drop a little overall complexity and
+can inline this class into `Invitation` and eliminate some complexity and
 indirection from our application.
 
 First, [let's inline the `EmailInviter#deliver`
@@ -67,12 +66,12 @@ dependent variables from `EmailInviter#initialize`):
 Next, we can [delete `EmailInviter`
 entirely](https://github.com/thoughtbot/ruby-science/commit/bc863108).
 
-After inlining the class, it requires fewer jumps through methods, classes, and
+After inlining the class, it requires fewer jumps through methods, classes and
 files to understand how invitations are delivered. Additionally, the application
-is less complex overall. Flog gives us a total complexity score of 424.7 after
-this refactoring, down slightly from 427.6. This isn't a huge gain, but this was
+is less complex, overall. Flog gives us a total complexity score of 424.7 after
+this refactoring, down slightly from 427.6. That isn't a huge gain, but this was
 an easy refactoring, and continually deleting or inlining unnecessary classes
-and methods will have larger long term effects.
+and methods will have broader long-term effects.
 
 ### Drawbacks
 
@@ -85,8 +84,8 @@ and methods will have larger long term effects.
 
 ### Next Steps
 
-* Use [Extract Method](#extract-method) if any inlined methods introduced [long
+* Use [extract method](#extract-method) if any inlined methods introduced [long
   methods](#long-method).
-* Use [Extract Class](#extract-class) if the merged class is a [large
-  class](#large-class) or beings suffering from [divergent
+* Use [extract class](#extract-class) if the merged class is a [large
+  class](#large-class) or is suffering from [divergent
   change](#divergent-change).

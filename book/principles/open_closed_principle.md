@@ -1,6 +1,6 @@
 # Open/Closed Principle
 
-This principle states that:
+The Open/Closed Principle states that:
 
 \raggedright
 
@@ -22,13 +22,13 @@ Making classes extensible in this way has a number of benefits:
 
 ## Strategies
 
-It may sound nice to never need to change existing classes again, but achieving
+It may sound appealing to never need to change existing classes again, but achieving
 this is difficult in practice. Once you've identified an area that keeps
-changing, there are a few strategies you can use to make is possible to extend
+changing, there are a few strategies you can use to make it possible to extend
 without modifications. Let's go through an example with a few of those
 strategies.
 
-In our example application, we have a `Invitation` class which can deliver
+In our example application, we have an `Invitation` class that can deliver
 itself to an invited user:
 
 ` app/models/invitation.rb@9f5c145:17,20
@@ -41,7 +41,8 @@ The most direct way to add this check is to modify `Invitation` directly:
 
 ` app/models/invitation.rb@69f3470d:17,22
 
-However, that would violate the Open/Closed Principle. Let's see how we can
+However, that would violate the [open/closed
+principle](#openclosed-principle). Let's see how we can
 introduce this change without violating the principle.
 
 \clearpage
@@ -63,9 +64,9 @@ save it to the same table as `Invitation`:
 
 ` app/models/survey_inviter.rb@bf1ba7d2:31,43
 
-This works alright for creation, but using the ActiveRecord pattern, we'll end
-up with an instance of `Invitation` instead if we ever reload from the database.
-That means that inheritance is easiest to use when the class you're extending
+This works adequately for creation, but using the ActiveRecord pattern, we'll end
+up with an instance of `Invitation` instead, if we ever reload from the database.
+That means that inheritance is easiest to use when the class we're extending
 doesn't require persistence.
 
 Inheritance also requires some [creativity in unit
@@ -82,8 +83,8 @@ Using Ruby's `DelegateClass` method, we can quickly create decorators:
 
 ` app/models/unsubscribeable_invitation.rb@9084ee0c
 
-The implementation is extremely similar to the subclass, but it can now be
-applied at runtime to instances of `Invitation`:
+The implementation is extremely similar to the subclass but it can now be
+applied at run-time to instances of `Invitation`:
 
 ` app/models/survey_inviter.rb@9084ee0c:27,31
 
@@ -96,7 +97,7 @@ This makes it easier to combine with persistence. However, Ruby's
 ### Dependency Injection
 
 This method requires more forethought in the class you want to extend, but
-classes that follow [Inversion of Control](#inversion-of-control) can inject
+classes that follow [inversion of control](#inversion-of-control) can inject
 dependencies to extend classes without modifying them.
 
 We can modify our `Invitation` class slightly to allow client classes to inject
@@ -106,7 +107,7 @@ a mailer:
 
 \clearpage
 
-Now we can write a mailer implementation that checks to see if a user is
+Now we can write a mailer implementation that checks to see if users are
 unsubscribed before sending them messages:
 
 ` app/mailers/unsubscribeable_mailer.rb@c98ed5e0
@@ -163,8 +164,7 @@ end
 ```
 
 Although monkey patching doesn't literally modify the class's source code, it
-does modify the existing class. That means that you risk breaking it, including
-all classes that depend on it. Since you're changing the original behavior,
+does modify the existing class. That means that you risk breaking it, and, potentially, all classes that depend on it. Since you're changing the original behavior,
 you'll also need to update any client classes that depend on the old behavior.
 
 In addition to all the drawbacks of directly modifying the original class,
@@ -172,13 +172,13 @@ monkey patches also introduce confusion, as developers will need to look in
 multiple locations to understand the full definition of a class.
 
 In short, monkey patching has most of the drawbacks of modifying the original
-class without any of the benefits of following the Open Closed Principle.
+class without any of the benefits of following the [open/closed principle](#openclosed-principle).
 
 ### Drawbacks
 
-Although following this principle will make code easier to change, it may make
+Although following the [open/closed principle](#openclosed-principle) will make code easier to change, it may make
 it more difficult to understand. This is because the gained flexibility requires
-introducing indirection and abstraction. Although each of the three strategies
+introducing indirection and abstraction. Although all of the three strategies
 outlined in this chapter are more flexible than the original change, directly
 modifying the class is the easiest to understand.
 
@@ -191,8 +191,8 @@ more obscure code.
 If you encounter the following smells in a class, you may want to begin
 following this principle:
 
-* [Divergent Change](#divergent-change) caused by a lack of extensibility.
-* [Large Classes](#large-class) and [long methods](#long-method) which can be
+* [Divergent change](#divergent-change) caused by a lack of extensibility.
+* [Large classes](#large-class) and [long methods](#long-method) which can be
   eliminated by extracting and injecting dependent behavior.
 
 You may want to eliminate the following smells if you're having trouble
@@ -204,7 +204,7 @@ following this principle:
 You can use the following solutions to make code more compliant with this
 principle:
 
-* [Extract Decorator](#extract-decorator) to extend existing classes without
+* [Extract decorator](#extract-decorator) to extend existing classes without
   modification.
-* [Inject Dependencies](#inject-dependencies) to allow future extensions without
+* [Inject dependencies](#inject-dependencies) to allow future extensions without
   modification.

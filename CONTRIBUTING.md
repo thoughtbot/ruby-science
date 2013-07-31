@@ -44,7 +44,7 @@ Install dependencies with Bundler:
 
     bundle install
 
-You'll also need need to download install the following fonts:
+You'll also need need to download and install the following fonts:
 
 * [Proxima Nova](https://www.dropbox.com/sh/ntxu99zcm28agp8/Cqiwu9ORA5)
 * [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
@@ -61,7 +61,7 @@ You'll also need imagemagick, which you can install using homebrew:
 
     brew install imagemagick
 
-Latex is needed for PDF distribution:
+LaTeX is needed for PDF distribution:
 
 We recommend downloading the [smaller, BasicTeX in conjunction with MacTeX](http://www.tug.org/mactex/morepackages.html).
 
@@ -83,7 +83,7 @@ Install KindleGen into ~/bin; you can put it anywhere in your PATH you like:
     tar -C /tmp/ -xzf /tmp/kindlegen_linux_2.6_i386_v1.2.tar.gz
     mv /tmp/kindlegen ~/bin/
 
-Latex is needed for PDF creation:
+LaTeX is needed for PDF creation:
 
     sudo apt-get install texlive
 
@@ -95,14 +95,14 @@ Run `paperback build` to build all output targets.
 
 New contributions should be added as pull requests. Guidelines:
 
-* Each new, unrefactored change to the example app should be a pull request
-* Each refactoring performed on the example app should be a pull request
-* Each new chapter should be a pull request
-* Mixing any of the above into one pull request makes reviewing more difficult
+* Each new, unrefactored change to the example app should be a pull request.
+* Each refactoring performed on the example app should be a pull request.
+* Each new chapter should be a pull request.
+* Mixing any of the above into one pull request makes reviewing more difficult.
 
 ## Reviewing
 
-When reviewing new chapters, use `paperback review` to check out, build, and
+When reviewing new chapters, use `paperback review` to check out, build and
 view the book locally. Example: `paperback review 6` will review the book for
 pull request 6.
 

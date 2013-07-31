@@ -6,16 +6,16 @@ coupled with business logic, one way to loosen things up is by replacing
 
 ### Uses
 
-* Reduces coupling persistence logic with business logic.
+* Reduces coupling of persistence logic with business logic.
 * Makes it easier to extract concerns from models.
 * Fixes bugs from accidentally triggered callbacks.
 * Fixes bugs from callbacks with side effects when transactions roll back.
 
 ### Steps
 
-* Use [Extract Method](#extract-method) if the callback is an anonymous block.
+* Use [extract method](#extract-method) if the callback is an anonymous block.
 * Promote the callback method to a public method if it's private.
-* Call the public method explicitly rather than relying on `save` and callbacks.
+* Call the public method explicitly, rather than relying on `save` and callbacks.
 
 \clearpage
 
@@ -36,7 +36,7 @@ some of the invitations will already have been saved and delivered. The user
 will be unable to tell which invitations were sent.
 
 Because delivery is coupled with persistence, there's no way to make sure that
-all of the invitations are saved before starting to deliver emails.
+all the invitations are saved before starting to deliver emails.
 
 Let's make the callback method public so that it can be called from
 `SurveyInviter`:
@@ -50,9 +50,9 @@ Now we can split invitations into separate persistence and delivery phases:
 ` app/models/survey_inviter.rb@db6cad48:27,43
 
 If any of the invitations fail to save, the transaction will roll back. Nothing
-will be committed, and no messages will be delivered.
+will be committed and no messages will be delivered.
 
 ### Next Steps
 
-* Find other instances where the model is saved to make sure that the extracted
+* Find other instances where the model is saved, to make sure that the extracted
   method doesn't need to be called.

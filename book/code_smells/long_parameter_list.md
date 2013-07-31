@@ -14,16 +14,16 @@ Lists.
 
 ### Example
 
-Look at this mailer for an example of Long Parameter List.
+Look at this mailer for an example of long parameter list.
 
 ` app/mailers/mailer.rb@44f85d8
 
 ### Solutions
 
-* [Introduce Parameter Object](#introduce-parameter-object) and pass it in as an
+* [Introduce parameter object](#introduce-parameter-object) and pass it in as an
   object of naturally grouped attributes.
 
-* [Extract Class](#extract-class) if the method is complex due to the number of
+* [Extract class](#extract-class) if the method is complex due to the number of
   collaborators.
 
 ### Anti-Solution

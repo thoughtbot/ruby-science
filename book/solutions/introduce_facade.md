@@ -1,3 +1,3 @@
 # Introduce Facade
 
-STUB
+STUB.

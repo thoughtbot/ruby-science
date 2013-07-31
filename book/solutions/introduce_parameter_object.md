@@ -1,17 +1,17 @@
 # Introduce Parameter Object
 
-A technique to reduce the number of input parameters to a method.
+This is a technique to reduce the number of input parameters to a method.
 
-To introduce a parameter object:
+To introduce a Parameter Object:
 
 * Pick a name for the object that represents the grouped parameters.
-* Replace method's grouped parameters with the object.
+* Replace the method's grouped parameters with the object.
 
 ### Uses
 
-* Remove [Long Parameter Lists](#long-parameter-list).
-* Group parameters that naturally fit together.
-* Encapsulate behavior between related parameters.
+* Removes [long parameter lists](#long-parameter-list).
+* Groups parameters that naturally fit together.
+* Encapsulates behavior between related parameters.
 
 \clearpage
 
@@ -31,13 +31,13 @@ attributes `first_name`, `last_name`, and `email` together.
 
 ` app/mailers/mailer.rb@28f3651
 
-This also gives us the opportunity to create a new method `full_name` on the `recipient`
+This also gives us the opportunity to create a new `full_name` method on the `recipient`
 object to encapsulate behavior between the `first_name` and `last_name`.
 
 ` app/views/mailer/completion_notification.html.erb@28f3651
 
 ### Next Steps
 
-* Check to see if the same Data Clump exists elsewhere in the application, and
- reuse the Parameter Object to group them together.
-* Verify the methods using the Parameter Object don't have [Feature Envy](#feature-envy).
+* Check to see if the same data clump exists elsewhere in the application and
+ reuse the parameter object to group them together.
+* Verify the methods using the parameter object don't have [feature envy](#feature-envy).
