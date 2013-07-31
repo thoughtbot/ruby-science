@@ -2,7 +2,7 @@
 
 The most common smell in Rails applications is the Long Method.
 
-Long methods are exactly what they sound like: methods which are too long.
+Long methods are exactly what they sound like: methods that are too long.
 They're easy to spot.
 
 ### Symptoms
@@ -25,12 +25,12 @@ methods is easiest with tools like flog:
          8.1: SurveysController#create         app/controllers/surveys_controller.rb:6
 
 Methods with higher scores are more complicated. Anything with a score higher
-than 10 is worth looking at, but flog will only help you find potential trouble
+than 10 is worth looking at, but flog only helps you find potential trouble
 spots; use your own judgement when refactoring.
 
 ### Example
 
-For an example of a Long Method, let's take a look at the highest scored method
+For an example of a long method, let's take a look at the highest scored method
 from flog, `QuestionsController#create`:
 
 ``` ruby
@@ -53,10 +53,10 @@ end
 
 ### Solutions
 
-* [Extract Method](#extract-method) is the most common way to break apart long methods.
-* [Replace Temp with Query](#replace-temp-with-query) if you have local variables
+* [Extract method](#extract-method) is the most common way to break apart long methods.
+* [Replace temp with query](#replace-temp-with-query) if you have local variables
 in the method.
 
-After extracting methods, check for [Feature Envy](#feature-envy) in the new
-methods to see if you should employ [Move Method](#move-method) to provide the
+After extracting methods, check for [feature envy](#feature-envy) in the new
+methods to see if you should employ [move method](#move-method) to provide the
 method with a better home.
