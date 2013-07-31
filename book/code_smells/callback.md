@@ -12,10 +12,10 @@ transaction is committed.
 
 ### Symptoms
 
-* Callbacks which contain business logic such as processing payments.
-* Attributes which allow certain callbacks to be skipped.
-* Methods such as `save_without_sending_email` which skip callbacks.
-* Callbacks which need to be invoked conditionally.
+* Callbacks containing business logic, such as processing payments.
+* Attributes that allow certain callbacks to be skipped.
+* Methods such as `save_without_sending_email`, which skip callbacks.
+* Callbacks that need to be invoked conditionally.
 
 \clearpage
 
@@ -40,5 +40,5 @@ all of the invitations are saved before starting to deliver emails.
 
 ### Solutions
 
-* [Replace Callback with Method](#replace-callback-with-method) if the callback
+* [Replace callback with method](#replace-callback-with-method) if the callback
   logic is unrelated to persistence.

@@ -5,8 +5,8 @@ Yourself](#dry).
 
 ### Symptoms
 
-* You find yourself copy and pasting code from one place to another.
-* [Shotgun Surgery](#shotgun-surgery) occurs when changes to your application
+* You find yourself copying and pasting code from one place to another.
+* [Shotgun surgery](#shotgun-surgery) occurs when changes to your application
 require the same small edits in multiple places.
 
 \clearpage
@@ -49,16 +49,16 @@ end
 
 ### Solutions
 
-* [Extract Method](#extract-method) for duplicated code in the same file.
-* [Extract Class](#extract-class) for duplicated code across multiple files.
-* [Extract Partial](#extract-partial) for duplicated view and template code.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Extract method](#extract-method) for duplicated code in the same file.
+* [Extract class](#extract-class) for duplicated code across multiple files.
+* [Extract partial](#extract-partial) for duplicated view and template code.
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
 for duplicated conditional logic.
-* [Replace Conditional with Null Object](#replace-conditional-with-null-object)
+* [Replace conditional with null object](#replace-conditional-with-null-object)
   to remove duplicated checks for `nil` values.
 
 ### Prevention
 
-Following the [Single Responsibility
-Principle](#single-responsibility-principle) will result in small classes that
+Following the [single responsibility
+principle](#single-responsibility-principle) will result in small classes that
 are easier to reuse, reducing the temptation of duplication.

@@ -3,53 +3,53 @@
 Most Rails applications suffer from several Large Classes. Large classes are
 difficult to understand and make it harder to change or reuse behavior.
 Tests for large classes are slow and churn tends to be higher, leading to more
-bugs and conflicts. Large classes likely also suffer from [Divergent
-Change](#divergent-change).
+bugs and conflicts. Large classes likely also suffer from [divergent
+change](#divergent-change).
 
 ### Symptoms
 
 * You can't easily describe what the class does in one sentence.
 * You can't tell what the class does without scrolling.
 * The class needs to change for more than one reason.
-* The class has more than 7 methods.
+* The class has more than seven methods.
 * The class has a total flog score of 50.
 
 ### Example
 
 This class has a high flog score, has a large number of methods, more private
-than public methods, and has multiple responsibility:
+than public methods and has multiple responsibility:
 
 ` app/models/question.rb@2f6e005
 
 ### Solutions
 
-* [Move Method](#move-method) to move methods to another class if an
+* [Move method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
-* [Extract Class](#extract-class) if the class has multiple responsibilities.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Extract class](#extract-class) if the class has multiple responsibilities.
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism) 
 if the class contains private methods related to conditional branches.
-* [Extract Value Object](#extract-value-object) if the class contains
+* [Extract value object](#extract-value-object) if the class contains
   private query methods.
-* [Extract Decorator](#extract-decorator) if the class contains delegation
+* [Extract decorator](#extract-decorator) if the class contains delegation
   methods.
-* [Replace Subclasses with Strategies](#replace-subclasses-with-strategies) if
+* [Replace subclasses with strategies](#replace-subclasses-with-strategies) if
   the large class is a base class in an inheritance hierarchy.
 
 ### Prevention
 
-Following the [Single Responsibility
-Principle](#single-responsibility-principle) will prevent large classes from
+Following the [single responsibility
+principle](#single-responsibility-principle) will prevent large classes from
 cropping up. It's difficult for any class to become too large without taking on
 more than one responsibility.
 
-Using [Composition Over Inheritance](#composition-over-inheritance) makes it
+Using [composition over inheritance](#composition-over-inheritance) makes it
 easier to create small classes.
 
 If a large portion of the class is devoted to instantiating subclasses, try
-following the [Dependency Inversion Principle](#dependency-inversion-principle).
+following the [dependency inversion principle](#dependency-inversion-principle).
 
-Following the [Open/Closed Principle](#openclosed-principle) will prevent Large
-Classes by preventing new concerns from being introduced.
+Following the [open/closed principle](#openclosed-principle) will prevent large
+classes by preventing new concerns from being introduced.
 
 You can use flog to analyze classes as you write and modify them:
 
@@ -70,25 +70,25 @@ You can use flog to analyze classes as you write and modify them:
 In general, public methods are a greater liability than private methods. This is
 because it's harder to tell where public methods are used, so you need to take
 greater care when refactoring them. However, a large suite of private methods is
-also a strong indicator of a Large Class.
+also a strong indicator of a large class.
 
 Private methods can't be reused between classes, which makes it more likely that
 code will be duplicated. Extracting private methods to new classes makes it
 easier for developers to do the right thing.
 
 Additionally, private methods can't be tested directly. This makes it more
-difficult to write focused, simple unit tests, as the tests will need to go
+difficult to write focused, simple unit tests, since the tests will need to go
 through one or more public methods. The further a test is from the code it
 tests, the harder it is to understand.
 
 Lastly, private methods are often the easiest to extract to new classes. Large
-Classes can be difficult to split up because of entangled dependencies between
+classes can be difficult to split up because of entangled dependencies between
 public and private methods.
 
 Attempts to extract public methods will frequently halt when shared dependencies
 are discovered on private methods. Extracting the private behavior of a class
 into a small, reusable class is often the easiest first step towards splitting
-up a Large Class.
+up a large class.
 
 Keeping a class's public interface as small as possible is a best practice.
 However, keep an eye on your private interface as well. A maze of private
@@ -97,18 +97,18 @@ be split into two or more classes.
 
 ## God Class
 
-A particular specimen of Large Class affects most Rails applications: the God
-Class. A God Class is any class that seems to know everything about an
-application. It has a reference to the majority of the other models, and it's
+A particular specimen of large class affects most Rails applications: the God
+class. A God class is any class that seems to know everything about an
+application. It has a reference to the majority of the other models and it's
 difficult to answer any question or perform any action in the application
 without going through this class.
 
-Most applications have two God Classes: User, and the central focus of the
-application. For a todo list application, it will be User and Todo; for photo
-sharing application, it will be User and Photo.
+Most applications have two God classes: the user, and the central focus of the
+application. For a todo list application, it will be user and todo; for photo
+sharing application, it will be user and photo.
 
 You need to be particularly vigilant about refactoring these classes. If you
-don't start splitting up your God Classes early on, then it will become
+don't start splitting up your God classes early on, it will become
 impossible to separate them without rewriting most of your application.
 
-Treatment and prevention of God Classes is the same as for any Large Class.
+Treatment and prevention of God classes is the same as for any large class.

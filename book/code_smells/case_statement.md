@@ -1,14 +1,15 @@
+
 # Case Statement
 
-Case statements are a sign that a method contains too much knowledge.
+Case Statements are a sign that a method contains too much knowledge.
 
 ### Symptoms
 
 * Case statements that check the class of an object.
 * Case statements that check a type code.
-* [Divergent Change](#divergent-change) caused by changing or adding `when`
+* [Divergent change](#divergent-change) caused by changing or adding `when`
   clauses.
-* [Shotgun Surgery](#shotgun-surgery) caused by duplicating the case statement.
+* [Shotgun surgery](#shotgun-surgery) caused by duplicating the case statement.
 
 Actual `case` statements are extremely easy to find. Just grep your codebase for
 "case." However, you should also be on the lookout for `case`'s sinister cousin,
@@ -16,15 +17,15 @@ the repetitive `if-elsif`.
 
 ## Type Codes
 
-Some applications contain type codes: fields that store type information about
-objects. These fields are easy to add and seem innocent, but they result in code
+Some applications contain type codes&mdash;fields that store type information about
+objects. These fields are easy to add and seem innocent, but result in code
 that's harder to maintain. A better solution is to take advantage of Ruby's
 ability to invoke different behavior based on an object's class, called "dynamic
 dispatch." Using a case statement with a type code inelegantly reproduces
 dynamic dispatch.
 
 The special `type` column that ActiveRecord uses is not necessarily a type code.
-The `type` column is used to serialize an object's class to the database, so
+The `type` column is used to serialize an object's class to the database so
 that the correct class can be instantiated later on. If you're just using the
 `type` column to let ActiveRecord decide which class to instantiate, this isn't
 a smell. However, make sure to avoid referencing the `type` column from `case`
@@ -47,9 +48,9 @@ this time in the form of multiple `if` statements:
 
 ### Solutions
 
-* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the
+* [Replace type code with subclasses](#replace-type-code-with-subclasses) if the
   `case` statement is checking a type code, such as `question_type`.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
   when the `case` statement is checking the class of an object.
-* [Use Convention over Configuration](#use-convention-over-configuration) when
+* [Use convention over configuration](#use-convention-over-configuration) when
   selecting a strategy based on a string name.

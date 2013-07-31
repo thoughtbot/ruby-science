@@ -1,6 +1,6 @@
 # Uncommunicative Name
 
-Software is run by computers, but written and read by humans. Names provide
+Software is run by computers&mdash;but written and read by humans. Names provide
 important information to developers who are trying to understand a piece of
 code. Patterns and challenges when naming a method or class can also provide
 clues for refactoring.
@@ -9,7 +9,7 @@ clues for refactoring.
 
 * Difficulty understanding a method or class.
 * Methods or classes with similar names but dissimilar functionality.
-* Redundant names, such as names which include the type of object to which they
+* Redundant names, such as names that include the type of object to which they
   refer.
 
 ### Example
@@ -31,17 +31,17 @@ summarizer, and then builds a `Summary` using that value.
 
 There are several summarizer classes, each of which respond to `summarize`.
 
-If you're lost, don't worry: you're not the only one. The confusing maze of
-similar names make this example extremely hard to follow.
+If you're lost, don't worry: You're not the only one. The confusing maze of
+similar names makes this example extremely hard to follow.
 
-See [Rename Method](#rename-method) to see how we improve the situation.
+See [rename method](#rename-method) to see how we improve the situation.
 
 ### Solutions
 
-* [Rename Method](#rename-method) if a well-factored method isn't well-named.
-* [Extract Class](#extract-class) if a class is doing too much to have a
+* [Rename method](#rename-method) if a well-factored method isn't well named.
+* [Extract class](#extract-class) if a class is doing too much to have a
   meaningful name.
-* [Extract Method](#extract-method) if a method is doing too much to have a
+* [Extract method](#extract-method) if a method is doing too much to have a
   meaningful name.
-* [Inline Class](#inline-class) if a class is too abstract to have a meaningful
+* [Inline class](#inline-class) if a class is too abstract to have a meaningful
   name.

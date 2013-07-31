@@ -1,6 +1,6 @@
 ## Code Reviews
 
-Our first step towards better code is to review it.
+Our first step toward better code is to review it.
 
 Have you ever sent an email with typos? Did you review what you wrote before
 clicking "Send"? Reviewing your e-mails prevents mistakes and reviewing your
@@ -17,8 +17,7 @@ features to examine code before you commit. Read more about these features using
 If you're working on a team, push your feature branch and invite your teammates
 to review the changes via `git diff origin/master..HEAD`.
 
-Team review reveals how understandable code is to someone other than the author.
-Your team members' understanding now is a good indicator of your understanding
+Team review reveals how understandable code is to someone other than the author. Your team members' understanding now is a good indicator of your understanding
 in the future.
 
 However, what should you and your teammates look for during review?

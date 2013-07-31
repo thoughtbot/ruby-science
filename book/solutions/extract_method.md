@@ -1,6 +1,6 @@
 # Extract Method
 
-The simplest refactoring to perform is Extract Method. To extract a method:
+The simplest refactoring to perform is extract method. To extract a method:
 
 * Pick a name for the new method.
 * Move extracted code into the new method.
@@ -8,20 +8,20 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 
 ### Uses
 
-* Removes [Long Methods](#long-method).
-* Sets the stage for moving behavior via [Move Method](#move-method).
+* Removes [long methods](#long-method).
+* Sets the stage for moving behavior via [move method](#move-method).
 * Resolves obscurity by introducing intention-revealing names.
-* Allows removal of [Duplicated Code](#duplicated-code) by moving the common
+* Allows removal of [duplicated code](#duplicated-code) by moving the common
   code into the extracted method.
-* Reveals complexity, making it easier to follow the [Single Responsibility
-  Principle](#single-responsibility-principle).
-* Makes behavior easier to reuse, making it easier to [avoid duplication](#dry).
+* Reveals complexity, making it easier to follow the [single responsibility
+  principle](#single-responsibility-principle).
+* Makes behavior easier to reuse, which makes it easier to [avoid duplication](#dry).
 
 \clearpage
 
 ### Example
 
-Let's take a look at an example [Long Method](#long-method) and improve it by
+Let's take a look at an example of [long method](#long-method) and improve it by
 extracting smaller methods:
 
 ```` ruby
@@ -48,7 +48,7 @@ This method performs a number of tasks:
 * It figures out what type of question we're creating (the `submittable_type`).
 * It builds parameters for the new question by applying a white list to the HTTP
   parameters.
-* It builds a question from the given survey, parameters, and submittable type.
+* It builds a question from the given survey, parameters and submittable type.
 * It attempts to save the question.
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
@@ -107,30 +107,30 @@ end
 
 ### Other Examples
 
-For more examples of Extract Method, take a look at these chapters:
+For more examples of [extract method](#extract-method), take a look at these chapters:
 
 
-* [Extract Class](#extract-class):
+* [Extract class](#extract-class):
   [b434954d](https://github.com/thoughtbot/ruby-science/commit/b434954d),
   [000babe1](https://github.com/thoughtbot/ruby-science/commit/000babe1)
-* [Extract Decorator](#extract-decorator):
+* [Extract decorator](#extract-decorator):
   [15f5b96e](https://github.com/thoughtbot/ruby-science/commit/15f5b96e)
-* [Introduce Explaining Variable](#introduce-explaining-variable) (inline)
-* [Move Method](#move-method):
+* [Introduce explaining variable](#introduce-explaining-variable) (inline)
+* [Move method](#move-method):
   [d5b4871](https://github.com/thoughtbot/ruby-science/commit/d5b4871)
-* [Replace Conditional with Null Object](#replace-conditional-with-null-object):
+* [Replace conditional with null object](#replace-conditional-with-null-object):
   [1e35c68](https://github.com/thoughtbot/ruby-science/commit/1e35c68)
 
 ### Next Steps
 
 * Check the original method and the extracted method to make sure neither is a
-  [Long Method](#long-method).
+  [long method](#long-method).
 * Check the original method and the extracted method to make sure that they both
   relate to the same core concern. If the methods aren't highly related, the
-  class will suffer from [Divergent Change](#divergent-change).
-* Check newly extracted methods for [Feature Envy](#feature-envy). If you find
-  some, you may wish to employ [Move Method](#move-method) to provide the new
+  class will suffer from [divergent change](#divergent-change).
+* Check newly extracted methods for [feature envy](#feature-envy). If you find
+  some, you may wish to employ [move method](#move-method) to provide the new
   method with a better home.
-* Check the affected class to make sure it's not a [Large Class](#large-class).
+* Check the affected class to make sure it's not a [large class](#large-class).
   Extracting methods reveals complexity, making it clearer when a class is doing
   too much.

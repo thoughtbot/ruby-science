@@ -1,22 +1,22 @@
 # Extract Validator
 
-A form of [Extract Class](#extract-class) used to remove complex validation details
+Extract Validator is a form of [extract class](#extract-class) that is used to remove complex validation details
 from `ActiveRecord` models. This technique also prevents duplication of validation
 code across several files.
 
 ### Uses
 
-* Keep validation implementation details out of models.
-* Encapsulate validation details into a single file, following the [Single
-  Responsibility Principle](#single-responsibility-principle).
-* Remove duplication among classes performing the same validation logic.
-* Make validation logic easier to reuse, making it easier to [avoid
+* Keeps validation implementation details out of models.
+* Encapsulates validation details into a single file, following the [single
+  responsibility principle](#single-responsibility-principle).
+* Removes duplication among classes performing the same validation logic.
+* Makes validation logic easier to reuse, which makes it easier to [avoid
   duplication](#dry).
 
 ### Example
 
 The `Invitation` class has validation details in-line. It checks that the
-`repient_email` matches the formatting of the regular expression `EMAIL_REGEX`.
+`recipient_email` matches the formatting of the regular expression `EMAIL_REGEX`.
 
 ```ruby
 # app/models/invitation.rb
@@ -26,14 +26,14 @@ class Invitation < ActiveRecord::Base
 end
 ```
 
-We extract the validation details into a new class `EmailValidator`, and place the
-new class into the `app/validators` directory.
+We extract the validation details into a new class `EmailValidator` and place the
+new class into the `app/validators` directory:
 
 ` app/validators/email_validator.rb@7834dfd
 
-Once the validator has been extracted. Rails has a convention for using the new
+Once the validator has been extracted, Rails has a convention for using the new
 validation class. `EmailValidator` is used by setting `email: true` in the validation
-arguments.
+arguments:
 
 ```ruby
 # app/models/invitation.rb
@@ -42,9 +42,9 @@ class Invitation < ActiveRecord::Base
 end
 ```
 
-The convention is to use the validation class name (in lowercase, and removing
-`Validator` from the name). For exmaple, if we were validating an attribute with
-`ZipCodeValidator` we'd set `zip_code: true` as an argument to the validation call.
+The convention is to use the validation class name (in lower case, and removing
+`Validator` from the name). For example, if we were validating an attribute with
+`ZipCodeValidator`, we'd set `zip_code: true` as an argument to the validation call.
 
 When validating an array of data as we do in `SurveyInviter`, we use
 the `EnumerableValidator` to loop over the contents of an array.
@@ -60,5 +60,5 @@ is validated against it.
 
 ### Next Steps
 
-* Verify the extracted validator does not have any [Long Methods](#long-methods).
+* Verify the extracted validator does not have any [long methods](#long-methods).
 * Check for other models that could use the validator.

@@ -2,7 +2,7 @@
 
 Inheritance is a common method of reuse in object-oriented software. Ruby
 supports single inheritance using subclasses and multiple inheritance using
-mixins. Mixins can be used to package common helpers or provide a common public
+Mixins. Mixins can be used to package common helpers or provide a common public
 interface.
 
 However, mixins have some drawbacks:
@@ -22,8 +22,8 @@ However, mixins have some drawbacks:
 * Methods in mixins that don't reference the state of the class they're mixed
   into.
 * Business logic that can't be used without using the mixin.
-* Classes which have few public methods except those from a mixin.
-* [Inverting Dependencies](#dependency-inversion-principle) is difficult because
+* Classes that have few public methods except those from a mixin.
+* [Inverting dependencies](#dependency-inversion-principle) is difficult because
   mixins can't accept parameters.
 
 ### Example
@@ -50,14 +50,14 @@ particular message body implementation.
 
 ### Solutions
 
-* [Extract Class](#extract-class) to liberate business logic trapped in mixins.
-* [Replace Mixin with Composition](#replace-mixin-with-composition) to improve
-  testability, flexibility, and readability.
+* [Extract class](#extract-class) to liberate business logic trapped in mixins.
+* [Replace mixin with composition](#replace-mixin-with-composition) to improve
+  testability, flexibility and readability.
 
 ### Prevention
 
-Mixins are a form of inheritance. By following [Composition Over
-Inheritance](#composition-over-inheritance), you'll be less likely to introduce
+Mixins are a form of inheritance. By following [composition over
+inheritance](#composition-over-inheritance), you'll be less likely to introduce
 mixins.
 
 Reserve mixins for reusable framework code like common associations and

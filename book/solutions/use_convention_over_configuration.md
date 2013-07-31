@@ -1,17 +1,17 @@
 # Use Convention Over Configuration
 
-Ruby's metaprogramming allows us to avoid boilerplate code and duplication by
-relying on conventions for class names, file names, and directory structure.
+Ruby's meta-programming allows us to avoid boilerplate code and duplication by
+relying on conventions for class names, file names and directory structure.
 Although depending on class names can be constricting in some situations,
 careful use of conventions will make your applications less tedious and more
 bug-proof.
 
 ### Uses
 
-* Eliminate [Case Statements](#case-statement) by finding classes by name.
-* Eliminate [Shotgun Surgery](#shotgun-surgery) by removing the need to register
+* Eliminates [case statements](#case-statement) by finding classes by name.
+* Eliminates [shotgun surgery](#shotgun-surgery) by removing the need to register
   or configure new strategies and services.
-* Remove [Duplicated Code](#duplicated-code) by removing manual associations
+* Eliminates [duplicated code](#duplicated-code) by removing manual associations
   from identifiers to class names.
 * Prevents future duplication, making it easier to [avoid duplication](#dry).
 
@@ -35,18 +35,18 @@ params[:id].classify.constantize
 ```
 
 This will find the `MostRecent` class from the string `"most_recent"`, and so
-on. This means we can rely on a convention for our summarizer strategies: each
+on. This means we can rely on a convention for our summarizer strategies: Each
 named strategy will map to a class implementing that strategy. The controller
-can [use the class as an Abstract Factory](#use-class-as-factory) and obtain a
+can [use the class as an abstract factory](#use-class-as-factory) and obtain a
 summarizer.
 
 However, we can't immediately start using `constantize` in our example, because
-there's one outlier case: the `UserAnswer` class is referenced using
+there's one outlier case: The `UserAnswer` class is referenced using
 `"your_answers"` instead of `"user_answer"`, and `UserAnswer` takes different
 parameters than the other two strategies.
 
 Before refactoring the code to rely on our new convention, let's refactor to
-obey it. All our names should map directly to class names, and each class should
+obey it. All our names should map directly to class names and each class should
 accept the same parameters:
 
 ` app/controllers/summaries_controller.rb@5170bf536:9,20
@@ -58,7 +58,7 @@ let's extract a method for determining the summarizer class:
 
 ` app/controllers/summaries_controller.rb@c5a44aaa1:9,24
 
-Now the extracted class performs exactly the same logic as `constantize`, so
+The extracted class performs exactly the same logic as `constantize`, so
 let's use it:
 
 ` app/controllers/summaries_controller.rb@2c632f078:9,15
@@ -66,7 +66,7 @@ let's use it:
 Now we'll never need to change our controller when adding a new strategy; we
 just add a new class following the naming convention.
 
-## Scoping `constantize`
+### Scoping `constantize`
 
 Our controller currently takes a string directly from user input (`params`) and
 instantiates a class with that name.
@@ -75,10 +75,10 @@ There are two issues with this approach that should be fixed:
 
 * There's no list of available strategies, so a developer would need to perform
   a complicated search to find the relevant classes.
-* Without a whitelist, a user can make the application instantiate any class
-  they want by hacking parameters. This can result in security vulnerabilities.
+* Without a whitelist, users can make the application instantiate any class
+  they want, by hacking parameters. This can result in security vulnerabilities.
 
-We can solve both easily by altering our convention slightly: scope all the
+We can solve both easily by altering our convention slightly: Scope all the
 strategy classes within a module.
 
 We change our strategy factory method:
@@ -108,7 +108,7 @@ to add no-op `initializer` methods to the other two classes:
 
 ` app/models/summarizer/breakdown.rb@4addd764
 
-This isn't a deal-breaker, but it makes the other classes a little noisier, and
+This isn't a deal-breaker, but it makes the other classes a little noisier and
 adds the risk that a developer will waste time trying to remove the unused
 parameter.
 
@@ -122,8 +122,8 @@ Another drawback to this solution is that it's entirely class-based, which means
 you can't assemble strategies at run-time. This means that reuse requires
 inheritance.
 
-Also, this class-based approach, while convenient when developing an
-application, is more likely to cause frustration when writing a library. Forcing
+Also, while this class-based approach is convenient when developing an
+application, it's more likely to cause frustration when writing a library. Forcing
 developers to pass a class name instead of an object limits the amount of
 runtime information strategies can use. In our example, only a `user` was
 required. When you control both sides of the API, it's fine to assume that this
