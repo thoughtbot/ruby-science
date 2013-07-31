@@ -1,21 +1,21 @@
 # Replace Conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
-complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
+complement of tools to handle it: `nil?`, `present?`, `try` and more. However,
 it's easy to let these tools hide duplication and leak concerns. If you find
 yourself checking for `nil` all over your codebase, try replacing some of the
-`nil` values with null objects.
+`nil` values with Null Objects.
 
 ### Uses
 
-* Removes [Shotgun Surgery](#shotgun-surgery) when an existing method begins
+* Removes [shotgun surgery](#shotgun-surgery) when an existing method begins
   returning `nil`.
-* Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
+* Removes [duplicated code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
 * Makes logic related to presence and absence easier to reuse, making it easier
   to [avoid duplication](#dry).
-* Replaces conditional logic with simple commands, following [Tell, Don't
-  Ask](#tell-dont-ask).
+* Replaces conditional logic with simple commands, following [tell, don't
+  ask](#tell-dont-ask).
 
 ### Example
 
@@ -28,7 +28,7 @@ needs to perform this check because `most_recent` might return `nil`:
 
 ` app/models/answer.rb@7a43dff:15,17
 
-This call clutters up the method, and returning `nil` is contagious: any method
+This call clutters up the method, and returning `nil` is contagious: Any method
 that calls `most_recent` must also check for `nil`. The concept of a missing
 answer is likely to come up more than once, as in this example:
 
@@ -38,12 +38,12 @@ Again, `most_recent_answer_text` might return `nil`:
 
 ` app/models/answer.rb@7a43dff:11,13
 
-The `User#answer_text_for` method duplicates the check for a missing answer, and
+The `User#answer_text_for` method duplicates the check for a missing answer—and
 worse, it's repeating the logic of what happens when you need text without an
 answer.
 
 We can remove these checks entirely from `Question` and `User` by introducing a
-Null Object:
+null object:
 
 ` app/models/question.rb@8698fd4:14,16
 
@@ -62,7 +62,7 @@ found, so these methods will never return `nil`. The implementation for
 ` app/models/null_answer.rb@8698fd4
 
 We can take things just a little further and remove a bit of duplication with a
-quick [Extract Method](#extract-method):
+quick [extract method](#extract-method):
 
 ` app/models/answer.rb@1e35c68
 
@@ -71,7 +71,7 @@ matter what.
 
 ### Drawbacks
 
-Introducing a null object can remove duplication and clutter, but it can also
+Introducing a null object can remove duplication and clutter. But it can also
 cause pain and confusion:
 
 * As a developer reading a method like `Question#most_recent_answer_text`, you
@@ -82,8 +82,8 @@ cause pain and confusion:
   denote missing values. In this case, you'll need to add explicit `present?`
   checks and define `present?` to return `false` on your null object.
 * `NullAnswer` may eventually need to reimplement large part of the `Answer`
-  API, leading to potential [Duplicated Code](#duplicated-code) and [Shotgun
-  Surgery](#shotgun-surgery), which is largely what we hoped to solve in the
+  API, leading to potential [duplicated code](#duplicated-code) and [shotgun
+  surgery](#shotgun-surgery), which is largely what we hoped to solve in the
   first place.
 
 Don't introduce a null object until you find yourself swatting enough `nil`
@@ -93,14 +93,14 @@ outweighs the drawbacks above.
 ### Next Steps
 
 * Look for other `nil` checks of the return values of refactored methods.
-* Make sure your Null Object class implements the required methods from the
+* Make sure your null object class implements the required methods from the
   original class.
-* Make sure no [Duplicated Code](#duplicated-code) exists between the Null
-  Object class and the original.
+* Make sure no [duplicated code](#duplicated-code) exists between the null
+  object class and the original.
 
 \clearpage
 
-## Truthiness, `try`, and Other Tricks
+## Truthiness, `try` and Other Tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
 `nil` without using an explicit `if`. Watch out for `nil` conditional checks
