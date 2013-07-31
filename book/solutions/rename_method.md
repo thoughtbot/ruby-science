@@ -13,7 +13,7 @@ If there are a large number of references to the method you want to rename, you
 can rename the callers one at a time while keeping everything in working order.
 The process is mostly the same:
 
-* Choose a new name for the method. This is the hard part!
+* Choose a new name for the method.
 * Give the method its new name.
 * Add an alias to keep the old name working.
 * Find and replace all references to the old name.
@@ -21,7 +21,7 @@ The process is mostly the same:
 
 ### Uses
 
-* Eliminate [Uncommunicative Names](#uncommunicative-name).
+* Eliminate [uncommunicative names](#uncommunicative-name).
 * Change method names to conform to common interfaces.
 
 ### Example
@@ -56,14 +56,14 @@ different things:
   `String`.
 
 Let's rename these methods so that each name is used uniquely and consistently
-in terms of what it accepts, what it returns, and what it does.
+in terms of what it accepts, what it returns and what it does.
 
 First, we'll rename `Survey#summarize` to reflect the fact that it returns a
 collection.
 
 ` app/models/survey.rb@6a4169a5:10
 
-Then, we'll update the only reference to the old method:
+Then we'll update the only reference to the old method:
 
 ` app/controllers/summaries_controller.rb@6a4169a5:4
 
@@ -89,4 +89,4 @@ We now have consistent and clearer naming:
 * Check for explanatory comments that are no longer necessary now that the code
   is clearer.
 * If the new name for a method is long, see if you can [extract
-  methods](#extract-method) from it make it smaller.
+  methods](#extract-method) from it to make it smaller.
