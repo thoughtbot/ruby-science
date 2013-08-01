@@ -1,7 +1,7 @@
 # Law of Demeter
 
 The Law of Demeter was developed at Northeastern University. It's named after
-the Demeter Project, which is itself named after Demeter, the Greek goddess of
+the Demeter Project, which was named after Demeter, the Greek goddess of
 the harvest. There is widespread disagreement as to its pronunciation, but the
 correct pronunciation emphasizes the second syllable; you can trust us on that.
 
@@ -38,7 +38,7 @@ end
 
 The call to `account.plan.price` above violates the Law of Demeter by invoking
 `price` on the return value of `plan`. The `price` method is not a method on
-`User`, its parameter `discount_code`, its instantiated object `coupon`, or its
+`User`, its parameter `discount_code`, its instantiated object `coupon` or its
 direct component `account`.
 
 The quickest way to avoid violations of this nature is to delegate the method:
@@ -68,7 +68,7 @@ end
 ```
 
 If you find yourself writing lots of delegators, consider changing the consumer
-class to take a different object. For example, if you need to delegate lots of
+class to take a different object. For example, if you need to delegate numerous
 `User` methods to `Account`, it's possible that the code referencing `User`
 should actually reference an instance of `Account` instead.
 
@@ -88,19 +88,19 @@ end
 
 The above `discounted_plan_price` method no longer has multiple dots on one
 line, but it still violates the Law of Demeter, because `plan` isn't a
-parameter, instantiated object, or direct subcomponent.
+parameter, instantiated object or direct subcomponent.
 
 ## The Spirit of the Law
 
-Although the letter of the Law of Demeter is rigid, the message is broader. The
-goal is to avoid over-entangling a method with another object's dependencies.
+Although the letter of the Law of Demeter is rigid, its message is broader. The
+fundamental goal is to avoid over-entangling a method with another object's dependencies.
 
 This means that fixing a violation shouldn't be your objective; removing the
-problem that caused the violation is a better idea. Here are a few tips to avoid
+problem that _caused_ the violation is a better idea. Here are a few tips to avoid
 misguided fixes to Law of Demeter violations:
 
 * Many delegate methods to the same object are an indicator that your object
-  graph may not accurately reflect the real world relationships they represent.
+  graph may not accurately reflect the real-world relationships they represent.
 * Delegate methods with prefixes (`Post#author_name`) are fine, but it's worth a
   check to see if you can remove the prefix. If not, make sure you didn't
   actually want a reference to the prefix object (`Post#author`).
@@ -108,10 +108,10 @@ misguided fixes to Law of Demeter violations:
   `User#account_plan_price`.
 * Avoid assigning to instance variables to work around violations.
 
-## Objects vs Types
+## Objects vs. Types
 
-The version of the law quoted at the beginning of this chapter is the "object
-formulation" from the original paper. The first formulation was expressed in
+The version of the Law quoted at the beginning of this chapter is the "object
+formulation," from the original paper. The first formulation was expressed in
 terms of types:
 
 > For all classes C, and for all methods M attached to C, all objects to which M
@@ -164,26 +164,26 @@ end
 
 In this example, the knowledge that a user has a credit card through its account
 is duplicated. That knowledge is declared somewhere in the `User` and `Account`
-classes when the relationship is defined, and then knowledge of it spreads to
+classes when the relationship is defined, and knowledge of it then spreads to
 two more locations in `charge_for_plan`.
 
-Like most duplication, each instance isn't too harmful, but in aggregate,
-duplication will make refactoring slowly become impossible.
+Like most duplication, each instance isn't too harmful; but in aggregate,
+duplication will slowly make refactoring become impossible.
 
 ### Application
 
 The following smells may cause or result from Law of Demeter violations:
 
-* [Feature Envy](#feature-envy) from methods that reach through a dependency
+* [Feature envy](#feature-envy) from methods that reach through a dependency
   chain multiple times.
-* [Shotgun Surgery](#shotgun-surgery) resulting from changes in the dependency
+* [Shotgun surgery](#shotgun-surgery) resulting from changes in the dependency
   chain.
 
 You can use these solutions to follow the Law of Demeter:
 
-* [Move Methods](#move-method) that reach through a dependency to the owner of
+* [Move methods](#move-method) that reach through a dependency to the owner of
   that dependency.
-* [Inject Dependencies](#inject-dependencies) so that methods have direct access
+* [Inject dependencies](#inject-dependencies) so that methods have direct access
   to the dependencies that they need.
-* [Inline Class](#inline-class) if it adds hops to the dependency chain without
+* [Inline class](#inline-class) if it adds hops to the dependency chain without
   providing enough value.
