@@ -12,9 +12,9 @@ Removing a mixin in favor of composition involves the following steps:
 
 ### Uses
 
-* Liberate business logic trapped in mixins.
-* Eliminate name clashes from multiple mixins.
-* Make methods in the mixins easier test.
+* Liberates business logic trapped in mixins.
+* Eliminates name clashes from multiple mixins.
+* Makes methods in the mixins easier to test.
 
 ### Example
 
@@ -33,15 +33,13 @@ It's currently extracted using a mixin:
 
 ` app/models/inviter.rb@37f9d40
 
-Let's replace this mixin with composition.
-
-\clearpage
+Let's replace this mixin with a composition.
 
 First, we'll [extract a new class](#extract-class) for the mixin:
 
 ` app/models/invitation_message.rb@8df463c4
 
-This class contains all the behavior the formerly resided in the mixin. In order
+This class contains all the behavior that formerly resided in the mixin. In order
 to keep everything working, we'll compose and delegate to the extracted class
 from the mixin:
 
@@ -65,10 +63,10 @@ entirely.
 
 ### Next Steps
 
-* [Inject Dependencies](#inject-dependencies) to [invert
+* [Inject dependencies](#inject-dependencies) to [invert
   control](#dependency-inversion-principle) and allow the composing classes to
   use different implementations for the composed class.
-* Check the composing class for [Feature Envy](#feature-envy) of the extracted
+* Check the composing class for [feature envy](#feature-envy) of the extracted
   class. Tight coupling is common between mixin methods and host methods, so you
-  may need to use [Move Method](#move-method) a few times to get the balance
+  may need to use [move method](#move-method) a few times to get the balance
   right.
