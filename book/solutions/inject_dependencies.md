@@ -2,7 +2,7 @@
 
 Injecting dependencies allows you to keep dependency resolutions close to the
 logic that affects them. It can prevent sub-dependencies from leaking throughout
-the code base, and it makes it easier to change the behavior of related
+the code base, and it simplifies changing the behavior of related
 components [without modifying those components'
 classes](#openclosed-principle).
 
@@ -21,16 +21,16 @@ control](#dependency-inversion-principle).
 
 ### Uses
 
-* Eliminates [Shotgun Surgery](#shotgun-surgery) from leaking sub-dependencies.
-* Eliminates [Divergent Change](#divergent-change) by allowing runtime
+* Eliminates [shotgun surgery](#shotgun-surgery) from leaking sub-dependencies.
+* Eliminates [divergent change](#divergent-change) by allowing runtime
   composition patterns, such as [decorators](#extract-decorator) and strategies.
-* Make it easier to avoid subclassing, following [Composition Over
-  Inheritance](#composition-over-inheritance).
-* Extend existing classes without modifying them, following the [Open/Closed
-  Principle](#openclosed-principle).
-* Avoid burdening classes with the knowledge of constructing their own
-  dependencies, following the [Single Responsibility
-  Principle](#single-responsibility-principle).
+* Makes it easier to avoid subclassing, following [composition over
+  inheritance](#composition-over-inheritance).
+* Extend existing classes without modifying them, following the [open/closed
+  principle](#openclosed-principle).
+* Avoids burdening classes with the knowledge of constructing their own
+  dependencies, following the [single responsibility
+  principle](#single-responsibility-principle).
 
 ### Example
 
@@ -50,7 +50,7 @@ summarizer and the given options:
 ` app/models/survey.rb@4e66ca3:24
 
 `Question#summary_using` instantiates the requested summarizer with the
-requested options, and then asks the summarizer to summarize the question:
+requested options, then asks the summarizer to summarize the question:
 
 ` app/models/question.rb@4e66ca3:40,45
 
@@ -60,7 +60,7 @@ of which summarizer to use, which is in `SummariesController`. Additionally, the
 `options` parameter needs to be passed down several levels so that
 summarizer-specific options can be provided when building the summarizer.
 
-Let's switch this up by having the controller build the actual summarizer
+Let's remedy this by having the controller build the actual summarizer
 instance. First, we'll move that logic from `Question` to `SummariesController`:
 
 ` app/controllers/summaries_controller.rb@5a9a4f1a:2,13
@@ -70,10 +70,8 @@ name:
 
 ` app/models/question.rb@5a9a4f1a:40,43
 
-\clearpage
-
-That `options` argument is no longer necessary, because it was only used to
-build the summarizer, which is now handled by the controller. Let's remove it:
+That `options` argument is no longer necessary because it was only used to
+build the summarizer—which is now handled by the controller. Let's remove it:
 
 ` app/models/question.rb@b8bbd4dd:40,43
 
@@ -89,8 +87,8 @@ summarizer we want to build, as well as which options are used when building it.
 
 Now that we're using dependency injection, we can take this even further.
 
-In order to prevent the summary from influencing a user's own answers, users
-don't see summaries for questions they haven't answered yet by default. Users
+By default, in order to prevent the summary from influencing a user's own answers, users
+don't see summaries for questions they haven't answered yet. Users
 can click a link to override this decision and view the summary for every
 question.
 
@@ -125,16 +123,16 @@ Now, the decision of whether or not to hide answers is completely removed from
 ` app/models/survey.rb@256a9c92:10,14
 
 For more explanation of using decorators, as well as step-by-step instructions
-for how to introduce them, see the chapter on [Extract
-Decorator](#extract-decorator).
+for how to introduce them, see the [Extract
+Decorator](#extract-decorator) chapter.
 
 ### Drawbacks
 
-Injecting dependencies in our example made each class - `SummariesController`,
-`Survey`, `Question`, and `UnansweredQuestionHider` - easier to understand as a
-unit. However, it's now difficult to understand why kind of summaries will be
+Injecting dependencies in our example made each class—`SummariesController`,
+`Survey`, `Question` and `UnansweredQuestionHider`—easier to understand as a
+unit. However, it's now difficult to understand what kind of summaries will be
 produced just by looking at `Survey` or `Question`. You need to follow the stack
-up to `SummariesController` to understand the dependencies, and then look at
+up to `SummariesController` to understand the dependencies and then look at
 each class to understand how they're used.
 
 In this case, we believe that using dependency injection resulted in an overall
@@ -148,7 +146,7 @@ for the `summarizer` parameter to `Question#summary_using`:
 ` app/models/question.rb@256a9c92:40,43
 
 In our case, that will be one of `Summarizer::Breakdown`,
-`Summarizer::MostRecent`, or `Summarizer::UserAnswer`, or a
+`Summarizer::MostRecent` or `Summarizer::UserAnswer`, or a
 `UnansweredQuestionHider` that decorates one of the above. Developers will need
 to trace back up through `Survey` to `SummariesController` to gather all the
 possible implementations.
@@ -156,11 +154,11 @@ possible implementations.
 ### Next Steps
 
 * When pulling dependency resolution up into a higher level class, check that
-  class to make sure it doesn't become a [Large Class](#large-class) because of
+  class to make sure it doesn't become a [large class](#large-class) because of
   all the logic surrounding dependency resolution.
-* If a class is suffering from [Divergent Change](#divergent-change) because of
+* If a class is suffering from [divergent change](#divergent-change) because of
   new or modified dependencies, try moving dependency resolution further up the
   stack to a container class whose sole responsibility is managing dependencies.
-* If methods contain [Long Parameter Lists](#long-parameter-list), consider
-  wrapping up several dependencies in a [Parameter
-  Object](#introduce-parameter-object) or Fascade.
+* If methods contain [long parameter lists](#long-parameter-list), consider
+  wrapping up several dependencies in a [parameter
+  object](#introduce-parameter-object) or facade.

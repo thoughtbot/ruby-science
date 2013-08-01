@@ -1,8 +1,8 @@
 # Replace Subclasses with Strategies
 
 Subclasses are a common method of achieving reuse and polymorphism, but
-inheritance has its drawbacks. See [Composition Over
-Inheritance](#composition-over-inheritance) for reasons why you might decide to
+inheritance has its drawbacks. See [composition over
+inheritance](#composition-over-inheritance) for reasons why you might decide to
 avoid an inheritance-based model.
 
 During this refactoring, we will replace the subclasses with individual strategy
@@ -10,9 +10,8 @@ classes. Each strategy class will implement a common interface. The original
 base class is promoted from an abstract class to the composition root, which
 composes the strategy classes.
 
-This allows for smaller interfaces, stricter separation of concerns, and easier
-testing. It also makes it possible to swap out part of the structure, which
-would require converting to a new type in an inheritance-based model.
+This allows for smaller interfaces, stricter separation of concerns and easier
+testing. It also makes it possible to swap out part of the structure, which, in an inheritance-based model, would require converting to a new type.
 
 When applying this refactoring to an `ActiveRecord::Base` subclass,
 [STI](#single-table-inheritance-sti) is removed, often in favor of a polymorphic
@@ -20,9 +19,9 @@ association.
 
 ### Uses
 
-* Eliminate [Large Classes](#large-class) by splitting up a bloated base class.
-* Convert [STI](#single-table-inheritance-sti) to a composition-based scheme.
-* Make it easier to change part of the structure by separating the parts that
+* Eliminates [large classes](#large-class) by splitting up a bloated base class.
+* Converts [STI](#single-table-inheritance-sti) to a composition-based scheme.
+* Makes it easier to change part of the structure by separating the parts that
   change from the parts that don't.
 
 ### Example
@@ -48,15 +47,15 @@ We can make this operation easier by using composition instead of inheritance.
 
 This is a difficult change that becomes larger as more behavior is added to the
 inheritance tree. We can make the change easier by breaking it down into smaller
-steps, ensuring that the application is in a fully-functional state with passing
-tests after each change. This allows us to debug is smaller sessions and create
+steps, ensuring that the application is in a fully functional state with passing
+tests after each change. This allows us to debug in smaller sessions and create
 safe checkpoint commits that we can retreat to if something goes wrong.
 
-#### Use Extract Class to Extract Non-Railsy Methods From Subclasses
+#### Use Extract Class to Extract Non-Railsy Methods from Subclasses
 
 The easiest way to start is by extracting a strategy class from each subclass
 and moving (and delegating) as many methods as you can to the new class. There's
-some class-level wizardry that goes on in some Rails features like associations,
+some class-level wizardry that goes on in some Rails features, like associations,
 so let's start by moving simple, instance-level methods that aren't part of the
 framework.
 
@@ -76,11 +75,10 @@ end
 When switching from inheritance to composition, you need to add a new word to
 the application's vocabulary. Before, we had questions, and different subclasses
 of questions handled the variations in behavior and data. Now, we're switching
-to a model where there's only one question class, and question will compose
+to a model where there's only one question class, and the question will compose
 _something_ that will handle the variations. In our case, that _something_ is a
 "submittable." In our new model, each question is just a question, and every
-question composes a submittable that decides how the question can be submitted.
-Thus, our first extracted class is called `OpenSubmittable,` extracted from
+question composes a submittable that decides how the question can be submitted. Thus, our first extracted class is called `OpenSubmittable,` extracted from
 `OpenQuestion.`
 
 Let's move our first method over to `OpenSubmittable`:
@@ -102,7 +100,7 @@ several reasons that it's always best to refactor on a branch, separately from
 any feature work. We'll make sure that the parallel inheritance hierarchy is
 removed before merging.
 
-#### Pull Up Delegate Method Into Base Class
+#### Pull Up Delegate Method into Base Class
 
 After the first step, each subclass implements a `submittable` method to build
 its parallel strategy class. The `score` method in each subclass simply
@@ -118,7 +116,7 @@ Then, we remove the `score` method from each subclass.
 You can see this change in full in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/9c2ddc65e7248bab1f010d8a2c74c8f994a8b26d).
 
-#### Move Remaining Common API Into Strategies
+#### Move Remaining Common API into Strategies
 
 We can now repeat the first two steps for every non-Railsy method that the
 subclasses implement. In our case, this is just the `breakdown` method.
@@ -135,7 +133,7 @@ state from the subclasses, so the question is now provided to the submittable:
 You can view this change in the [example
 app](https://github.com/thoughtbot/ruby-science/commit/db3658cd1c4601c07f49a7c666f57c00f5c22ffd).
 
-#### Move Remaining Non-Railsy Public Methods Into Strategies
+#### Move Remaining Non-Railsy Public Methods into Strategies
 
 We can take a similar approach for the uncommon API; that is, public methods
 that are only implemented in one subclass.
@@ -152,7 +150,7 @@ subclass, rather than the base class:
 Repeat this step for the remaining public methods that aren't part of the Rails
 framework. You can see the full change for this step in our [example app](https://github.com/thoughtbot/ruby-science/commit/2bce7f7b0812b417dc41af369d18b83e057419ac).
 
-#### Remove Delegators From Subclasses
+#### Remove Delegators from Subclasses
 
 Our subclasses now contain only delegators, code to instantiate the submittable,
 and framework code. Eventually, we want to completely delete these subclasses,
@@ -179,7 +177,7 @@ subclass. Repeat this process for each delegator until they've all been removed.
 
 You can see how we do this in the [example app](https://github.com/thoughtbot/ruby-science/commit/c7a61dadfed53b9d93b578064d982f22d62f7b8d).
 
-#### Instantiate Strategy Directly From Base Class
+#### Instantiate Strategy Directly from Base Class
 
 If you look carefully at the `submittable` method from each question subclass,
 you'll notice that it simply instantiates a class based on its own class name
@@ -187,15 +185,15 @@ and passes itself to the `initialize` method:
 
 ` app/models/open_question.rb@c7a61dad:2,4
 
-This is a pretty strong convention, so let's apply some [Convention Over
-Configuration](#use-convention-over-configuration) and pull the method up into
+This is a pretty strong convention, so let's apply some [convention over
+configuration](#use-convention-over-configuration) and pull the method up into
 the base class:
 
 ` app/models/question.rb@75075985:19,22
 
 We can then delete `submittable` from each of the subclasses.
 
-At this point, the subclasses contain only Rails-specific code like associations
+At this point, the subclasses contain only Rails-specific code, like associations
 and validations.
 
 You can see the full change in the [example app](https://github.com/thoughtbot/ruby-science/commit/75075985e6050e5c1008010855e75df14547890c).
@@ -204,15 +202,15 @@ Also, note that you may want to [scope the `constantize`
 call](#scoping-constantize) in order to make the strategies easy for developers
 to discover and close potential security vulnerabilities.
 
-#### A Fork In the Road
+#### A Fork in the Road
 
-At this point, we're faced with a difficult decision. At a glance, it seems as
+At this point, we're faced with a difficult decision. At first glance, it seems as
 though only associations and validations live in our subclasses, and we could
 easily move those to our strategy. However, there are two major issues.
 
 First, you can't move the association to a strategy class without making that
 strategy an `ActiveRecord::Base` subclass. Associations are deeply coupled with
-`ActiveRecord::Base`, and they simply won't work in other situations.
+`ActiveRecord::Base` and they simply won't work in other situations.
 
 Also, one of our submittable strategies has state specific to that strategy.
 Scale questions have a minimum and maximum. These fields are only used by scale
@@ -224,8 +222,8 @@ There are two obvious ways to proceed:
 * Continue without making the strategies `ActiveRecord::Base` subclasses. Keep
   the association for multiple choice questions and the minimum and maximum for
   scale questions on the `Question` class, and use that data from the strategy.
-  This will result in [Divergent Change](#divergent-change) and probably a
-  [Large Class](#large-class) on `Question`, as every change in the data
+  This will result in [divergent change](#divergent-change) and probably a
+  [large class](#large-class) on `Question`, as every change in the data
   required for new or existing strategies will require new behavior on
   `Question`.
 * Convert the strategies to `ActiveRecord::Base` subclasses. Move the
@@ -236,15 +234,15 @@ There are two obvious ways to proceed:
   choice questions and open questions would contain no data except the primary
   key. These tables provide a placeholder for future strategy-specific data, but
   those strategies may never require any more data and until they do, the tables
-  are a waste of queries and developer mental space.
+  are a waste of queries and the developer's mental space.
 
-In this example, I'm going to move forward with the second approach, because:
+In this example, we'll move forward with the second approach, because:
 
 * It's easier with ActiveRecord. ActiveRecord will take care of instantiating
   the strategy in most situations if it's an association, and it has special
   behavior for associations using nested attribute forms.
-* It's the easiest way to avoid [Divergent Change](#divergent-change) and [Large
-  Classes](#large-class) in a Rails application. Both of these smells can cause
+* It's the easiest way to avoid [divergent change](#divergent-change) and [large
+  classes](#large-class) in a Rails application. Both of these smells can cause
   problems that are hard to fix if you wait too long.
 
 #### Convert Strategies to ActiveRecord Subclasses
@@ -266,18 +264,16 @@ assign it as an instance variable. In an `ActiveRecord::Base` subclass, we don't
 control `initialize`, so let's change `question` from an instance variable to an
 association and pass a hash:
 
-\clearpage
-
 ` app/models/open_submittable.rb@e4809cd4
 
 ` app/models/question.rb@e4809cd4:19,22
 
-Our strategies are now ready to use Rails-specific functionality like
+Our strategies are now ready to use Rails-specific functionality, like
 associations and validations.
 
 View the full change on [GitHub](https://github.com/thoughtbot/ruby-science/commit/e4809cd43da76bf1e6b0933040bffd9cc3ea810c).
 
-#### Introduce A Polymorphic Association
+#### Introduce a Polymorphic Association
 
 Now that our strategies are persistable using ActiveRecord, we can use them in a
 polymorphic association. Let's add the association:
@@ -324,7 +320,7 @@ Note that this migration is [rather
 lengthy](https://github.com/thoughtbot/ruby-science/blob/41b49f49706135572a1b907f6a4c9747fb8446bb/example_app/db/migrate/20130131211856_move_scale_question_state_to_scale_submittable.rb),
 because we also need to move over the minimum and maximum values for existing
 questions. The SQL in our example app will work on most databases, but is
-cumbersome. If you're using Postgresql, you can handle the `down` method easier
+cumbersome. If you're using PostgreSQL, you can handle the `down` method easier
 using an `UPDATE FROM` statement.
 
 Next, we'll move validations for these attributes over from `ScaleQuestion`:
@@ -348,7 +344,7 @@ can cascade the validation:
 
 ` app/models/question.rb@41b49f49:6
 
-Now we just need our controllers to pass the appropriate submittable params:
+Now, we just need our controllers to pass the appropriate submittable parameters:
 
 ` app/controllers/questions_controller.rb@41b49f49:33,37
 
@@ -380,7 +376,7 @@ At this point, every question subclass is completely empty.
 
 You can view the full change in the [example app](https://github.com/thoughtbot/ruby-science/commit/662e50874a377f8050ea2ad1326a7a4e47125f86).
 
-#### Backfill Strategies For Existing Records
+#### Backfill Strategies for Existing Records
 
 Now that everything is moved over to the strategies, we need to make sure that
 submittables exist for every existing question. We can write a quick backfill
@@ -466,9 +462,9 @@ strategy for the old one.
 Our new `switch_to` method is greatly improved:
 
 * This method no longer needs to return anything, because there's no need to
-  clone. This is nice because `switch_to` is now simply a command method (it
-  does something) rather than a mixed command and query method (it does
-  something and returns something).
+  clone. This is nice because `switch_to` is no longer a mixed command and query method (i.e., it does
+  something and returns something), but simply a command method (i.e., it
+  just does something).
 * The method no longer needs to delete the old question, and the new submittable
   is valid before we delete the old one. This means we no longer need to use
   exceptions for control flow.
@@ -486,18 +482,17 @@ Our new, composition-based model is improved in a number of ways:
 * Each submittable is easy to use independently of its question, reducing
   coupling.
 * There's a clear boundary in the API for questions and submittables, making it
-  easier to test and making it less likely that concerns leak between the two.
+  easier to test—and less likely that concerns leak between the two.
 * Shared behavior happens via composition, making it less likely that the base
-  class becomes a [large class](#large-class).
+  class will become a [large class](#large-class).
 * It's easy to add new state without effecting other types, because
   strategy-specific state is stored on a table for that strategy.
 
-You can view the entire refactor will all steps combined in the [example
+You can view the entire refactor with all steps combined in the [example
 app](https://github.com/thoughtbot/ruby-science/compare/4939d3e3c539c5caaa36400d75258cc3f3f4e7d8...5f4a14ff6c43bf5b846d1c58d7509861c6fe3ac1) to get an idea of what changed at the macro level.
 
 This is a difficult transition to make, and the more behavior and data that you
-shove into an inheritance scheme, the harder it becomes. In situations where
-[STI](#single-table-inheritance-sti) is not significantly easier than using a
+shove into an inheritance scheme, the harder it becomes. Regarding situations in which [STI](#single-table-inheritance-sti) is not significantly easier than using a
 polymorphic relationship, it's better to start with composition. STI provides
 few advantages over composition, and it's easier to merge models than to split
 them.
@@ -517,22 +512,22 @@ Our application also got worse in a number of ways:
   been worth it, because we reduced the complexity per component. However, it's
   worth keeping an eye on.
 
-Before performing a large change like this, try to imagine what will be easy to
-change in the new world that's hard right now.
+Before performing a large change like this, try to imagine what currently difficult changes will be easier to
+make in the new version.
 
 After performing a large change, keep track of difficult changes you make. Would
-they have been easier in the old world?
+they have been easier in the old version?
 
-Answering this questions will increase your ability to judge whether or not to
+Answering these questions will increase your ability to judge whether or not to
 use composition or inheritance in future situations.
 
 ### Next Steps
 
-* Check the extracted strategy classes to make sure they don't have [Feature
-  Envy](#feature-envy) related to the original base class. You may want to use
-  [Move Method](#move-method) to move methods between strategies and the root
+* Check the extracted strategy classes to make sure they don't have [feature
+  envy](#feature-envy) related to the original base class. You may want to use
+  [move method](#move-method) to move methods between strategies and the root
   class.
-* Check the extracted strategy classes for [Duplicated Code](#duplicated-code)
-  introduced while splitting up the base class. Use [Extract
-  Method](#extract-method) or [Extract Class](#extract-class) to extract common
+* Check the extracted strategy classes for [duplicated code](#duplicated-code)
+  introduced while splitting up the base class. Use [extract
+  method](#extract-method) or [extract class](#extract-class) to extract common
   behavior.
