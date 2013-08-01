@@ -33,15 +33,14 @@ practice. Let's jump into an example:
 The `summaries_using` method builds a summary of the answers to each of the
 survey's questions.
 
-However, we also want to hide the answers to questions that the user hasn't
-answered themselves, so we [decorate](#extract-decorator) the `summarizer` with
+However, we also want to hide the answers to questions that the user has not personally answered, so we [decorate](#extract-decorator) the `summarizer` with
 an `UnansweredQuestionHider`. Note that we're statically referencing the
 concrete, lower-level detail `UnansweredQuestionHider` from `Survey` rather than
 depending on an abstraction.
 
 In the current implementation, the `Survey#summaries_using` method will need to
 change whenever something changes about the summaries. For example, hiding the
-unanswered questions [required changes to this
+unanswered questions [requires changes to this
 method](https://github.com/thoughtbot/ruby-science/commit/d60656aa).
 
 Also, note that the conditional logic is spread across several layers.
@@ -54,14 +53,14 @@ passed into `UnansweredQuestionHider`:
 
 \clearpage
 
-We can make changes like this easier in the future by inverting control:
+We can make future changes like this easier by inverting control:
 
 ` app/models/survey.rb@256a9c92:10,14
 
 ` app/controllers/summaries_controller.rb@256a9c92:2,15
 
 Now the `Survey#summaries_using` method is completely ignorant of answer hiding;
-it simply accepts a `summarizer`, and the client (`SummariesController`) injects
+it simply accepts a `summarizer` and the client (`SummariesController`) injects
 a decorated dependency. This means that adding similar changes won't require
 changing the `Summary` class at all.
 
@@ -82,12 +81,12 @@ This means that, while adding new summarizers or decorators won't affect
 So, did we actually make anything better?
 
 In this case, the code was improved because the information that affects the
-dependency decision - `params[:unanswered]` - is now closer to where we make the
-decision. Before, we needed to pass a boolean down into `summaries_using`,
+dependency decision—`params[:unanswered]`—is now closer to where we make the
+decision. Before, we needed to pass a Boolean down into `summaries_using`,
 causing that decision to leak across layers.
 
-Push your dependency decisions up until they reach the layer that contains the
-information needed to make those decisions, and you'll prevent changes from
+If you push your dependency decisions up until they reach the layer that contains the
+information needed to make those decisions, you will prevent changes from
 affecting several layers.
 
 ### Drawbacks
@@ -108,9 +107,9 @@ difficult for new developers to learn the domain.
 ### Application
 
 If you identify these smells in an application, you may want to adhere more
-closely to the Dependency Inversion Principle:
+closely to the [dependency inversion principle](#dependency-inversion-principle) (DIP):
 
-* Following DIP can eliminate [Shotgun surgery](#shotgun-surgery) by
+* Following DIP can eliminate [shotgun surgery](#shotgun-surgery) by
   consolidating dependency decisions.
 * Code suffering from [divergent change](#divergent-change) may improve after
   having some of its dependencies injected.
@@ -119,33 +118,32 @@ closely to the Dependency Inversion Principle:
 
 You may need to eliminate these smells in order to properly invert control:
 
-* Excessive use of [callbacks](#callback) will make it harder to follow this
-  principle, because it's harder to inject dependencies into a callback.
+* Excessive use of [callbacks](#callback) will make it harder to follow the DIP, because it's harder to inject dependencies into a callback.
 * Using [mixins](#mixin) and [STI](#single-table-inheritance-sti) for reuse will
-  make following this principle more difficult, because inheritance is always
-  decided statically. Because a class can't decide its parent class at runtime,
+  make following the DIP more difficult, because inheritance is always
+  decided statically. Because a class can't decide its parent class at run-time,
   inheritance can't follow inversion of control.
 
 You can use these solutions to refactor towards DIP-compliance:
 
-* [Inject Dependencies](#inject-dependencies) to invert control.
-* Use [Extract Class](#extract-class) to make smaller classes that are easier to
+* [Inject dependencies](#inject-dependencies) to invert control.
+* Use [extract class](#extract-class) to make smaller classes that are easier to
   compose and inject.
-* Use [Extract Decorator](#extract-decorator) to make it possible to package a
+* Use [extract decorator](#extract-decorator) to make it possible to package a
   decision that involves multiple classes and inject it as a single dependency.
-* [Replace Callbacks with Methods](#replace-callback-with-method) to make
+* [Replace callbacks with methods](#replace-callback-with-method) to make
   dependency injection easier.
-* [Replace Conditional with
-  Polymorphism](#replace-conditional-with-polymorphism) to make dependency
+* [Replace conditional with
+  polymorphism](#replace-conditional-with-polymorphism) to make dependency
   injection easier.
-* [Replace Mixin with Composition](#replace-mixin-with-composition) and [Replace
-  Subclasses with Strategies](#replace-subclasses-with-strategies) to make it
-  possible to decide dependencies abstractly at runtime.
-* [Use Class as Factory](#use-class-as-factory) to make it possible to
+* [Replace mixin with composition](#replace-mixin-with-composition) and [replace
+  subclasses with strategies](#replace-subclasses-with-strategies) to make it
+  possible to decide dependencies abstractly at run-time.
+* [Use class as factory](#use-class-as-factory) to make it possible to
   abstractly instantiate dependencies without knowing which class is being used
   and without writing abstract factory classes.
 
-Following [Single Responsibility Principle](#single-responsibility-principle)
-and [Composition Over Inheritance](#composition-over-inheritance) will make it
-easier to follow this principle. Following this principle will make it easier to
-obey the [Open-Closed Principle](#openclosed-principle).
+Following the [single responsibility principle](#single-responsibility-principle)
+and [composition over inheritance](#composition-over-inheritance) will make it
+easier to follow the [dependency inversion principle](#dependency-inversion-principle). Following this principle will make it easier to
+obey the [open/closed principle](#openclosed-principle).
