@@ -26,7 +26,7 @@ methods is easiest with tools like flog:
 
 Methods with higher scores are more complicated. Anything with a score higher
 than 10 is worth looking at, but flog only helps you find potential trouble
-spots; use your own judgement when refactoring.
+spots; use your own judgment when refactoring.
 
 ### Example
 
