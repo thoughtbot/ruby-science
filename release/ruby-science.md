@@ -237,7 +237,7 @@ spots; use your own judgement when refactoring.
 For an example of a Long Method, let's take a look at the highest scored method
 from flog, `QuestionsController#create`:
 
-```` ruby
+``` ruby
 def create
   @survey = Survey.find(params[:survey_id])
   @submittable_type = params[:submittable_type_id]
@@ -253,7 +253,7 @@ def create
     render :new
   end
 end
-````
+```
 
 ### Solutions
 
