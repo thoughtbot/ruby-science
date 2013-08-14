@@ -21,7 +21,7 @@ following [Composition Over Inheritance](#composition-over-inheritance).
 
 * Eliminate [Large Classes](#large-class) by extracting concerns.
 * Eliminate [Divergent Change](#divergent-change) and follow the [Single
-  Responsibility Principle)[#single-responsibility-principle] by adding new
+  Responsibility Principle](#single-responsibility-principle) by adding new
   behavior without introducing new concerns to existing classes.
 * Prevent conditional logic from leaking by making decisions earlier.
 * Extend existing classes without modifying them, following the [Open/Closed
