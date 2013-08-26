@@ -74,7 +74,7 @@ middleware follow a similar approach.
 
 Now that we've recognized this pattern, let's refactor to use a Decorator.
 
-#### Move decorated case to decorator
+#### Move Decorated Case to Decorator
 
 Let's start by creating an empty class for the decorator and [moving one
 method](#move-method) into it:
@@ -89,7 +89,7 @@ Now we update `Survey` to compose our new class:
 
 At this point, the [decorated path is contained within the decorator](https://github.com/thoughtbot/ruby-science/commit/af2e8318).
 
-#### Move conditional logic into decorator
+#### Move Conditional Logic Into Decorator
 
 Next, we can move the conditional logic into the decorator. We've already
 extracted this to its own method on `Survey`, so we can simply move this method
@@ -102,7 +102,7 @@ that the context is more specific, it's clear what role the user is playing.
 
 ` app/models/survey.rb@9d0274f4:18,25
 
-#### Move body into decorator
+#### Move Body Into Decorator
 
 [There's just one summary-related method left in `Survey`](https://github.com/thoughtbot/ruby-science/commit/9d0274f4):
 `summary_or_hidden_answer`. Let's move this into the decorator:
@@ -116,7 +116,7 @@ every other method in the decorator can be made private.
 
 \clearpage
 
-#### Promote parameters to instance variables
+#### Promote Parameters to Instance Variables
 
 Now that we have a class to handle this logic, we can move some of the
 parameters into instance state. In `Survey#summaries_using`, we use the same
@@ -131,7 +131,7 @@ variables on the decorator:
 [Our decorator now just needs a `question` to generate a
 `Summary`](https://github.com/thoughtbot/ruby-science/commit/72801b57).
 
-#### Change decorator to follow component interface
+#### Change Decorator to Follow Component Interface
 
 In the end, the component we want to wrap with our decorator is the summarizer,
 so we want the decorator to obey the same interface as its component, the
@@ -167,7 +167,7 @@ class a bit:
 Now we have a decorator that can wrap any summarizer, nicely-factored and ready
 to use.
 
-#### Invert control
+#### Invert Control
 
 Now comes one of the most important steps: we can [invert
 control](#dependency-inversion-principle) by removing any reference to the
