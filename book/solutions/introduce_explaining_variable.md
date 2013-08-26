@@ -42,7 +42,7 @@ careful when doing this. The most obvious reason to extract a method is to reuse
 the value of the variable.
 
 However, there's another potential benefit: it changes the way developers read
-the code.  Developers instinctively read code top-down. Expressions based on
+the code. Developers instinctively read code top-down. Expressions based on
 variables place the details first, which means that a developer will start with
 the details:
 
