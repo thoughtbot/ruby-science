@@ -59,7 +59,7 @@ classes, because it's no longer a private method. Both methods are also easier
 to follow, because the methods they invoke are close to the methods they depend
 on.
 
-### Dangerous: move and extract at the same time
+### Dangerous: Move and Extract at the Same Time
 
 It's tempting to do everything as one change: create a new method in `Answer`,
 move the code over from `Completion`, and change `Completion#score` to call the

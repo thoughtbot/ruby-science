@@ -13,7 +13,7 @@ Although this is a very simple principle at a glance, deciding whether or not
 any two pieces of behavior introduce two reasons to change is difficult, and
 obeying SRP rigidly can be frustrating.
 
-### Reasons to change
+### Reasons to Change
 
 One of the challenges in identifying reasons to change is that you need to
 decide what granularity to be concerned with.

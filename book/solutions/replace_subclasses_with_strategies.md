@@ -247,7 +247,7 @@ In this example, I'm going to move forward with the second approach, because:
   Classes](#large-class) in a Rails application. Both of these smells can cause
   problems that are hard to fix if you wait too long.
 
-#### Convert Strategies to ActiveRecord subclasses
+#### Convert Strategies to ActiveRecord Subclasses
 
 Continuing with our refactor, we'll change each of our strategy classes to
 inherit from `ActiveRecord::Base`.
