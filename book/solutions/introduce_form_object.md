@@ -37,7 +37,7 @@ syntax.
 \clearpage
 
 As we introduce the form object we'll also extract an enumerable class `RecipientList`
-and validators `EnumerableValidator` and `EmailValidator`. They will be covered 
+and validators `EnumerableValidator` and `EmailValidator`. They will be covered
 in the chapters [Extract Class](#extract-class) and [Extract Validator](#extract-validator).
 
 ` app/models/survey_inviter.rb@7834dfd

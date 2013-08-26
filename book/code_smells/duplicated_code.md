@@ -6,7 +6,7 @@ Yourself](#dry).
 ### Symptoms
 
 * You find yourself copy and pasting code from one place to another.
-* [Shotgun Surgery](#shotgun-surgery) occurs when changes to your application 
+* [Shotgun Surgery](#shotgun-surgery) occurs when changes to your application
 require the same small edits in multiple places.
 
 \clearpage
