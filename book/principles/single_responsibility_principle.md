@@ -26,7 +26,7 @@ subclass:
 
 ` app/models/invitation.rb@dcc40d60
 
-Everything in this class has something to do with invitations.  You could make
+Everything in this class has something to do with invitations. You could make
 the blunt assessment that this class obeys SRP, because it will only change when
 invitation-related functionality changes. However, looking more carefully at how
 invitations are implemented, several other reasons to change can be identified:

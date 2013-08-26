@@ -123,7 +123,7 @@ You may need to eliminate these smells in order to properly invert control:
   principle, because it's harder to inject dependencies into a callback.
 * Using [mixins](#mixin) and [STI](#single-table-inheritance-sti) for reuse will
   make following this principle more difficult, because inheritance is always
-  decided statically.  Because a class can't decide its parent class at runtime,
+  decided statically. Because a class can't decide its parent class at runtime,
   inheritance can't follow inversion of control.
 
 You can use these solutions to refactor towards DIP-compliance:
