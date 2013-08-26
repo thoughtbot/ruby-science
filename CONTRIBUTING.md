@@ -4,7 +4,7 @@ By making a contribution to this project, you certify that
 you agree to all points below.
 
 In short, you are legally allowed to transfer copyright of this
-work to thoughtbot, inc. and do so.  Where possible, we will
+work to thoughtbot, inc. and do so. Where possible, we will
 give you attribution.
 
 In full, based on the Linux Developer's Certificate of Origin 1.1:

@@ -3417,7 +3417,7 @@ careful when doing this. The most obvious reason to extract a method is to reuse
 the value of the variable.
 
 However, there's another potential benefit: it changes the way developers read
-the code.  Developers instinctively read code top-down. Expressions based on
+the code. Developers instinctively read code top-down. Expressions based on
 variables place the details first, which means that a developer will start with
 the details:
 
@@ -4109,7 +4109,7 @@ end
 ```
 
 It doesn't handle any concerns that aren't already well-encapsulated by
-`InvitationMessage` and `Mailer`, and it's only used once (in `Invitation`).  We
+`InvitationMessage` and `Mailer`, and it's only used once (in `Invitation`). We
 can inline this class into `Invitation` and drop a little overall complexity and
 indirection from our application.
 
@@ -4692,7 +4692,7 @@ framework. You can see the full change for this step in our [example app](https:
 
 Our subclasses now contain only delegators, code to instantiate the submittable,
 and framework code. Eventually, we want to completely delete these subclasses,
-so let's start stripping them down.  The delegators are easiest to delete, so
+so let's start stripping them down. The delegators are easiest to delete, so
 let's take them on before the framework code.
 
 First, find where the delegators are used:
@@ -5976,7 +5976,7 @@ class Invitation < ActiveRecord::Base
 end
 ```
 
-Everything in this class has something to do with invitations.  You could make
+Everything in this class has something to do with invitations. You could make
 the blunt assessment that this class obeys SRP, because it will only change when
 invitation-related functionality changes. However, looking more carefully at how
 invitations are implemented, several other reasons to change can be identified:
@@ -7337,7 +7337,7 @@ You may need to eliminate these smells in order to properly invert control:
   principle, because it's harder to inject dependencies into a callback.
 * Using [mixins](#mixin) and [STI](#single-table-inheritance-sti) for reuse will
   make following this principle more difficult, because inheritance is always
-  decided statically.  Because a class can't decide its parent class at runtime,
+  decided statically. Because a class can't decide its parent class at runtime,
   inheritance can't follow inversion of control.
 
 You can use these solutions to refactor towards DIP-compliance:

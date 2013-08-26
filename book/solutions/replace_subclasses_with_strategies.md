@@ -156,7 +156,7 @@ framework. You can see the full change for this step in our [example app](https:
 
 Our subclasses now contain only delegators, code to instantiate the submittable,
 and framework code. Eventually, we want to completely delete these subclasses,
-so let's start stripping them down.  The delegators are easiest to delete, so
+so let's start stripping them down. The delegators are easiest to delete, so
 let's take them on before the framework code.
 
 First, find where the delegators are used:
