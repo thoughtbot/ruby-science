@@ -1,6 +1,6 @@
 # Extract Partial
 
-Extracting a partial is a technique used for removing complex or duplicated view 
+Extracting a partial is a technique used for removing complex or duplicated view
 code from your application. This is the equivalent of using [Long Method](#long-method) and
 [Extract Method](#extract-method) in your views and templates.
 
@@ -24,14 +24,14 @@ code from your application. This is the equivalent of using [Long Method](#long-
 
 Let's revisit the view code for _adding_ and _editing_ questions.
 
-Note: There are a few small differences in the files (the url endpoint, and the 
+Note: There are a few small differences in the files (the url endpoint, and the
 label on the submit button).
 
 ` app/views/questions/new.html.erb@cec19d8
 
 ` app/views/questions/edit.html.erb@cec19d8
 
-First extract the common code into a partial, remove any instance variables, and 
+First extract the common code into a partial, remove any instance variables, and
 use `question` and `url` as a local variables.
 
 ` app/views/questions/_form.html.erb@57f0f48
@@ -49,5 +49,5 @@ Then render the partial from each of the views, passing in the values for
 
 ### Next Steps
 
-* Check for other occurances of the duplicated view code in your application and 
+* Check for other occurances of the duplicated view code in your application and
 replace them with the newly extracted partial.

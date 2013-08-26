@@ -17,7 +17,7 @@ To introduce a parameter object:
 
 ### Example
 
-Let's take a look at the example from [Long Parameter List](#long-parameter-list) and 
+Let's take a look at the example from [Long Parameter List](#long-parameter-list) and
 improve it by grouping the related parameters into an object:
 
 ` app/mailers/mailer.rb@44f85d8
@@ -26,7 +26,7 @@ improve it by grouping the related parameters into an object:
 
 \clearpage
 
-By introducing the new parameter object `recipient` we can naturally group the 
+By introducing the new parameter object `recipient` we can naturally group the
 attributes `first_name`, `last_name`, and `email` together.
 
 ` app/mailers/mailer.rb@28f3651
