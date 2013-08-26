@@ -23,7 +23,7 @@ As a purchaser of the book, you also get access to:
 
 # Contact us
 
-If you have any questions, or just want to get in touch, drop us a line at 
+If you have any questions, or just want to get in touch, drop us a line at
 [learn@thoughtbot.com](mailto:learn@thoughtbot.com).
 
 \clearpage

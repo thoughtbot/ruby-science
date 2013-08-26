@@ -26,7 +26,7 @@ than public methods, and has multiple responsibility:
 * [Move Method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
 * [Extract Class](#extract-class) if the class has multiple responsibilities.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism) 
+* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
 if the class contains private methods related to conditional branches.
 * [Extract Value Object](#extract-value-object) if the class contains
   private query methods.
@@ -53,7 +53,7 @@ Classes by preventing new concerns from being introduced.
 
 You can use flog to analyze classes as you write and modify them:
 
-    % flog -a app/models/question.rb 
+    % flog -a app/models/question.rb
         48.3: flog total
          6.9: flog/method average
 
