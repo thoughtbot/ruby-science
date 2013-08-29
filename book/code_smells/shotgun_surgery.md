@@ -18,7 +18,7 @@ Make sure you look for related smells in the affected code:
 
 Users' names are formatted and displayed as "First Last" throughout the
 application. If you want to change the formatting to include a middle initial
-(example: "First M. Last") you’ll need to make the same small change in several
+(example: "First M. Last") you'll need to make the same small change in several
 places.
 
 ```rhtml

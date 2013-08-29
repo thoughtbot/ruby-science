@@ -1,6 +1,6 @@
 # DRY
 
-The DRY principle—short for "don't repeat yourself"—comes from [The
+The DRY principle&mdash;short for "don't repeat yourself"&mdash;comes from [The
 Pragmatic Programmer](http://pragprog.com/book/tpp/the-pragmatic-programmer).
 
 This principle states:

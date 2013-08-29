@@ -1,7 +1,7 @@
 ## Follow Your Nose
 
 Code "smells" are indicators something may be wrong. They are useful because
-they are easy to see—sometimes easier than the root cause of a problem.
+they are easy to see&mdash;sometimes easier than the root cause of a problem.
 
 When you review code, watch for smells. Consider whether refactoring the code to
 remove the smell would result in better code. If you're reviewing a teammate's

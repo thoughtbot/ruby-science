@@ -1,6 +1,6 @@
 # Uncommunicative Name
 
-Software is run by computers—but written and read by humans. Names provide
+Software is run by computers&mdash;but written and read by humans. Names provide
 important information to developers who are trying to understand a piece of
 code. Patterns and challenges when naming a method or class can also provide
 clues for refactoring.

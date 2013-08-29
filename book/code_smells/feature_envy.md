@@ -17,7 +17,7 @@ improves readability, makes the logic easier to reuse and reduces coupling.
 * Methods that include a class name in their own names (such as `invite_user`).
 * Private methods on the same class that accept the same parameter.
 * [Law of Demeter](#law-of-demeter) violations.
-* [Tell, don’t ask](#tell-dont-ask) violations.
+* [Tell, don't ask](#tell-dont-ask) violations.
 
 ### Example
 
@@ -39,5 +39,5 @@ extract a new method and move it to the `answer` class.
 Following the [law of Demeter](#law-of-demeter) will prevent a lot of feature
 envy by limiting the dependencies of each method.
 
-Following [tell, don’t ask](#tell-dont-ask) will prevent feature envy by
+Following [tell, don't ask](#tell-dont-ask) will prevent feature envy by
 avoiding unnecessary inspection of another object's state.

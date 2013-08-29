@@ -81,9 +81,9 @@ This means that, while adding new summarizers or decorators won't affect
 So, did we actually make anything better?
 
 In this case, the code was improved because the information that affects the
-dependency decision—`params[:unanswered]`—is now closer to where we make the
-decision. Before, we needed to pass a Boolean down into `summaries_using`,
-causing that decision to leak across layers.
+dependency decision&mdash;`params[:unanswered]`&mdash;is now closer to where we
+make the decision. Before, we needed to pass a Boolean down into
+`summaries_using`, causing that decision to leak across layers.
 
 If you push your dependency decisions up until they reach the layer that contains the
 information needed to make those decisions, you will prevent changes from
