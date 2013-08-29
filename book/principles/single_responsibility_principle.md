@@ -45,10 +45,10 @@ be refactored?
 
 Not all reasons to change are created equal.
 
-As a developer, you can anticipate likely changes based on your experience—or just common
-sense. For example, attributes and business rules for invitations are likely to
-change, so we know that this class will change as invitations evolve in the
-application.
+As a developer, you can anticipate likely changes based on your
+experience&mdash;or just common sense. For example, attributes and business
+rules for invitations are likely to change, so we know that this class will
+change as invitations evolve in the application.
 
 Regular expressions are powerful but tricky beasts, so it's likely that we'll
 have to adjust our regular expression. It might be nice to encapsulate that

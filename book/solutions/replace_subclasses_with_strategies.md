@@ -482,7 +482,7 @@ Our new, composition-based model is improved in a number of ways:
 * Each submittable is easy to use independently of its question, reducing
   coupling.
 * There's a clear boundary in the API for questions and submittables, making it
-  easier to test—and less likely that concerns leak between the two.
+  easier to test&mdash;and less likely that concerns leak between the two.
 * Shared behavior happens via composition, making it less likely that the base
   class will become a [large class](#large-class).
 * It's easy to add new state without effecting other types, because

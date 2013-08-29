@@ -196,13 +196,13 @@ However, moving view code would violate MVC (introducing [divergent
 change](#divergent-change) into the subclasses) and, more importantly, it would
 be ugly and hard to understand.
 
-Rails has the ability to render views polymorphically. A line like this—
+Rails has the ability to render views polymorphically. A line like this&mdash;
 
 ```` erb
 <%= render @question %>
 ````
 
-—will ask `@question` which view should be rendered by calling `to_partial_path`.
+&mdash;will ask `@question` which view should be rendered by calling `to_partial_path`.
 As subclasses of `ActiveRecord::Base`, our `Question` subclasses will return a
 path based on their class name. This means that the above line will attempt to
 render `open_questions/_open_question.html.erb` for an open question, and so on.

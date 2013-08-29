@@ -75,9 +75,10 @@ within `User`.
 Public methods are a liability. Before they can be changed, moved, renamed or
 removed, you will need to find every consumer class and update each one accordingly.
 
-## Tension with Model–View–Controller
+## Tension with Model&mdash;View&mdash;Controller
 
-This principle can be difficult to follow while also following Model–View–Controller (MVC).
+This principle can be difficult to follow while also following
+Model&mdash;View&mdash;Controller (MVC).
 
 Consider a view that uses the above `Order` model:
 

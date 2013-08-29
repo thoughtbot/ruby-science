@@ -71,7 +71,8 @@ name:
 ` app/models/question.rb@5a9a4f1a:40,43
 
 That `options` argument is no longer necessary because it was only used to
-build the summarizer—which is now handled by the controller. Let's remove it:
+build the summarizer&mdash;which is now handled by the controller. Let's
+remove it:
 
 ` app/models/question.rb@b8bbd4dd:40,43
 
@@ -128,8 +129,8 @@ Decorator](#extract-decorator) chapter.
 
 ### Drawbacks
 
-Injecting dependencies in our example made each class—`SummariesController`,
-`Survey`, `Question` and `UnansweredQuestionHider`—easier to understand as a
+Injecting dependencies in our example made each class&mdash;`SummariesController`,
+`Survey`, `Question` and `UnansweredQuestionHider`&mdash;easier to understand as a
 unit. However, it's now difficult to understand what kind of summaries will be
 produced just by looking at `Survey` or `Question`. You need to follow the stack
 up to `SummariesController` to understand the dependencies and then look at

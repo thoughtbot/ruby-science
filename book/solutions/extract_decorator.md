@@ -132,7 +132,7 @@ variables on the decorator:
 #### Change Decorator to Follow Component Interface
 
 In the end, the component we want to wrap with our decorator is the summarizer,
-so we want the decorator to obey the same interface as its component—the
+so we want the decorator to obey the same interface as its component&mdash;the
 summarizer. Let's rename our only public method so that it follows the
 summarizer interface:
 
@@ -141,7 +141,7 @@ summarizer interface:
 ` app/models/survey.rb@61ca6784:12,13
 
 [Our decorator now follows the component interface in
-name](https://github.com/thoughtbot/ruby-science/commit/61ca6784)—but not
+name](https://github.com/thoughtbot/ruby-science/commit/61ca6784)&mdash;but not
 behavior. In our application, summarizers return a string that represents the
 answers to a question, but our decorator is returning a `Summary` instead. Let's
 fix our decorator to follow the component interface by returning just a string:

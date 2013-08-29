@@ -68,4 +68,4 @@ dependency chain, such as changing `user.plan.price` to
 Demeter](#law-of-demeter).
 
 If conditional logic is affected in several places by a single, cohesive change,
-make sure that you're following [tell, don’t ask](#tell-dont-ask).
+make sure that you're following [tell, don't ask](#tell-dont-ask).

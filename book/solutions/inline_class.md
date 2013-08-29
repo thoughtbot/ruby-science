@@ -53,7 +53,7 @@ longer varies, it doesn't bring much to the table:
 ` app/models/email_inviter.rb@6b5273d
 
 It doesn't handle any concerns that aren't already well-encapsulated by
-`InvitationMessage` and `Mailer`Ñand it's only used once (in `Invitation`). We
+`InvitationMessage` and `Mailer`&mdash;and it's only used once (in `Invitation`). We
 can inline this class into `Invitation` and eliminate some complexity and
 indirection from our application.
 

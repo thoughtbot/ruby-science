@@ -1,3 +1,4 @@
+
 # Case Statement
 
 Case Statements are a sign that a method contains too much knowledge.
@@ -16,7 +17,7 @@ the repetitive `if-elsif`.
 
 ## Type Codes
 
-Some applications contain type codes—fields that store type information about
+Some applications contain type codes&mdash;fields that store type information about
 objects. These fields are easy to add and seem innocent, but result in code
 that's harder to maintain. A better solution is to take advantage of Ruby's
 ability to invoke different behavior based on an object's class, called "dynamic

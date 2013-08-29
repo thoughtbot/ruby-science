@@ -38,9 +38,9 @@ Again, `most_recent_answer_text` might return `nil`:
 
 ` app/models/answer.rb@7a43dff:11,13
 
-The `User#answer_text_for` method duplicates the check for a missing answer—and
-worse, it's repeating the logic of what happens when you need text without an
-answer.
+The `User#answer_text_for` method duplicates the check for a missing
+answer&mdash;and worse, it's repeating the logic of what happens when you need
+text without an answer.
 
 We can remove these checks entirely from `Question` and `User` by introducing a
 null object:
