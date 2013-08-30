@@ -16,12 +16,12 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'bourne'
   gem 'foreman'
   gem 'rspec-rails'
 end
 
 group :test do
-  gem 'bourne'
   gem 'capybara'
   gem 'email_spec'
   gem 'factory_girl_rails'
