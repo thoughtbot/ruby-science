@@ -76,8 +76,6 @@
 
 <<[solutions/introduce_parameter_object.md]
 
-<<[solutions/introduce_facade.md]
-
 <<[solutions/use_class_as_factory.md]
 
 <<[solutions/move_method.md]
