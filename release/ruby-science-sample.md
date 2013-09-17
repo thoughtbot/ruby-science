@@ -1,30 +1,29 @@
 # Introduction
 
 Ruby on Rails is almost a decade old, and its community has developed a number
-of principles for building applications that are fast, fun, and easy to change:
-don't repeat yourself, keep your views dumb, keep your controllers skinny, and
+of principles for building applications that are fast, fun and easy to change: Don't repeat yourself, keep your views dumb, keep your controllers skinny, and
 keep business logic in your models. These principles carry most applications to
 their first release or beyond.
 
 However, these principles only get you so far. After a few releases, most
 applications begin to suffer. Models become fat, classes become few and large,
-tests become slow, and changes become painful. In many applications, there
+tests become slow and changes become painful. In many applications, there
 comes a day when the developers realize that there's no going back; the
-application is a twisted mess, and the only way out is a rewrite or a new job.
+application is a twisted mess and the only way out is a rewrite or a new job.
 
 Fortunately, it doesn't have to be this way. Developers have been using
-object-oriented programming for several decades, and there's a wealth of
-knowledge out there which still applies to developing applications today. We can
+object-oriented programming for several decades and there's a wealth of
+knowledge out there that still applies to developing applications today. We can
 use the lessons learned by these developers to write good Rails applications by
 applying good object-oriented programming.
 
-Ruby Science will outline a process for detecting emerging problems in code, and
+Ruby Science will outline a process for detecting emerging problems in code and
 will dive into the solutions, old and new.
 
-The full book contains three catalogs: smells, solutions, and principles. This
+The full book contains three catalogs: smells, solutions and principles. This
 sample contains a few hand-picked chapters from the first two catalogs,
-published directly from the book, allowing you to get a sense for the content,
-style, and delivery of the product.
+published directly from the book, allowing you to get a sense of the content,
+style and delivery of the product.
 
 If you enjoy the sample, you can get access to the entire book and sample
 application at:
@@ -33,16 +32,16 @@ application at:
 
 As a purchaser of the book, you also get access to:
 
-* Multiple formats, including HTML, PDF, EPUB, and Kindle.
-* A complete example application containing code samples referenced from the
+* Multiple formats, including HTML, PDF, EPUB and Kindle.
+* A complete example application containing code samples referenced in the
   book.
-* The GitHub repository to receive updates as soon as they're pushed.
-* GitHub issues, where you can provide feedback tell us what you'd like to see.
-* Ask us your toughest Rails questions!
+* Access to a GitHub repository to receive updates as soon as they're pushed.
+* Access to GitHub Issues, where you can provide feedback and tell us what you'd like to see.
+* And you can ask us your toughest Rails questions!
 
-# Contact us
+# Contact Us
 
-If you have any questions, or just want to get in touch, drop us a line at 
+If you have any questions, or just want to get in touch, drop us a line at
 [learn@thoughtbot.com](mailto:learn@thoughtbot.com).
 
 \clearpage
@@ -55,7 +54,7 @@ If you have any questions, or just want to get in touch, drop us a line at
 
 The most common smell in Rails applications is the Long Method.
 
-Long methods are exactly what they sound like: methods which are too long.
+Long methods are exactly what they sound like: methods that are too long.
 They're easy to spot.
 
 ### Symptoms
@@ -78,12 +77,12 @@ methods is easiest with tools like flog:
          8.1: SurveysController#create         app/controllers/surveys_controller.rb:6
 
 Methods with higher scores are more complicated. Anything with a score higher
-than 10 is worth looking at, but flog will only help you find potential trouble
-spots; use your own judgement when refactoring.
+than 10 is worth looking at, but flog only helps you find potential trouble
+spots; use your own judgment when refactoring.
 
 ### Example
 
-For an example of a Long Method, let's take a look at the highest scored method
+For an example of a long method, let's take a look at the highest scored method
 from flog, `QuestionsController#create`:
 
 ``` ruby
@@ -106,25 +105,26 @@ end
 
 ### Solutions
 
-* [Extract Method](#extract-method) is the most common way to break apart long methods.
-* [Replace Temp with Query](#replace-temp-with-query) if you have local variables
+* [Extract method](#extract-method) is the most common way to break apart long methods.
+* [Replace temp with query](#replace-temp-with-query) if you have local variables
 in the method.
 
-After extracting methods, check for [Feature Envy](#feature-envy) in the new
-methods to see if you should employ [Move Method](#move-method) to provide the
+After extracting methods, check for [feature envy](#feature-envy) in the new
+methods to see if you should employ [move method](#move-method) to provide the
 method with a better home.
+
 
 # Case Statement
 
-Case statements are a sign that a method contains too much knowledge.
+Case Statements are a sign that a method contains too much knowledge.
 
 ### Symptoms
 
 * Case statements that check the class of an object.
 * Case statements that check a type code.
-* [Divergent Change](#divergent-change) caused by changing or adding `when`
+* [Divergent change](#divergent-change) caused by changing or adding `when`
   clauses.
-* [Shotgun Surgery](#shotgun-surgery) caused by duplicating the case statement.
+* [Shotgun surgery](#shotgun-surgery) caused by duplicating the case statement.
 
 Actual `case` statements are extremely easy to find. Just grep your codebase for
 "case." However, you should also be on the lookout for `case`'s sinister cousin,
@@ -132,15 +132,15 @@ the repetitive `if-elsif`.
 
 ## Type Codes
 
-Some applications contain type codes: fields that store type information about
-objects. These fields are easy to add and seem innocent, but they result in code
+Some applications contain type codes&mdash;fields that store type information about
+objects. These fields are easy to add and seem innocent, but result in code
 that's harder to maintain. A better solution is to take advantage of Ruby's
 ability to invoke different behavior based on an object's class, called "dynamic
 dispatch." Using a case statement with a type code inelegantly reproduces
 dynamic dispatch.
 
 The special `type` column that ActiveRecord uses is not necessarily a type code.
-The `type` column is used to serialize an object's class to the database, so
+The `type` column is used to serialize an object's class to the database so
 that the correct class can be instantiated later on. If you're just using the
 `type` column to let ActiveRecord decide which class to instantiate, this isn't
 a smell. However, make sure to avoid referencing the `type` column from `case`
@@ -198,11 +198,11 @@ this time in the form of multiple `if` statements:
 
 ### Solutions
 
-* [Replace Type Code with Subclasses](#replace-type-code-with-subclasses) if the
+* [Replace type code with subclasses](#replace-type-code-with-subclasses) if the
   `case` statement is checking a type code, such as `question_type`.
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
   when the `case` statement is checking the class of an object.
-* [Use Convention over Configuration](#use-convention-over-configuration) when
+* [Use convention over configuration](#use-convention-over-configuration) when
   selecting a strategy based on a string name.
 
 # Shotgun Surgery
@@ -216,16 +216,16 @@ Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 
 Make sure you look for related smells in the affected code:
 
-* [Duplicated Code](#duplicated-code)
-* [Case Statement](#case-statement)
-* [Feature Envy](#feature-envy)
-* [Long Parameter List](#long-parameter-list)
+* [Duplicated code](#duplicated-code)
+* [Case statement](#case-statement)
+* [Feature envy](#feature-envy)
+* [Long parameter list](#long-parameter-list)
 
 ### Example
 
-Users' names are formatted and displayed as 'First Last' throughout the
-application. If we want to change the formating to include a middle initial
-(e.g. 'First M. Last') we'd need to make the same small change in several
+Users' names are formatted and displayed as "First Last" throughout the
+application. If you want to change the formatting to include a middle initial
+(example: "First M. Last") you'll need to make the same small change in several
 places.
 
 ```rhtml
@@ -245,19 +245,19 @@ places.
 
 ### Solutions
 
-* [Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
 to replace duplicated `case` statements and `if-elsif` blocks.
-* [Replace Conditional with Null Object](#replace-conditional-with-null-object)
+* [Replace conditional with null object](#replace-conditional-with-null-object)
   if changing a method to return `nil` would require checks for `nil` in several
   places.
-* [Extract Decorator](#extract-decorator) to replace duplicated display code in 
+* [Extract decorator](#extract-decorator) to replace duplicated display code in
 views/templates.
-* [Introduce Parameter Object](#introduce-parameter-object) to hang useful
+* [Introduce parameter object](#introduce-parameter-object) to hang useful
 formatting methods alongside a data clump of related attributes.
-* [Use Convention over Configuration](#use-convention-over-configuration) to
-  eliminate small steps that can be inferred based on a convention such as a
+* [Use convention over configuration](#use-convention-over-configuration) to
+  eliminate small steps that can be inferred based on a convention, such as a
   name.
-* [Inline Class](#inline-class) if the class only serves to add extra steps when
+* [Inline class](#inline-class) if the class only serves to add extra steps when
   performing changes.
 
 ### Prevention
@@ -271,32 +271,32 @@ sure that you [Don't Repeat Yourself](#dry).
 
 If you need to change several places because of a modification in your
 dependency chain, such as changing `user.plan.price` to
-`user.account.plan.price`, make sure that you're following the [Law of
+`user.account.plan.price`, make sure that you're following the [law of
 Demeter](#law-of-demeter).
 
 If conditional logic is affected in several places by a single, cohesive change,
-make sure that you're following [Tell, Don't Ask](#tell-dont-ask).
+make sure that you're following [tell, don't ask](#tell-dont-ask).
 
 \part{Solutions}
 
 # Replace Conditional with Null Object
 
 Every Ruby developer is familiar with `nil`, and Ruby on Rails comes with a full
-complement of tools to handle it: `nil?`, `present?`, `try`, and more. However,
+complement of tools to handle it: `nil?`, `present?`, `try` and more. However,
 it's easy to let these tools hide duplication and leak concerns. If you find
 yourself checking for `nil` all over your codebase, try replacing some of the
-`nil` values with null objects.
+`nil` values with Null Objects.
 
 ### Uses
 
-* Removes [Shotgun Surgery](#shotgun-surgery) when an existing method begins
+* Removes [shotgun surgery](#shotgun-surgery) when an existing method begins
   returning `nil`.
-* Removes [Duplicated Code](#duplicated-code) related to checking for `nil`.
+* Removes [duplicated code](#duplicated-code) related to checking for `nil`.
 * Removes clutter, improving readability of code that consumes `nil`.
 * Makes logic related to presence and absence easier to reuse, making it easier
   to [avoid duplication](#dry).
-* Replaces conditional logic with simple commands, following [Tell, Don't
-  Ask](#tell-dont-ask).
+* Replaces conditional logic with simple commands, following [tell, don't
+  ask](#tell-dont-ask).
 
 ### Example
 
@@ -319,7 +319,7 @@ def self.most_recent
 end
 ```
 
-This call clutters up the method, and returning `nil` is contagious: any method
+This call clutters up the method, and returning `nil` is contagious: Any method
 that calls `most_recent` must also check for `nil`. The concept of a missing
 answer is likely to come up more than once, as in this example:
 
@@ -339,12 +339,12 @@ def self.for_user(user)
 end
 ```
 
-The `User#answer_text_for` method duplicates the check for a missing answer, and
-worse, it's repeating the logic of what happens when you need text without an
-answer.
+The `User#answer_text_for` method duplicates the check for a missing
+answer&mdash;and worse, it's repeating the logic of what happens when you need
+text without an answer.
 
 We can remove these checks entirely from `Question` and `User` by introducing a
-Null Object:
+null object:
 
 ```ruby
 # app/models/question.rb
@@ -399,7 +399,7 @@ end
 ```
 
 We can take things just a little further and remove a bit of duplication with a
-quick [Extract Method](#extract-method):
+quick [extract method](#extract-method):
 
 ```ruby
 # app/models/answer.rb
@@ -432,7 +432,7 @@ matter what.
 
 ### Drawbacks
 
-Introducing a null object can remove duplication and clutter, but it can also
+Introducing a null object can remove duplication and clutter. But it can also
 cause pain and confusion:
 
 * As a developer reading a method like `Question#most_recent_answer_text`, you
@@ -443,8 +443,8 @@ cause pain and confusion:
   denote missing values. In this case, you'll need to add explicit `present?`
   checks and define `present?` to return `false` on your null object.
 * `NullAnswer` may eventually need to reimplement large part of the `Answer`
-  API, leading to potential [Duplicated Code](#duplicated-code) and [Shotgun
-  Surgery](#shotgun-surgery), which is largely what we hoped to solve in the
+  API, leading to potential [duplicated code](#duplicated-code) and [shotgun
+  surgery](#shotgun-surgery), which is largely what we hoped to solve in the
   first place.
 
 Don't introduce a null object until you find yourself swatting enough `nil`
@@ -454,14 +454,14 @@ outweighs the drawbacks above.
 ### Next Steps
 
 * Look for other `nil` checks of the return values of refactored methods.
-* Make sure your Null Object class implements the required methods from the
+* Make sure your null object class implements the required methods from the
   original class.
-* Make sure no [Duplicated Code](#duplicated-code) exists between the Null
-  Object class and the original.
+* Make sure no [duplicated code](#duplicated-code) exists between the null
+  object class and the original.
 
 \clearpage
 
-## Truthiness, `try`, and Other Tricks
+## Truthiness, `try` and Other Tricks
 
 All checks for `nil` are a condition, but Ruby provides many ways to check for
 `nil` without using an explicit `if`. Watch out for `nil` conditional checks
@@ -490,7 +490,7 @@ user.try(:name)
 
 # Extract Method
 
-The simplest refactoring to perform is Extract Method. To extract a method:
+The simplest refactoring to perform is extract method. To extract a method:
 
 * Pick a name for the new method.
 * Move extracted code into the new method.
@@ -498,20 +498,20 @@ The simplest refactoring to perform is Extract Method. To extract a method:
 
 ### Uses
 
-* Removes [Long Methods](#long-method).
-* Sets the stage for moving behavior via [Move Method](#move-method).
+* Removes [long methods](#long-method).
+* Sets the stage for moving behavior via [move method](#move-method).
 * Resolves obscurity by introducing intention-revealing names.
-* Allows removal of [Duplicated Code](#duplicated-code) by moving the common
+* Allows removal of [duplicated code](#duplicated-code) by moving the common
   code into the extracted method.
-* Reveals complexity, making it easier to follow the [Single Responsibility
-  Principle](#single-responsibility-principle).
-* Makes behavior easier to reuse, making it easier to [avoid duplication](#dry).
+* Reveals complexity, making it easier to follow the [single responsibility
+  principle](#single-responsibility-principle).
+* Makes behavior easier to reuse, which makes it easier to [avoid duplication](#dry).
 
 \clearpage
 
 ### Example
 
-Let's take a look at an example [Long Method](#long-method) and improve it by
+Let's take a look at an example of [long method](#long-method) and improve it by
 extracting smaller methods:
 
 ```` ruby
@@ -538,7 +538,7 @@ This method performs a number of tasks:
 * It figures out what type of question we're creating (the `submittable_type`).
 * It builds parameters for the new question by applying a white list to the HTTP
   parameters.
-* It builds a question from the given survey, parameters, and submittable type.
+* It builds a question from the given survey, parameters and submittable type.
 * It attempts to save the question.
 * It redirects back to the survey for a valid question.
 * It re-renders the form for an invalid question.
@@ -597,48 +597,48 @@ end
 
 ### Other Examples
 
-For more examples of Extract Method, take a look at these chapters:
+For more examples of [extract method](#extract-method), take a look at these chapters:
 
 
-* [Extract Class](#extract-class):
+* [Extract class](#extract-class):
   [b434954d](https://github.com/thoughtbot/ruby-science/commit/b434954d),
   [000babe1](https://github.com/thoughtbot/ruby-science/commit/000babe1)
-* [Extract Decorator](#extract-decorator):
+* [Extract decorator](#extract-decorator):
   [15f5b96e](https://github.com/thoughtbot/ruby-science/commit/15f5b96e)
-* [Introduce Explaining Variable](#introduce-explaining-variable) (inline)
-* [Move Method](#move-method):
+* [Introduce explaining variable](#introduce-explaining-variable) (inline)
+* [Move method](#move-method):
   [d5b4871](https://github.com/thoughtbot/ruby-science/commit/d5b4871)
-* [Replace Conditional with Null Object](#replace-conditional-with-null-object):
+* [Replace conditional with null object](#replace-conditional-with-null-object):
   [1e35c68](https://github.com/thoughtbot/ruby-science/commit/1e35c68)
 
 ### Next Steps
 
 * Check the original method and the extracted method to make sure neither is a
-  [Long Method](#long-method).
+  [long method](#long-method).
 * Check the original method and the extracted method to make sure that they both
   relate to the same core concern. If the methods aren't highly related, the
-  class will suffer from [Divergent Change](#divergent-change).
-* Check newly extracted methods for [Feature Envy](#feature-envy). If you find
-  some, you may wish to employ [Move Method](#move-method) to provide the new
+  class will suffer from [divergent change](#divergent-change).
+* Check newly extracted methods for [feature envy](#feature-envy). If you find
+  some, you may wish to employ [move method](#move-method) to provide the new
   method with a better home.
-* Check the affected class to make sure it's not a [Large Class](#large-class).
+* Check the affected class to make sure it's not a [large class](#large-class).
   Extracting methods reveals complexity, making it clearer when a class is doing
   too much.
 
 # Extract Partial
 
-Extracting a partial is a technique used for removing complex or duplicated view 
-code from your application. This is the equivalent of using [Long Method](#long-method) and
-[Extract Method](#extract-method) in your views and templates.
+Extracting a partial is a technique used for removing complex or duplicated view
+code from your application. This is the equivalent of using [long method](#long-method) and
+[extract method](#extract-method) in your views and templates.
 
 ### Uses
 
-* Remove [Duplicated Code](#duplicated-code) from views.
-* Remove [Shotgun Surgery](#shotgun-surgery) by forcing changes to happen in one place.
-* Remove [Divergent Change](#divergent-change) by removing a reason for the view to change.
-* Group common code.
-* Reduce view size and complexity.
-* Make view logic easier to reuse, making it easier to [avoid
+* Removes [duplicated code](#duplicated-code) from views.
+* Avoids [shotgun surgery](#shotgun-surgery) by forcing changes to happen in one place.
+* Removes [divergent change](#divergent-change) by removing a reason for the view to change.
+* Groups common code.
+* Reduces view size and complexity.
+* Makes view logic easier to reuse, which makes it easier to [avoid
   duplication](#dry).
 
 ### Steps
@@ -651,7 +651,7 @@ code from your application. This is the equivalent of using [Long Method](#long-
 
 Let's revisit the view code for _adding_ and _editing_ questions.
 
-Note: There are a few small differences in the files (the url endpoint, and the 
+Note: There are a few small differences in the files (the URL endpoint and the
 label on the submit button).
 
 ```rhtml
@@ -678,8 +678,8 @@ label on the submit button).
 <% end -%>
 ```
 
-First extract the common code into a partial, remove any instance variables, and 
-use `question` and `url` as a local variables.
+First, extract the common code into a partial, remove any instance variables and
+use `question` and `url` as local variables:
 
 ```rhtml
 # app/views/questions/_form.html.erb
@@ -691,7 +691,7 @@ use `question` and `url` as a local variables.
 <% end -%>
 ```
 
-Move the submit button text into the locales file.
+Move the submit button text into the locales file:
 
 ```
 # config/locales/en.yml
@@ -704,7 +704,7 @@ en:
 ```
 
 Then render the partial from each of the views, passing in the values for
-`question` and `url`.
+`question` and `url`:
 
 ```rhtml
 # app/views/questions/new.html.erb
@@ -722,16 +722,16 @@ Then render the partial from each of the views, passing in the values for
 
 ### Next Steps
 
-* Check for other occurances of the duplicated view code in your application and 
+* Check for other occurrences of the duplicated view code in your application and
 replace them with the newly extracted partial.
 
 \backmatter
 
 # Closing
 
-Thanks for checking out the sample of Ruby Science. If you’d like to get access
-to the full content, the example application, ongoing updates, and the ability
-to get your questions about Ruby on Rails answered by us, you can pick it up on
+Thanks for checking out this sample of _Ruby Science_. If you'd like to get access
+to the full content, the example application, ongoing updates and the opportunity
+to have your questions about Ruby on Rails answered by us, you can get it all on
 our website:
 
 <http://www.rubyscience.com>
