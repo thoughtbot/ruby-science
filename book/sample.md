@@ -18,7 +18,8 @@ As a purchaser of the book, you also get access to:
 * A complete example application containing code samples referenced from the
   book.
 * The GitHub repository to receive updates as soon as they're pushed.
-* GitHub issues, where you can provide feedback tell us what you'd like to see.
+* GitHub issues, where you can provide feedback and tell us what you'd like to
+  see.
 * Ask us your toughest Rails questions!
 
 # Contact us
