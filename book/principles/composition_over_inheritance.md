@@ -170,7 +170,7 @@ switch some classes from inheritance to composition:
 
 Classes with these smells may be difficult to transition to a composition model:
 
-* [Duplicated c](#duplicated-code) will need to be pulled up into the base
+* [Duplicated code](#duplicated-code) will need to be pulled up into the base
   class before subclasses can be switched to strategies.
 * [Shotgun surgery](#shotgun-surgery) may represent tight coupling between base
   classes and subclasses, making it more difficult to switch to composition.
