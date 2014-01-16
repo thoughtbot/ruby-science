@@ -303,7 +303,7 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
 <span class="kw">def</span> answer_text_for(question)
   question.answers.for_user(<span class="dv">self</span>).try(<span class="st">:text</span>) || <span class="dt">Answer</span>::<span class="dt">MISSING_TEXT</span>
 <span class="kw">end</span></code></pre>
-<p>Again, <code>most_recent_answer_text</code> might return <code>nil</code>:</p>
+<p>Again, <code>for_user</code> might return <code>nil</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
 <span class="kw">def</span> <span class="dv">self</span>.for_user(user)
   joins(<span class="st">:completion</span>).where(completions: { user_id: user.id }).last
