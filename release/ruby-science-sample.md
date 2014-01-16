@@ -330,7 +330,7 @@ def answer_text_for(question)
 end
 ```
 
-Again, `most_recent_answer_text` might return `nil`:
+Again, `for_user` might return `nil`:
 
 ```ruby
 # app/models/answer.rb

@@ -1440,7 +1440,7 @@ set_inheritance_column  <span class="st">'question_type'</span></code></pre>
 <span class="kw">def</span> answer_text_for(question)
   question.answers.for_user(<span class="dv">self</span>).try(<span class="st">:text</span>) || <span class="dt">Answer</span>::<span class="dt">MISSING_TEXT</span>
 <span class="kw">end</span></code></pre>
-<p>Again, <code>most_recent_answer_text</code> might return <code>nil</code>:</p>
+<p>Again, <code>for_user</code> might return <code>nil</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/answer.rb</span>
 <span class="kw">def</span> <span class="dv">self</span>.for_user(user)
   joins(<span class="st">:completion</span>).where(completions: { user_id: user.id }).last
@@ -4732,7 +4732,7 @@ users.active.without_posts.signed_up_this_week</code></pre>
 </ul>
 <p>Classes with these smells may be difficult to transition to a composition model:</p>
 <ul>
-<li><a href="#duplicated-code">Duplicated c</a> will need to be pulled up into the base class before subclasses can be switched to strategies.</li>
+<li><a href="#duplicated-code">Duplicated code</a> will need to be pulled up into the base class before subclasses can be switched to strategies.</li>
 <li><a href="#shotgun-surgery">Shotgun surgery</a> may represent tight coupling between base classes and subclasses, making it more difficult to switch to composition.</li>
 </ul>
 <p>These solutions will help move from inheritance to composition:</p>
