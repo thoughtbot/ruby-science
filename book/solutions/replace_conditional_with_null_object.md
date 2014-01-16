@@ -34,7 +34,7 @@ answer is likely to come up more than once, as in this example:
 
 ` app/models/user.rb@7a43dff:4,6
 
-Again, `most_recent_answer_text` might return `nil`:
+Again, `for_user` might return `nil`:
 
 ` app/models/answer.rb@7a43dff:11,13
 
