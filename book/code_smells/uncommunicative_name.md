@@ -17,12 +17,12 @@ clues for refactoring.
 In our example application, the `SummariesController` generates summaries from a
 `Survey`:
 
-` app/controllers/summaries_controller.rb@6a4169a5:4
+` app/controllers/summaries_controller.rb@ac47150:4
 
 The `summarize` method on `Survey` asks each `Question` to `summarize` itself
 using a `summarizer`:
 
-` app/models/survey.rb@6a4169a5:10,14
+` app/models/survey.rb@ac47150:10,14
 
 The `summarize` method on `Question` gets a value by calling `summarize` on a
 summarizer, and then builds a `Summary` using that value.
