@@ -892,10 +892,10 @@ git merge refactoring-for-new-feature --ff-only</code></pre>
 <h3><a href="#example-8">Example</a></h3>
 <p>In our example application, the <code>SummariesController</code> generates summaries from a <code>Survey</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/controllers/summaries_controller.rb</span>
-<span class="ot">@summaries</span> = <span class="ot">@survey</span>.summaries_using(summarizer)</code></pre>
+<span class="ot">@summaries</span> = <span class="ot">@survey</span>.summarize(summarizer)</code></pre>
 <p>The <code>summarize</code> method on <code>Survey</code> asks each <code>Question</code> to <code>summarize</code> itself using a <code>summarizer</code>:</p>
 <pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># app/models/survey.rb</span>
-<span class="kw">def</span> summaries_using(summarizer)
+<span class="kw">def</span> summarize(summarizer)
   questions.map <span class="kw">do</span> |question|
     question.summarize(summarizer)
   <span class="kw">end</span>
