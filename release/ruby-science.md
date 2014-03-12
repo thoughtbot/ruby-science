@@ -862,7 +862,7 @@ In our example application, the `SummariesController` generates summaries from a
 
 ```ruby
 # app/controllers/summaries_controller.rb
-@summaries = @survey.summaries_using(summarizer)
+@summaries = @survey.summarize(summarizer)
 ```
 
 The `summarize` method on `Survey` asks each `Question` to `summarize` itself
@@ -870,7 +870,7 @@ using a `summarizer`:
 
 ```ruby
 # app/models/survey.rb
-def summaries_using(summarizer)
+def summarize(summarizer)
   questions.map do |question|
     question.summarize(summarizer)
   end
