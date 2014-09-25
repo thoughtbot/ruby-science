@@ -15,7 +15,7 @@ change. Repeat this process until the change you want is easy to introduce.
 Each change should be easy to introduce. If it's not, refactor.
 
 When you are making your changes, you will be in a feature branch. Try to make
-your change without refactoring. If your meet resistance, make a "work in
+your change without refactoring. If you meet resistance, make a "work in
 progress" commit, check out master and create a new refactoring branch:
 
     git commit -m 'wip: new feature'
