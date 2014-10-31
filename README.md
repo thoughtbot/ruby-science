@@ -16,11 +16,10 @@ and other assets are properly loaded.
 
 ## Questions?
 
-If you have a customer support question, please email <learn@thoughtbot.com>.
+If you have a customer support question, please email <books@thoughtbot.com>.
 
-If you are a [Learn Prime](https://learn.thoughtbot.com/products/14-prime)
-subscriber, visit <http://forum.thoughtbot.com> for discussion and technical
-questions.
+If you are an [Upcase](https://upcase.com) subscriber, visit
+<http://forum.upcase.com> for discussion and technical questions.
 
 ## Instructions for authors
 
