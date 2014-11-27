@@ -1,6 +1,6 @@
 class SummariesController < ApplicationController
   def show
-    @survey = Survey.find(params[:survey_id])
+    @survey = Hello.find(params[:survey_id])
     @summaries = @survey.summaries_using(decorated_summarizer)
   end
 
