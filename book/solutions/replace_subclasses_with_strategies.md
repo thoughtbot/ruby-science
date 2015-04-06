@@ -485,7 +485,7 @@ Our new, composition-based model is improved in a number of ways:
   easier to test&mdash;and less likely that concerns leak between the two.
 * Shared behavior happens via composition, making it less likely that the base
   class will become a [large class](#large-class).
-* It's easy to add new state without effecting other types, because
+* It's easy to add new state without affecting other types, because
   strategy-specific state is stored on a table for that strategy.
 
 You can view the entire refactor with all steps combined in the [example
