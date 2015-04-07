@@ -58,7 +58,7 @@ let's extract a method for determining the summarizer class:
 
 ` app/controllers/summaries_controller.rb@c5a44aaa1:9,24
 
-The extracted class performs exactly the same logic as `constantize`, so
+The extracted method performs exactly the same logic as `constantize`, so
 let's use it:
 
 ` app/controllers/summaries_controller.rb@2c632f078:9,15
