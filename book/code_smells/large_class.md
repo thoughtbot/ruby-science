@@ -19,7 +19,7 @@ change](#divergent-change).
 This class has a high flog score, has a large number of methods, more private
 than public methods and has multiple responsibilities:
 
-` app/models/question.rb@2f6e005
+<<(app/models/question.rb@2f6e005)
 
 ### Solutions
 

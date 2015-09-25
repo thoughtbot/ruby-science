@@ -24,7 +24,7 @@ Using a class as a factory allows us to remove most explicit factory objects.
 This controller uses one of several possible summarizer strategies to generate a
 summary of answers to the questions on a survey:
 
-` app/controllers/summaries_controller.rb@ac471507
+<<(app/controllers/summaries_controller.rb)
 
 The `summarizer` method is a Factory Method. It returns a summarizer object
 based on `params[:id]`.
