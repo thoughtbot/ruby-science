@@ -2535,7 +2535,7 @@ And use them directly from the view:
     as: :text,
     input_html: { value: @survey_inviter.message }
   ) %>
-  <% if @invlid_message %>
+  <% if @invalid_message %>
     <div class="error">Please provide a message</div>
   <% end %>
   <%= f.input(
