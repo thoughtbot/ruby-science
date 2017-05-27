@@ -29,9 +29,11 @@ improve it by grouping the related parameters into an object:
 By introducing the new parameter object `recipient` we can naturally group the
 attributes `first_name`, `last_name`, and `email` together.
 
+` app/models/recipient.rb
+
 ` app/mailers/mailer.rb@28f3651
 
-This also gives us the opportunity to create a new `full_name` method on the `recipient`
+Notice that we've also created a new `full_name` method on the `recipient`
 object to encapsulate behavior between the `first_name` and `last_name`.
 
 ` app/views/mailer/completion_notification.html.erb@28f3651
