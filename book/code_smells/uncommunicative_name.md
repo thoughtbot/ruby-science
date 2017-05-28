@@ -19,8 +19,8 @@ In our example application, the `SummariesController` generates summaries from a
 
 ` app/controllers/summaries_controller.rb@ac47150:4
 
-The `summarize` method on `Survey` asks each `Question` to `summarize` itself
-using a `summarizer`:
+The `summaries_using` method on `Survey` asks each `Question` to `summarize`
+itself using a `summarizer`:
 
 ` app/models/survey.rb@ac47150:10,14
 
