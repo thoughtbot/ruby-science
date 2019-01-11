@@ -14,13 +14,6 @@ _Ruby Science_ is currently available in the following formats:
 For the HTML version, clone the repository and look at the HTML to ensure that images
 and other assets are properly loaded.
 
-## Questions?
-
-If you have a customer support question, please email <books@thoughtbot.com>.
-
-If you are an [Upcase](https://upcase.com) subscriber, visit
-<http://forum.upcase.com> for discussion and technical questions.
-
 ## Instructions for authors
 
 #### Note: Readers of the book don't need to worry about the instructions below.
