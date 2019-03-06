@@ -52,7 +52,7 @@ implementations.
 Let's replace this case statement with polymorphism by introducing a subclass
 for each type of question.
 
-Our `Question` class is a subclass of `ActiveRecord::Base`. If we want to create
+Our `Question` class is a subclass of `ApplicationRecord`. If we want to create
 subclasses of `Question`, we have to tell ActiveRecord which subclass to
 instantiate when it fetches records from the `questions` table. The mechanism
 Rails uses for storing instances of different classes in the same table is
@@ -203,7 +203,7 @@ Rails has the ability to render views polymorphically. A line like this&mdash;
 ````
 
 &mdash;will ask `@question` which view should be rendered by calling `to_partial_path`.
-As subclasses of `ActiveRecord::Base`, our `Question` subclasses will return a
+As subclasses of `ApplicationRecord`, our `Question` subclasses will return a
 path based on their class name. This means that the above line will attempt to
 render `open_questions/_open_question.html.erb` for an open question, and so on.
 

@@ -13,7 +13,7 @@ composes the strategy classes.
 This allows for smaller interfaces, stricter separation of concerns and easier
 testing. It also makes it possible to swap out part of the structure, which, in an inheritance-based model, would require converting to a new type.
 
-When applying this refactoring to an `ActiveRecord::Base` subclass,
+When applying this refactoring to an `ApplicationRecord` subclass,
 [STI](#single-table-inheritance-sti) is removed, often in favor of a polymorphic
 association.
 
@@ -209,8 +209,8 @@ though only associations and validations live in our subclasses, and we could
 easily move those to our strategy. However, there are two major issues.
 
 First, you can't move the association to a strategy class without making that
-strategy an `ActiveRecord::Base` subclass. Associations are deeply coupled with
-`ActiveRecord::Base` and they simply won't work in other situations.
+strategy an `ApplicationRecord` subclass. Associations are deeply coupled with
+`ApplicationRecord` and they simply won't work in other situations.
 
 Also, one of our submittable strategies has state specific to that strategy.
 Scale questions have a minimum and maximum. These fields are only used by scale
@@ -219,14 +219,14 @@ without creating a table for scale questions.
 
 There are two obvious ways to proceed:
 
-* Continue without making the strategies `ActiveRecord::Base` subclasses. Keep
+* Continue without making the strategies `ApplicationRecord` subclasses. Keep
   the association for multiple choice questions and the minimum and maximum for
   scale questions on the `Question` class, and use that data from the strategy.
   This will result in [divergent change](#divergent-change) and probably a
   [large class](#large-class) on `Question`, as every change in the data
   required for new or existing strategies will require new behavior on
   `Question`.
-* Convert the strategies to `ActiveRecord::Base` subclasses. Move the
+* Convert the strategies to `ApplicationRecord` subclasses. Move the
   association and state specific to strategies to those classes. This involves
   creating a table for each strategy and adding a polymorphic association to
   `Question.` This will avoid polluting the `Question` class with future
@@ -248,9 +248,9 @@ In this example, we'll move forward with the second approach, because:
 #### Convert Strategies to ActiveRecord Subclasses
 
 Continuing with our refactor, we'll change each of our strategy classes to
-inherit from `ActiveRecord::Base`.
+inherit from `ApplicationRecord`.
 
-First, simply declare that the class is a child of `ActiveRecord::Base`:
+First, simply declare that the class is a child of `ApplicationRecord`:
 
 ` app/models/open_submittable.rb@e4809cd4:1
 
@@ -260,7 +260,7 @@ it:
 ` db/migrate/20130131205432_create_open_submittables.rb@e4809cd4
 
 Our strategies currently accept the question as a parameter to `initialize` and
-assign it as an instance variable. In an `ActiveRecord::Base` subclass, we don't
+assign it as an instance variable. In an `ApplicationRecord` subclass, we don't
 control `initialize`, so let's change `question` from an instance variable to an
 association and pass a hash:
 
