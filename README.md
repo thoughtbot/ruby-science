@@ -1,7 +1,8 @@
 ---
 title: Ruby Science
 ---
-Ruby on Rails is almost a decade old, and its community has developed a number
+
+Ruby on Rails is more than 15 years old and its community has developed a number
 of principles for building applications that are fast, fun and easy to change: 
 Don't repeat yourself, keep your views dumb, keep your controllers skinny, and
 keep business logic in your models. These principles carry most applications to
