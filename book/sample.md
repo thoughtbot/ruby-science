@@ -19,7 +19,7 @@ As a purchaser of the book, you also get access to:
 * Access to GitHub Issues, where you can provide feedback and tell us what you'd like to see.
 * And you can ask us your toughest Rails questions!
 
-# Contact Us
+### Contact Us
 
 If you have any questions, or just want to get in touch, drop us a line at
 [learn@thoughtbot.com](mailto:learn@thoughtbot.com).
@@ -28,7 +28,7 @@ If you have any questions, or just want to get in touch, drop us a line at
 
 \mainmatter
 
-\part{Code Smells}
+# Code Smells
 
 <<[code_smells/long_method.md]
 
@@ -36,7 +36,7 @@ If you have any questions, or just want to get in touch, drop us a line at
 
 <<[code_smells/shotgun_surgery.md]
 
-\part{Solutions}
+# Solutions
 
 <<[solutions/replace_conditional_with_null_object.md]
 

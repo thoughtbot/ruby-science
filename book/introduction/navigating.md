@@ -1,6 +1,7 @@
 ## How to Read This Book
 
-This book contains three catalogs: smells, solutions and principles.
+This book contains three catalogs: [smells](#code-smells),
+[solutions](#solutions) and [principles](#principles).
 
 Start by looking up a smell that sounds familiar. Each chapter on smells explains
 the potential problems each smell may reveal and references possible

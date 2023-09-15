@@ -5,23 +5,19 @@
 
 <<[introduction/introduction.md]
 
-<<[introduction/code_review.md]
+<<[introduction/navigating.md]
 
-<<[introduction/smells.md]
+<<[introduction/code_review.md]
 
 <<[introduction/resistance.md]
 
 <<[introduction/bugs_and_churn.md]
 
-<<[introduction/tools_to_find_smells.md]
-
-<<[introduction/navigating.md]
-
 <<[introduction/example_application.md]
 
 \mainmatter
 
-# Code Smells
+<<[code_smells/smells_intro.md]
 
 <<[code_smells/long_method.md]
 
@@ -49,7 +45,7 @@
 
 <<[code_smells/callback.md]
 
-# Solutions
+<<[solutions/solutions_intro.md]
 
 <<[solutions/replace_conditional_with_polymorphism.md]
 
@@ -91,7 +87,7 @@
 
 <<[solutions/use_convention_over_configuration.md]
 
-# Principles
+<<[principles/principles_intro.md]
 
 <<[principles/dry.md]
 
