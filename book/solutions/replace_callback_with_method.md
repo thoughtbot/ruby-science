@@ -1,4 +1,4 @@
-# Replace Callback with Method
+## Replace Callback with Method
 
 If your models are hard to use and change because their persistence logic is
 coupled with business logic, one way to loosen things up is by replacing

@@ -1,4 +1,4 @@
-# Single Table Inheritance (STI)
+## Single Table Inheritance (STI)
 
 Using subclasses is a common method of achieving reuse in object-oriented
 software. Rails provides a mechanism for storing instances of different classes

@@ -1,4 +1,4 @@
-# Extract Validator
+## Extract Validator
 
 Extract Validator is a form of [extract class](#extract-class) that is used to remove complex validation details
 from `ActiveRecord` models. This technique also prevents duplication of validation

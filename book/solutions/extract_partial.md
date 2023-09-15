@@ -1,4 +1,4 @@
-# Extract Partial
+## Extract Partial
 
 Extracting a partial is a technique used for removing complex or duplicated view
 code from your application. This is the equivalent of using [long method](#long-method) and

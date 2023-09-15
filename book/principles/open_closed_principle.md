@@ -1,4 +1,4 @@
-# Open/Closed Principle
+## Open/Closed Principle
 
 The Open/Closed Principle states that:
 
@@ -20,7 +20,7 @@ Making classes extensible in this way has a number of benefits:
   any classes that depend on the old behavior or interface. Allowing per-use
   extensions to a class eliminates this domino effect.
 
-## Strategies
+### Strategies
 
 It may sound appealing to never need to change existing classes again, but achieving
 this is difficult in practice. Once you've identified an area that keeps
@@ -116,7 +116,7 @@ And we can use dependency injection to substitute it:
 
 ` app/models/survey_inviter.rb@c98ed5e0:27,31
 
-## Everything is Open
+### Everything is Open
 
 As you've followed along with these strategies, you've probably noticed that
 although we've found creative ways to avoid modifying `Invitation`, we've had to
@@ -139,7 +139,7 @@ easy to apply as you need to make it, you're making the next change easier.
 
 \clearpage
 
-## Monkey Patching
+### Monkey Patching
 
 As a Ruby developer, you probably know that one quick way to extend a class
 without changing its source code is to use a monkey patch:

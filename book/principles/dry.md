@@ -1,4 +1,4 @@
-# DRY
+## DRY
 
 The DRY principle&mdash;short for "don't repeat yourself"&mdash;comes from [The
 Pragmatic Programmer](http://pragprog.com/book/tpp/the-pragmatic-programmer).
@@ -21,7 +21,7 @@ more likely that a bug remains in one or more incarnations after being fixed.
 Duplication leads to frustration and paranoia. Rampant duplication is a common
 reason that developers reach for a grand rewrite.
 
-## Duplicated Knowledge vs. Duplicated Text
+### Duplicated Knowledge vs. Duplicated Text
 
 It's important to understand that this principle states that _knowledge_ should
 not be repeated; it does not state that _text_ should never be repeated.

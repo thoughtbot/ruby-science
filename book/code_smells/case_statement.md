@@ -1,5 +1,5 @@
 
-# Case Statement
+## Case Statement
 
 Case Statements are a sign that a method contains too much knowledge.
 
@@ -15,7 +15,7 @@ Actual `case` statements are extremely easy to find. Just grep your codebase for
 "case." However, you should also be on the lookout for `case`'s sinister cousin,
 the repetitive `if-elsif`.
 
-## Type Codes
+#### Type Codes
 
 Some applications contain type codes&mdash;fields that store type information about
 objects. These fields are easy to add and seem innocent, but result in code

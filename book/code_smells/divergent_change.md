@@ -1,4 +1,4 @@
-# Divergent Change
+## Divergent Change
 
 A class suffers from Divergent Change when it changes for multiple reasons.
 

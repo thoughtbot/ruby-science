@@ -1,4 +1,4 @@
-# Rename Method
+## Rename Method
 
 Renaming a method allows developers to improve the language of the domain as
 their understanding naturally evolves during development.

@@ -1,4 +1,4 @@
-# Mixin
+## Mixin
 
 Inheritance is a common method of reuse in object-oriented software. Ruby
 supports single inheritance using subclasses and multiple inheritance using

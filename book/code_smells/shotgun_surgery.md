@@ -1,4 +1,4 @@
-# Shotgun Surgery
+## Shotgun Surgery
 
 Shotgun Surgery is usually a more obvious symptom that reveals another smell.
 

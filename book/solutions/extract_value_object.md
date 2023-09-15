@@ -1,4 +1,4 @@
-# Extract Value Object
+## Extract Value Object
 
 Value Objects are objects that represent a value (such as a dollar amount)
 rather than a unique, identifiable entity (such as a particular user).

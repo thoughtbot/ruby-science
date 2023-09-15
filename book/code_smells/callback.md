@@ -1,4 +1,4 @@
-# Callback
+## Callback
 
 Callbacks are a convenient way to decorate the default `save` method with custom
 persistence logic, without the drudgery of template methods, overriding, or

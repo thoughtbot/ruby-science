@@ -1,4 +1,4 @@
-# Comments
+## Comments
 
 Comments can be used appropriately to introduce classes and provide
 documentation. But used incorrectly, they mask readability and process problems

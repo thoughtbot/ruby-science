@@ -1,4 +1,4 @@
-# Large Class
+## Large Class
 
 Most Rails applications suffer from several Large Classes. Large classes are
 difficult to understand and make it harder to change or reuse behavior.
@@ -26,7 +26,7 @@ than public methods and has multiple responsibilities:
 * [Move method](#move-method) to move methods to another class if an
   existing class could better handle the responsibility.
 * [Extract class](#extract-class) if the class has multiple responsibilities.
-* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism) 
+* [Replace conditional with polymorphism](#replace-conditional-with-polymorphism)
 if the class contains private methods related to conditional branches.
 * [Extract value object](#extract-value-object) if the class contains
   private query methods.
@@ -65,7 +65,7 @@ You can use flog to analyze classes as you write and modify them:
          3.4: Question#steps                   app/models/question.rb:28
          2.2: Question#scale?                  app/models/question.rb:34
 
-## Private Methods
+#### Private Methods
 
 In general, public methods are a greater liability than private methods. This is
 because it's harder to tell where public methods are used, so you need to take
@@ -95,7 +95,7 @@ However, keep an eye on your private interface as well. A maze of private
 dependencies is a good sign that your public interface is not cohesive and can
 be split into two or more classes.
 
-## God Class
+#### God Class
 
 A particular specimen of large class affects most Rails applications: the God
 class. A God class is any class that seems to know everything about an

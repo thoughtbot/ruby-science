@@ -1,4 +1,4 @@
-# Duplicated Code
+## Duplicated Code
 
 One of the first principles we're taught as developers: [Don't Repeat
 Yourself](#dry).

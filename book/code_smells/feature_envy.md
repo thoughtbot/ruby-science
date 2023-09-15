@@ -1,4 +1,4 @@
-# Feature Envy
+## Feature Envy
 
 Feature envy reveals a method (or method-to-be) that would work better on a
 different class.

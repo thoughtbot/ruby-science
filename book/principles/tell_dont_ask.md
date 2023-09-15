@@ -1,4 +1,4 @@
-# Tell, Don't Ask
+## Tell, Don't Ask
 
 The Tell, Don't Ask principle advises developers to tell objects what they want
 done, rather than querying objects and making decisions for them.
@@ -75,7 +75,7 @@ within `User`.
 Public methods are a liability. Before they can be changed, moved, renamed or
 removed, you will need to find every consumer class and update each one accordingly.
 
-## Tension with Model&mdash;View&mdash;Controller
+### Tension with Model&mdash;View&mdash;Controller
 
 This principle can be difficult to follow while also following
 Model&mdash;View&mdash;Controller (MVC).

@@ -1,4 +1,4 @@
-# Introduce Explaining Variable
+## Introduce Explaining Variable
 
 This refactoring allows you to break up a complex, hard-to-read statement by
 placing part of it in a local variable. The only difficult part is finding a

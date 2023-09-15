@@ -1,4 +1,4 @@
-# Long Parameter List
+## Long Parameter List
 
 Ruby supports positional method arguments which can lead to Long Parameter
 Lists.

@@ -1,4 +1,4 @@
-# Law of Demeter
+## Law of Demeter
 
 The Law of Demeter was developed at Northeastern University. It's named after
 the Demeter Project, which was named after Demeter, the Greek goddess of
@@ -20,7 +20,7 @@ dependencies. The law restricts how deeply a method can reach into another
 object's dependency graph, preventing any one method from becoming tightly
 coupled to another object's structure.
 
-## Multiple Dots
+### Multiple Dots
 
 The most obvious violation of the Law of Demeter is "multiple dots," meaning a
 chain of methods being invoked on each others' return values.
@@ -72,7 +72,7 @@ class to take a different object. For example, if you need to delegate numerous
 `User` methods to `Account`, it's possible that the code referencing `User`
 should actually reference an instance of `Account` instead.
 
-## Multiple Assignments
+### Multiple Assignments
 
 Law of Demeter violations are often hidden behind multiple assignments.
 
@@ -90,7 +90,7 @@ The above `discounted_plan_price` method no longer has multiple dots on one
 line, but it still violates the Law of Demeter, because `plan` isn't a
 parameter, instantiated object or direct subcomponent.
 
-## The Spirit of the Law
+### The Spirit of the Law
 
 Although the letter of the Law of Demeter is rigid, its message is broader. The
 fundamental goal is to avoid over-entangling a method with another object's dependencies.
@@ -108,7 +108,7 @@ misguided fixes to Law of Demeter violations:
   `User#account_plan_price`.
 * Avoid assigning to instance variables to work around violations.
 
-## Objects vs. Types
+### Objects vs. Types
 
 The version of the Law quoted at the beginning of this chapter is the "object
 formulation," from the original paper. The first formulation was expressed in
@@ -144,7 +144,7 @@ collection_name.singularize.classify.constantize
 users.active.without_posts.signed_up_this_week
 ```
 
-## Duplication
+### Duplication
 
 The Law of Demeter is related to the [DRY](#dry) principle, in that Law of
 Demeter violations frequently duplicate knowledge of dependencies.

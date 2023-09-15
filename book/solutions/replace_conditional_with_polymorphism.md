@@ -1,4 +1,4 @@
-# Replace Conditional with Polymorphism
+## Replace Conditional with Polymorphism
 
 Conditional code clutters methods, makes extraction and reuse harder and can
 lead to leaky concerns. Object-oriented languages like Ruby allow developers to
@@ -47,7 +47,7 @@ demonstrate a solution that uses subclasses to replace type codes, which is
 one of the simplest solutions to implement. However, make sure to see the [Drawbacks](#drawbacks) section in this chapter for alternative
 implementations.
 
-## Replace Type Code with Subclasses
+### Replace Type Code with Subclasses
 
 Let's replace this case statement with polymorphism by introducing a subclass
 for each type of question.
@@ -60,7 +60,7 @@ called [single table inheritance](#single-table-inheritance-sti). Rails will
 take care of most of the details, but there are a few extra steps we need to
 take when refactoring to single table inheritance.
 
-## Single Table Inheritance (STI)
+### Single Table Inheritance (STI)
 
 The first step to convert to [STI](#single-table-inheritance-sti) is generally
 to create a new subclass for each type. However, the existing type codes are
@@ -183,7 +183,7 @@ The new subclass will implement `summary` and the `Question` class doesn't need
 to change. The summary code for each type now lives with its type, so no one
 class is cluttered up with the details.
 
-## Polymorphic Partials
+### Polymorphic Partials
 
 Applications rarely check the type code in just one place. Running grep on our
 example application reveals several more places. Most interestingly, the views

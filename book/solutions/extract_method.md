@@ -1,4 +1,4 @@
-# Extract Method
+## Extract Method
 
 The simplest refactoring to perform is extract method. To extract a method:
 
@@ -87,7 +87,7 @@ question. Let's extract another method.
 
 \clearpage
 
-## Replace Temp with Query
+### Replace Temp with Query
 
 One simple way to extract methods is by replacing local variables. Let's pull
 `question_params` into its own method:

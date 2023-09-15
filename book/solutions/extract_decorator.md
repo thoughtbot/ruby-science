@@ -1,4 +1,4 @@
-# Extract Decorator
+## Extract Decorator
 
 Decorators can be used to place new concerns on top of existing objects without
 modifying existing classes. They combine best with small classes containing few

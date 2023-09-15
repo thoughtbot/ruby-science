@@ -1,4 +1,4 @@
-# Composition Over Inheritance
+## Composition Over Inheritance
 
 In class-based object-oriented systems, composition and inheritance are the two
 primary methods of reusing and assembling components. Composition Over
@@ -48,7 +48,7 @@ Note that there is now a clear boundary between the common behavior in
 `MessageInviter`. The inviter classes access reusable behavior by invoking
 public methods like `body` on the shared class.
 
-## Dynamic vs. Static
+### Dynamic vs. Static
 
 Although the two implementations are fairly similar, one difference between them
 is that, in the inheritance model, the components are assembled statically. The composition model, on the other hand, assembles the components dynamically.
@@ -71,7 +71,7 @@ On the other hand, everything in a composition model is dynamic:
 * You can easily inject composed dependencies.
 * Composed objects aren't abstract, so you can use their methods anywhere.
 
-## Dynamic Inheritance
+### Dynamic Inheritance
 
 There are very few rules in Ruby, so many of the restrictions that apply to
 inheritance in other languages can be worked around in Ruby. For example:
@@ -89,7 +89,7 @@ it is with classes, and doing too much dynamic type definition will make the
 application harder to understand, by diluting the type system. After all, if none
 of the classes are ever fully formed, what does a class represent?
 
-## The Trouble with Hierarchies
+### The Trouble with Hierarchies
 
 Using subclasses introduces a subtle problem into your domain model: It assumes
 that your models follow a hierarchy; that is, it assumes that your types fall
@@ -108,7 +108,7 @@ using a decorator to add admin functionality to the inviter. Once you build
 objects with a reasonable interface, you can combine them endlessly with minimal
 modification to the existing class structure.
 
-## Mixins
+### Mixins
 
 Mixins are Ruby's answer to multiple inheritance.
 
@@ -126,7 +126,7 @@ dynamically in this way dilutes the meaning of the word "type," making it
 harder to understand what an object is. Additionally, using runtime `extend` can
 lead to performance issues in some Ruby implementations.
 
-## Single Table Inheritance
+### Single Table Inheritance
 
 Rails provides a way to persist an inheritance hierarchy, known as [Single Table
 Inheritance](#single-table-inheritance-sti), often abbreviated as STI. Using

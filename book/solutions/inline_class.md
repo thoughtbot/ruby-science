@@ -1,4 +1,4 @@
-# Inline Class
+## Inline Class
 
 As an application evolves, new classes are introduced as new features are added
 and existing code is refactored. [Extracting classes](#extract-class) will help keep existing classes maintainable and make it easier to add new features.

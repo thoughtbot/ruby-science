@@ -1,4 +1,4 @@
-# Uncommunicative Name
+## Uncommunicative Name
 
 Software is run by computers&mdash;but written and read by humans. Names provide
 important information to developers who are trying to understand a piece of

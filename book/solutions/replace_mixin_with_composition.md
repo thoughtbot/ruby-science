@@ -1,4 +1,4 @@
-# Replace Mixin with Composition
+## Replace Mixin with Composition
 
 Mixins are one of two mechanisms for inheritance in Ruby. This refactoring
 provides safe steps for cleanly removing mixins that have become troublesome.

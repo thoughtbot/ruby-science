@@ -1,4 +1,4 @@
-# Extract Class
+## Extract Class
 
 Dividing responsibilities into classes is the primary way to manage complexity
 in object-oriented software. [Extract class](#extract-class) is the primary mechanism for

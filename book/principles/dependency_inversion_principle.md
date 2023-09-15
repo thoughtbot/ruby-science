@@ -1,4 +1,4 @@
-# Dependency Inversion Principle
+## Dependency Inversion Principle
 
 The Dependency Inversion Principle, sometimes abbreviated as "DIP," was created
 by Uncle Bob Martin.
@@ -13,7 +13,7 @@ The principle states:
 
 This is a very technical way of proposing that developers invert control.
 
-## Inversion of Control
+### Inversion of Control
 
 Inversion of control is a technique for keeping software flexible. It combines
 best with small classes with [single
@@ -72,7 +72,7 @@ condition:
 We no longer build `UnansweredQuestionHider` when a user isn't signed in, so we
 don't need to check for a user.
 
-## Where To Decide Dependencies
+### Where To Decide Dependencies
 
 While following the previous example, you probably noticed that we didn't
 eliminate the `UnansweredQuestionHider` dependency; we just moved it around.

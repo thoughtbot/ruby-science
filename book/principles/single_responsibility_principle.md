@@ -1,4 +1,4 @@
-# Single Responsibility Principle
+## Single Responsibility Principle
 
 The Single Responsibility Principle, often abbreviated as "SRP," was introduced
 by Uncle Bob Martin, and states:
@@ -88,7 +88,7 @@ ActiveRecord in case the new database turns against you.
 The less confident you are about a decision, the more you should isolate that
 decision from the rest of your application.
 
-## Cohesion
+### Cohesion
 
 One of the primary goals of SRP is to promote cohesive classes. The more closely
 related the methods and properties are to each other, the more cohesive a class
@@ -105,7 +105,7 @@ responsibility. If you think noticeably higher cohesion will be the result,
 charge ahead. If you think it will simply be a way to spend an afternoon, make a
 note of it and move on.
 
-## Responsibility Magnets
+### Responsibility Magnets
 
 Every application develops a few black holes that like to suck up as much
 responsibility as possible, slowly turning into [God classes](#god-class).
@@ -122,7 +122,7 @@ commits that show developers attempting to pull functionality out of this class,
 chances are good that it's a responsibility over-eater. Don't feed the problem;
 add a new class instead.
 
-## Tension with Tell, Don't Ask
+### Tension with Tell, Don't Ask
 
 Extracting reasons to change can make it harder to follow [tell, don't
 ask](#tell-dont-ask).

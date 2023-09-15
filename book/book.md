@@ -3,8 +3,6 @@
 
 \clearpage
 
-# Introduction
-
 <<[introduction/introduction.md]
 
 <<[introduction/code_review.md]
@@ -22,7 +20,8 @@
 <<[introduction/example_application.md]
 
 \mainmatter
-\part{Code Smells}
+
+# Code Smells
 
 <<[code_smells/long_method.md]
 
@@ -50,7 +49,7 @@
 
 <<[code_smells/callback.md]
 
-\part{Solutions}
+# Solutions
 
 <<[solutions/replace_conditional_with_polymorphism.md]
 
@@ -92,7 +91,7 @@
 
 <<[solutions/use_convention_over_configuration.md]
 
-\part{Principles}
+# Principles
 
 <<[principles/dry.md]
 

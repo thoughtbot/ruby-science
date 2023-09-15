@@ -1,4 +1,4 @@
-# Long Method
+## Long Method
 
 The most common smell in Rails applications is the Long Method.
 

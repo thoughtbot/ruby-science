@@ -1,4 +1,4 @@
-# Replace Subclasses with Strategies
+## Replace Subclasses with Strategies
 
 Subclasses are a common method of achieving reuse and polymorphism, but
 inheritance has its drawbacks. See [composition over

@@ -1,4 +1,4 @@
-# Introduce Form Object
+## Introduce Form Object
 
 This is a specialized type of [extract class](#extract-class) that is used to remove business
 logic from controllers when processing data outside of an ActiveRecord model.

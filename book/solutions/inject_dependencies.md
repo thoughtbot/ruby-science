@@ -1,4 +1,4 @@
-# Inject Dependencies
+## Inject Dependencies
 
 Injecting dependencies allows you to keep dependency resolutions close to the
 logic that affects them. It can prevent sub-dependencies from leaking throughout

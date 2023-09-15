@@ -1,5 +1,3 @@
-# Introduction
-
 <<[introduction/introduction.md]
 
 The full book contains three catalogs: smells, solutions and principles. This
