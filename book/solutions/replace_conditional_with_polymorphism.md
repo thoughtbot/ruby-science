@@ -153,7 +153,7 @@ to the appropriate class. First, let's move the method
 class MultipleChoiceQuestion < Question
   def summary
     total = answers.count
-    counts = answers.group(:text).order('COUNT(*) DESC').count
+    counts = answers.group(:text).order(Arel.sql('COUNT(*) DESC')).count
     percents = counts.map do |text, count|
       percent = (100.0 * count / total).round
       "#{percent}% #{text}"

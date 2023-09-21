@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe EmailValidator, '#validate_each' do
+describe EmailAddressValidator, '#validate_each' do
   it 'adds errors when given invalid email' do
     record = build_record('invalid_email')
-    EmailValidator.new(attributes: :email).validate(record)
+    EmailAddressValidator.new(attributes: :email).validate(record)
 
     record.errors.full_messages.should eq [
       'Email invalid_email is not a valid email'
@@ -12,7 +12,7 @@ describe EmailValidator, '#validate_each' do
 
   it 'does not add errors when given valid email' do
     record = build_record('valid@example.com')
-    EmailValidator.new(attributes: :email).validate(record)
+    EmailAddressValidator.new(attributes: :email).validate(record)
 
     record.errors.should be_empty
   end

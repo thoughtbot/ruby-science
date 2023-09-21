@@ -1,5 +1,6 @@
 class InvitationMessage < AbstractController::Base
   include AbstractController::Rendering
+  include ActionView::Rendering
   include Rails.application.routes.url_helpers
 
   self.view_paths = 'app/views'

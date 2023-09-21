@@ -1,5 +1,5 @@
 class SurveyMaker
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   def open_question(title)
     create :open_question, title: title, survey: survey

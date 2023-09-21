@@ -34,7 +34,9 @@ class Question < ActiveRecord::Base
 
   def build_submittable(type, attributes)
     submittable_class = type.sub('Question', 'Submittable').constantize
-    self.submittable = submittable_class.new(attributes.merge(question: self))
+    self.submittable = submittable_class.new(attributes).tap do |submittable|
+      submittable.question = self
+    end
   end
 
   def summary_using(summarizer)

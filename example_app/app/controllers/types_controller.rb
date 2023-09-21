@@ -21,7 +21,11 @@ class TypesController < ApplicationController
   private
 
   def submittable_attributes
-    params[:question][:submittable_attributes] || {}
+    params.require(:question).permit(
+      submittable_attributes: [
+        :minimum, :maximum, :options_attributes
+      ]
+    ).fetch(:submittable_attributes, {})
   end
 
   def type

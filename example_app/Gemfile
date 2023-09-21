@@ -1,29 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+ruby '3.2.2'
+
+gem 'rails', '7.0.8'
 
 gem 'clearance'
-gem 'jquery-rails'
 gem 'simple_form'
-gem 'strong_parameters'
 gem 'sqlite3'
-gem 'thin'
-
-group :assets do
-  gem 'coffee-rails', '~> 3.2'
-  gem 'sass-rails', '~> 3.2'
-  gem 'uglifier', '>= 1.0'
-end
+gem 'sprockets-rails'
+gem 'puma'
+gem 'importmap-rails'
+gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'bourne'
+  gem 'bourne', '1.3.0'
   gem 'foreman'
   gem 'rspec-rails'
+  gem 'rails-dom-testing'
+  gem 'listen'
 end
 
 group :test do
   gem 'capybara'
   gem 'email_spec'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'shoulda-matchers'
 end

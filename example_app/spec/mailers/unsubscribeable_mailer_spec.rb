@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UnsubscribeableMailer, '#deliver' do
+describe UnsubscribeableMailer, '#deliver_now' do
   it 'sends email notifications to new users' do
     invitation = create(:invitation)
 
@@ -19,6 +19,6 @@ describe UnsubscribeableMailer, '#deliver' do
   end
 
   def deliver_invitation(invitation, body)
-    UnsubscribeableMailer.invitation_notification(invitation, body).deliver
+    UnsubscribeableMailer.invitation_notification(invitation, body).deliver_now
   end
 end

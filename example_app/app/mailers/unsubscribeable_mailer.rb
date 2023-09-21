@@ -14,7 +14,7 @@ class UnsubscribeableMailer
   end
 
   class NullMessage
-    def deliver
+    def deliver_now
     end
   end
 end

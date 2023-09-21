@@ -1,5 +1,4 @@
 class Invitation < ActiveRecord::Base
-  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   STATUSES = %w(pending accepted)
 
   belongs_to :sender, class_name: 'User'
@@ -7,7 +6,7 @@ class Invitation < ActiveRecord::Base
 
   before_create :set_token
 
-  validates :recipient_email, presence: true, format: EMAIL_REGEX
+  validates :recipient_email, presence: true, email_address: true
   validates :status, inclusion: { in: STATUSES }
 
   def to_param
@@ -16,7 +15,7 @@ class Invitation < ActiveRecord::Base
 
   def deliver(mailer)
     body = InvitationMessage.new(self).body
-    mailer.invitation_notification(self, body).deliver
+    mailer.invitation_notification(self, body).deliver_now
   end
 
   private

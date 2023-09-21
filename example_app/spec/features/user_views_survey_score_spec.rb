@@ -22,7 +22,7 @@ feature 'user views score for answering survey' do
   def answer_survey(survey)
     sign_in
     taker = SurveyTaker.new(survey)
-    taker.complete 'Y', 6
+    taker.complete 'Y', '6'
   end
 
   def have_survey_score

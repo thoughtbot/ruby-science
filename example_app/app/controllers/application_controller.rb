@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Clearance::Authentication
+  include Clearance::Controller
   protect_from_forgery
-  before_filter :authorize
+  before_action :require_login
 end

@@ -1,5 +1,5 @@
 class AnswerCreator
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   def initialize(survey, options = {})
     @survey = survey

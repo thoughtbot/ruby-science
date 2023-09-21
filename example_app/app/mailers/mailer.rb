@@ -13,8 +13,9 @@ class Mailer < ActionMailer::Base
   def invitation_notification(invitation, body)
     mail(
       to: invitation.recipient_email,
-      subject: 'You have been invited to take an online survey',
-      body: body
-    )
+      subject: 'You have been invited to take an online survey'
+    ) do |format|
+      format.html { render html: body }
+    end
   end
 end

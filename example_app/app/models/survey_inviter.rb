@@ -9,8 +9,8 @@ class SurveyInviter
 
   validates_with EnumerableValidator,
     attributes: [:recipients],
-    unless: 'recipients.nil?',
-    validator: EmailValidator
+    if: :has_recipients,
+    validator: EmailAddressValidator
 
   def recipients=(recipients)
     @recipients = RecipientList.new(recipients)
@@ -23,6 +23,10 @@ class SurveyInviter
   end
 
   private
+
+  def has_recipients
+    recipients.present?
+  end
 
   def deliver_invitations
     create_invitations.each do |invitation|

@@ -6,7 +6,7 @@ describe EnumerableValidator, '#validate_each' do
 
       EnumerableValidator.new(
         attributes: :emails,
-        validator: EmailValidator
+        validator: EmailAddressValidator
       ).validate(record)
 
       record.errors.full_messages.should eq [

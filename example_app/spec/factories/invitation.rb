@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :invitation do
     sender
     recipient_email { generate(:email) }

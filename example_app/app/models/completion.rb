@@ -27,6 +27,6 @@ class Completion < ActiveRecord::Base
   private
 
   def completion_notification
-    Mailer.completion_notification(user).deliver
+    Mailer.completion_notification(user).deliver_now
   end
 end

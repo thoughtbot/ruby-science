@@ -46,7 +46,7 @@ end
 
 describe Completion, '#save' do
   it 'delivers a completion notification' do
-    Mailer.stubs(completion_notification: stub(deliver: true))
+    Mailer.stubs(completion_notification: stub(deliver_now: true))
     user = create(:user)
     completion = create(:completion, user: user)
 

@@ -40,13 +40,15 @@ end
 
 describe MultipleChoiceSubmittable, '#score' do
   it 'returns the score for the option with the given text' do
-    question = build_stubbed(:multiple_choice_question)
-    submittable = MultipleChoiceSubmittable.new(question: question)
-    submittable.options.target.stubs(score: 2)
+    question = create(:multiple_choice_question)
+    submittable = create(
+      :multiple_choice_submittable,
+      question: question
+    )
+    create(:option, text: 'two', score: 2, question_id: submittable.id)
 
-    result = submittable.score('two')
+    result = question.reload.submittable.score('two')
 
-    submittable.options.target.should have_received(:score).with('two')
     result.should eq 2
   end
 end

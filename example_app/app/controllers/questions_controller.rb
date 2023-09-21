@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    @question.update_attributes(question_params)
+    @question.update(question_params)
     if @question.save
       redirect_to @question.survey
     else
@@ -46,7 +46,7 @@ class QuestionsController < ApplicationController
 
   def submittable_params
     if submittable_attributes = params[:question][:submittable_attributes]
-      submittable_attributes.permit(:minimum, :maximum, :options_attributes)
+      submittable_attributes.permit(:minimum, :maximum, options_attributes: [:text])
     else
       {}
     end

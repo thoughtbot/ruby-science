@@ -7,7 +7,7 @@ describe Question do
     it { should allow_value(type).for(:submittable_type) }
   end
 
-  it { should_not allow_value('Other').for(:submittable_type) }
+  it { should_not allow_value('Question').for(:submittable_type) }
 
   it { should validate_presence_of :title }
 

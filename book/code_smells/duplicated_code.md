@@ -37,7 +37,7 @@ def update
   question_params = params.
     require(:question).
     permit(:title, :options_attributes, :minimum, :maximum)
-  @question.update_attributes(question_params)
+  @question.update(question_params)
 
   if @question.save
     redirect_to @question.survey

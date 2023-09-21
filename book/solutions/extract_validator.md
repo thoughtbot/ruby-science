@@ -58,6 +58,10 @@ is validated against it.
 
 ` app/validators/enumerable_validator.rb@21f7a57
 
+Please note that in the latest version of the example application the
+`EmailValidator` class was renamed to `EmailAddressValidator` to avoid a naming
+conflict with an external gem.
+
 ### Next Steps
 
 * Verify the extracted validator does not have any [long methods](#long-methods).

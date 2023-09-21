@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :answer do
     completion
     question
-    text 'Hello'
+    text { 'Hello' }
   end
 
   factory :completion do
@@ -11,13 +11,13 @@ FactoryGirl.define do
   end
 
   factory :multiple_choice_submittable do
-    ignore do
+    transient do
       options_texts { [] }
     end
 
     options do |attributes|
       attributes.options_texts.map do |text|
-        FactoryGirl.build(:option, text: text, question_id: attributes.id)
+        FactoryBot.build(:option, text: text, question_id: attributes.id)
       end
     end
   end
@@ -26,7 +26,7 @@ FactoryGirl.define do
   end
 
   factory :option do
-    text 'Hello'
+    text { 'Hello' }
   end
 
   factory :question do
@@ -48,8 +48,8 @@ FactoryGirl.define do
   end
 
   factory :scale_submittable do
-    minimum 1
-    maximum 2
+    minimum { 1 }
+    maximum { 2 }
   end
 
   factory :survey do
