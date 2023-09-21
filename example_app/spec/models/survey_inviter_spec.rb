@@ -17,7 +17,7 @@ describe SurveyInviter, '#invite' do
   end
 
   it 'returns false for an invalid recipient' do
-    SurveyInviter.new(invalid_params).invite.should be_false
+    SurveyInviter.new(invalid_params).invite.should be_falsey
   end
 
   it "doesn't send emails if any invitations fail to save" do

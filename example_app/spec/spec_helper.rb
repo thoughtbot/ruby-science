@@ -14,6 +14,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = 'random'
   config.mock_framework = :mocha
+  config.raise_errors_for_deprecations!
   config.include FactoryGirl::Syntax::Methods
   config.include Features, type: :feature
   config.before(:each) { ActionMailer::Base.deliveries.clear }
