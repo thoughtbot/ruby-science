@@ -27,7 +27,7 @@ describe SurveyInviter, '#invite' do
     params = valid_params(recipients: 'one@example.com,two@example.com')
     inviter = SurveyInviter.new(params)
 
-    expect { inviter.invite }.to raise_error(StandardError, 'failure')
+    lambda { inviter.invite }.should raise_error(StandardError, 'failure')
 
     invitation.should have_received(:deliver).never
   end
