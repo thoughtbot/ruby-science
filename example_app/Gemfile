@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.22.5'
 
 gem 'clearance'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'strong_parameters'
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.3.6'
 gem 'thin'
+gem 'rake', '< 11.0'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2'
@@ -18,11 +19,12 @@ end
 group :development, :test do
   gem 'bourne'
   gem 'foreman'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '3.2.2'
+  gem 'test-unit', '~> 3.0'
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '2.2.0'
   gem 'email_spec'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
