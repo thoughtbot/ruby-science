@@ -6,7 +6,7 @@ feature 'User edits open question' do
     sign_in
     update_question(question, 'Updated title')
 
-    expect(page).to have_content('Updated title')
+    page.should have_content('Updated title')
   end
 
   def update_question(question, title)

@@ -17,5 +17,6 @@ RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.include FactoryGirl::Syntax::Methods
   config.include Features, type: :feature
+  config.expect_with(:rspec) { |c| c.syntax = :should }
   config.before(:each) { ActionMailer::Base.deliveries.clear }
 end
