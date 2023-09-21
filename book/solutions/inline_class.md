@@ -25,14 +25,13 @@ or two consumer classes.
 * Eliminates [feature envy](#feature-envy) when the envied class can be inlined
   into the envious class.
 
-
 ### Example
 
 In our example application, users can create surveys and invite other users to
 answer them. Users are invited by listing email addresses to invite.
 
 Any email addresses that match up with existing users are sent using a private
-message that the user will see the next time he or she signs in. Invitations to
+message that the user will see the next time they sign in. Invitations to
 unrecognized addresses are sent using email messages.
 
 The `Invitation` model delegates to a different strategy class based on whether

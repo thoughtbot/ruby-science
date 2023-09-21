@@ -51,7 +51,7 @@ public methods like `body` on the shared class.
 ### Dynamic vs. Static
 
 Although the two implementations are fairly similar, one difference between them
-is that, in the inheritance model, the components are assembled statically. The composition model, on the other hand, assembles the components dynamically.
+is that in the inheritance model the components are assembled statically. The composition model, on the other hand, assembles the components dynamically.
 
 Ruby is not a compiled language and everything is evaluated at run-time, so
 claiming that anything is assembled statically may sound like nonsense.

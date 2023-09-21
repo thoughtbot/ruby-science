@@ -16,11 +16,11 @@ Each change should be easy to introduce. If it's not, refactor.
 
 When you are making your changes, you will be in a feature branch. Try to make
 your change without refactoring. If you meet resistance, make a "work in
-progress" commit, check out master and create a new refactoring branch:
+progress" commit, check out main and create a new refactoring branch:
 
     git commit -m 'wip: new feature'
     git push
-    git checkout master
+    git checkout main
     git checkout -b refactoring-for-new-feature
 
 Refactor until you fix the resistance you met on your feature branch. Then

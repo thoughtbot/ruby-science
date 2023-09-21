@@ -41,7 +41,7 @@ the type of question.
 \clearpage
 
 Note that many applications replicate the same `case` statement, which is a more
-serious offence. This view duplicates the `case` logic from `Question#summary`,
+serious offense. This view duplicates the `case` logic from `Question#summary`,
 this time in the form of multiple `if` statements:
 
 ` app/views/questions/_question.html.erb@a53319f:5,25

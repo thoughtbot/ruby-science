@@ -96,7 +96,7 @@ app](https://github.com/thoughtbot/ruby-science/commit/7747366a12b3f6f21d0008063
 
 At this point, we've introduced a parallel inheritance hierarchy. During a
 longer refactor, things may get worse before they get better. This is one of
-several reasons that it's always best to refactor on a branch, separately from
+several reasons that it's always best to refactor in a branch, separately from
 any feature work. We'll make sure that the parallel inheritance hierarchy is
 removed before merging.
 

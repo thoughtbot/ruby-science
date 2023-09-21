@@ -5,7 +5,7 @@ they are easy to see&mdash;sometimes easier than the root cause of a problem.
 
 When you review code, watch for smells. Consider whether refactoring the code to
 remove the smell would result in better code. If you're reviewing a teammate's
-feature branch, share your best refactoring ideas with him or her.
+feature branch, share your best refactoring ideas with them.
 
 Smells are associated with one or more refactorings (example: remove the Long Method
 smell using the Extract Method refactoring). Learn these associations in order
@@ -24,7 +24,7 @@ other smells slip through the cracks without extra help.
 Duplication is one of the hardest problems to find by hand. If you're using
 diffs during code reviews, it will be invisible when you copy and paste
 existing methods. The original method will be unchanged and won't show up in the
-diff, so unless the reviewer knows and remembers that the original existed, he or she
+diff, so unless the reviewer knows and remembers that the original existed, they
 won't notice that the copied method isn't just a new addition. Every duplicated
 piece of code is a bug waiting to happen.
 

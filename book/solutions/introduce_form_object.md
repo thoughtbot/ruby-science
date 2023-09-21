@@ -29,7 +29,7 @@ It performs a number of tasks:
 By introducing a form object, we can move the concerns of data validation,
 invitation creation and notifications to the new model `SurveyInviter`.
 
-Including [ActiveModel::Model](https://github.com/rails/rails/blob/master/activemodel/lib/active_model/model.rb)
+Including [ActiveModel::Model](https://github.com/rails/rails/blob/main/activemodel/lib/active_model/model.rb)
 allows us to leverage the familiar
 [active record validation](http://guides.rubyonrails.org/active_record_validations_callbacks.html)
 syntax.
