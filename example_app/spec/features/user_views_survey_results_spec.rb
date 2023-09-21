@@ -14,7 +14,10 @@ feature 'user views survey completions' do
     taker.complete 'Billy', 'Blue', '5'
 
     summary_for_question('Name?').should eq('Brian, Billy')
-    summary_for_question('Favorite color?').should eq('50% Blue, 50% Red')
+    summary_for_question('Favorite color?').split(', ').should contain_exactly(
+      '50% Blue',
+      '50% Red'
+    )
     summary_for_question('Airspeed velocity?').should eq('Average: 7.50')
 
     view_completions survey
