@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_184257) do
   create_table "answers", force: :cascade do |t|
     t.integer "completion_id", null: false
     t.integer "question_id", null: false
-    t.string "text", limit: 255, null: false
+    t.string "text", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["completion_id"], name: "index_answers_on_completion_id"
@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_184257) do
   create_table "completions", force: :cascade do |t|
     t.integer "survey_id", null: false
     t.integer "user_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["survey_id"], name: "index_completions_on_survey_id"
     t.index ["user_id"], name: "index_completions_on_user_id"
   end
@@ -33,11 +33,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_184257) do
   create_table "invitations", force: :cascade do |t|
     t.integer "sender_id"
     t.integer "survey_id"
-    t.string "recipient_email", limit: 255
-    t.string "status", limit: 255, default: "pending"
-    t.string "token", limit: 255
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.string "recipient_email"
+    t.string "status", default: "pending"
+    t.string "token"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "message", default: "", null: false
     t.index ["survey_id"], name: "index_invitations_on_survey_id"
     t.index ["token"], name: "index_invitations_on_token", unique: true
@@ -63,19 +63,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_184257) do
 
   create_table "options", force: :cascade do |t|
     t.integer "question_id", null: false
-    t.string "text", limit: 255, null: false
+    t.string "text", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "score", default: 0, null: false
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+    t.string "title", null: false
     t.integer "survey_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "submittable_id"
-    t.string "submittable_type", limit: 255
+    t.string "submittable_type"
   end
 
   create_table "scale_submittables", force: :cascade do |t|
@@ -86,29 +86,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_184257) do
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+    t.string "title", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "author_id", null: false
   end
 
   create_table "unsubscribes", force: :cascade do |t|
-    t.string "email", limit: 255, null: false
+    t.string "email", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_unsubscribes_on_email"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", limit: 255
+    t.string "email"
     t.string "encrypted_password", limit: 128
     t.string "salt", limit: 128
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "first_name", limit: 255
-    t.string "last_name", limit: 255
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

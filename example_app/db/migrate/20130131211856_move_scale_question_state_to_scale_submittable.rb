@@ -1,4 +1,4 @@
-class MoveScaleQuestionStateToScaleSubmittable < ActiveRecord::Migration
+class MoveScaleQuestionStateToScaleSubmittable < ActiveRecord::Migration[4.2]
   def up
     add_column :scale_submittables, :minimum, :integer
     add_column :scale_submittables, :maximum, :integer

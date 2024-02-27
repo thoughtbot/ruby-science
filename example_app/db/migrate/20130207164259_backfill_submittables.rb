@@ -1,4 +1,4 @@
-class BackfillSubmittables < ActiveRecord::Migration
+class BackfillSubmittables < ActiveRecord::Migration[4.2]
   def up
     backfill 'open'
     backfill 'multiple_choice'

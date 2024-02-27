@@ -1,4 +1,4 @@
-class RenameSubmittableTypeToQuestionType < ActiveRecord::Migration
+class RenameSubmittableTypeToQuestionType < ActiveRecord::Migration[4.2]
   def up
     rename_column :questions, :submittable_type, :question_type
   end

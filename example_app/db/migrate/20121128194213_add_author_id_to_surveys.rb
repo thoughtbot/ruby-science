@@ -1,4 +1,4 @@
-class AddAuthorIdToSurveys < ActiveRecord::Migration
+class AddAuthorIdToSurveys < ActiveRecord::Migration[4.2]
   def up
     add_column :surveys, :author_id, :integer
     connection.update(<<-SQL)

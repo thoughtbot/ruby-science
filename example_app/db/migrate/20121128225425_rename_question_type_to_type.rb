@@ -1,4 +1,4 @@
-class RenameQuestionTypeToType < ActiveRecord::Migration
+class RenameQuestionTypeToType < ActiveRecord::Migration[4.2]
   def up
     rename_column :questions, :question_type, :type
   end

@@ -1,4 +1,4 @@
-class RemoveQuestionsType < ActiveRecord::Migration
+class RemoveQuestionsType < ActiveRecord::Migration[4.2]
   def up
     remove_column :questions, :type
   end
